@@ -1,0 +1,788 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  font-family: 'Barlow', sans-serif;
+  height: 2000px; /* Для прокрутки контента */
+}
+
+body {
+  font-family: 'Barlow', sans-serif;
+}
+/*шапка*/
+/* Специфические стили для кнопок в .user-actions */
+ .user-actions button {
+  background-color: #4b4a4a !important;
+  border: none;
+  padding: 0;
+  position: relative;
+} 
+ 
+
+.user-actions button img {
+  width: 20px;
+  height: 20px;
+  filter: invert(1);
+  transform: none !important; 
+}
+
+.user-actions button:hover img {
+  filter: invert(1); 
+  transform: none !important;
+}
+
+.user-actions button:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  height: calc(100% + 14px);
+  width: 1px;
+  background-color: #000000;
+  top: -7px;
+  right: -11px;
+  transform: rotate(2deg); /* Черточка под углом */
+}
+
+
+/* Основные стили */
+.header {
+  background-color: #000;
+  color: #fff;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: height 0.5s, padding 0.5s; 
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45);
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: #45EFDA;
+}
+
+
+/* Лого */
+#parallelogram {
+  width: 150px;
+  height: 100%;
+  transform: skew(-20deg);
+  background-color: #45EFDA;
+  position: absolute;
+  top: 0;
+  left: 100px;
+  margin-right: auto;
+}
+
+.logo-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) skew(20deg);
+  max-width: 95px;
+  height: auto;
+  transition: all 0.5s ease; /* Увеличено время анимации */
+}
+
+.header.collapsed .logo-image {
+  max-width: 70px;
+}
+
+.header.expanded .logo-image {
+  max-width: 95px;
+}
+
+/* Серый контейнер */
+.action-container {
+  position: absolute;
+  left: 258px;
+  top: 0;
+  width: 60%;
+  height: 55px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  background-color: #4b4a4a;
+  transform: skew(-20deg);
+  transform-origin: left;
+  transition: margin-left 0.5s ease;
+  will-change: transform, left; /* Указываем, что будут изменяться transform и left */
+}
+
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+
+.action-container .content {
+  -webkit-transform: skew(20deg);
+  transform: skew(20deg);
+}
+
+.action-container .user-actions {
+  margin-left: auto;
+}
+
+.user-actions #favorite-button, #cart-button {
+  position: relative;
+}
+
+.user-actions #favorite-count, #cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #45EFDA;
+  color: rgb(0, 0, 0);
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+
+
+.user-actions button {
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  margin-left: 10px;
+  cursor: pointer;
+  transform: none; 
+}
+
+.contact-number {
+  margin-right: 130px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  color: #ffffff; /* Можно изменить цвет */
+}
+
+.contact-number a {
+  color: #ffffff; /* Цвет ссылки */
+  text-decoration: none;
+}
+
+.contact-number a:hover {
+  text-decoration: underline;
+}
+
+/* Основные стили для контейнера геолокации */
+
+
+#header {
+  transition: height 0.5s ease;
+}
+
+/* Сабменю */
+.submenu {
+  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+  opacity: 0; /* Изначально скрыто */
+  visibility: hidden;
+  transform: translateY(-20px); /* Поднимаем элемент, когда он скрыт */
+}
+
+/* Видимое сабменю */
+.submenu.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0); /* Возвращаем элемент в исходное положение */
+}
+
+/* Геолокация */
+#location-container {
+  font-size: 13px;
+  font-weight: 700; 
+  text-align: center;
+  text-transform: uppercase; /* Делаем все буквы заглавными */
+  color: #ffffff;
+  margin-top: 48px;
+  margin-left: 250px;
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Плавное появление/скрытие */
+  position: relative;
+}
+
+/* Скрытие с плавной анимацией */
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(-20px); /* Поднимаем элемент при скрытии */
+}
+
+/* Видимость с плавной анимацией */
+.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(0); /* Возвращаем элемент в исходное положение */
+}
+
+/* Стили для кнопки */
+#change-city-button {
+  background-color: #45EFDA;
+  color: #000000;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 4px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+
+
+/* Стили для модального окна */
+/* Модальное окно */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); 
+    z-index: 2000;
+    overflow: auto;
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  /* Контент модального окна */
+  .modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    text-align: left; /* Текст выравнивается слева */
+    position: relative;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  /* Кнопка закрытия */
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #45EFDA; /* Основной цвет сайта */
+    cursor: pointer;
+    border: none;
+    background: none;
+    transition: color 0.3s ease;
+  }
+  
+  /* Эффект наведения на кнопку закрытия */
+  .close:hover,
+  .close:focus {
+    color: #2c9d86; /* Темный оттенок основного цвета */
+  }
+  
+  /* Заголовки в модальном окне */
+  .modal-content h1,
+  .modal-content h2,
+  .modal-content h3 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  
+  /* Абзацы */
+  .modal-content p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin: 10px 0;
+    text-align: left;
+  }
+  
+  /* Убираем маркеры списка и добавляем отступы */
+  .modal-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 15px 0;
+  }
+  
+  .modal-content li {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+  }
+  
+  .modal-content li::before {
+    content: "✔"; /* Символ для выделения */
+    color: #45EFDA; /* Основной цвет */
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 18px;
+  }
+  
+  /* Поле ввода */
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+    
+  }
+  
+  /* Изменение границы при фокусе */
+  input[type="text"]:focus,
+  textarea:focus {
+    border-color: #45EFDA;
+    outline: none;
+  }
+  
+  /* Кнопка подтверждения */
+  button {
+    background-color: #45EFDA;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Эффект наведения на кнопку */
+  button:hover {
+    background-color: #2c9d86;
+  }
+  
+  /* Анимации */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+
+
+
+#manual-city-button {
+  background-color: #4b4a4a;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+#manual-city-button:hover {
+  background-color: #333;
+}
+
+
+/* Таблица для списка товаров в избранном */
+#favorite-list {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+}
+
+#favorite-list th, #favorite-list td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#favorite-list th {
+  background-color: #f2f2f2;
+}
+
+#favorite-list td {
+  vertical-align: middle;
+}
+
+.favorite-product-image {
+  width: 50px;
+  height: auto;
+
+}
+
+.remove-from-favorites {
+  background-color: #45EFDA;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px}
+
+  .add-to-favorites i.active {
+    color: red;
+}
+
+
+#cart-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#cart-list th, #cart-list td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#cart-list th {
+  background-color: #f2f2f2;
+}
+
+#cart-list td {
+  vertical-align: middle;
+}
+
+.cart-product-image {
+  width: 50px;
+  height: auto;
+}
+
+.remove-from-cart {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.remove-from-cart:hover {
+  background-color: #000000;
+}
+.cart-product-image {
+  width: 50px;
+  height: auto;
+}
+
+
+#scooter-form {
+  margin-bottom: 20px;
+}
+
+#scooter-form label {
+  display: block;
+  margin-top: 10px;
+}
+
+#scooter-form select {
+  width: 100%;
+  padding: 8px; 
+  margin-top: 5px;
+  border: 1px solid #ddd; 
+  border-radius: 5px; 
+}
+
+#add-scooter, #login-button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background-color: #45EFDA;
+  color: rgb(0, 0, 0);
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#login-button a {
+  display: block; /* Ссылка занимает всю кнопку */
+  width: 100%;
+  height: 100%;
+  text-decoration: none; /* Убираем подчеркивание */
+  color: inherit;
+}
+
+#add-scooter:hover, #login-button:hover {
+  background-color: #45EFDA;
+}
+.scooter-content {
+  display: flex;
+}
+
+.scooter-form-container {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.scooter-preview {
+  flex: 1;
+  border-left: 1px solid #ddd;
+  padding-left: 20px;
+}
+
+.scooter-preview img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* Выравнивание ячейки таблицы */
+table td {
+  vertical-align: middle;
+}
+
+/* Центрирование изображения в ячейке таблицы */
+td img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*размер кнопок +- в модальном окне*/
+.quantity-change {
+padding: 4px 4px !important;
+margin-right: 10px;
+margin-left: 10px;
+align-items: center;
+}
+
+.cart-total {
+  margin-top: 20px;
+  text-align: right;
+  margin-right: 40px;
+}
+
+.buy-button {
+  padding: 10px 20px;
+  background-color: #45EFDA;
+  color: rgb(0, 0, 0);
+  border: none;
+  cursor: pointer;
+}
+
+.buy-button:hover {
+  background-color: #45EFDA;
+}
+
+.highlighted {
+  background-color: #45EFDA;
+  padding: 2px;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.highlighted:hover {
+  background-color: #45EFDA;
+}
+
+/* Поисковик */
+.search-bar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 10px;
+  margin-left: auto;
+  transform: skewX(-1deg); 
+  background-color: #000; 
+  width: 250px; 
+  height: 37px; 
+  border-radius: 4px;
+  margin-top: 3px;
+  border: none; /* Убираем границу */
+}
+
+.search-bar input[type="text"] {
+  padding: 8px;
+  border: none; /* Убираем границу */
+  border-radius: 5px;
+  transform: skewX(1deg); /* Компенсируем наклон текста внутри */
+  width: 100%;
+  box-sizing: border-box;
+  background-color: transparent; /* Прозрачный фон, чтобы был виден черный контейнер */
+  color: #ffffff; 
+  outline: none; /* Убираем контур при фокусе */
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  transform: skewX(8deg); 
+}
+
+/* Убираем изменения при наведении на иконку поиска */
+.search-icon:hover {
+  opacity: 1; /* Не меняем прозрачность при наведении */
+}
+
+
+
+/* Подменю */
+
+.submenu {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  height: auto;
+  pointer-events: none;
+  margin-left: 55px;
+  margin-top: 48px; 
+}
+
+.submenu.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.submenu ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; 
+  list-style-type: none;
+  padding: 0;
+  margin: 0; 
+}
+
+.submenu ul li {
+  padding: 0 10px;
+  position: relative;
+}
+
+.submenu ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  display: block;
+  padding: 10px 5px; 
+  text-transform: uppercase; 
+  text-align: center;
+}
+
+
+.submenu ul li a:hover {
+  background-color: #1c1c1c;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+
+.submenu ul li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  height: calc(100% + 20px); 
+  width: 1px;
+  background-color: #4b4a4a;
+  top: -10px;
+  right: 0px;
+  transform: rotate(20deg);
+}
+
+/* Контейнер действий */
+.action-container {
+  transition: margin-left 0.3s ease; 
+}
+
+/* При сворачивании */
+.header.collapsed .action-container {
+  margin-left: -15px; 
+}
+
+
+
+
+/* Иконка меню */
+.menu-icon {
+  cursor: pointer;
+  color: #fff;
+  font-size: 20px;
+  padding: 0 10px;
+}
+
+.menu-icon:hover {
+  color: #45EFDA;
+}
+
+/* Стили для бургер-меню */
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+  }
+  
+  .burger-menu .line {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+  }
+  
+  .burger-menu .line.open:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+  }
+  
+  .burger-menu .line.open:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .burger-menu .line.open:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
+  }
+  
+  /* Адаптивность для мобильных устройств */
+  @media (max-width: 768px) {
+    .burger-menu {
+      display: flex;
+    }
+  
+    .submenu {
+      display: none;
+    }
+  
+    .submenu.visible {
+      display: block;
+    }
+  
+    .action-container {
+      display: none;
+    }
+  
+    .user-actions {
+      display: none;
+    }
+  
+    #location-container {
+      display: none;
+    }
+  }
+  

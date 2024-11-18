@@ -1,0 +1,126 @@
+.parts-search {
+    position: relative;
+    width: 100%;
+    height: 600px;
+  }
+  
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+  }
+  
+  .content h2 {
+    font-size: 36px;
+  }
+  
+  .content .highlight {
+    color: red;
+  }
+  
+  .filters {
+    margin-top: 20px;
+  }
+  
+  .filters button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .filters input[type="text"],
+  .filters select {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 300px;
+    background-color: #fff;
+  }
+  
+  /* Обновленные стили для секции категорий */
+.categories-section {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет элементам переноситься на новую строку */
+    gap: 15px; 
+    justify-content: center;
+    margin-top: -90px; 
+    padding: 0 115px; 
+    box-sizing: border-box; 
+    position: relative; 
+    z-index: 10; 
+  }
+  
+  /* Стили для отдельных карточек */
+  .categories-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: -90px;
+    padding: 0 115px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+  }
+  
+  .category {
+    flex: 0 1 calc(10% - 5px); /* Увеличенная ширина карточек для двух рядов */
+    margin-bottom: 15px;
+    box-sizing: border-box;
+  }
+  
+  
+  
+  
+  .category-container {
+    text-align: center;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 180px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавный переход */
+  }
+  
+  .category-container:hover {
+    transform: translateY(-10px) rotate(-3deg);
+    box-shadow: 0 12px 24px rgba(69, 239, 218, 0.4),
+                0 16px 48px rgba(69, 239, 218, 0.2); /* Плавный градиент */
+  }
+  
+  .category img {
+    max-width: 50px;
+    max-height: 50px;
+    margin-bottom: 5px;
+  }
+  
+  .category p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+  }
