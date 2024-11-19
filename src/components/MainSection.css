@@ -148,6 +148,12 @@
     background-color: red;
     margin: 0 100px 20px 2px;
   }
+  .red-line {
+    width: 270px;
+    height: 2px;
+    background-color: red;
+    margin: 0 100px 20px 2px;
+  }
   
   /* Стили для карусели */
   .featured-products {
@@ -291,7 +297,7 @@
     
 /*баннеры*/
 .banner-container {
-    width: 1190px;
+    width: 1155px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between; 
@@ -309,7 +315,7 @@
   .banner-item {
     position: relative;
     padding: 5px;
-    width: 34%;
+    width: 36%;
     height: 200px; 
   }
   
@@ -361,11 +367,11 @@
   }
   
   .dual-banner-container {
-    width: 1190px;
+    width: 1170px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    transform: translateX(-7px);
+    transform: translateX(0px);
   }
   
   .dual-banner {
@@ -506,3 +512,96 @@
     font-size: 14px;
     margin-top: 5px;
   }
+
+  .featured-products {
+    padding: 20px;
+  }
+  
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+  .product-card {
+    /* Стили для карточек товаров */
+    border: 1px solid #ccc;
+    padding: 15px;
+    background-color: #fff;
+    text-align: left;
+  }
+
+
+  /* Стили для контейнера баннера */
+.banner-container {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Стили для изображения баннера */
+.banner-image {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.banner-image:hover {
+  transform: scale(1.05); /* Легкое увеличение изображения при наведении */
+}
+
+
+/* Стили для кнопок в модальном окне */
+.modal-content button {
+  background-color: transparent;
+  color: #4b4a4a;
+  padding: 12px 24px;
+  border: 2px solid #4b4a4a;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 10px 0;
+  cursor: pointer;
+  width: 100%; /* Занимает всю ширину контейнера */
+  transition: all 0.3s ease;
+}
+
+/* Эффект при наведении */
+.modal-content button:hover {
+  background-color: #4b4a4a;
+  color: white;
+  border-color: #4b4a4a;
+  transform: scale(1.05); /* Легкое увеличение кнопки при наведении */
+}
+
+/* Эффект при нажатии */
+.modal-content button:active {
+  transform: scale(0.98); /* Легкое уменьшение при нажатии */
+}
+
+/* Индивидуальные стили для каждой кнопки */
+.whatsapp-btn {
+  background-color: #25d366; /* Цвет фона для WhatsApp */
+  border-color: #25d366;
+  color: white;
+}
+
+.telegram-btn {
+  background-color: #0088cc; /* Цвет фона для Telegram */
+  border-color: #0088cc;
+  color: white;
+}
+
+.phone-btn {
+  background-color: #34b7f1; /* Цвет фона для звонка */
+  border-color: #34b7f1;
+  color: white;
+}
+
+.phone-btn:hover,
+.telegram-btn:hover,
+.whatsapp-btn:hover {
+  background-color: #4b4a4a; /* Темный фон при наведении */
+  color: white;
+}

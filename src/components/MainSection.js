@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./MainSection.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -29,6 +29,9 @@ import smileyIcon from '../image/free-icon-smiley-142310.png';
 import thumbsUpIcon from '../image/free-icon-thumb-up-like-13578170.png';
 import airplaneIcon from '../image/free-icon-airplane-31069.png';
 import dollarIcon from '../image/free-icon-dollar-symbol-126179.png';
+import bannerImage1 from "../image/banner3-1.png";
+import bannerImage2 from "../image/banner4-1.png";
+import bannerImage3 from "../image/Designer (1).jpeg";
 
 // Подключаем данные
 // import products from "../data/products.json";  
@@ -66,6 +69,27 @@ const MainSection = () => {
             },
           },
         ],
+      };
+      const [isModalOpen, setIsModalOpen] = useState(false);
+
+      const showModal = () => {
+        setIsModalOpen(true);
+      };
+    
+      const closeModal = () => {
+        setIsModalOpen(false);
+      };
+    
+      const redirectToWhatsApp = () => {
+        window.location.href = 'https://wa.me/1234567890'; // Укажите номер для WhatsApp
+      };
+    
+      const redirectToTelegram = () => {
+        window.location.href = 'https://t.me/yourchannel'; // Укажите ссылку для Telegram
+      };
+    
+      const makePhoneCall = () => {
+        window.location.href = 'tel:+1234567890'; // Укажите телефон для звонка
       };
       
   
@@ -310,6 +334,250 @@ const MainSection = () => {
         </div>
       </section>
 
+      <section className="featured-products">
+  <h2 className="as">Рекомендуемые товары</h2>
+  <div className="red-line"></div>
+  <div className="product-grid">
+    <ProductCard 
+      id="1" 
+      stock="23" 
+      type="Скутер" 
+      brand="Honda, Honling, Gryphon" 
+      model="Dio (Honda)"
+      image={coilImage}
+      name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
+      price="653,00 ₽"
+      article="SCOT126723456120"
+      extra="Плотная упаковка, Запчасть на скутер"
+      dimensions="41 см"
+      tags="1 год"
+    />
+    <ProductCard 
+      id="2" 
+      stock="23" 
+      type="Скутер" 
+      brand="Suzuki" 
+      model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
+      image={coil2Image}
+      name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
+      price="1027,00 ₽"
+      article="SCOT126723456122"
+      extra="Плотная упаковка, Запчасть на скутер"
+      dimensions="41.2 × 31.7 × 7.1 мм"
+      tags="1 год"
+    />
+    <ProductCard 
+      id="3" 
+      stock="23" 
+      type="Скутер" 
+      brand="Honda, Honling, Gryphon" 
+      model="Dio (Honda)"
+      image={coilImage}
+      name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
+      price="653,00 ₽"
+      article="SCOT126723456120"
+      extra="Плотная упаковка, Запчасть на скутер"
+      dimensions="41 см"
+      tags="1 год"
+    />
+    <ProductCard 
+      id="4" 
+      stock="23" 
+      type="Скутер" 
+      brand="Suzuki" 
+      model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
+      image={coil2Image}
+      name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
+      price="1027,00 ₽"
+      article="SCOT126723456122"
+      extra="Плотная упаковка, Запчасть на скутер"
+      dimensions="41.2 × 31.7 × 7.1 мм"
+      tags="1 год"
+    />
+        <ProductCard 
+      id="1" 
+      stock="23" 
+      type="Скутер" 
+      brand="Honda, Honling, Gryphon" 
+      model="Dio (Honda)"
+      image={coilImage}
+      name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
+      price="653,00 ₽"
+      article="SCOT126723456120"
+      extra="Плотная упаковка, Запчасть на скутер"
+      dimensions="41 см"
+      tags="1 год"
+    />
+    <ProductCard 
+      id="2" 
+      stock="23" 
+      type="Скутер" 
+      brand="Suzuki" 
+      model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
+      image={coil2Image}
+      name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
+      price="1027,00 ₽"
+      article="SCOT126723456122"
+      extra="Плотная упаковка, Запчасть на скутер"
+      dimensions="41.2 × 31.7 × 7.1 мм"
+      tags="1 год"
+    />
+    <ProductCard 
+      id="3" 
+      stock="23" 
+      type="Скутер" 
+      brand="Honda, Honling, Gryphon" 
+      model="Dio (Honda)"
+      image={coilImage}
+      name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
+      price="653,00 ₽"
+      article="SCOT126723456120"
+      extra="Плотная упаковка, Запчасть на скутер"
+      dimensions="41 см"
+      tags="1 год"
+    />
+    <ProductCard 
+      id="4" 
+      stock="23" 
+      type="Скутер" 
+      brand="Suzuki" 
+      model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
+      image={coil2Image}
+      name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
+      price="1027,00 ₽"
+      article="SCOT126723456122"
+      extra="Плотная упаковка, Запчасть на скутер"
+      dimensions="41.2 × 31.7 × 7.1 мм"
+      tags="1 год"
+    />
+  </div>
+</section>
+
+<section className="dual-banner-container">
+      <div className="dual-banner">
+        {/* Первый баннер */}
+        <div className="dual-banner-item">
+          <a href="tel:+79991112233">
+            <img src={bannerImage1} alt="Позвоните нам" />
+            <div className="dual-banner-text">
+              <p className="dual-banner-title">Позвоните нам</p>
+              <p>И мы поможем подобрать</p>
+              <p>комплект для ремонта</p>
+              <p>для всех клиентов</p>
+            </div>
+          </a>
+        </div>
+        {/* Второй баннер */}
+        <div className="dual-banner-item">
+          <a href="mailto:example@example.com">
+            <img src={bannerImage2} alt="Напишите нам" />
+            <div className="dual-banner-text">
+              <p className="dual-banner-title">Напишите нам</p>
+              <p>мы подберем вам запчасти</p>
+              <p>и решим ваши проблемы</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section className="featured-products">
+      <h2 className="as">Топ продаж</h2>
+      <div className="red-lines"></div>
+      <Slider {...carouselSettings}> {/* Применение настроек слайдера */}
+        <ProductCard 
+          id="1" 
+          stock="23" 
+          type="Скутер" 
+          brand="Honda, Honling, Gryphon" 
+          model="Dio (Honda)"
+          image={coilImage}
+          name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
+          price="653,00 ₽"
+          article="SCOT126723456120"
+          extra="Плотная упаковка, Запчасть на скутер"
+          dimensions="41 см"
+          tags="1 год"
+        />
+        <ProductCard 
+          id="2" 
+          stock="23" 
+          type="Скутер" 
+          brand="Suzuki" 
+          model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
+          image={coil2Image}
+          name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
+          price="1027,00 ₽"
+          article="SCOT126723456122"
+          extra="Плотная упаковка, Запчасть на скутер"
+          dimensions="41.2 × 31.7 × 7.1 мм"
+          tags="1 год"
+        />
+        <ProductCard 
+          id="3" 
+          stock="23" 
+          type="Скутер" 
+          brand="Honda, Honling, Gryphon" 
+          model="Dio (Honda)"
+          image={coilImage}
+          name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
+          price="653,00 ₽"
+          article="SCOT126723456120"
+          extra="Плотная упаковка, Запчасть на скутер"
+          dimensions="41 см"
+          tags="1 год"
+        />
+        <ProductCard 
+          id="4" 
+          stock="23" 
+          type="Скутер" 
+          brand="Suzuki" 
+          model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
+          image={coil2Image}
+          name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
+          price="1027,00 ₽"
+          article="SCOT126723456122"
+          extra="Плотная упаковка, Запчасть на скутер"
+          dimensions="41.2 × 31.7 × 7.1 мм"
+          tags="1 год"
+        />
+        {/* Добавить другие карточки товара по аналогии */}
+      </Slider>
+    </section>
+    <section>
+      <div className="banner-container">
+      <img src={bannerImage3}
+          alt="Banner5"
+          className="banner-image"
+          onClick={showModal}
+        />
+        <div className="banner-texts">
+          <p className="banner-titles">Доставка тюнинга</p>
+          <p>и стайлинга под заказ</p>
+          <p>из Китая</p>
+          <p>Доставка 10 дней!</p>
+        </div>
+      </div>
+
+      {isModalOpen && (
+        <div className="modal" id="myModal">
+          <div className="modal-content">
+            <span className="close" onClick={closeModal}>
+              &times;
+            </span>
+            <button className="whatsapp-btn" onClick={redirectToWhatsApp}>
+              WhatsApp
+            </button>
+            <button className="telegram-btn" onClick={redirectToTelegram}>
+              Telegram
+            </button>
+            <button className="phone-btn" onClick={makePhoneCall}>
+              Звонок
+            </button>
+          </div>
+        </div>
+      )}
+    </section>
 
     </div>
   );
