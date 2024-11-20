@@ -1,11 +1,34 @@
-import React from 'react';
-import './Footer.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom"; // Импорт Link
+import '../style/Footer.css';
 import 'font-awesome/css/font-awesome.min.css';
 import wbImage from '../image/Wb.png';
 import ozonImage from '../image/ozon.png';
 import marketImage from '../image/market.png';
 
 const Footer = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const redirectToWhatsApp = () => {
+    window.location.href = 'https://wa.me/1234567890'; // Укажите номер для WhatsApp
+  };
+
+  const redirectToTelegram = () => {
+    window.location.href = 'https://t.me/yourchannel'; // Укажите ссылку для Telegram
+  };
+
+  const makePhoneCall = () => {
+    window.location.href = 'tel:+1234567890'; // Укажите телефон для звонка
+  };
+
   return (
     <footer className="footer">
       <div className="footer-section">
@@ -29,11 +52,43 @@ const Footer = () => {
       </div>
       <div className="footer-section">
         <h3 className="yellow-text">FAQ</h3>
-        <h4><a href="contacts.html">Контакты</a></h4>
-        <h4><a href="pay.html">Способы оплаты</a></h4>
-        <h4><a href="delivery.html">Доставка</a></h4>
-        <h4><a href="return.html">Возвраты</a></h4>
-        <h4><a href="salesroom.html">Торговое помещение</a></h4>
+        <h4>
+          <a 
+            href="#" 
+            onClick={(e) => {
+              e.preventDefault(); // Отключаем переход по ссылке
+              showModal(); // Открываем модальное окно
+            }}
+          >
+            Контакты
+          </a>
+        </h4>
+
+        {isModalOpen && (
+          <div className="modal" id="myModal">
+            <div className="modal-content">
+              <span className="close" onClick={closeModal}>
+                &times;
+              </span>
+              <button className="whatsapp-btn" onClick={redirectToWhatsApp}>
+                WhatsApp
+              </button>
+              <button className="telegram-btn" onClick={redirectToTelegram}>
+                Telegram
+              </button>
+              <button className="phone-btn" onClick={makePhoneCall}>
+                Звонок
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Обновлённая ссылка на способы оплаты */}
+        <h4><Link to="/pay">Способы оплаты</Link></h4> 
+
+        <h4><Link to="/shipping">Доставка</Link></h4>
+        <h4><Link to="/return">Возвраты</Link></h4>
+        <h4><Link to="/salesroom">Торговое помещение</Link></h4>
       </div>
       <div>
         <hr className="divider" />

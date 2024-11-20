@@ -1,0 +1,187 @@
+/* Основной контент */
+main.pay {
+  padding: 20px;
+  margin-top: 130px;
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main.pay h1 {
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+
+main.pay .toc {
+  margin-bottom: 20px;
+}
+
+main.pay .toc ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+main.pay .toc ul li {
+  margin-bottom: 10px;
+}
+
+main.pay .toc ul li a {
+  text-decoration: none;
+  color: #3a37db;
+}
+
+main.pay .toc ul li a:hover {
+  text-decoration: underline;
+}
+
+main.pay section {
+  margin-bottom: 40px;
+}
+
+main.pay h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+main.pay h3 {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+main.pay p {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+main.pay ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 20px;
+}
+
+main.pay ul li {
+  margin-bottom: 5px;
+}
+
+main.pay .payment-img {
+  max-width: 30%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+main.pay .back-to-main, main.jobs .back-to-main, main.container .back-to-main {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #45EFDA;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+/* Торговое помещение */
+.salesroom-container {
+  margin-top: 20px;
+}
+
+.large-image {
+  width: 101%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.small-image {
+  width: 50%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.small-images {
+  display: flex;
+  justify-content: space-between;
+}
+
+.small-images img {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.small-images img:last-child {
+  margin-right: 0;
+}
+
+.salesroom-container h1 {
+  text-align: center;
+  color: #000000;
+}
+
+.salesroom-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.salesroom-images .large-images {
+  flex: 2;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.salesroom-images .small-images {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.salesroom-images img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  transition: transform 0.3s;
+}
+
+.salesroom-images img:hover {
+  transform: scale(1.05);
+}
+
+.work-hours, .payment-methods {
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.work-hours ul, .payment-methods ul {
+  list-style: none;
+  padding: 0;
+}
+
+.work-hours li, .payment-methods li {
+  background: #f8f8f8;
+  margin-bottom: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.work-hours li:hover, .payment-methods li:hover {
+  background: #e0e0e0;
+}
+
+/* Карта */
+
+
+.map-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.map-container {
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
