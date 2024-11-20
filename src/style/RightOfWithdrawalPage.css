@@ -1,0 +1,97 @@
+
+/* Основной контейнер для страницы */
+.legal-page {
+    padding: 20px;
+    margin-top: 130px; 
+    max-width: 70%; 
+    margin-left: auto;
+    margin-right: auto; 
+    background-color: transparent;
+    box-shadow: none; 
+    border-radius: 8px; 
+  }
+  
+  /* Заголовок страницы */
+  .legal-title {
+    margin-bottom: 20px;
+    font-size: 2em;
+    text-align: left; 
+    color: #333; 
+  }
+  
+  /* Секции информации */
+  .legal-section {
+    margin-bottom: 40px;
+    line-height: 1.6; 
+    color: #555;
+    text-align: left; 
+  }
+  
+  /* Заголовки секций */
+  .legal-section-title {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #000000;
+    text-align: left;
+  }
+  
+  /* Ссылки в секциях */
+  .legal-link a {
+    color: #007bff;
+    text-decoration: none;
+    text-align: left; 
+  }
+  
+  /* Стиль текста */
+  .legal-section p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+  }
+  
+  /* Стиль списков */
+  .legal-section ul {
+      margin: 20px 0;
+      padding-left: 20px;
+  }
+  
+  .legal-section ul li {
+      margin-bottom: 10px;
+      list-style-type: disc;
+  }
+  .legal-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Изображения */
+  .legal-image {
+    max-width: 40%; 
+    height: auto;
+    display: block;
+    margin: 20px 0; 
+  }
+  /* Адаптивные стили */
+  @media (max-width: 768px) {
+    .legal-title {
+        font-size: 2rem;
+    }
+  
+    .legal-section-title {
+        font-size: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .legal-title {
+        font-size: 1.8rem;
+    }
+  
+    .legal-section-title {
+        font-size: 1.2rem;
+    }
+  
+    .subscribe-button {
+        font-size: 0.9rem;
+    }
+  }
+  

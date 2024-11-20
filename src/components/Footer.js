@@ -96,11 +96,11 @@ const Footer = () => {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
       <div className="footer-section">
         <h3 className="yellow-text">INFO</h3>
-        <h4><a href="dataprotection.html">Защита данных</a></h4>
-        <h4><a href="revocation.html">Право отзыва</a></h4>
-        <h4><a href="jobs.html">Работа</a></h4>
-        <h4><a href="techtips.html">Технические советы и руководства</a></h4>
-        <h4><a href="brands.html">Бренды</a></h4>
+        <h4><Link to="/legal">Защита данных</Link></h4>
+        <h4><Link to="/right">Право отзыва</Link></h4>
+        <h4><Link to="/jobs">Вакансии</Link></h4>
+       < h4><Link to="/tech">Технические советы и руководства</Link></h4>
+       <h4><Link to="/brand">Бренды</Link></h4>
         <h3 className="yellow-text">Social</h3>
         <div className="social-icons">
           <a href="https://telegram.example.com" className="social-icon">

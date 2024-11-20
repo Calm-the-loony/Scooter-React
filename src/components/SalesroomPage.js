@@ -1,27 +1,11 @@
-import React, { useEffect, useRef } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import { Icon } from "leaflet";
+import React from "react";
+import { Map, GeoObject, ZoomControl, YMaps } from "@pbe/react-yandex-maps";
 import "../style/SalesroomPage.css";
 
 // Импорт изображений
 import largeImage from "../image/stroitelstvo-skladov-zapchastey-rsholod-3.jpg";
 import smallImage1 from "../image/sto_sklad.jpg";
 import smallImage2 from "../image/sto_sklad2.jpg";
-
-// Настроим иконку для маркера
-const customIcon = new Icon({
-  iconUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Red_dot.svg",
-  iconSize: [25, 25],
-});
-
-// Компонент для обновления размера карты
-const ResizeMap = () => {
-  const map = useMap();
-  useEffect(() => {
-    map.invalidateSize();
-  }, [map]);
-  return null;
-};
 
 const SalesroomPage = () => {
   return (
@@ -103,25 +87,25 @@ const SalesroomPage = () => {
       <section className="map-section">
         <h2>Наше местоположение</h2>
         <div className="map-container">
-          <MapContainer
-            center={[47.2228, 39.7206]}
-            zoom={13}
-            scrollWheelZoom={false}
-            style={{ height: "600px", width: "800px" }}
-          >
-            <ResizeMap />
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='© <a href="https://www.openstreetmap.org/copyright">участники OpenStreetMap</a>'
-            />
-            <Marker position={[47.2228, 39.7206]} icon={customIcon}>
-              <Popup>
-                Торговое помещение.
-                <br />
-                Ул. Дранко 141
-              </Popup>
-            </Marker>
-          </MapContainer>
+          <YMaps>
+          <Map
+  defaultState={{ center: [47.235779, 39.690893], zoom: 13 }}
+  style={{ height: "100%", width: "100%" }}
+>
+  <GeoObject
+    geometry={{
+      type: "Point",
+      coordinates: [47.235779, 39.690893], // Updated coordinates
+    }}
+    properties={{
+      balloonContent: "Торговое помещение.<br />Ул. Дранко 141",
+    }}
+  />
+  <ZoomControl />
+</Map>
+
+
+          </YMaps>
         </div>
       </section>
 

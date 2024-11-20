@@ -1,0 +1,165 @@
+.jobs {
+    padding: 100px 20px 20px;
+    background-color: #fff;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    animation: fadeIn 1s;
+  }
+  
+  .jobs h1, .jobs h2 {
+    color: #333;
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .benefits {
+    margin-bottom: 20px;
+  }
+  
+  .benefits ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .benefits li {
+    margin: 10px 0;
+    color: #555;
+    animation: slideInLeft 0.5s;
+  }
+  
+  .vacancies {
+    margin-bottom: 20px;
+  }
+  
+  .vacancy-card {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: zoomIn 0.5s;
+  }
+  
+  .vacancy-card h3 {
+    margin-top: 0;
+  }
+  
+  .vacancy-card p {
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  .apply-button {
+    display: block;
+    margin: 10px 0 0;
+    padding: 10px;
+    background-color:  #ffffff;
+    color: #000000;
+    text-decoration: none;
+    border: 1px solid #45EFDA;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+  }
+  
+  .apply-button:hover {
+    background-color:  #45EFDA;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 768px) {
+    .jobs {
+      padding: 80px 10px;
+    }
+  
+    .vacancy-card {
+      padding: 15px;
+    }
+  
+    .benefits li {
+      font-size: 14px;
+    }
+  
+    .apply-button {
+      padding: 8px;
+    }
+  
+    .modal-content {
+      width: 90%;
+    }
+  }
+  
+
+  @media (max-width: 480px) {
+    .jobs {
+      padding: 60px 10px;
+    }
+  
+    .vacancy-card {
+      padding: 10px;
+    }
+  
+    .benefits li {
+      font-size: 12px;
+    }
+  
+    .apply-button {
+      padding: 6px;
+    }
+  
+    .modal-content {
+      width: 95%;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideInLeft {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+  
+  @keyframes zoomIn {
+    from { transform: scale(0.5); }
+    to { transform: scale(1); }
+  }
+  
