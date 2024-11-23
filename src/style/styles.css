@@ -1,0 +1,355 @@
+/* === Основные контейнеры === */
+
+/* Контейнер формы */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+  padding: 20px;
+  margin-top: 50px;
+}
+
+.form-container h2 {
+  font-size: 32px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* === Стили для формы === */
+.form {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Управление отступами между элементами */
+}
+
+.form-label {
+  font-size: 14px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+/* === Общие стили для кнопок === */
+.form-btn,
+.logout-btn,
+.auth-btn {
+  background-color: #45EFDA;
+  color: #333;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  max-width: 300px; /* Максимальная ширина кнопок */
+  min-width: 200px; /* Минимальная ширина кнопок для единообразия */
+  margin: 10px auto;
+  display: block;
+  text-align: center;
+}
+
+.form-btn:hover,
+.logout-btn:hover,
+.auth-btn:hover {
+  background-color: #33b5a0;
+}
+
+/* === Стили для ссылок === */
+.link-btn {
+  color: #45EFDA;
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+  display: block;
+}
+
+.link-btn:hover {
+  text-decoration: underline;
+}
+
+/* === Сообщения === */
+.success-message,
+.error-message {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.success-message {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+/* === Контейнер личного кабинета === */
+.account-page-container {
+  margin-top: 60px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px);
+  box-sizing: border-box;
+}
+
+.dashboard {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.dashboard h2 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.dashboard .username {
+  color: #45EFDA;
+  font-weight: bold;
+}
+
+/* === Неавторизованный пользователь === */
+.auth-redirect {
+  display: flex; /* Для использования флекс-контейнера */
+  flex-direction: column; /* Вертикальное расположение элементов */
+  justify-content: center; /* Центрирование по вертикали */
+  align-items: center; /* Центрирование по горизонтали */
+  height: calc(80vh - 60px); /* Учет высоты шапки */
+  text-align: center; /* Центрирование текста */
+  margin: 0 auto; /* Центрирование блока */
+}
+
+.auth-redirect button {
+  margin-bottom: 10px;
+}
+.account-content {
+  margin-top: 100px; /* Отступ вниз, чтобы шапка не перекрывала содержимое */
+
+  box-sizing: border-box;
+}
+
+/* === Адаптация для мобильных устройств === */
+@media (max-width: 768px) {
+  .form-btn,
+  .logout-btn,
+  .auth-btn {
+    max-width: 100%;
+    min-width: 100%; /* Занимать всю ширину на мобильных устройствах */
+  }
+
+  .dashboard,
+  .auth-redirect {
+    padding: 20px;
+  }
+}
+
+/*личный кабинет*/
+.account-page {
+  padding: 20px;
+  background-color: #fff;
+  margin-top: 100px;
+}
+.account-page h1 {
+  text-align: center !important;  /* Применяем с !important */
+  font-size: 32px;
+  color: #212529;
+  margin-top: 0;  /* Если нужно отступить от верхнего края */
+  margin-bottom: 30px;  /* Поставьте нужный отступ */
+}
+
+
+.account-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.account-header {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #212529;
+  text-align: left;
+}
+
+/* Вкладки для переключения между разделами */
+.account-tabs {
+  display: flex;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.account-tab {
+  padding: 15px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #495057;
+  cursor: pointer;
+  transition: color 0.3s, border-bottom 0.3s;
+  border-bottom: 3px solid transparent;
+  margin-right: 30px;
+}
+
+.account-tab.active {
+  color: #45EFDA; 
+  border-bottom: 3px solid #45EFDA; 
+}
+
+.account-tab:hover {
+  color: #3ed5c4; 
+}
+
+/* Секции профиля и заказов */
+.account-section,
+.account-orders-section,
+.account-password-section {
+  display: none;
+}
+
+.account-section.active,
+.account-orders-section.active,
+.account-password-section.active {
+  display: block;
+}
+
+.account-subheader {
+  font-size: 24px;
+  color: #212529;
+  margin-bottom: 20px;
+}
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.account-label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #495057;
+}
+
+.account-input {
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.account-button {
+  padding: 12px 25px;
+  background-color: #45EFDA; 
+  color: #000000;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: fit-content;
+}
+
+.account-button:hover {
+  background-color: #3bcdbc; 
+}
+
+/* Карточки заказов */
+.account-orders {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.order-card {
+  background: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 20px;
+  width: calc(50% - 10px);
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.order-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #212529;
+}
+
+.order-details-link {
+  color: #007bff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.order-details-link:hover {
+  text-decoration: underline;
+}
+
+/* Кнопка возврата на главную */
+.account-return-home {
+  margin-top: 30px;
+}
+
+.account-return-home-btn {
+  background-color: #007bff;
+  padding: 12px 25px;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.account-return-home-btn:hover {
+  background-color: #006de2;
+}
+.profile-photo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.profile-photo-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.account-input[type="file"] {
+  margin-top: 10px;
+}

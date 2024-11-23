@@ -125,27 +125,36 @@ const JobsPage = () => {
       </section>
 
       {/* Модальное окно для формы отклика */}
-      <div className="modal" id="applicationModal">
-        <div className="modal-content">
-          <span className="close" onClick={closeApplicationForm}>&times;</span>
-          <h2>Форма отклика</h2>
-          <form id="applicationForm">
-            <label htmlFor="name">Имя:</label>
-            <input type="text" id="name" name="name" required />
-
-            <label htmlFor="email">Email:</label>
-            <input type="email" id="email" name="email" required />
-
-            <label htmlFor="phone">Телефон:</label>
-            <input type="tel" id="phone" name="phone" required />
-
-            <label htmlFor="experience">Опыт работы:</label>
-            <textarea id="experience" name="experience" required></textarea>
-
-            <button type="submit">Отправить</button>
-          </form>
-        </div>
+      <div className="jobs-modal" id="applicationModal">
+  <div className="jobs-modal-content">
+    <button className="jobs-modal-close" onClick={closeApplicationForm}>&times;</button>
+    <h2>Отклик на вакансию</h2>
+    <form id="applicationForm">
+      <div className="form-group">
+        <label htmlFor="name">Имя</label>
+        <input type="text" id="name" name="name" placeholder="Введите ваше имя" required />
       </div>
+
+      <div className="form-group">
+        <label htmlFor="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Введите ваш email" required />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="phone">Телефон</label>
+        <input type="tel" id="phone" name="phone" placeholder="Введите ваш номер телефона" required />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="experience">Опыт работы</label>
+        <textarea id="experience" name="experience" placeholder="Опишите ваш опыт работы" required></textarea>
+      </div>
+
+      <button type="submit" className="form-submit-button">Отправить отклик</button>
+    </form>
+  </div>
+</div>
+
 
       <a href="/" className="back-to-main">Вернуться на главную страницу</a>
     </main>

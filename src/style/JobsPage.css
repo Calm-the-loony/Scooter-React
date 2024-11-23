@@ -69,39 +69,120 @@
     background-color:  #45EFDA;
   }
   
-  .modal {
+  .jobs-modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.6);
   }
   
-  .modal-content {
-    background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 60%;
+  .jobs-modal-content {
+    background: #fff;
+    margin: 10% auto;
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    text-align: center;
   }
   
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+  .jobs-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
     font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
+    color: #333;
     cursor: pointer;
   }
+  
+  .jobs-modal-close:hover {
+    color: #ff0000;
+  }
+  
+  .jobs-modal h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #45efda;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(69, 239, 218, 0.5);
+  }
+  
+  .form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+  
+  .form-submit-button {
+    display: inline-block;
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #45efda;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .form-submit-button:hover {
+    background-color: #35cbb3;
+  }
+  
+  @media (max-width: 480px) {
+    .jobs-modal-content {
+      padding: 20px;
+    }
+  
+    .jobs-modal h2 {
+      font-size: 20px;
+    }
+  
+    .form-submit-button {
+      font-size: 14px;
+    }
+  }
+  
   
   @media (max-width: 768px) {
     .jobs {

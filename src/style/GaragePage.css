@@ -1,0 +1,97 @@
+.garage-container {
+  padding: 20px;
+  margin-top: 200px; /* Опускаем контейнер на 60 пикселей */
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.garage-header h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.add-scooter-form {
+  margin-bottom: 20px;
+}
+
+.add-scooter-form h3 {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.add-scooter-form select,
+.add-scooter-form input {
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: calc(33% - 20px);
+  box-sizing: border-box;
+}
+
+.add-scooter-form button {
+  padding: 10px 15px;
+  background-color: #4b4a4a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.add-scooter-form button:hover {
+  background-color: #333; /* Небольшой эффект затемнения */
+}
+
+.garage-list h3 {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.garage-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.garage-list li {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.garage-list button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.garage-list .selected {
+  font-weight: bold;
+  background-color: #ddd;
+}
+
+.garage-details {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.garage-details h3 {
+  color: #555;
+}
+
+.garage-details ul {
+  list-style: disc;
+  margin-left: 20px;
+}

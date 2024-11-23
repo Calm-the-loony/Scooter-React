@@ -1,0 +1,69 @@
+.cart-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 120px;
+  }
+  
+  .cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .cart-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .breadcrumbs {
+    font-size: 16px;
+  }
+  
+  .cart-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .cart-table th, .cart-table td {
+    border: 1px solid #ddd;
+    padding: 9px;
+    text-align: left;
+  }
+  
+  .cart-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .cart-table td {
+    vertical-align: middle;
+  }
+  
+  .cart-product-image {
+    width: 80px;
+    height: auto;
+  }
+  
+  .cart-total {
+    margin-top: 20px;
+    text-align: right;
+  }
+  
+  .buy-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .breadcrumbs a {
+    text-decoration: none; /* Убирает подчеркивание */
+    color: inherit; /* Сохраняет цвет текста */
+  }
+  
+  .breadcrumbs a:hover {
+    text-decoration: underline; /* При наведении добавляет подчеркивание (опционально) */
+  }
+  
