@@ -22,6 +22,7 @@ import RegistrationPage from "./components/RegistrationPage"; // Страниц�
 import CookieConsent from "./components/CookieConsent"; // Новый компонент
 import ProductPage from "./components/ProductPage";  // Импортируем компонент страницы товара
 import SearchResults from "./components/SearchResults";
+// import PaymentPage from "./components/PaymentPage";
 // import FeaturedProducts from "./components/FeaturedProducts";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CartProvider from "./context/CartContext"; // Провайдер контекста корзины
@@ -54,6 +55,7 @@ const App = () => {
               <Route path="/register" element={<RegistrationPage />} /> {/* Страница регистрации */}
               <Route path="/product/:id" element={<ProductPage />} /> {/* Новый маршрут для страницы товара */}
               <Route path="/search-results" element={<SearchResults />} />
+              {/* <Route path="/paym" element={<PaymentPage />}  */}
               {/* Маршруты для категорий */}
               <Route path="/category/:categoryId" element={<CategoryPage />} />
 

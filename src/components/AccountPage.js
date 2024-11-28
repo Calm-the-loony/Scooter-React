@@ -32,21 +32,20 @@ const AccountPage = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    const form = e.target;
     const updatedUserData = {
       ...userData,
-      name: e.target.name.value,
-      dob: e.target.dob.value,
-      address: e.target.address.value,
-      email: e.target.email.value,
-      phone: e.target.phone.value,
-      // Проверка наличия файла и сохранение старого фото, если файл не был выбран
-      photo: e.target.photo.files[0]
-        ? URL.createObjectURL(e.target.photo.files[0])
-        : userData?.photo || '/default-photo.jpg', // Значение по умолчанию если нет фото
+      name: form.name.value,
+      dob: form.dob.value,
+      address: form.address.value,
+      email: form.email.value,
+      phone: form.phone.value,
     };
+
     setUserData(updatedUserData);
     localStorage.setItem('userData', JSON.stringify(updatedUserData));
-    setIsEditing(false);  // Закрываем режим редактирования после сохранения
+    setIsEditing(false);
   };
 
   const handleEditClick = () => {
@@ -86,21 +85,6 @@ const AccountPage = () => {
 
             <section className={`account-section ${activeTab === 'account-section' ? 'active' : ''}`}>
               <h2 className="account-subheader">Мои данные</h2>
-              <div className="profile-photo">
-                <img
-                  src={userData?.photo || '/default-photo.jpg'}
-                  alt="Фото профиля"
-                  className="profile-photo-img"
-                />
-                {isEditing && (
-                  <input
-                    type="file"
-                    name="photo"
-                    id="account_photo"
-                    className="account-input"
-                  />
-                )}
-              </div>
 
               <form onSubmit={handleFormSubmit} className="account-form">
                 <label htmlFor="account_name" className="account-label">ФИО:</label>
@@ -158,10 +142,10 @@ const AccountPage = () => {
                 />
 
                 {isEditing ? (
-                  <>
+                  <div className="edit-buttons">
                     <button type="submit" className="account-button">Сохранить изменения</button>
                     <button type="button" className="account-button" onClick={handleCancelEdit}>Отмена</button>
-                  </>
+                  </div>
                 ) : (
                   <button type="button" className="account-button" onClick={handleEditClick}>Редактировать</button>
                 )}
@@ -169,18 +153,53 @@ const AccountPage = () => {
             </section>
 
             <section className={`account-orders-section ${activeTab === 'account-orders-section' ? 'active' : ''}`}>
-              <h2 className="account-subheader">Мои заказы</h2>
-              <div className="account-orders">
-                {userData?.orders?.map((order, index) => (
-                  <div key={index} className="order-card">
-                    <h3 className="order-title">Заказ №{order.id}</h3>
-                    <p>Дата: {order.date}</p>
-                    <p>Статус: {order.status}</p>
-                    <a href={`/order_details/${order.id}`} className="order-details-link">Подробнее</a>
-                  </div>
-                ))}
-              </div>
-            </section>
+  <h2 className="account-subheader">Мои заказы</h2>
+  <div className="account-orders">
+    {userData?.orders?.length ? (
+      userData.orders.map((order, index) => (
+        <div key={index} className="order-card">
+          <h3 className="order-title">Заказ №{order.id}</h3>
+          <div className="order-info">
+            <p>
+              <span>Дата:</span> {order.date}
+            </p>
+            <p>
+              <span>Статус:</span>{' '}
+              <span
+                style={{
+                  color: order.status === 'Доставлен' ? 'green' : 'orange',
+                  fontWeight: 'bold',
+                }}
+              >
+                {order.status}
+              </span>
+            </p>
+            <p>
+              <span>Способ доставки:</span> {order.deliveryMethod}
+            </p>
+            <p>
+              <span>Способ оплаты:</span> {order.paymentMethod}
+            </p>
+            <p>
+              <span>Сумма:</span> {order.total} ₽
+            </p>
+          </div>
+          <h4>Товары:</h4>
+          <ul className="order-items">
+            {order.items.map((item) => (
+              <li key={item.id}>
+                <span>{item.name}</span> — {item.quantity} шт. ({item.price} ₽/шт)
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    ) : (
+      <p>У вас пока нет заказов.</p>
+    )}
+  </div>
+</section>
+
 
             <section className={`account-password-section ${activeTab === 'account-password-section' ? 'active' : ''}`}>
               <h2 className="account-subheader">Изменить пароль</h2>
