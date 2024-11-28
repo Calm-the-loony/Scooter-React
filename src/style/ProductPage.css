@@ -1,0 +1,205 @@
+.product-page {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  margin-top: 130px;
+  position: relative;
+  min-height: 100vh; /* Обеспечим, чтобы контейнер занимал всю высоту */
+}
+
+.product-details {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  gap: 20px;
+  justify-content: space-between; /* Разделяем пространство между изображением и информацией */
+}
+
+.product-image img {
+  width: 500px;  /* Занимает половину доступной ширины */
+  border-radius: 10px;
+}
+
+.product-info {
+  flex-grow: 1;
+  max-width: 500px;
+}
+
+.product-info h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ccc; /* Разделяющая линия под заголовком */
+  padding-bottom: 10px; /* Отступ от текста до линии */
+}
+
+.product-price p,
+.product-stock p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #333;
+  border-bottom: 2px solid #ccc; /* Разделяющая линия под ценой */
+  padding-bottom: 10px; /* Отступ от текста до линии */
+}
+
+.product-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Стили для плашки */
+.info-panel {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f8f8f8;
+  border: 2px solid #40e0d0;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(64, 224, 208, 0.6);
+  font-size: 1rem;
+  color: #333;
+  max-width: 70%;
+}
+
+.info-panel p {
+  margin: 5px 0;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .product-details {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-image img {
+    width: 100%; /* Полная ширина для мобильных */
+  }
+
+  .product-info {
+    max-width: 100%;
+  }
+
+  .product-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.product-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn-cart {
+  background-color: #40e0d0; /* Бирюзовый цвет */
+  color: white; /* Белый текст */
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-cart:hover {
+  background-color: #00b7b7; /* Более темный бирюзовый при наведении */
+}
+
+.btn-favorite {
+  background-color: black; /* Черный цвет */
+  color: white; /* Белый текст */
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-favorite:hover {
+  background-color: #333; /* Темно-серый при наведении */
+}
+
+/* Стили для контейнера аккордеона */
+.accordion-wrapper {
+  position: absolute;
+  bottom: 20px; /* Небольшой отступ от низа */
+  width: 100%;
+  max-width: 1200px; /* Ограничиваем ширину */
+  margin: 0 auto; /* Центрируем контейнер */
+}
+
+.accordion-container {
+  margin-top: 20px;
+  width: 60%;
+}
+
+.accordion {
+  border: 2px solid #40e0d0; /* Бирюзовая граница */
+  border-radius: 10px;
+  background-color: #fcfcfc;
+  box-shadow: 0 0 10px rgba(64, 224, 208, 0.6);
+}
+
+.accordion-item {
+  border-top: 1px solid #ccc;
+}
+
+.accordion-item:first-child {
+  border-top: none;
+}
+
+.accordion-header {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  background-color: #f4f4f4;
+  border-bottom: 2px solid #ccc;
+}
+
+.accordion-header:hover {
+  background-color: #d3d3d3;
+}
+
+.accordion-content {
+  padding: 15px;
+  background-color: white;
+  border-top: 1px solid #ccc; /* Добавление границы сверху для контента */
+}
+
+.accordion-content p {
+  margin: 10px 0;
+}
+
+.accordion-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.accordion-content input,
+.accordion-content select,
+.accordion-content textarea {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.accordion-content button {
+  background-color: #40e0d0; /* Бирюзовый цвет */
+  border: none;
+  padding: 10px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.accordion-content button:hover {
+  background-color: #00b7b7; /* Темно-бирюзовый при наведении */
+}

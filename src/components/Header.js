@@ -8,7 +8,7 @@ import scooterIcon from "../image/scooter.png";
 import cartIcon from "../image/cart.png";
 import userIcon from "../image/free-icon-user-2603906.png";
 import { useNavigate } from "react-router-dom";
-import { CartContext } from "../context/CartContext"; // Контекст корзины
+import { CartContext } from "../context/CartContext"; 
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

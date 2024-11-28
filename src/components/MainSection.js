@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import '../style/MainSection.css';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "font-awesome/css/font-awesome.min.css";
 import ProductCard from './ProductCard';
+import products from "../data/products";  
+
 
 // Изображения
 import parkingImage from "../image/parking_main_1.jpg";
@@ -32,6 +35,8 @@ import dollarIcon from '../image/free-icon-dollar-symbol-126179.png';
 import bannerImage1 from "../image/banner3-1.png";
 import bannerImage2 from "../image/banner4-1.png";
 import bannerImage3 from "../image/Designer (1).jpeg";
+import "../style/CategoryPage.css";
+import CatImage from '../image/free-icon-black-cat-3704886.png';
 
 // Подключаем данные
 // import products from "../data/products.json";  
@@ -129,143 +134,104 @@ const MainSection = () => {
 
       {/* Секция категорий */}
       <section className="categories-section">
-        <div className="category">
-          <a href="engine.html" className="category-container">
-            <img src={engineIcon} alt="Двигатель" />
-            <p>Двигатель</p>
-          </a>
-        </div>
-        <div className="category">
-          <a href="suspension.html" className="category-container">
-            <img src={suspensionIcon} alt="Подвеска" />
-            <p>Подвеска</p>
-          </a>
-        </div>
-        <div className="category">
-          <a href="fuel-system.html" className="category-container">
-            <img src={fuelSystemIcon} alt="Топливная система" />
-            <p>Топливная система</p>
-          </a>
-        </div>
-        <div className="category">
-          <a href="transmission.html" className="category-container">
-            <img src={drivetrainIcon} alt="Трансмиссия" />
-            <p>Трансмиссия</p>
-          </a>
-        </div>
-        <div className="category">
-          <a href="electrics.html" className="category-container">
-            <img src={electricalServiceIcon} alt="Электрика" />
-            <p>Электрика</p>
-          </a>
-        </div>
-        <div className="category">
-          <a href="brake-system.html" className="category-container">
-            <img src={brakeDiscIcon} alt="Тормозная система" />
-            <p>Тормозная система</p>
-          </a>
-        </div>
-        <div className="category">
-          <a href="gaskets-seals.html" className="category-container">
-            <img src={carPartsIcon} alt="Прокладки и сальники" />
-            <p>Прокладки и сальники</p>
-          </a>
-        </div>
-        <div className="category">
-          <a href="mufflers.html" className="category-container">
-            <img src={mufflerIcon} alt="Глушители" />
-            <p>Глушители</p>
-          </a>
-        </div>
-        <div className="category">
-          <a href="accessories.html" className="category-container">
-            <img src={sparePartsIcon} alt="Расходники" />
-            <p>Расходники</p>
-          </a>
-        </div>
-        <div className="category">
-          <a href="tuning.html" className="category-container">
-            <img src={tuningIcon} alt="Тюнинг" />
-            <p>Тюнинг</p>
-          </a>
-        </div>
-        <div className="category">
-          <a href="body-parts.html" className="category-container">
-            <img src={bodyPartsIcon} alt="Кузовные элементы" />
-            <p>Кузовные элементы</p>
-          </a>
-        </div>
-        <div className="category">
-          <a href="uncategorized.html" className="category-container">
-            <img src={configurationIcon} alt="Разное" />
-            <p>Разное</p>
-          </a>
-        </div>
-      </section>
-
-      <section className="featured-products">
-      <h2 className="as">Топ продаж</h2>
-      <div className="red-lines"></div>
-      <Slider {...carouselSettings}> {/* Применение настроек слайдера */}
-        <ProductCard 
-          id="1" 
-          stock="23" 
-          type="Скутер" 
-          brand="Honda, Honling, Gryphon" 
-          model="Dio (Honda)"
-          image={coilImage}
-          name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
-          price="653,00 ₽"
-          article="SCOT126723456120"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41 см"
-          tags="1 год"
-        />
-        <ProductCard 
-          id="2" 
-          stock="23" 
-          type="Скутер" 
-          brand="Suzuki" 
-          model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
-          image={coil2Image}
-          name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
-          price="1027,00 ₽"
-          article="SCOT126723456122"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41.2 × 31.7 × 7.1 мм"
-          tags="1 год"
-        />
-        <ProductCard 
-          id="3" 
-          stock="23" 
-          type="Скутер" 
-          brand="Honda, Honling, Gryphon" 
-          model="Dio (Honda)"
-          image={coilImage}
-          name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
-          price="653,00 ₽"
-          article="SCOT126723456120"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41 см"
-          tags="1 год"
-        />
-        <ProductCard 
-          id="4" 
-          stock="23" 
-          type="Скутер" 
-          brand="Suzuki" 
-          model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
-          image={coil2Image}
-          name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
-          price="1027,00 ₽"
-          article="SCOT126723456122"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41.2 × 31.7 × 7.1 мм"
-          tags="1 год"
-        />
-        {/* Добавить другие карточки товара по аналогии */}
-      </Slider>
+      <div className="category">
+        <Link to="/category/engine" className="category-container">
+          <img src={engineIcon} alt="Двигатель" />
+          <p>Двигатель</p>
+        </Link>
+      </div>
+      <div className="category">
+        <Link to="/category/suspension" className="category-container">
+          <img src={suspensionIcon} alt="Подвеска" />
+          <p>Подвеска</p>
+        </Link>
+      </div>
+      <div className="category">
+        <Link to="/category/fuel-system" className="category-container">
+          <img src={fuelSystemIcon} alt="Топливная система" />
+          <p>Топливная система</p>
+        </Link>
+      </div>
+      <div className="category">
+        <Link to="/category/transmission" className="category-container">
+          <img src={drivetrainIcon} alt="Трансмиссия" />
+          <p>Трансмиссия</p>
+        </Link>
+      </div>
+      <div className="category">
+        <Link to="/category/electrics" className="category-container">
+          <img src={electricalServiceIcon} alt="Электрика" />
+          <p>Электрика</p>
+        </Link>
+      </div>
+      <div className="category">
+        <Link to="/category/brake-system" className="category-container">
+          <img src={brakeDiscIcon} alt="Тормозная система" />
+          <p>Тормозная система</p>
+        </Link>
+      </div>
+      <div className="category">
+        <Link to="/category/gaskets-seals" className="category-container">
+          <img src={carPartsIcon} alt="Прокладки и сальники" />
+          <p>Прокладки и сальники</p>
+        </Link>
+      </div>
+      <div className="category">
+        <Link to="/category/mufflers" className="category-container">
+          <img src={mufflerIcon} alt="Глушители" />
+          <p>Глушители</p>
+        </Link>
+      </div>
+      <div className="category">
+        <Link to="/category/accessories" className="category-container">
+          <img src={sparePartsIcon} alt="Расходники" />
+          <p>Расходники</p>
+        </Link>
+      </div>
+      <div className="category">
+        <Link to="/category/tuning" className="category-container">
+          <img src={tuningIcon} alt="Тюнинг" />
+          <p>Тюнинг</p>
+        </Link>
+      </div>
+      <div className="category">
+        <Link to="/category/body-parts" className="category-container">
+          <img src={bodyPartsIcon} alt="Кузовные элементы" />
+          <p>Кузовные элементы</p>
+        </Link>
+      </div>
+      <div className="category">
+        <Link to="/category/uncategorized" className="category-container">
+          <img src={configurationIcon} alt="Разное" />
+          <p>Разное</p>
+        </Link>
+      </div>
     </section>
+    
+    <section className="featured-products">
+    <h2 className="as">Топ продаж</h2>
+    <div className="red-lines"></div>
+    <Slider {...carouselSettings}>
+        {products.map((product) => (
+            <ProductCard
+                key={product.id}
+                id={product.id}
+                stock={product.stock}
+                type={product.type}
+                brand={product.brand}
+                category={product.category}
+                model={product.model}
+                image={product.image}  // Используем импортированное изображение
+                name={product.name}
+                price={product.price}
+                article={product.article}
+                extra={product.extra}
+                dimensions={product.dimensions}
+                tags={product.tags}
+            />
+        ))}
+    </Slider>
+</section>
 
 {/* Раздел баннеров */}
 <section className="banner-container">
@@ -338,118 +304,126 @@ const MainSection = () => {
   <h2 className="as">Рекомендуемые товары</h2>
   <div className="red-line"></div>
   <div className="product-grid">
-    <ProductCard 
-      id="1" 
-      stock="23" 
-      type="Скутер" 
-      brand="Honda, Honling, Gryphon" 
-      model="Dio (Honda)"
-      image={coilImage}
-      name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
-      price="653,00 ₽"
-      article="SCOT126723456120"
-      extra="Плотная упаковка, Запчасть на скутер"
-      dimensions="41 см"
-      tags="1 год"
-    />
-    <ProductCard 
-      id="2" 
-      stock="23" 
-      type="Скутер" 
-      brand="Suzuki" 
-      model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
-      image={coil2Image}
-      name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
-      price="1027,00 ₽"
-      article="SCOT126723456122"
-      extra="Плотная упаковка, Запчасть на скутер"
-      dimensions="41.2 × 31.7 × 7.1 мм"
-      tags="1 год"
-    />
-    <ProductCard 
-      id="3" 
-      stock="23" 
-      type="Скутер" 
-      brand="Honda, Honling, Gryphon" 
-      model="Dio (Honda)"
-      image={coilImage}
-      name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
-      price="653,00 ₽"
-      article="SCOT126723456120"
-      extra="Плотная упаковка, Запчасть на скутер"
-      dimensions="41 см"
-      tags="1 год"
-    />
-    <ProductCard 
-      id="4" 
-      stock="23" 
-      type="Скутер" 
-      brand="Suzuki" 
-      model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
-      image={coil2Image}
-      name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
-      price="1027,00 ₽"
-      article="SCOT126723456122"
-      extra="Плотная упаковка, Запчасть на скутер"
-      dimensions="41.2 × 31.7 × 7.1 мм"
-      tags="1 год"
-    />
+  <ProductCard 
+          id="1" 
+          stock="23" 
+          type="Скутер" 
+          brand="Honda, Honling, Gryphon" 
+          category="Электрика"
+          model="Dio (Honda)"
+          image={coilImage}
+          name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
+          price="653,00 ₽"
+          article="SCOT126723456120"
+          extra="Плотная упаковка, Запчасть на скутер"
+          dimensions="41 см"
+          tags="1 год"
+        />
         <ProductCard 
-      id="1" 
-      stock="23" 
-      type="Скутер" 
-      brand="Honda, Honling, Gryphon" 
-      model="Dio (Honda)"
-      image={coilImage}
-      name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
-      price="653,00 ₽"
-      article="SCOT126723456120"
-      extra="Плотная упаковка, Запчасть на скутер"
-      dimensions="41 см"
-      tags="1 год"
-    />
-    <ProductCard 
-      id="2" 
-      stock="23" 
-      type="Скутер" 
-      brand="Suzuki" 
-      model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
-      image={coil2Image}
-      name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
-      price="1027,00 ₽"
-      article="SCOT126723456122"
-      extra="Плотная упаковка, Запчасть на скутер"
-      dimensions="41.2 × 31.7 × 7.1 мм"
-      tags="1 год"
-    />
-    <ProductCard 
-      id="3" 
-      stock="23" 
-      type="Скутер" 
-      brand="Honda, Honling, Gryphon" 
-      model="Dio (Honda)"
-      image={coilImage}
-      name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
-      price="653,00 ₽"
-      article="SCOT126723456120"
-      extra="Плотная упаковка, Запчасть на скутер"
-      dimensions="41 см"
-      tags="1 год"
-    />
-    <ProductCard 
-      id="4" 
-      stock="23" 
-      type="Скутер" 
-      brand="Suzuki" 
-      model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
-      image={coil2Image}
-      name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
-      price="1027,00 ₽"
-      article="SCOT126723456122"
-      extra="Плотная упаковка, Запчасть на скутер"
-      dimensions="41.2 × 31.7 × 7.1 мм"
-      tags="1 год"
-    />
+          id="2" 
+          stock="23" 
+           category="Электрика"
+          type="Скутер" 
+          brand="Suzuki" 
+          model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
+          image={coil2Image}
+          name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
+          price="1027,00 ₽"
+          article="SCOT126723456122"
+          extra="Плотная упаковка, Запчасть на скутер"
+          dimensions="41.2 × 31.7 × 7.1 мм"
+          tags="1 год"
+        />
+        <ProductCard 
+          id="3" 
+          stock="23" 
+           category="Электрика"
+          type="Скутер" 
+          brand="Honda, Honling, Gryphon" 
+          model="Dio (Honda)"
+          image={coilImage}
+          name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
+          price="653,00 ₽"
+          article="SCOT126723456120"
+          extra="Плотная упаковка, Запчасть на скутер"
+          dimensions="41 см"
+          tags="1 год"
+        />
+        <ProductCard 
+          id="4" 
+          stock="23" 
+           category="Электрика"
+          type="Скутер" 
+          brand="Suzuki" 
+          model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
+          image={coil2Image}
+          name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
+          price="1027,00 ₽"
+          article="SCOT126723456122"
+          extra="Плотная упаковка, Запчасть на скутер"
+          dimensions="41.2 × 31.7 × 7.1 мм"
+          tags="1 год"
+        />
+         <ProductCard 
+          id="1" 
+          stock="23" 
+          type="Скутер" 
+          brand="Honda, Honling, Gryphon" 
+          category="Электрика"
+          model="Dio (Honda)"
+          image={coilImage}
+          name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
+          price="653,00 ₽"
+          article="SCOT126723456120"
+          extra="Плотная упаковка, Запчасть на скутер"
+          dimensions="41 см"
+          tags="1 год"
+        />
+        <ProductCard 
+          id="2" 
+          stock="23" 
+           category="Электрика"
+          type="Скутер" 
+          brand="Suzuki" 
+          model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
+          image={coil2Image}
+          name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
+          price="1027,00 ₽"
+          article="SCOT126723456122"
+          extra="Плотная упаковка, Запчасть на скутер"
+          dimensions="41.2 × 31.7 × 7.1 мм"
+          tags="1 год"
+        />
+        <ProductCard 
+          id="3" 
+          stock="23" 
+           category="Электрика"
+          type="Скутер" 
+          brand="Honda, Honling, Gryphon" 
+          model="Dio (Honda)"
+          image={coilImage}
+          name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
+          price="653,00 ₽"
+          article="SCOT126723456120"
+          extra="Плотная упаковка, Запчасть на скутер"
+          dimensions="41 см"
+          tags="1 год"
+        />
+        <ProductCard 
+          id="4" 
+          stock="23" 
+           category="Электрика"
+          type="Скутер" 
+          brand="Suzuki" 
+          model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
+          image={coil2Image}
+          name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
+          price="1027,00 ₽"
+          article="SCOT126723456122"
+          extra="Плотная упаковка, Запчасть на скутер"
+          dimensions="41.2 × 31.7 × 7.1 мм"
+          tags="1 год"
+        />
   </div>
 </section>
 
@@ -484,65 +458,27 @@ const MainSection = () => {
     <section className="featured-products">
       <h2 className="as">Топ продаж</h2>
       <div className="red-lines"></div>
-      <Slider {...carouselSettings}> {/* Применение настроек слайдера */}
-        <ProductCard 
-          id="1" 
-          stock="23" 
-          type="Скутер" 
-          brand="Honda, Honling, Gryphon" 
-          model="Dio (Honda)"
-          image={coilImage}
-          name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
-          price="653,00 ₽"
-          article="SCOT126723456120"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41 см"
-          tags="1 год"
-        />
-        <ProductCard 
-          id="2" 
-          stock="23" 
-          type="Скутер" 
-          brand="Suzuki" 
-          model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
-          image={coil2Image}
-          name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
-          price="1027,00 ₽"
-          article="SCOT126723456122"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41.2 × 31.7 × 7.1 мм"
-          tags="1 год"
-        />
-        <ProductCard 
-          id="3" 
-          stock="23" 
-          type="Скутер" 
-          brand="Honda, Honling, Gryphon" 
-          model="Dio (Honda)"
-          image={coilImage}
-          name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
-          price="653,00 ₽"
-          article="SCOT126723456120"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41 см"
-          tags="1 год"
-        />
-        <ProductCard 
-          id="4" 
-          stock="23" 
-          type="Скутер" 
-          brand="Suzuki" 
-          model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
-          image={coil2Image}
-          name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
-          price="1027,00 ₽"
-          article="SCOT126723456122"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41.2 × 31.7 × 7.1 мм"
-          tags="1 год"
-        />
-        {/* Добавить другие карточки товара по аналогии */}
-      </Slider>
+
+      <Slider {...carouselSettings}>
+        {products.map((product) => (
+            <ProductCard
+                key={product.id}
+                id={product.id}
+                stock={product.stock}
+                type={product.type}
+                brand={product.brand}
+                category={product.category}
+                model={product.model}
+                image={product.image}  // Используем импортированное изображение
+                name={product.name}
+                price={product.price}
+                article={product.article}
+                extra={product.extra}
+                dimensions={product.dimensions}
+                tags={product.tags}
+            />
+        ))}
+    </Slider>
     </section>
     <section>
       <div className="banner-container">

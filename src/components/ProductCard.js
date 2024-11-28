@@ -1,33 +1,47 @@
-import React from 'react';
+import React, { useContext } from "react";
+import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";  // Хук для навигации
 
-const ProductCard = ({ id, stock, type, brand, model, image, name, price, article, extra, dimensions, tags }) => {
+const ProductCard = ({ id, stock, type, brand, model, category, image, name, price }) => {
+  const { addToCart } = useContext(CartContext);
+  const navigate = useNavigate();  // Инициализация хука для навигации
+
+  // Функция для добавления товара в избранное
+  const handleAddToFavorites = () => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const isFavorite = favorites.some((item) => item.id === id);
+
+    if (!isFavorite) {
+      favorites.push({ id, name, price, image });
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+      alert("Товар добавлен в избранное!");
+    } else {
+      alert("Товар уже в избранном!");
+    }
+  };
+
+  // Функция для открытия карточки товара
+  const handleCardClick = () => {
+    navigate(`/product/${id}`);  // Переход на страницу с подробной информацией о товаре
+  };
+
   return (
-    <div className="product-card" data-id={id} data-stock={stock} data-type={type} data-brand={brand} data-model={model}>
+    <div className="product-card" data-id={id} onClick={handleCardClick}> {/* При клике вызываем handleCardClick */}
       <img src={image} alt={name} />
       <div className="details">
-        <p className="category">Электрика</p>
-        {/* Ограничиваем отображение текста на 2 строках */}
+        <p className="category">{category}</p>
         <p className="name ellipsis">{name}</p>
         <div className="price">
           <div className="original-price-wrapper no-discount">
-            <span className="original-prices">{price}</span>
+            <span className="original-prices">{price} ₽</span>
           </div>
-          <button className="add-to-cart"><i className="fas fa-shopping-cart"></i></button>
-          <div className="stock-bar" title="В наличии много"></div>
+          <button className="add-to-cart" onClick={() => addToCart({ id, name, price, image })}>
+            <i className="fas fa-shopping-cart"></i>
+          </button>
         </div>
-        <button className="add-to-favorites"><i className="fas fa-heart"></i></button>
-      </div>
-      {/* Информация о товаре остаётся скрытой */}
-      <div className="product-info" style={{ display: 'none' }}>
-        <p className="article">Артикул: {article}</p>
-        <p className="extra">Доп. комплект: {extra}</p>
-        <p className="dimensions">Габариты: {dimensions}</p>
-        <div className="product-details">
-          <p className="type">Тип: {type}</p>
-          <p className="brand">Бренд: {brand}</p>
-          <p className="model">Модели: {model}</p>
-        </div>
-        <p className="tags">Метки: {tags}</p>
+        <button className="add-to-favorites" onClick={handleAddToFavorites}>
+          <i className="fas fa-heart"></i>
+        </button>
       </div>
     </div>
   );

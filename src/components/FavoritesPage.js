@@ -39,7 +39,7 @@ const FavoritesPage = () => {
     <div className="favorites-container">
       <div className="favorites-header">
         <h2 className="favorites-title">Избранное</h2>
-        <div className="breadcrumbs">
+        {/* <div className="breadcrumbs">
           <a
             href="/"
             onClick={(e) => {
@@ -50,7 +50,7 @@ const FavoritesPage = () => {
             Главная
           </a>{" "}
           &raquo; <span>Избранное</span>
-        </div>
+        </div> */}
       </div>
       <table id="favorite-list" className="favorites-table">
         <thead>

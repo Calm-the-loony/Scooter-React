@@ -3,24 +3,27 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MainSection from "./components/MainSection";
 import PayPage from "./components/PayPage";
-import ShippingPage from "./components/ShippingPage"; 
-import ReturnsPage from "./components/ReturnsPage"; 
-import SalesroomPage from "./components/SalesroomPage"; 
-import LegalPage from "./components/LegalPage"; 
-import RightOfWithdrawalPage from "./components/RightOfWithdrawalPage"; 
-import JobsPage from "./components/JobsPage"; 
-import TechTipsPage from "./components/TechTipsPage"; 
-import BrandsPage from "./components/BrandsPage"; 
-import CategoryPage from "./components/CategoryPage"; 
+import ShippingPage from "./components/ShippingPage";
+import ReturnsPage from "./components/ReturnsPage";
+import SalesroomPage from "./components/SalesroomPage";
+import LegalPage from "./components/LegalPage";
+import RightOfWithdrawalPage from "./components/RightOfWithdrawalPage";
+import JobsPage from "./components/JobsPage";
+import TechTipsPage from "./components/TechTipsPage";
+import BrandsPage from "./components/BrandsPage";
+import CategoryPage from "./components/CategoryPage";
 import NotFoundPage from "./components/NotFoundPage";
 import CartPage from "./components/CartPage";
-import FavoritesPage from "./components/FavoritesPage"; 
-import GaragePage from "./components/GaragePage"; 
-import AccountPage from './components/AccountPage';
-import LoginPage from './components/LoginPage'; // Добавлен импорт для страницы авторизации
-import RegistrationPage from './components/RegistrationPage'; // Добавлен импорт для страницы регистрации
+import FavoritesPage from "./components/FavoritesPage";
+import GaragePage from "./components/GaragePage";
+import AccountPage from "./components/AccountPage";
+import LoginPage from "./components/LoginPage"; // Страница авторизации
+import RegistrationPage from "./components/RegistrationPage"; // Страница регистрации
+import CookieConsent from "./components/CookieConsent"; // Новый компонент
+import ProductPage from "./components/ProductPage";  // Импортируем компонент страницы товара
+// import FeaturedProducts from "./components/FeaturedProducts";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import CartProvider from "./context/CartContext"; // Импорт провайдера контекста
+import CartProvider from "./context/CartContext"; // Провайдер контекста корзины
 
 import "./App.css";
 
@@ -46,8 +49,9 @@ const App = () => {
               <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/garage" element={<GaragePage />} />
               <Route path="/account" element={<AccountPage />} />
-              <Route path="/login" element={<LoginPage />} /> {/* Маршрут для страницы авторизации */}
-              <Route path="/register" element={<RegistrationPage />} /> {/* Маршрут для страницы регистрации */}
+              <Route path="/login" element={<LoginPage />} /> {/* Страница авторизации */}
+              <Route path="/register" element={<RegistrationPage />} /> {/* Страница регистрации */}
+              <Route path="/product/:id" element={<ProductPage />} /> {/* Новый маршрут для страницы товара */}
 
               {/* Маршруты для категорий */}
               <Route path="/category/:categoryId" element={<CategoryPage />} />
@@ -55,8 +59,10 @@ const App = () => {
               {/* Страница 404 */}
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
+            {/* <FeaturedProducts />  */}
           </main>
           <Footer />
+          <CookieConsent /> {/* Новый компонент добавлен здесь */}
         </div>
       </Router>
     </CartProvider>

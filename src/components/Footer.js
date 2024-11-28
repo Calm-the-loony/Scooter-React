@@ -42,7 +42,7 @@ const Footer = () => {
           <input type="email" placeholder="Your email" />
           <button type="submit" className="subscribe-button">Подписаться</button>
         </form>
-        <h4 className="yellow-text">КОД КУПОНОА</h4>
+        <h4 className="yellow-text">КОД КУПОНОВ</h4>
         <p>
           Проверьте <span className="highlights">все текущие коды купонов</span> на странице.
         </p>
@@ -58,8 +58,8 @@ const Footer = () => {
             onClick={(e) => {
               e.preventDefault(); // Отключаем переход по ссылке
               showModal(); // Открываем модальное окно
-            }}
-          >
+            }}>
+          
             Контакты
           </a>
         </h4>
@@ -85,7 +85,6 @@ const Footer = () => {
 
         {/* Обновлённая ссылка на способы оплаты */}
         <h4><Link to="/pay">Способы оплаты</Link></h4> 
-
         <h4><Link to="/shipping">Доставка</Link></h4>
         <h4><Link to="/return">Возвраты</Link></h4>
         <h4><Link to="/salesroom">Торговое помещение</Link></h4>
