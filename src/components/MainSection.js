@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../style/MainSection.css';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "font-awesome/css/font-awesome.min.css";
 import ProductCard from './ProductCard';
 import products from "../data/products";  
+import categories from "../data/categories"; 
 
 
 // Изображения
@@ -44,37 +45,40 @@ import CatImage from '../image/free-icon-black-cat-3704886.png';
 const MainSection = () => {
     // Настройки для карусели
     const carouselSettings = {
-        dots: true, // Показывать точки навигации
-        infinite: true, // Бесконечный слайдер
-        speed: 500, // Скорость прокрутки
-        slidesToShow: 4, // Показывать 4 карточки одновременно
-        slidesToScroll: 2, // Прокручивать 1 карточку за раз
-        responsive: [
+      dots: true, // Показывать точки навигации
+      infinite: true, // Бесконечный слайдер
+      speed: 500, // Скорость прокрутки
+      slidesToShow: 4, // Показывать 4 карточки одновременно
+      slidesToScroll: 2, // Прокручивать 2 карточки за раз
+      autoplay: true, // Включить автопрокрутку
+      autoplaySpeed: 3000, // Интервал между прокруткой в миллисекундах (3 секунды)
+      responsive: [
           {
-            breakpoint: 1024, // На устройствах с шириной экрана до 1024px
-            settings: {
-              slidesToShow: 3, // Показывать 3 карточки
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true,
-            },
+              breakpoint: 1024, // На устройствах с шириной экрана до 1024px
+              settings: {
+                  slidesToShow: 3, // Показывать 3 карточки
+                  slidesToScroll: 1,
+                  infinite: true,
+                  dots: true,
+              },
           },
           {
-            breakpoint: 768, // На устройствах с шириной экрана до 768px
-            settings: {
-              slidesToShow: 2, // Показывать 2 карточки
-              slidesToScroll: 1,
-            },
+              breakpoint: 768, // На устройствах с шириной экрана до 768px
+              settings: {
+                  slidesToShow: 2, // Показывать 2 карточки
+                  slidesToScroll: 1,
+              },
           },
           {
-            breakpoint: 480, // На мобильных устройствах
-            settings: {
-              slidesToShow: 1, // Показывать 1 карточку
-              slidesToScroll: 1,
-            },
+              breakpoint: 480, // На мобильных устройствах
+              settings: {
+                  slidesToShow: 1, // Показывать 1 карточку
+                  slidesToScroll: 1,
+              },
           },
-        ],
-      };
+      ],
+  };
+  
       const [isModalOpen, setIsModalOpen] = useState(false);
 
       const showModal = () => {
@@ -97,140 +101,239 @@ const MainSection = () => {
         window.location.href = 'tel:+1234567890'; // Укажите телефон для звонка
       };
       
+
+    const [searchModel, setSearchModel] = useState('');
+    const [selectedBrand, setSelectedBrand] = useState('');
+    const navigate = useNavigate();
+
+    const handleSearch = () => {
+      // Объединяем данные из файлов продуктов и категорий
+      const allProducts = products.concat(
+          categories.flatMap(category => category.products)  // Предполагается, что category.products содержит список товаров
+      );
   
+      // Фильтрация по модели и бренду с проверкой на undefined
+      const results = allProducts.filter(product => {
+          const modelMatch = product.model && product.model.toLowerCase().includes(searchModel.toLowerCase());
+          const brandMatch = selectedBrand === '' || (product.brand && product.brand.toLowerCase() === selectedBrand.toLowerCase());
+          return modelMatch && brandMatch;
+      });
+  
+      navigate('/search-results', { state: { results } });
+  };
+  
+    return (
+        <div>
+            <section className="parts-search">
+                <div className="background-image" style={{ backgroundImage: `url(${parkingImage})` }}>
+                    <div className="content">
+                        <h2>
+                            Найдите Свои <span className="highlight">Идеальные</span> Детали
+                        </h2>
+                        <div className="filters">
+                            <select 
+                                name="brand" 
+                                id="brand" 
+                                value={selectedBrand} 
+                                onChange={(e) => setSelectedBrand(e.target.value)}
+                            >
+                                <option value="" disabled selected hidden>
+                                    Марка
+                                </option>
+                                <option value="Yamaha">Yamaha</option>
+                                <option value="Honda">Honda</option>
+                                <option value="Vespa">Vespa</option>
+                                <option value="Suzuki">Suzuki</option>
+                                <option value="Kawasaki">Kawasaki</option>
+                                <option value="SYM">SYM</option>
+                                <option value="Kymco">Kymco</option>
+                                <option value="Aprilia">Aprilia</option>
+                            </select>
+                            <input
+                                type="text"
+                                placeholder="Модель"
+                                value={searchModel}
+                                onChange={(e) => setSearchModel(e.target.value)}
+                            />
+                            <button onClick={handleSearch}>Поиск</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-  return (
-    <div>
-      {/* Секция поиска деталей */}
-      <section className="parts-search">
-        <div
-          className="background-image"
-          style={{ backgroundImage: `url(${parkingImage})` }}
-        >
-          <div className="content">
-            <h2>
-              Найдите Свои <span className="highlight">Идеальные</span> Детали
-            </h2>
-            <div className="filters">
-              <select name="brand" id="brand">
-                <option value="" disabled selected hidden>
-                  Марка
-                </option>
-                <option value="yamaha">Yamaha</option>
-                <option value="honda">Honda</option>
-                <option value="vespa">Vespa</option>
-                <option value="suzuki">Suzuki</option>
-                <option value="kawasaki">Kawasaki</option>
-                <option value="sym">SYM</option>
-                <option value="kymco">Kymco</option>
-                <option value="aprilia">Aprilia</option>
-              </select>
-              <input type="text" placeholder="Модель" />
-              <button>Поиск</button>
-            </div>
-          </div>
-        </div>
-      </section>
+     {/* Секция категорий */}
+<section className="categories-section">
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/engine",
+      }} 
+      state={{ categoryId: "engine" }} 
+      className="category-container"
+    >
+      <img src={engineIcon} alt="Двигатель" />
+      <p>Двигатель</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/suspension",
+      }} 
+      state={{ categoryId: "suspension" }} 
+      className="category-container"
+    >
+      <img src={suspensionIcon} alt="Подвеска" />
+      <p>Подвеска</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/fuel-system",
+      }} 
+      state={{ categoryId: "fuel-system" }} 
+      className="category-container"
+    >
+      <img src={fuelSystemIcon} alt="Топливная система" />
+      <p>Топливная система</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/transmission",
+      }} 
+      state={{ categoryId: "transmission" }} 
+      className="category-container"
+    >
+      <img src={drivetrainIcon} alt="Трансмиссия" />
+      <p>Трансмиссия</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/electrics",
+      }} 
+      state={{ categoryId: "electrics" }} 
+      className="category-container"
+    >
+      <img src={electricalServiceIcon} alt="Электрика" />
+      <p>Электрика</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/brake-system",
+      }} 
+      state={{ categoryId: "brake-system" }} 
+      className="category-container"
+    >
+      <img src={brakeDiscIcon} alt="Тормозная система" />
+      <p>Тормозная система</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/gaskets-seals",
+      }} 
+      state={{ categoryId: "gaskets-seals" }} 
+      className="category-container"
+    >
+      <img src={carPartsIcon} alt="Прокладки и сальники" />
+      <p>Прокладки и сальники</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/mufflers",
+      }} 
+      state={{ categoryId: "mufflers" }} 
+      className="category-container"
+    >
+      <img src={mufflerIcon} alt="Глушители" />
+      <p>Глушители</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/accessories",
+      }} 
+      state={{ categoryId: "accessories" }} 
+      className="category-container"
+    >
+      <img src={sparePartsIcon} alt="Расходники" />
+      <p>Расходники</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/tuning",
+      }} 
+      state={{ categoryId: "tuning" }} 
+      className="category-container"
+    >
+      <img src={tuningIcon} alt="Тюнинг" />
+      <p>Тюнинг</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/body-parts",
+      }} 
+      state={{ categoryId: "body-parts" }} 
+      className="category-container"
+    >
+      <img src={bodyPartsIcon} alt="Кузовные элементы" />
+      <p>Кузовные элементы</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/uncategorized",
+      }} 
+      state={{ categoryId: "uncategorized" }} 
+      className="category-container"
+    >
+      <img src={configurationIcon} alt="Разное" />
+      <p>Разное</p>
+    </Link>
+  </div>
+</section>
 
-      {/* Секция категорий */}
-      <section className="categories-section">
-      <div className="category">
-        <Link to="/category/engine" className="category-container">
-          <img src={engineIcon} alt="Двигатель" />
-          <p>Двигатель</p>
-        </Link>
-      </div>
-      <div className="category">
-        <Link to="/category/suspension" className="category-container">
-          <img src={suspensionIcon} alt="Подвеска" />
-          <p>Подвеска</p>
-        </Link>
-      </div>
-      <div className="category">
-        <Link to="/category/fuel-system" className="category-container">
-          <img src={fuelSystemIcon} alt="Топливная система" />
-          <p>Топливная система</p>
-        </Link>
-      </div>
-      <div className="category">
-        <Link to="/category/transmission" className="category-container">
-          <img src={drivetrainIcon} alt="Трансмиссия" />
-          <p>Трансмиссия</p>
-        </Link>
-      </div>
-      <div className="category">
-        <Link to="/category/electrics" className="category-container">
-          <img src={electricalServiceIcon} alt="Электрика" />
-          <p>Электрика</p>
-        </Link>
-      </div>
-      <div className="category">
-        <Link to="/category/brake-system" className="category-container">
-          <img src={brakeDiscIcon} alt="Тормозная система" />
-          <p>Тормозная система</p>
-        </Link>
-      </div>
-      <div className="category">
-        <Link to="/category/gaskets-seals" className="category-container">
-          <img src={carPartsIcon} alt="Прокладки и сальники" />
-          <p>Прокладки и сальники</p>
-        </Link>
-      </div>
-      <div className="category">
-        <Link to="/category/mufflers" className="category-container">
-          <img src={mufflerIcon} alt="Глушители" />
-          <p>Глушители</p>
-        </Link>
-      </div>
-      <div className="category">
-        <Link to="/category/accessories" className="category-container">
-          <img src={sparePartsIcon} alt="Расходники" />
-          <p>Расходники</p>
-        </Link>
-      </div>
-      <div className="category">
-        <Link to="/category/tuning" className="category-container">
-          <img src={tuningIcon} alt="Тюнинг" />
-          <p>Тюнинг</p>
-        </Link>
-      </div>
-      <div className="category">
-        <Link to="/category/body-parts" className="category-container">
-          <img src={bodyPartsIcon} alt="Кузовные элементы" />
-          <p>Кузовные элементы</p>
-        </Link>
-      </div>
-      <div className="category">
-        <Link to="/category/uncategorized" className="category-container">
-          <img src={configurationIcon} alt="Разное" />
-          <p>Разное</p>
-        </Link>
-      </div>
-    </section>
     
     <section className="featured-products">
     <h2 className="as">Топ продаж</h2>
     <div className="red-lines"></div>
     <Slider {...carouselSettings}>
-        {products.map((product) => (
-            <ProductCard
-                key={product.id}
-                id={product.id}
-                stock={product.stock}
-                type={product.type}
-                brand={product.brand}
-                category={product.category}
-                model={product.model}
-                image={product.image}  // Используем импортированное изображение
-                name={product.name}
-                price={product.price}
-                article={product.article}
-                extra={product.extra}
-                dimensions={product.dimensions}
-                tags={product.tags}
-            />
-        ))}
-    </Slider>
+    {products.map((product) => (
+        <ProductCard
+            key={product.id}
+            id={product.id}
+            stock={product.stock}
+            type={product.type}
+            brand={product.brand}
+            category={product.category}
+            model={product.model}
+            image={product.image}
+            name={product.name}
+            price={product.price}
+            article={product.article}
+            extra={product.extra}
+            dimensions={product.dimensions}
+            tags={product.tags}
+        />
+    ))}
+</Slider>
+
 </section>
 
 {/* Раздел баннеров */}

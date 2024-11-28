@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../style/GaragePage.css";
+import products from "../data/products";
+import categories from "../data/categories";
 
 const GaragePage = () => {
   const [scooters, setScooters] = useState([]);
@@ -10,6 +12,7 @@ const GaragePage = () => {
   useEffect(() => {
     // Загружаем список скутеров из localStorage
     const storedScooters = JSON.parse(localStorage.getItem("garage")) || [];
+    console.log("Сохраненные скутеры:", storedScooters); // Для отладки
     setScooters(storedScooters);
   }, []);
 
@@ -25,14 +28,50 @@ const GaragePage = () => {
   };
 
   const selectScooter = (index) => {
-    setSelectedScooter(scooters[index]);
-    // Фильтрация деталей (пример: запрос к API или локальный фильтр)
-    const filteredDetails = mockDetails.filter(
-      (detail) =>
-        detail.type === scooters[index].type &&
-        detail.brand === scooters[index].brand
+    const selected = scooters[index];
+
+    if (!selected || !selected.type || !selected.brand || !selected.model) {
+      console.error("Выбранный скутер содержит некорректные данные", selected);
+      return;
+    }
+
+    setSelectedScooter(selected);
+    updateDetails(selected);
+  };
+
+  const updateDetails = (scooter) => {
+    if (!scooter.type || !scooter.brand || !scooter.model) {
+      console.error("Недостаточно данных для фильтрации");
+      return;
+    }
+
+    // Фильтрация по продуктам из products.js
+    const productDetails = products.filter(
+      (product) =>
+        product.type === scooter.type &&
+        product.brand?.includes(scooter.brand) &&
+        product.model?.includes(scooter.model)
     );
-    setDetails(filteredDetails);
+
+    // Фильтрация по категориям из categories.js
+    const categoryDetails = categories.flatMap((category) =>
+      category.products.filter(
+        (product) =>
+          product.type === scooter.type &&
+          product.brand?.includes(scooter.brand) &&
+          product.model?.includes(scooter.model)
+      )
+    );
+
+    // Объединяем результаты и убираем дубликаты по id
+    const combinedDetails = [
+      ...productDetails,
+      ...categoryDetails.filter(
+        (detail) => !productDetails.some((pd) => pd.id === detail.id)
+      ),
+    ];
+
+    setDetails(combinedDetails);
   };
 
   const removeScooter = (index) => {
@@ -44,16 +83,6 @@ const GaragePage = () => {
       setDetails([]);
     }
   };
-
-  // Пример данных деталей (замените на реальные данные)
-  const mockDetails = [
-    { id: 1, name: "Запчасть 1", type: "Скутер", brand: "Honda" },
-    { id: 2, name: "Запчасть 2", type: "Скутер", brand: "Yamaha" },
-  ];
-
-  // Популярные бренды и модели
-  const popularBrands = ["Honda", "Yamaha", "Suzuki", "Kawasaki", "BMW"];
-  const popularModels = ["Dio", "Aerox", "Burgman", "Zuma", "Riva"];
 
   return (
     <div className="garage-container">
@@ -75,7 +104,6 @@ const GaragePage = () => {
               <option value="Мотоцикл">Мотоцикл</option>
             </select>
 
-            {/* Поле для выбора или ввода бренда */}
             <input
               type="text"
               placeholder="Бренд"
@@ -86,12 +114,11 @@ const GaragePage = () => {
               }
             />
             <datalist id="brand-list">
-              {popularBrands.map((brand, index) => (
+              {["Honda", "Yamaha", "Suzuki", "Kawasaki", "BMW"].map((brand, index) => (
                 <option key={index} value={brand} />
               ))}
             </datalist>
 
-            {/* Поле для выбора или ввода модели */}
             <input
               type="text"
               placeholder="Модель"
@@ -102,7 +129,7 @@ const GaragePage = () => {
               }
             />
             <datalist id="model-list">
-              {popularModels.map((model, index) => (
+              {["Dio", "Aerox", "Burgman", "Zuma", "Riva"].map((model, index) => (
                 <option key={index} value={model} />
               ))}
             </datalist>
@@ -119,9 +146,7 @@ const GaragePage = () => {
                 <li key={index}>
                   <button
                     onClick={() => selectScooter(index)}
-                    className={
-                      selectedScooter === scooter ? "selected" : ""
-                    }
+                    className={selectedScooter === scooter ? "selected" : ""}
                   >
                     {scooter.type} {scooter.brand} {scooter.model}
                   </button>
@@ -145,7 +170,15 @@ const GaragePage = () => {
             {details.length > 0 ? (
               <ul>
                 {details.map((detail) => (
-                  <li key={detail.id}>{detail.name}</li>
+                  <li key={detail.id}>
+                    <div className="products-card">
+                      <img src={detail.image} alt={detail.name} />
+                      <h4>{detail.name}</h4>
+                      <p>Цена: {detail.price}</p>
+                      <p>В наличии: {detail.stock}</p>
+                      <p>Артикул: {detail.article}</p>
+                    </div>
+                  </li>
                 ))}
               </ul>
             ) : (

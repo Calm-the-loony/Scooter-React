@@ -8,13 +8,21 @@ import scooterIcon from "../image/scooter.png";
 import cartIcon from "../image/cart.png";
 import userIcon from "../image/free-icon-user-2603906.png";
 import { useNavigate } from "react-router-dom";
-import { CartContext } from "../context/CartContext"; 
+import { CartContext } from "../context/CartContext";
+import products from "../data/products"; 
+import categories from "../data/categories";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { cartItems } = useContext(CartContext); // Получаем данные из контекста корзины
-  const navigate = useNavigate(); // Хук для навигации
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const { cartItems } = useContext(CartContext);
+  const navigate = useNavigate();
+
+  const allProducts = products.concat(
+    categories.flatMap(category => category.products || []) // Предположим, что category.products содержит товары
+  );
 
   useEffect(() => {
     const header = document.getElementById("header");
@@ -43,7 +51,6 @@ const Header = () => {
 
     window.addEventListener("scroll", scrollHandler);
 
-    // Получение геопозиции
     fetch("http://ip-api.com/json/?lang=ru")
       .then((response) => response.json())
       .then((data) => {
@@ -80,16 +87,42 @@ const Header = () => {
   };
 
   const handleCartClick = () => {
-    navigate("/cart"); // Переход на страницу корзины
+    navigate("/cart");
   };
 
   const handleFavoriteClick = () => {
-    navigate("/favorites"); // Переход на страницу избранного
+    navigate("/favorites");
   };
 
   const handleGarageClick = () => {
-    navigate("/garage"); // Переход на страницу гаража
+    navigate("/garage");
   };
+
+    // Обработчик поиска
+  const handleSearchChange = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    if (query) {
+      const results = allProducts.filter(
+        (product) =>
+          (product.name && product.name.toLowerCase().includes(query)) ||
+          (product.article && product.article.toLowerCase().includes(query))
+      );
+      setSearchResults(results);
+    } else {
+      setSearchResults([]);
+    }
+  };
+
+  const handleSearchClick = () => {
+    if (searchResults.length > 0) {
+      navigate("/search-results", { state: { results: searchResults } });
+    } else {
+      alert("Ничего не найдено");
+    }
+  };
+
 
   return (
     <>
@@ -100,12 +133,18 @@ const Header = () => {
 
         <div className="action-container">
           <div className="search-bar">
-            <input type="text" id="text-to-find" placeholder="Поиск..." />
+            <input
+              type="text"
+              id="text-to-find"
+              placeholder="Поиск..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
             <img
               src={searchIcon}
               className="search-icon"
               alt="Поиск"
-              onClick={() => console.log("Поиск")}
+              onClick={handleSearchClick}
             />
           </div>
 

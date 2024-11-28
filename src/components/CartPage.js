@@ -39,7 +39,7 @@ const CartPage = () => {
                   <img src={item.image} alt={item.name} className="cart-product-image" />
                 </td>
                 <td>{item.name}</td>
-                <td>{item.price} ₽</td>
+                <td>{item.price} </td>
                 <td>
                   <div className="quantity-container">
                     <button className="quantity-button" onClick={() => decreaseQuantity(item.id)}>-</button>

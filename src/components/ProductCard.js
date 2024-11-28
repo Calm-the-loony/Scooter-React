@@ -7,17 +7,27 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
   const navigate = useNavigate();  // Инициализация хука для навигации
 
   // Функция для добавления товара в избранное
-  const handleAddToFavorites = () => {
+  const handleAddToFavorites = (event) => {
+    event.stopPropagation(); // Останавливаем всплытие события
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     const isFavorite = favorites.some((item) => item.id === id);
-
+  
     if (!isFavorite) {
-      favorites.push({ id, name, price, image });
+      // Добавляем товар в избранное с учетом stock
+      favorites.push({ id, name, price, image, stock });
       localStorage.setItem("favorites", JSON.stringify(favorites));
       alert("Товар добавлен в избранное!");
     } else {
       alert("Товар уже в избранном!");
     }
+  };
+  
+
+  // Функция для добавления товара в корзину
+  const handleAddToCart = (event) => {
+    event.stopPropagation();  // Останавливаем всплытие события
+    addToCart({ id, name, price, image });
+    alert("Товар добавлен в корзину!");
   };
 
   // Функция для открытия карточки товара
@@ -26,7 +36,7 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
   };
 
   return (
-    <div className="product-card" data-id={id} onClick={handleCardClick}> {/* При клике вызываем handleCardClick */}
+    <div className="product-card" data-id={id} onClick={handleCardClick}>
       <img src={image} alt={name} />
       <div className="details">
         <p className="category">{category}</p>
@@ -35,7 +45,7 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
           <div className="original-price-wrapper no-discount">
             <span className="original-prices">{price} ₽</span>
           </div>
-          <button className="add-to-cart" onClick={() => addToCart({ id, name, price, image })}>
+          <button className="add-to-cart" onClick={handleAddToCart}>
             <i className="fas fa-shopping-cart"></i>
           </button>
         </div>

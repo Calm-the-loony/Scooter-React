@@ -1,37 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { CartContext } from "../context/CartContext"; // Импорт контекста корзины
 import "../style/FavoritesPage.css";
 
 const FavoritesPage = () => {
-  const [favoriteItems, setFavoriteItems] = useState([]);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // Получение данных избранного из localStorage
+  const [favoriteItems, setFavoriteItems] = useState(() => {
     const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    setFavoriteItems(storedFavorites);
-  }, []);
+    return storedFavorites;
+  });
 
+  const { addToCart } = useContext(CartContext); // Использование контекста корзины
+
+  // Функция для удаления товара из избранного
   const removeFromFavorites = (id) => {
     const updatedFavorites = favoriteItems.filter((item) => item.id !== id);
     setFavoriteItems(updatedFavorites);
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
-  const addToCart = (id) => {
-    const itemToAdd = favoriteItems.find((item) => item.id === id);
-    if (itemToAdd) {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const existingItem = cart.find((cartItem) => cartItem.id === id);
+  // Функция для добавления товара в корзину
+  const handleAddToCart = (item) => {
+    addToCart({ ...item, quantity: 1 }); // Добавляем товар в корзину через контекст
+    alert("Товар добавлен в корзину!");
+  };
 
-      if (existingItem) {
-        existingItem.quantity += 1; // Увеличиваем количество
-      } else {
-        cart.push({ ...itemToAdd, quantity: 1 }); // Добавляем новый товар
-      }
+  // Функция для добавления товара в избранное
+  const handleAddToFavorites = (item) => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const isFavorite = favorites.some((fav) => fav.id === item.id);
 
-      localStorage.setItem("cart", JSON.stringify(cart));
-      alert("Товар добавлен в корзину");
+    if (!isFavorite) {
+      favorites.push(item);
+      setFavoriteItems(favorites);
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+      alert("Товар добавлен в избранное!");
+    } else {
+      alert("Товар уже в избранном!");
     }
   };
 
@@ -39,18 +43,6 @@ const FavoritesPage = () => {
     <div className="favorites-container">
       <div className="favorites-header">
         <h2 className="favorites-title">Избранное</h2>
-        {/* <div className="breadcrumbs">
-          <a
-            href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              navigate("/");
-            }}
-          >
-            Главная
-          </a>{" "}
-          &raquo; <span>Избранное</span>
-        </div> */}
       </div>
       <table id="favorite-list" className="favorites-table">
         <thead>
@@ -67,26 +59,17 @@ const FavoritesPage = () => {
             favoriteItems.map((item) => (
               <tr key={item.id}>
                 <td>
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="favorite-product-image"
-                  />
+                  <img src={item.image} alt={item.name} className="favorite-product-image" />
                 </td>
                 <td>{item.name}</td>
-                <td>{item.price} ₽</td>
-                <td>{item.stock > 0 ? "В наличии" : "Нет в наличии"}</td>
+                <td>{item.price}</td>
+                <td>{item.stock > 0 ? `В наличии (${item.stock} шт)` : "Нет в наличии"}</td>
                 <td>
-                  <button
-                    className="remove-from-favorites"
-                    onClick={() => removeFromFavorites(item.id)}
-                  >
-                    Удалить
-                  </button>
+                  <button className="remove-from-favoritess" onClick={() => removeFromFavorites(item.id)}>Удалить</button>
                   {item.stock > 0 && (
                     <button
-                      className="add-to-cart"
-                      onClick={() => addToCart(item.id)}
+                      className="add-to-cart-fav"
+                      onClick={() => handleAddToCart(item)} // Передаем весь объект товара
                     >
                       В корзину
                     </button>
@@ -96,9 +79,7 @@ const FavoritesPage = () => {
             ))
           ) : (
             <tr>
-              <td colSpan="5" style={{ textAlign: "center" }}>
-                Ваш список избранного пуст.
-              </td>
+              <td colSpan="5" style={{ textAlign: "center" }}>Ваш список избранного пуст.</td>
             </tr>
           )}
         </tbody>

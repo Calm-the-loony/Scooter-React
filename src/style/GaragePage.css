@@ -1,27 +1,37 @@
+/* Общие стили */
 .garage-container {
   padding: 20px;
-  margin-top: 200px; /* Опускаем контейнер на 60 пикселей */
+  margin-top: 100px; /* Установим отступ сверху для эстетики */
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
   background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
 }
 
 .garage-header h2 {
   margin-bottom: 20px;
   text-align: center;
   color: #333;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
 
+/* Форма добавления скутера */
 .add-scooter-form {
   margin-bottom: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .add-scooter-form h3 {
   margin-bottom: 10px;
-  color: #555;
+  color: #444;
+  font-size: 1.5rem;
 }
 
 .add-scooter-form select,
@@ -30,28 +40,37 @@
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: calc(33% - 20px);
+  width: calc(32% - 20px);
   box-sizing: border-box;
+  font-size: 1rem;
+}
+
+.add-scooter-form input[type="text"] {
+  width: calc(32% - 20px);
 }
 
 .add-scooter-form button {
-  padding: 10px 15px;
+  padding: 10px 20px;
   background-color: #4b4a4a;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 20px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 15px;
 }
 
 .add-scooter-form button:hover {
-  background-color: #333; /* Небольшой эффект затемнения */
+  background-color: #333;
+  transform: translateY(-2px);
 }
 
+/* Список скутеров */
 .garage-list h3 {
   margin-bottom: 10px;
-  color: #555;
+  color: #444;
+  font-size: 1.5rem;
 }
 
 .garage-list ul {
@@ -61,10 +80,18 @@
 }
 
 .garage-list li {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #fff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.garage-list li:nth-child(even) {
+  background-color: #f4f4f4;
 }
 
 .garage-list button {
@@ -72,26 +99,88 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  background-color: #e0e0e0;
+  color: #333;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.garage-list button:hover {
+  background-color: #ccc;
 }
 
 .garage-list .selected {
   font-weight: bold;
   background-color: #ddd;
+  color: #222;
 }
 
+/* Детали выбранного скутера */
 .garage-details {
   margin-top: 20px;
-  padding: 15px;
+  padding: 20px;
   background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .garage-details h3 {
-  color: #555;
+  color: #333;
+  font-size: 1.6rem;
+  margin-bottom: 15px;
 }
 
+/* Стили для списка продуктов */
 .garage-details ul {
-  list-style: disc;
-  margin-left: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Два элемента в ряду */
+  gap: 20px; /* Пробел между карточками */
+}
+
+/* Каждая карточка продукта */
+.garage-details li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+  width: 90%; /* Задаем карточке 100% ширины относительно колонки */
+  box-sizing: border-box;
+}
+
+/* Стили для изображения */
+.garage-details img {
+  width: 250px; /* Картинка занимает всю доступную ширину карточки */
+  height: 200px; /* Устанавливаем фиксированную высоту */
+  border-radius: 8px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+/* Стили для текста внутри карточки */
+.products-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.products-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.products-card p {
+  margin: 2px 0;
+  font-size: 0.9rem;
+  color: #555;
+  text-align: center;
 }

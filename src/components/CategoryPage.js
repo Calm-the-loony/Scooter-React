@@ -1,15 +1,24 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import categories from "../data/categories";
 import ProductCard from "../components/ProductCard"; // Импортируем компонент ProductCard
 import "../style/CategoryPage.css";
 import CatImage from "../image/free-icon-black-cat-3704886.png";
 import shkivyImage from "../image/product/shkivy.webp";
 
-
 const CategoryPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const location = useLocation(); // Используем хук useLocation для получения данных маршрута
+  const initialCategoryId = location.state?.categoryId || null; // Получаем categoryId из state, если он есть
+
+  // Инициализация состояния с учетом переданного categoryId
+  const [selectedCategory, setSelectedCategory] = useState(initialCategoryId);
   const [filters, setFilters] = useState({ minPrice: "", maxPrice: "", sort: "default" });
+
+  useEffect(() => {
+    if (initialCategoryId) {
+      setSelectedCategory(initialCategoryId);
+    }
+  }, [initialCategoryId]);
 
   const handleCategoryClick = (categoryId) => {
     setSelectedCategory(categoryId);

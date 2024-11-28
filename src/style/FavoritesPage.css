@@ -1,66 +1,109 @@
 .favorites-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    margin-top: 50px;
-  }
-  
-  .favorites-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .favorites-title {
-    font-size: 24px;
-    font-weight: bold;
-    padding: 30px;
-    margin-left: -30px;
-  }
-  
-  .breadcrumbs {
-    font-size: 16px;
-    padding-top: 115px;
-  }
-  
-  #favorite-list {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  #favorite-list th,
-  #favorite-list td {
-    border: 1px solid #ddd;
-    padding: 9px;
-    text-align: left;
-  }
-  
-  #favorite-list th {
-    background-color: #f2f2f2;
-  }
-  
-  #favorite-list td {
-    vertical-align: middle;
-  }
-  
-  .favorite-product-image {
-    width: 80px;
-    height: auto;
-  }
-  
-  .remove-from-favorites {
-    background-color: #45EFDA;
-    color: #000;
-    border: none;
-    padding: 5px 10px;
-    margin: 0 5px;
-  }
-  
-  /* .add-to-cart {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-  }
-   */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 80px;
+}
+
+.favorites-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.favorites-title {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 30px;
+  margin-left: -30px;
+}
+
+.breadcrumbs {
+  font-size: 16px;
+  padding-top: 115px;
+}
+
+#favorite-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#favorite-list th,
+#favorite-list td {
+  border: 1px solid #ddd;
+  padding: 9px;
+  text-align: left;
+}
+
+#favorite-list th {
+  background-color: #f2f2f2;
+}
+
+#favorite-list td {
+  vertical-align: middle;
+}
+
+/* Увеличиваем изображение товара в избранном */
+.favorite-product-image {
+  width: 150px;  /* Увеличиваем ширину */
+  height: 150px;  /* Устанавливаем высоту */
+  object-fit: cover;  /* Обрезаем изображение, чтобы оно не растягивалось */
+  margin-right: 10px;  /* Добавляем отступ справа */
+}
+
+/* Стили для кнопок "Удалить из избранного" и "В корзину" */
+
+/* Кнопка удаления из избранного */
+.remove-from-favoritess {
+  font-size: 16px;  /* Размер текста */
+  padding: 12px 20px;  /* Отступы для кнопки */
+  cursor: pointer;
+  border-radius: 5px;  /* Скругленные углы */
+  border: none;
+  background-color: #45EFDA; /* Бирюзовый цвет */
+  color: #000;
+  display: block;
+  width: 100%;  /* Кнопка занимает всю ширину ячейки */
+  box-sizing: border-box;  /* Учитываем отступы и границы в ширину */
+  margin-bottom: 10px;  /* Расстояние между кнопками */
+  transition: background-color 0.3s ease;  /* Плавное изменение фона при наведении */
+}
+
+.remove-from-favoritess:hover {
+  background-color: #33c1b4; /* Темнее при наведении */
+}
+
+/* Кнопка добавления в корзину */
+.add-to-cart-fav {
+  font-size: 16px;  /* Размер текста */
+  padding: 12px 20px;  /* Отступы для кнопки */
+  cursor: pointer;
+  border-radius: 5px;  /* Скругленные углы */
+  border: none;
+  background-color: #333;/* Серый цвет */
+  color: #ffffff;
+  display: block;
+  width: 100%;  /* Кнопка занимает всю ширину ячейки */
+  box-sizing: border-box;  /* Учитываем отступы и границы в ширину */
+  margin-bottom: 10px;  /* Расстояние между кнопками */
+  transition: background-color 0.3s ease;  /* Плавное изменение фона при наведении */
+}
+
+.add-to-cart-fav:hover {
+  background-color: #999999; /* Темнее при наведении */
+}
+
+.cart-total {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.breadcrumbs a {
+  text-decoration: none; /* Убирает подчеркивание */
+  color: inherit; /* Сохраняет цвет текста */
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline; /* При наведении добавляет подчеркивание (опционально) */
+}

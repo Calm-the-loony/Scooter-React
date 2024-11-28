@@ -80,7 +80,7 @@ const Accordion = ({ product }) => {
 const ProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const { addToCart } = useContext(CartContext); // Используем CartContext для добавления в корзину
+  const { addToCart } = useContext(CartContext);
 
   const [favorites, setFavorites] = useState(() => {
     const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -97,7 +97,8 @@ const ProductPage = () => {
   }
 
   const handleAddToCart = () => {
-    addToCart(product); // Добавляем товар в корзину
+    addToCart(product);
+    alert("Товар добавлен в корзину!");
   };
 
   const handleAddToFavorites = () => {
@@ -106,6 +107,7 @@ const ProductPage = () => {
       const updatedFavorites = [...favorites, product];
       setFavorites(updatedFavorites);
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      alert("Товар добавлен в избранное!");
     } else {
       alert("Этот товар уже в избранном!");
     }
