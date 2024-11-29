@@ -7,6 +7,7 @@ const AccountPage = () => {
   const [userData, setUserData] = useState(null);
   const [activeTab, setActiveTab] = useState('account-section');
   const [isEditing, setIsEditing] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false); // Добавляем состояние для проверки на админа
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,12 +17,14 @@ const AccountPage = () => {
 
     if (authStatus && user) {
       setUserData(user);
+      setIsAdmin(localStorage.getItem('isAdmin') === 'true'); // Проверяем, является ли пользователь администратором
     }
   }, []);
 
   const logout = () => {
     localStorage.setItem('isAuthenticated', 'false');
     setIsAuthenticated(false);
+    setIsAdmin(false);
     setUserData(null);
     navigate('/login');
   };
@@ -56,6 +59,18 @@ const AccountPage = () => {
     setIsEditing(false);
   };
 
+  const handleOrderStatusChange = (orderId, newStatus) => {
+    const updatedOrders = userData.orders.map((order) => {
+      if (order.id === orderId) {
+        return { ...order, status: newStatus };
+      }
+      return order;
+    });
+    const updatedUserData = { ...userData, orders: updatedOrders };
+    setUserData(updatedUserData);
+    localStorage.setItem('userData', JSON.stringify(updatedUserData));
+  };
+
   return (
     <div className="account-page">
       <h1>Личный кабинет</h1>
@@ -81,6 +96,14 @@ const AccountPage = () => {
               >
                 Изменить пароль
               </div>
+              {isAdmin && (
+                <div
+                  className={`account-tab ${activeTab === 'admin-panel' ? 'active' : ''}`}
+                  onClick={() => handleTabClick('admin-panel')}
+                >
+                  Админ-панель
+                </div>
+              )}
             </div>
 
             <section className={`account-section ${activeTab === 'account-section' ? 'active' : ''}`}>
@@ -153,53 +176,52 @@ const AccountPage = () => {
             </section>
 
             <section className={`account-orders-section ${activeTab === 'account-orders-section' ? 'active' : ''}`}>
-  <h2 className="account-subheader">Мои заказы</h2>
-  <div className="account-orders">
-    {userData?.orders?.length ? (
-      userData.orders.map((order, index) => (
-        <div key={index} className="order-card">
-          <h3 className="order-title">Заказ №{order.id}</h3>
-          <div className="order-info">
-            <p>
-              <span>Дата:</span> {order.date}
-            </p>
-            <p>
-              <span>Статус:</span>{' '}
-              <span
-                style={{
-                  color: order.status === 'Доставлен' ? 'green' : 'orange',
-                  fontWeight: 'bold',
-                }}
-              >
-                {order.status}
-              </span>
-            </p>
-            <p>
-              <span>Способ доставки:</span> {order.deliveryMethod}
-            </p>
-            <p>
-              <span>Способ оплаты:</span> {order.paymentMethod}
-            </p>
-            <p>
-              <span>Сумма:</span> {order.total} ₽
-            </p>
-          </div>
-          <h4>Товары:</h4>
-          <ul className="order-items">
-            {order.items.map((item) => (
-              <li key={item.id}>
-                <span>{item.name}</span> — {item.quantity} шт. ({item.price} ₽/шт)
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))
-    ) : (
-      <p>У вас пока нет заказов.</p>
-    )}
-  </div>
-</section>
-
+              <h2 className="account-subheader">Мои заказы</h2>
+              <div className="account-orders">
+                {userData?.orders?.length ? (
+                  userData.orders.map((order, index) => (
+                    <div key={index} className="order-card">
+                      <h3 className="order-title">Заказ №{order.id}</h3>
+                      <div className="order-info">
+                        <p>
+                          <span>Дата:</span> {order.date}
+                        </p>
+                        <p>
+                          <span>Статус:</span>{' '}
+                          <span
+                            style={{
+                              color: order.status === 'Доставлен' ? 'green' : 'orange',
+                              fontWeight: 'bold',
+                            }}
+                          >
+                            {order.status}
+                          </span>
+                        </p>
+                        <p>
+                          <span>Способ доставки:</span> {order.deliveryMethod}
+                        </p>
+                        <p>
+                          <span>Способ оплаты:</span> {order.paymentMethod}
+                        </p>
+                        <p>
+                          <span>Сумма:</span> {order.total} ₽
+                        </p>
+                      </div>
+                      <h4>Товары:</h4>
+                      <ul className="order-items">
+                        {order.items.map((item) => (
+                          <li key={item.id}>
+                            <span>{item.name}</span> — {item.quantity} шт. ({item.price} ₽/шт)
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))
+                ) : (
+                  <p>У вас пока нет заказов.</p>
+                )}
+              </div>
+            </section>
 
             <section className={`account-password-section ${activeTab === 'account-password-section' ? 'active' : ''}`}>
               <h2 className="account-subheader">Изменить пароль</h2>
@@ -225,6 +247,25 @@ const AccountPage = () => {
                 <button type="submit" className="account-button">Сохранить пароль</button>
               </form>
             </section>
+
+            {isAdmin && (
+              <section className={`admin-panel ${activeTab === 'admin-panel' ? 'active' : ''}`}>
+                <h2 className="account-subheader">Админ-панель</h2>
+                <div className="admin-orders">
+                  {userData?.orders?.length ? (
+                    userData.orders.map((order) => (
+                      <div key={order.id} className="order-card">
+                        <h4>Заказ №{order.id}</h4>
+                        <p>Статус: {order.status}</p>
+                        <button onClick={() => handleOrderStatusChange(order.id, 'Доставлен')}>Отметить как доставленный</button>
+                      </div>
+                    ))
+                  ) : (
+                    <p>Нет заказов для администрирования.</p>
+                  )}
+                </div>
+              </section>
+            )}
 
             <button onClick={logout} className="logout-btn">
               <i className="fa fa-sign-out-alt"></i> Выйти

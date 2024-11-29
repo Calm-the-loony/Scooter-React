@@ -415,115 +415,7 @@ body {
 }
 
 
-/* Таблица для списка товаров в избранном */
-#favorite-list {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0;
-  padding: 0;
-}
 
-#favorite-list th, #favorite-list td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-#favorite-list th {
-  background-color: #f2f2f2;
-}
-
-#favorite-list td {
-  vertical-align: middle;
-}
-
-.favorite-product-image {
-  width: 50px;
-  height: auto;
-
-}
-
-.remove-from-favorites {
-  background-color: #45EFDA;
-  color: rgb(0, 0, 0);
-  border: none;
-  padding: 5px 10px;
-  margin: 0 5px}
-
-  .add-to-favorites i.active {
-    color: red;
-}
-
-
-#cart-list {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-#cart-list th, #cart-list td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-#cart-list th {
-  background-color: #f2f2f2;
-}
-
-#cart-list td {
-  vertical-align: middle;
-}
-
-.cart-product-image {
-  width: 50px;
-  height: auto;
-}
-
-.remove-from-cart {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  margin: 0 5px;
-  cursor: pointer;
-}
-
-.remove-from-cart:hover {
-  background-color: #000000;
-}
-.cart-product-image {
-  width: 50px;
-  height: auto;
-}
-
-
-#scooter-form {
-  margin-bottom: 20px;
-}
-
-#scooter-form label {
-  display: block;
-  margin-top: 10px;
-}
-
-#scooter-form select {
-  width: 100%;
-  padding: 8px; 
-  margin-top: 5px;
-  border: 1px solid #ddd; 
-  border-radius: 5px; 
-}
-
-#add-scooter, #login-button {
-  display: block;
-  margin: 10px auto;
-  padding: 10px 20px;
-  background-color: #45EFDA;
-  color: rgb(0, 0, 0);
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-}
 
 #login-button a {
   display: block; /* Ссылка занимает всю кнопку */
@@ -555,54 +447,6 @@ body {
   max-width: 100%;
   height: auto;
   margin-bottom: 20px;
-}
-
-/* Выравнивание ячейки таблицы */
-table td {
-  vertical-align: middle;
-}
-
-/* Центрирование изображения в ячейке таблицы */
-td img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-/*размер кнопок +- в модальном окне*/
-.quantity-change {
-padding: 4px 4px !important;
-margin-right: 10px;
-margin-left: 10px;
-align-items: center;
-}
-
-.cart-total {
-  margin-top: 20px;
-  text-align: right;
-  margin-right: 40px;
-}
-
-.buy-button {
-  padding: 10px 20px;
-  background-color: #45EFDA;
-  color: rgb(0, 0, 0);
-  border: none;
-  cursor: pointer;
-}
-
-.buy-button:hover {
-  background-color: #45EFDA;
-}
-
-.highlighted {
-  background-color: #45EFDA;
-  padding: 2px;
-  border-radius: 3px;
-  transition: background-color 0.3s ease;
-}
-
-.highlighted:hover {
-  background-color: #45EFDA;
 }
 
 /* Поисковик */
@@ -652,16 +496,22 @@ align-items: center;
 /* Подменю */
 .submenu {
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
   height: auto;
   pointer-events: none;
   margin-left: 55px;
   margin-top: 48px; 
+  visibility: hidden;
+  transform: translateY(-10px);
+  display: none;
 }
 
 .submenu.visible {
   opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
   pointer-events: auto;
+  display: block;
 }
 
 .submenu ul {

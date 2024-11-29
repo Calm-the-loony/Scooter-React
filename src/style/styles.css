@@ -9,7 +9,7 @@
   height: 100vh;
   background-color: #f4f4f4;
   padding: 20px;
-  margin-top: 50px;
+  margin-top: 250px;
 }
 
 .form-container h2 {
@@ -60,7 +60,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 100%;
+  width: 300px;
   max-width: 300px; /* Максимальная ширина кнопок */
   min-width: 200px; /* Минимальная ширина кнопок для единообразия */
   margin: 10px auto;
@@ -458,4 +458,117 @@
   .order-info {
     font-size: 14px;
   }
+}
+
+
+/* === Стиль для страницы регистрации === */
+.register-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+  padding: 20px;
+  margin-top: 50px;
+}
+
+.register-page h1 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.register-page form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.register-page label {
+  font-size: 14px;
+  color: #555;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.register-page input,
+.register-page select {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.register-page button {
+  background-color: #45efda;
+  color: #333;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.register-page button:hover {
+  background-color: #33b5a0;
+}
+
+
+.login-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+.login-page h1 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 20px;
+}
+.login-page form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.login-page input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.login-page button {
+  background-color: #45efda;
+  color: #333;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+.login-page button:hover {
+  background-color: #33b5a0;
 }

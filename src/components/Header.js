@@ -9,7 +9,7 @@ import cartIcon from "../image/cart.png";
 import userIcon from "../image/free-icon-user-2603906.png";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
-import products from "../data/products"; 
+import products from "../data/products";
 import categories from "../data/categories";
 
 const Header = () => {
@@ -21,7 +21,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const allProducts = products.concat(
-    categories.flatMap(category => category.products || []) // Предположим, что category.products содержит товары
+    categories.flatMap((category) => category.products || [])
   );
 
   useEffect(() => {
@@ -29,28 +29,30 @@ const Header = () => {
     const submenu = document.querySelector(".submenu");
     const locationContainer = document.getElementById("location-container");
 
-    const scrollHandler = () => {
+    const updateClasses = () => {
       const currentScrollPos = window.pageYOffset;
 
       if (currentScrollPos < 100) {
         header.style.height = "100px";
         header.classList.remove("collapsed");
         header.classList.add("expanded");
-        submenu.classList.add("visible");
-        locationContainer.classList.remove("hidden");
-        locationContainer.classList.add("visible");
+        submenu?.classList.add("visible");
+        locationContainer?.classList.remove("hidden");
+        locationContainer?.classList.add("visible");
       } else {
         header.style.height = "50px";
         header.classList.remove("expanded");
         header.classList.add("collapsed");
-        submenu.classList.remove("visible");
-        locationContainer.classList.remove("visible");
-        locationContainer.classList.add("hidden");
+        submenu?.classList.remove("visible");
+        locationContainer?.classList.remove("visible");
+        locationContainer?.classList.add("hidden");
       }
     };
 
-    window.addEventListener("scroll", scrollHandler);
+    updateClasses(); // Инициализация при загрузке страницы
+    window.addEventListener("scroll", updateClasses);
 
+    // Получение города пользователя
     fetch("http://ip-api.com/json/?lang=ru")
       .then((response) => response.json())
       .then((data) => {
@@ -63,7 +65,7 @@ const Header = () => {
       });
 
     return () => {
-      window.removeEventListener("scroll", scrollHandler);
+      window.removeEventListener("scroll", updateClasses);
     };
   }, []);
 
@@ -77,28 +79,17 @@ const Header = () => {
 
   const enterCityManually = () => {
     const manualCity = prompt("Введите название вашего города:");
-    if (manualCity) {
-      selectCity(manualCity);
-    }
+    if (manualCity) selectCity(manualCity);
   };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleCartClick = () => {
-    navigate("/cart");
-  };
+  const handleCartClick = () => navigate("/cart");
+  const handleFavoriteClick = () => navigate("/favorites");
+  const handleGarageClick = () => navigate("/garage");
 
-  const handleFavoriteClick = () => {
-    navigate("/favorites");
-  };
-
-  const handleGarageClick = () => {
-    navigate("/garage");
-  };
-
-    // Обработчик поиска
   const handleSearchChange = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
@@ -123,11 +114,10 @@ const Header = () => {
     }
   };
 
-
   return (
     <>
       <header className="header" id="header">
-        <div id="parallelogram">
+        <div id="parallelogram" onClick={() => navigate("/")}>
           <img src={logoImage} alt="Логотип" className="logo-image" />
         </div>
 
@@ -135,7 +125,6 @@ const Header = () => {
           <div className="search-bar">
             <input
               type="text"
-              id="text-to-find"
               placeholder="Поиск..."
               value={searchQuery}
               onChange={handleSearchChange}
@@ -149,39 +138,35 @@ const Header = () => {
           </div>
 
           <div className="user-actions">
-            <button id="favorite-button" onClick={handleFavoriteClick}>
+            <button onClick={handleFavoriteClick}>
               <img src={favoriteIcon} alt="Избранное" />
             </button>
-            <button id="scooter-button" onClick={handleGarageClick}>
+            <button onClick={handleGarageClick}>
               <img src={scooterIcon} alt="Модель скутера" />
             </button>
-            <button id="cart-button" onClick={handleCartClick}>
+            <button onClick={handleCartClick}>
               <img src={cartIcon} alt="Корзина" />
-              <span id="cart-count">{cartItems.length}</span>
+              <span>{cartItems.length}</span>
             </button>
-            <button id="account-button" onClick={() => navigate("/account")}>
+            <button onClick={() => navigate("/account")}>
               <img src={userIcon} alt="Личный кабинет" />
             </button>
           </div>
         </div>
 
         <div id="location-container">
-          <span id="current-city" className="location-text">
-            Ваш город: <span id="city-name">...</span>
-          </span>
-          <button id="change-city-button" onClick={openCityModal}>
-            Сменить
-          </button>
-        </div>
+  <span className="location-text">
+    Ваш город: <span id="city-name">...</span>
+  </span>
+  <button id="change-city-button" onClick={openCityModal}>Сменить</button>
+</div>
 
-        {/* Бургер-меню кнопка */}
         <div className="burger-menu" onClick={toggleMenu}>
           <div className={`line ${isMenuOpen ? "open" : ""}`}></div>
           <div className={`line ${isMenuOpen ? "open" : ""}`}></div>
           <div className={`line ${isMenuOpen ? "open" : ""}`}></div>
         </div>
 
-        {/* Меню, которое появляется при открытии бургер-меню */}
         <div className={`submenu ${isMenuOpen ? "visible" : ""}`}>
           <ul>
             <li>
@@ -194,7 +179,7 @@ const Header = () => {
               <a href="/shipping">Доставка</a>
             </li>
             <li>
-              <a href="/accessories">Расходники</a>
+              <a href="/legal">Защита данных</a>
             </li>
             <li>
               <a href="/">Главная</a>
@@ -207,26 +192,19 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Модальное окно выбора города */}
       {isModalOpen && (
-        <div id="city-modal" className="modal">
+        <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={closeCityModal}>
               &times;
             </span>
             <h2>Выберите ваш город</h2>
-            <input
-              type="text"
-              id="city-input"
-              placeholder="Введите название города"
-            />
-            <ul id="city-list">
+            <ul>
               <li onClick={() => selectCity("Москва")}>Москва</li>
               <li onClick={() => selectCity("Санкт-Петербург")}>
                 Санкт-Петербург
               </li>
               <li onClick={() => selectCity("Новосибирск")}>Новосибирск</li>
-              {/* Добавьте другие города */}
             </ul>
             <button onClick={enterCityManually}>Ввести вручную</button>
           </div>
