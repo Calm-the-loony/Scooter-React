@@ -136,8 +136,8 @@
   padding: 0;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Два элемента в ряду */
-  gap: 20px; /* Пробел между карточками */
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20px; 
 }
 
 /* Каждая карточка продукта */
@@ -150,14 +150,14 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f8f8f8;
-  width: 90%; /* Задаем карточке 100% ширины относительно колонки */
+  width: 90%; 
   box-sizing: border-box;
 }
 
 /* Стили для изображения */
 .garage-details img {
-  width: 250px; /* Картинка занимает всю доступную ширину карточки */
-  height: 200px; /* Устанавливаем фиксированную высоту */
+  width: 250px; 
+  height: 200px; 
   border-radius: 8px;
   object-fit: cover;
   margin-bottom: 10px;
@@ -183,4 +183,38 @@
   font-size: 0.9rem;
   color: #555;
   text-align: center;
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination-button.active {
+  background-color: #4b4a4a;
+  color: #fff;
+  font-weight: bold;
+}
+
+.pagination-button:hover {
+  background-color: #ddd;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }

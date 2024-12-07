@@ -1,28 +1,48 @@
 .search-results {
   padding: 10px;
-  padding-top: 130px; /* Добавлен отступ сверху, чтобы избежать перекрытия */
+  padding-top: 130px; /* Отступ сверху для предотвращения перекрытия */
   background-color: #f9f9f9;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .results-title {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #333;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #222;
   text-align: center;
+  font-weight: bold;
 }
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Установите фиксированное количество колонок */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 10px;
   justify-items: center;
+  width: 100%;
 }
 
+.no-results-wrapper {
+  text-align: center;
+  margin-top: 50px;
+}
 
 .no-results {
-  text-align: center;
-  font-size: 1.5rem;
-  color: #555;
-  margin-top: 50px;
+  font-size: 1.8rem;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.no-results-image {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+.no-results-image:hover {
+  opacity: 1;
 }

@@ -98,7 +98,6 @@ const ProductPage = () => {
 
   const handleAddToCart = () => {
     addToCart(product);
-    alert("Товар добавлен в корзину!");
   };
 
   const handleAddToFavorites = () => {
@@ -107,7 +106,7 @@ const ProductPage = () => {
       const updatedFavorites = [...favorites, product];
       setFavorites(updatedFavorites);
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-      alert("Товар добавлен в избранное!");
+      alert("");
     } else {
       alert("Этот товар уже в избранном!");
     }

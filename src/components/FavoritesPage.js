@@ -1,89 +1,56 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { CartContext } from "../context/CartContext"; // Импорт контекста корзины
+import React, { useState, useContext } from "react";
+import { CartContext } from "../context/CartContext";
 import "../style/FavoritesPage.css";
 
 const FavoritesPage = () => {
   const [favoriteItems, setFavoriteItems] = useState(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    return storedFavorites;
+    return JSON.parse(localStorage.getItem("favorites")) || [];
   });
 
-  const { addToCart } = useContext(CartContext); // Использование контекста корзины
+  const { addToCart } = useContext(CartContext);
 
-  // Функция для удаления товара из избранного
   const removeFromFavorites = (id) => {
     const updatedFavorites = favoriteItems.filter((item) => item.id !== id);
     setFavoriteItems(updatedFavorites);
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
-  // Функция для добавления товара в корзину
   const handleAddToCart = (item) => {
-    addToCart({ ...item, quantity: 1 }); // Добавляем товар в корзину через контекст
-    alert("Товар добавлен в корзину!");
-  };
-
-  // Функция для добавления товара в избранное
-  const handleAddToFavorites = (item) => {
-    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    const isFavorite = favorites.some((fav) => fav.id === item.id);
-
-    if (!isFavorite) {
-      favorites.push(item);
-      setFavoriteItems(favorites);
-      localStorage.setItem("favorites", JSON.stringify(favorites));
-      alert("Товар добавлен в избранное!");
-    } else {
-      alert("Товар уже в избранном!");
-    }
+    addToCart({ ...item, quantity: 1 });
+   
   };
 
   return (
     <div className="favorites-container">
-      <div className="favorites-header">
-        <h2 className="favorites-title">Избранное</h2>
-      </div>
-      <table id="favorite-list" className="favorites-table">
-        <thead>
-          <tr>
-            <th>Изображение</th>
-            <th>Название товара</th>
-            <th>Цена за штуку</th>
-            <th>Наличие на складе</th>
-            <th>Действия</th>
-          </tr>
-        </thead>
-        <tbody>
-          {favoriteItems.length ? (
-            favoriteItems.map((item) => (
-              <tr key={item.id}>
-                <td>
-                  <img src={item.image} alt={item.name} className="favorite-product-image" />
-                </td>
-                <td>{item.name}</td>
-                <td>{item.price}</td>
-                <td>{item.stock > 0 ? `В наличии (${item.stock} шт)` : "Нет в наличии"}</td>
-                <td>
-                  <button className="remove-from-favoritess" onClick={() => removeFromFavorites(item.id)}>Удалить</button>
-                  {item.stock > 0 && (
-                    <button
-                      className="add-to-cart-fav"
-                      onClick={() => handleAddToCart(item)} // Передаем весь объект товара
-                    >
-                      В корзину
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5" style={{ textAlign: "center" }}>Ваш список избранного пуст.</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <h2 className="favorites-title">Избранное</h2>
+      {favoriteItems.length ? (
+        <div className="favorites-list">
+          {favoriteItems.map((item) => (
+            <div key={item.id} className="favorite-item">
+              <img src={item.image} alt={item.name} className="favorite-image" />
+              <div className="favorite-details">
+                <p className="favorite-name">{item.name}</p>
+                <p className="favorite-price">{item.price} ₽</p>
+                <p className="favorite-stock">
+                  {item.stock > 0 ? `В наличии (${item.stock} шт)` : "Нет в наличии"}
+                </p>
+              </div>
+              <div className="favorite-actions">
+                <button className="favorite-remove" onClick={() => removeFromFavorites(item.id)}>
+                  Удалить
+                </button>
+                {item.stock > 0 && (
+                  <button className="favorite-add-to-cart" onClick={() => handleAddToCart(item)}>
+                    В корзину
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="favorites-empty">Ваш список избранного пуст.</p>
+      )}
     </div>
   );
 };

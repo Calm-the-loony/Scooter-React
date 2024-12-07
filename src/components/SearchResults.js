@@ -28,7 +28,14 @@ const SearchResults = () => {
                     ))}
                 </div>
             ) : (
-                <p className="no-results">По вашему запросу ничего не найдено.</p>
+                <div className="no-results-wrapper">
+                    <p className="no-results">По вашему запросу ничего не найдено.</p>
+                    <img 
+                        src="https://via.placeholder.com/400x200?text=No+Results+Found" 
+                        alt="Нет результатов" 
+                        className="no-results-image" 
+                    />
+                </div>
             )}
         </div>
     );

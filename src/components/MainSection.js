@@ -12,18 +12,18 @@ import categories from "../data/categories";
 
 // Изображения
 import parkingImage from "../image/parking_main_1.jpg";
-import engineIcon from "../image/free-icon-car-engine-2061956.png";
-import suspensionIcon from "../image/free-icon-suspension-8547240.png";
-import fuelSystemIcon from "../image/free-icon-gas-fuel-7667386.png";
-import drivetrainIcon from "../image/free-icon-drivetrain-7642544.png";
-import electricalServiceIcon from "../image/free-icon-electrical-service-3098405.png";
-import brakeDiscIcon from "../image/free-icon-brake-disc-2052424.png";
-import carPartsIcon from "../image/free-icon-car-parts-11195192.png";
-import mufflerIcon from "../image/free-icon-muffler-2783764.png";
-import sparePartsIcon from "../image/free-icon-spare-parts-12622092.png";
+import engineIcon from "../image/free-icon-battery-4549259.png";
+import suspensionIcon from "../image/free-icon-shock-4549308.png";
+import fuelSystemIcon from "../image/free-icon-petrol-station-4549325.png";
+import drivetrainIcon from "../image/free-icon-sprocket-4549247.png";
+import electricalServiceIcon from "../image/free-icon-screw-driver-4549322.png";
+import brakeDiscIcon from "../image/free-icon-tire-4549255.png";
+import carPartsIcon from "../image/free-icon-bike-4549271.png";
+import mufflerIcon from "../image/free-icon-muffler-4549252.png";
+import sparePartsIcon from "../image/free-icon-helmet-4549230.png";
 import tuningIcon from "../image/free-icon-tuning-4749061.png";
-import bodyPartsIcon from "../image/free.png";
-import configurationIcon from "../image/free-icon-configuration-7978264.png";
+import bodyPartsIcon from "../image/free-icon-motorbike-4549313.png";
+import configurationIcon from "../image/free-icon-wrench-4549320.png";
 import coilImage from "../image/product/coil.webp";
 import coil2Image from "../image/product/coil2.webp";
 import banner1 from '../image/шапка-мп-14.png';
@@ -36,6 +36,7 @@ import dollarIcon from '../image/free-icon-dollar-symbol-126179.png';
 import bannerImage1 from "../image/banner3-1.png";
 import bannerImage2 from "../image/banner4-1.png";
 import bannerImage3 from "../image/Designer (1).jpeg";
+import karbyurator4 from "../image/product/karbyurator4.webp";
 import "../style/CategoryPage.css";
 import CatImage from '../image/free-icon-black-cat-3704886.png';
 
@@ -45,34 +46,34 @@ import CatImage from '../image/free-icon-black-cat-3704886.png';
 const MainSection = () => {
     // Настройки для карусели
     const carouselSettings = {
-      dots: true, // Показывать точки навигации
-      infinite: true, // Бесконечный слайдер
-      speed: 500, // Скорость прокрутки
-      slidesToShow: 4, // Показывать 4 карточки одновременно
-      slidesToScroll: 2, // Прокручивать 2 карточки за раз
-      autoplay: true, // Включить автопрокрутку
-      autoplaySpeed: 3000, // Интервал между прокруткой в миллисекундах (3 секунды)
+      dots: true, 
+      infinite: true, 
+      speed: 500, 
+      slidesToShow: 4, 
+      slidesToScroll: 2, 
+      autoplay: true, 
+      autoplaySpeed: 3000, 
       responsive: [
           {
-              breakpoint: 1024, // На устройствах с шириной экрана до 1024px
+              breakpoint: 1024, 
               settings: {
-                  slidesToShow: 3, // Показывать 3 карточки
+                  slidesToShow: 3, 
                   slidesToScroll: 1,
                   infinite: true,
                   dots: true,
               },
           },
           {
-              breakpoint: 768, // На устройствах с шириной экрана до 768px
+              breakpoint: 768, 
               settings: {
-                  slidesToShow: 2, // Показывать 2 карточки
+                  slidesToShow: 2, 
                   slidesToScroll: 1,
               },
           },
           {
-              breakpoint: 480, // На мобильных устройствах
+              breakpoint: 480, 
               settings: {
-                  slidesToShow: 1, // Показывать 1 карточку
+                  slidesToShow: 1,
                   slidesToScroll: 1,
               },
           },
@@ -90,15 +91,15 @@ const MainSection = () => {
       };
     
       const redirectToWhatsApp = () => {
-        window.location.href = 'https://wa.me/1234567890'; // Укажите номер для WhatsApp
+        window.location.href = 'https://wa.me/1234567890'; 
       };
     
       const redirectToTelegram = () => {
-        window.location.href = 'https://t.me/yourchannel'; // Укажите ссылку для Telegram
+        window.location.href = 'https://t.me/yourchannel'; 
       };
     
       const makePhoneCall = () => {
-        window.location.href = 'tel:+1234567890'; // Укажите телефон для звонка
+        window.location.href = 'tel:+1234567890'; 
       };
       
 
@@ -468,7 +469,7 @@ const MainSection = () => {
           tags="1 год"
         />
          <ProductCard 
-          id="1" 
+          id="5" 
           stock="23" 
           type="Скутер" 
           brand="Honda, Honling, Gryphon" 
@@ -483,7 +484,7 @@ const MainSection = () => {
           tags="1 год"
         />
         <ProductCard 
-          id="2" 
+          id="6" 
           stock="23" 
            category="Электрика"
           type="Скутер" 
@@ -498,7 +499,7 @@ const MainSection = () => {
           tags="1 год"
         />
         <ProductCard 
-          id="3" 
+          id="7" 
           stock="23" 
            category="Электрика"
           type="Скутер" 
@@ -513,19 +514,19 @@ const MainSection = () => {
           tags="1 год"
         />
         <ProductCard 
-          id="4" 
-          stock="23" 
-           category="Электрика"
-          type="Скутер" 
-          brand="Suzuki" 
-          model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
-          image={coil2Image}
-          name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
-          price="1027,00 ₽"
-          article="SCOT126723456122"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41.2 × 31.7 × 7.1 мм"
-          tags="1 год"
+           id= "8"
+           name= "Карбюратор PZ22 на мопед альфа 110-125 кубов для 4Т двигателей 152FMI 152FMH"
+           price= "2191,00 ₽"
+           stock= "22"
+           type="Мотоцикл"
+           brand= "Alpha, Delta"
+           model= "ABM, Baltmotors, Cyclone"
+           category= "Топливная система"
+           image= {karbyurator4}
+           article= "SCOT240000000080"
+           extra= "Доп. комплект: Карбюратор на мопед мотоцикл Alpha и Дельта PZ22 с подсосом"
+           dimensions= "17.1 × 28.3 × 21.8 mm"
+           tags= "30 дней"
         />
   </div>
 </section>
@@ -572,7 +573,7 @@ const MainSection = () => {
                 brand={product.brand}
                 category={product.category}
                 model={product.model}
-                image={product.image}  // Используем импортированное изображение
+                image={product.image}  
                 name={product.name}
                 price={product.price}
                 article={product.article}

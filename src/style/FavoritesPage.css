@@ -1,109 +1,97 @@
 .favorites-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 120px auto 0; /* Совпадает с корзиной */
   padding: 20px;
-  margin-top: 80px;
-}
-
-.favorites-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
 }
 
 .favorites-title {
   font-size: 24px;
   font-weight: bold;
-  padding: 30px;
-  margin-left: -30px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.breadcrumbs {
-  font-size: 16px;
-  padding-top: 115px;
+.favorites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-#favorite-list {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-#favorite-list th,
-#favorite-list td {
+.favorite-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 10px; /* Совпадает с корзиной */
   border: 1px solid #ddd;
-  padding: 9px;
-  text-align: left;
+  border-radius: 8px;
+  background-color: #f9f9f9;
 }
 
-#favorite-list th {
-  background-color: #f2f2f2;
+.favorite-image {
+  width: 120px; /* Совпадает с корзиной */
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
-#favorite-list td {
-  vertical-align: middle;
+.favorite-details {
+  flex-grow: 1;
+  margin-left: 15px;
 }
 
-/* Увеличиваем изображение товара в избранном */
-.favorite-product-image {
-  width: 150px;  /* Увеличиваем ширину */
-  height: 150px;  /* Устанавливаем высоту */
-  object-fit: cover;  /* Обрезаем изображение, чтобы оно не растягивалось */
-  margin-right: 10px;  /* Добавляем отступ справа */
+.favorite-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-/* Стили для кнопок "Удалить из избранного" и "В корзину" */
+.favorite-price {
+  font-size: 14px;
+  color: #333;
+}
 
-/* Кнопка удаления из избранного */
-.remove-from-favoritess {
-  font-size: 16px;  /* Размер текста */
-  padding: 12px 20px;  /* Отступы для кнопки */
-  cursor: pointer;
-  border-radius: 5px;  /* Скругленные углы */
+.favorite-stock {
+  font-size: 14px;
+  color: #666;
+}
+
+.favorite-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.favorite-remove,
+.favorite-add-to-cart {
+  padding: 10px 15px;
+  font-size: 14px;
   border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.favorite-remove {
   background-color: #45EFDA; /* Бирюзовый цвет */
   color: #000;
-  display: block;
-  width: 100%;  /* Кнопка занимает всю ширину ячейки */
-  box-sizing: border-box;  /* Учитываем отступы и границы в ширину */
-  margin-bottom: 10px;  /* Расстояние между кнопками */
-  transition: background-color 0.3s ease;  /* Плавное изменение фона при наведении */
 }
 
-.remove-from-favoritess:hover {
-  background-color: #33c1b4; /* Темнее при наведении */
+.favorite-remove:hover {
+  background-color: #33c1b4; /* Темно-бирюзовый при наведении */
 }
 
-/* Кнопка добавления в корзину */
-.add-to-cart-fav {
-  font-size: 16px;  /* Размер текста */
-  padding: 12px 20px;  /* Отступы для кнопки */
-  cursor: pointer;
-  border-radius: 5px;  /* Скругленные углы */
-  border: none;
-  background-color: #333;/* Серый цвет */
-  color: #ffffff;
-  display: block;
-  width: 100%;  /* Кнопка занимает всю ширину ячейки */
-  box-sizing: border-box;  /* Учитываем отступы и границы в ширину */
-  margin-bottom: 10px;  /* Расстояние между кнопками */
-  transition: background-color 0.3s ease;  /* Плавное изменение фона при наведении */
+.favorite-add-to-cart {
+  background-color: #333; /* Графитовый цвет */
+  color: #fff;
 }
 
-.add-to-cart-fav:hover {
-  background-color: #999999; /* Темнее при наведении */
+.favorite-add-to-cart:hover {
+  background-color: #555; /* Светлее графитового при наведении */
 }
 
-.cart-total {
+.favorites-empty {
+  text-align: center;
+  font-size: 16px;
+  color: #666;
   margin-top: 20px;
-  text-align: right;
-}
-
-.breadcrumbs a {
-  text-decoration: none; /* Убирает подчеркивание */
-  color: inherit; /* Сохраняет цвет текста */
-}
-
-.breadcrumbs a:hover {
-  text-decoration: underline; /* При наведении добавляет подчеркивание (опционально) */
 }

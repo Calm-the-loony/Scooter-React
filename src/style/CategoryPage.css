@@ -128,7 +128,9 @@
   padding: 10px;
   justify-content: center;
   background-color: #ffffff;
+  gap: 10px; /* Добавьте это свойство для отступов между рядами и колонками */
 }
+
 
 .card {
   border: 1px solid #ddd;

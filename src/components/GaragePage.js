@@ -3,16 +3,17 @@ import "../style/GaragePage.css";
 import products from "../data/products";
 import categories from "../data/categories";
 
+const ITEMS_PER_PAGE = 4; // Количество карточек на одну страницу
+
 const GaragePage = () => {
   const [scooters, setScooters] = useState([]);
   const [newScooter, setNewScooter] = useState({ type: "", brand: "", model: "" });
   const [selectedScooter, setSelectedScooter] = useState(null);
   const [details, setDetails] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    // Загружаем список скутеров из localStorage
     const storedScooters = JSON.parse(localStorage.getItem("garage")) || [];
-    console.log("Сохраненные скутеры:", storedScooters); // Для отладки
     setScooters(storedScooters);
   }, []);
 
@@ -29,23 +30,12 @@ const GaragePage = () => {
 
   const selectScooter = (index) => {
     const selected = scooters[index];
-
-    if (!selected || !selected.type || !selected.brand || !selected.model) {
-      console.error("Выбранный скутер содержит некорректные данные", selected);
-      return;
-    }
-
     setSelectedScooter(selected);
     updateDetails(selected);
+    setCurrentPage(1); // Сбрасываем страницу на первую при выборе нового скутера
   };
 
   const updateDetails = (scooter) => {
-    if (!scooter.type || !scooter.brand || !scooter.model) {
-      console.error("Недостаточно данных для фильтрации");
-      return;
-    }
-
-    // Фильтрация по продуктам из products.js
     const productDetails = products.filter(
       (product) =>
         product.type === scooter.type &&
@@ -53,7 +43,6 @@ const GaragePage = () => {
         product.model?.includes(scooter.model)
     );
 
-    // Фильтрация по категориям из categories.js
     const categoryDetails = categories.flatMap((category) =>
       category.products.filter(
         (product) =>
@@ -63,7 +52,6 @@ const GaragePage = () => {
       )
     );
 
-    // Объединяем результаты и убираем дубликаты по id
     const combinedDetails = [
       ...productDetails,
       ...categoryDetails.filter(
@@ -84,6 +72,16 @@ const GaragePage = () => {
     }
   };
 
+  const totalPages = Math.ceil(details.length / ITEMS_PER_PAGE);
+  const paginatedDetails = details.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="garage-container">
       <div className="garage-header">
@@ -95,45 +93,36 @@ const GaragePage = () => {
           <div>
             <select
               value={newScooter.type}
-              onChange={(e) =>
-                setNewScooter({ ...newScooter, type: e.target.value })
-              }
+              onChange={(e) => setNewScooter({ ...newScooter, type: e.target.value })}
             >
               <option value="">Выберите тип</option>
               <option value="Скутер">Скутер</option>
               <option value="Мотоцикл">Мотоцикл</option>
             </select>
-
             <input
               type="text"
               placeholder="Бренд"
               list="brand-list"
               value={newScooter.brand}
-              onChange={(e) =>
-                setNewScooter({ ...newScooter, brand: e.target.value })
-              }
+              onChange={(e) => setNewScooter({ ...newScooter, brand: e.target.value })}
             />
             <datalist id="brand-list">
               {["Honda", "Yamaha", "Suzuki", "Kawasaki", "BMW"].map((brand, index) => (
                 <option key={index} value={brand} />
               ))}
             </datalist>
-
             <input
               type="text"
               placeholder="Модель"
               list="model-list"
               value={newScooter.model}
-              onChange={(e) =>
-                setNewScooter({ ...newScooter, model: e.target.value })
-              }
+              onChange={(e) => setNewScooter({ ...newScooter, model: e.target.value })}
             />
             <datalist id="model-list">
               {["Dio", "Aerox", "Burgman", "Zuma", "Riva"].map((model, index) => (
                 <option key={index} value={model} />
               ))}
             </datalist>
-
             <button onClick={addScooter}>Добавить</button>
           </div>
         </div>
@@ -166,21 +155,38 @@ const GaragePage = () => {
 
         {selectedScooter && (
           <div className="garage-details">
-            <h3>Детали для {selectedScooter.brand} {selectedScooter.model}</h3>
+            <h3>
+              Детали для {selectedScooter.brand} {selectedScooter.model}
+            </h3>
             {details.length > 0 ? (
-              <ul>
-                {details.map((detail) => (
-                  <li key={detail.id}>
-                    <div className="products-card">
-                      <img src={detail.image} alt={detail.name} />
-                      <h4>{detail.name}</h4>
-                      <p>Цена: {detail.price}</p>
-                      <p>В наличии: {detail.stock}</p>
-                      <p>Артикул: {detail.article}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              <>
+                <ul className="products-grid">
+                  {paginatedDetails.map((detail) => (
+                    <li key={detail.id}>
+                      <div className="products-card">
+                        <img src={detail.image} alt={detail.name} />
+                        <h4>{detail.name}</h4>
+                        <p>Цена: {detail.price}</p>
+                        <p>В наличии: {detail.stock}</p>
+                        <p>Артикул: {detail.article}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <div className="pagination">
+                  {Array.from({ length: totalPages }, (_, index) => (
+                    <button
+                      key={index + 1}
+                      className={`pagination-button ${
+                        currentPage === index + 1 ? "active" : ""
+                      }`}
+                      onClick={() => handlePageChange(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </div>
+              </>
             ) : (
               <p>Нет подходящих деталей для выбранного скутера.</p>
             )}

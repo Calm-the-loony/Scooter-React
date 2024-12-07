@@ -87,9 +87,6 @@
     box-sizing: border-box;
   }
   
-  
-  
-  
   .category-container {
     text-align: center;
     background-color: #f2f2f2;
@@ -154,30 +151,62 @@
     background-color: red;
     margin: 0 100px 20px 2px;
   }
-  
-  /* Стили для карусели */
+
+
+  /* Адаптивные медиазапросы */
+@media (max-width: 1200px) {
   .featured-products {
-    text-align: center;
-    margin-top: 40px;
-    width: 1200px;
-    margin-left: 170px;
-    margin: 40px auto;
-    position: relative;
+    max-width: 1000px;
   }
-  
+
+  .carousel {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 900px) {
+  .featured-products {
+    max-width: 800px;
+  }
+
+  .carousel {
+    gap: 8px;
+  }
+
+  .product-card {
+    max-width: 220px;
+  }
+
   .as {
-    margin-bottom: 10px;
-    margin-right: 1100px;
-    font-size: 22px;
+    font-size: 20px;
   }
-  
-  .red-lines {
-    width: 140px;
-    height: 2px;
-    background-color: red;
-    margin: 0 100px 20px 2px;
+}
+
+@media (max-width: 600px) {
+  .featured-products {
+    max-width: 100%;
   }
-  
+
+  .carousel {
+    flex-wrap: nowrap;
+  }
+
+  .product-card {
+    max-width: 160px;
+    height: auto;
+    padding: 8px;
+  }
+
+  .as {
+    font-size: 16px;
+  }
+
+  .name {
+    font-size: 14px;
+  }
+}
+
+
   /* Стили для карусели */
   .carousel {
     display: flex;
@@ -197,6 +226,7 @@
     border-radius: 5px;
     padding: 10px;
     flex: 0 0 auto;
+    
   }
   
   .product-card img {
@@ -274,11 +304,20 @@
     border: none;
     color: #666;
     cursor: pointer;
+    outline: none;
+    transition: color 0.3s ease;
   }
   
-  .add-to-favorites i.active {
-    color: red;
+  .add-to-favorites:focus,
+  .add-to-favorites:hover {
+    background-color: transparent;
+    outline: none;
   }
+  
+  .add-to-favorites.active i {
+    color: red !important; /* Добавим !important для проверки, применяется ли стиль */
+}
+
   .name.ellipsis {
     display: -webkit-box;
     -webkit-line-clamp: 3; /* Обрезаем текст до 2 строк */
@@ -513,25 +552,6 @@
     margin-top: 5px;
   }
 
-  .featured-products {
-    padding: 20px;
-  }
-  
-  .product-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-  
-  .product-card {
-    /* Стили для карточек товаров */
-    border: 1px solid #ccc;
-    padding: 15px;
-    background-color: #fff;
-    text-align: left;
-  }
-
-
   /* Стили для контейнера баннера */
 .banner-container {
   position: relative;
@@ -551,6 +571,18 @@
   transform: scale(1.05); /* Легкое увеличение изображения при наведении */
 }
 
+
+  .featured-products {
+    padding: 20px;
+  }
+  
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+ 
 
 /* Стили для кнопок в модальном окне */
 .modal-content button {
@@ -604,4 +636,101 @@
 .whatsapp-btn:hover {
   background-color: #4b4a4a; /* Темный фон при наведении */
   color: white;
+}
+
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+  /* Контейнеры баннеров */
+  .banner-container,
+  .dual-banner-container {
+    width: 100%; /* Устанавливаем ширину на 100% для адаптации */
+    flex-direction: column; /* Располагаем баннеры вертикально */
+    align-items: center; /* Центрируем содержимое */
+  }
+
+  .banner-item,
+  .dual-banner-item {
+    width: 100%; /* Устанавливаем ширину баннеров на 100% */
+    margin-bottom: 15px; /* Добавляем отступ между баннерами */
+    height: auto; /* Высота подстраивается по содержимому */
+    position: relative; /* Убедимся, что текст будет размещаться внутри */
+  }
+
+  .banner-item img,
+  .dual-banner-item img {
+    width: 100%; /* Ширина изображения занимает 100% контейнера */
+    height: auto; /* Высота изображения автоматически */
+    object-fit: cover; /* Обеспечивает сохранение пропорций */
+  }
+
+  /* Текст на баннерах */
+  .banner-text,
+  .dual-banner-text,
+  .banner-texts {
+    position: absolute; /* Устанавливаем позицию текста */
+    top: 50%; /* Центрируем текст по вертикали */
+    left: 50%; /* Центрируем текст по горизонтали */
+    transform: translate(-50%, -50%); /* Смещение для центровки */
+    color: #ffffff; /* Цвет текста */
+    font-size: 16px; /* Уменьшаем размер шрифта */
+    padding: 5px; /* Добавляем внутренние отступы */
+    text-align: center; /* Центрируем текст */
+  }
+
+  .banner-title,
+  .dual-banner-title {
+    font-size: 20px; /* Уменьшаем размер заголовка */
+  }
+
+  .banner-description,
+  .dual-banner-description {
+    font-size: 14px; /* Уменьшаем размер описания */
+  }
+
+  /* Гарантии */
+  .guarantees {
+    flex-direction: column; /* Располагаем элементы вертикально */
+    align-items: center;
+  }
+
+  .guarantee-item {
+    width: 100%; /* Устанавливаем ширину элемента на 100% */
+    margin-bottom: 10px; /* Добавляем отступы */
+  }
+
+  .guarantee-item:not(:last-child)::after {
+    right: -20px; /* Уменьшаем разрыв между элементами */
+  }
+
+  .guarantee-item img {
+    width: 24px; /* Уменьшаем размер иконок */
+    height: 24px;
+  }
+
+  .guarantee-item h3 {
+    font-size: 14px; /* Уменьшаем размер шрифта заголовка */
+  }
+
+  .guarantee-item p {
+    font-size: 12px; /* Уменьшаем размер шрифта описания */
+  }
+
+  /* Модальное окно */
+  .modal-content {
+    width: 90%; /* Устанавливаем ширину модального окна */
+    padding: 20px; /* Добавляем внутренние отступы */
+  }
+
+  .modal-content button {
+    font-size: 0.9rem; /* Уменьшаем шрифт кнопок */
+    padding: 10px 20px; /* Уменьшаем отступы */
+  }
+
+  .phone-btn,
+  .telegram-btn,
+  .whatsapp-btn {
+    font-size: 1rem; /* Устанавливаем одинаковый размер шрифта */
+    margin-bottom: 8px; /* Добавляем отступы между кнопками */
+  }
 }

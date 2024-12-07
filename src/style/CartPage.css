@@ -1,8 +1,7 @@
 .cart-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 120px auto 0;
   padding: 20px;
-  margin-top: 120px;
 }
 
 .cart-header {
@@ -17,70 +16,43 @@
   font-weight: bold;
 }
 
-.cart-table {
-  width: 100%;
-  border-collapse: collapse;
+.cart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.cart-table th, .cart-table td {
-  border: 1px solid #ddd;
-  padding: 9px;
-  text-align: left;
-}
-
-.cart-table th {
-  background-color: #f2f2f2;
-}
-
-.cart-table td {
-  vertical-align: middle;
-}
-
-/* Расширяем столбец "Цена" */
-.cart-table th:nth-child(3),
-.cart-table td:nth-child(3) {
-  width: 100px; /* Увеличиваем ширину столбца */
-  word-wrap: break-word; /* Разрешаем перенос текста */
-  text-align: center; /* Центрируем текст */
-}
-
-/* Увеличиваем изображение товара в корзине */
-.cart-product-image {
-  width: 150px; /* Увеличиваем ширину */
-  height: 150px; /* Устанавливаем высоту */
-  object-fit: cover; /* Обрезаем изображение, чтобы оно не растягивалось */
-  margin-right: 10px; /* Добавляем отступ справа */
-}
-
-.cart-total {
-  margin-top: 20px;
-  text-align: right;
-}
-
-.buy-button {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-}
-
-.breadcrumbs a {
-  text-decoration: none; /* Убирает подчеркивание */
-  color: inherit; /* Сохраняет цвет текста */
-}
-
-.breadcrumbs a:hover {
-  text-decoration: underline; /* При наведении добавляет подчеркивание (опционально) */
-}
-
-/* Основные стили для корзины */
 .cart-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+  justify-content: space-between;
+  padding: 15px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.cart-product-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.cart-details {
+  flex-grow: 1;
+  margin-left: 15px;
+}
+
+.cart-item-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.cart-item-price {
+  font-size: 14px;
+  color: #333;
 }
 
 .quantity-container {
@@ -99,37 +71,122 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.quantity-button:hover {
+  background-color: #ddd;
 }
 
 .quantity {
   font-size: 16px;
   margin: 0 10px;
-  width: 30px;
   text-align: center;
 }
 
+.cart-total {
+  margin-top: 20px;
+  text-align: right;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.buy-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.buy-button:hover {
+  background-color: #0056b3;
+}
+
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-content h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.modal-content p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.modal-content label {
+  font-size: 14px;
+  color: #333;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.modal-content input[type="radio"] {
+  margin-right: 8px;
+}
 
 .modal-actions {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  gap: 15px;
   margin-top: 20px;
 }
 
 .confirm-button,
 .cancel-button {
-  padding: 10px 20px;
+  padding: 12px 25px;
   font-size: 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
 }
 
 .confirm-button {
-  background-color: #45EFDA;
-  color: black;
+  background: #40e0d0;
+  color: white;
+}
+
+.confirm-button:hover {
+  background: #3accc1;
 }
 
 .cancel-button {
-  background-color: #f44336;
+  background: #ff6b6b;
   color: white;
+}
+
+.cancel-button:hover {
+  background: #ff5252;
+}
+
+.modal-content div {
+  margin: 15px 0;
+}
+
+.breadcrumbs a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline;
 }

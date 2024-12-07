@@ -29,8 +29,8 @@
 .product-info h1 {
   font-size: 2rem;
   margin-bottom: 10px;
-  border-bottom: 2px solid #ccc; /* Разделяющая линия под заголовком */
-  padding-bottom: 10px; /* Отступ от текста до линии */
+  border-bottom: 2px solid #ccc; 
+  padding-bottom: 10px; 
 }
 
 .product-price p,
@@ -38,8 +38,8 @@
   font-size: 1.2rem;
   margin: 10px 0;
   color: #333;
-  border-bottom: 2px solid #ccc; /* Разделяющая линия под ценой */
-  padding-bottom: 10px; /* Отступ от текста до линии */
+  border-bottom: 2px solid #ccc; 
+  padding-bottom: 10px;
 }
 
 .product-buttons {
@@ -93,8 +93,8 @@
 }
 
 .btn-cart {
-  background-color: #40e0d0; /* Бирюзовый цвет */
-  color: white; /* Белый текст */
+  background-color: #40e0d0; 
+  color: white; 
   border: none;
   padding: 10px 20px;
   font-size: 1.1rem;
@@ -104,12 +104,12 @@
 }
 
 .btn-cart:hover {
-  background-color: #00b7b7; /* Более темный бирюзовый при наведении */
+  background-color: #00b7b7; 
 }
 
 .btn-favorite {
-  background-color: black; /* Черный цвет */
-  color: white; /* Белый текст */
+  background-color: black; 
+  color: white; 
   border: none;
   padding: 10px 20px;
   font-size: 1.1rem;
@@ -119,7 +119,7 @@
 }
 
 .btn-favorite:hover {
-  background-color: #333; /* Темно-серый при наведении */
+  background-color: #333; 
 }
 
 /* Стили для контейнера аккордеона */
@@ -134,11 +134,11 @@
 .accordion-container {
   margin-top: 20px;
   width: 60%;
+  
 }
 
 .accordion {
   border: 2px solid #40e0d0; /* Бирюзовая граница */
-  border-radius: 10px;
   background-color: #fcfcfc;
   box-shadow: 0 0 10px rgba(64, 224, 208, 0.6);
 }

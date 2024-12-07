@@ -1,38 +1,47 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { CartContext } from "../context/CartContext";
-import { useNavigate } from "react-router-dom";  // Хук для навигации
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ id, stock, type, brand, model, category, image, name, price }) => {
   const { addToCart } = useContext(CartContext);
-  const navigate = useNavigate();  // Инициализация хука для навигации
+  const [isFavorite, setIsFavorite] = useState(false);
+  const navigate = useNavigate();
+
+  // Проверка при монтировании компонента, находится ли товар в избранном
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const isAlreadyFavorite = favorites.some((item) => item.id === id);
+    setIsFavorite(isAlreadyFavorite);
+  }, [id]);
 
   // Функция для добавления товара в избранное
   const handleAddToFavorites = (event) => {
-    event.stopPropagation(); // Останавливаем всплытие события
+    event.stopPropagation();
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    const isFavorite = favorites.some((item) => item.id === id);
-  
-    if (!isFavorite) {
-      // Добавляем товар в избранное с учетом stock
+    const isAlreadyFavorite = favorites.some((item) => item.id === id);
+
+    if (!isAlreadyFavorite) {
       favorites.push({ id, name, price, image, stock });
       localStorage.setItem("favorites", JSON.stringify(favorites));
-      alert("Товар добавлен в избранное!");
+      setIsFavorite(true);
     } else {
-      alert("Товар уже в избранном!");
+      // Если товар уже в избранном, можно добавить логику для его удаления
+      const updatedFavorites = favorites.filter((item) => item.id !== id);
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      setIsFavorite(false);
     }
   };
-  
 
   // Функция для добавления товара в корзину
   const handleAddToCart = (event) => {
-    event.stopPropagation();  // Останавливаем всплытие события
+    event.stopPropagation();
     addToCart({ id, name, price, image });
-    alert("Товар добавлен в корзину!");
+   
   };
 
   // Функция для открытия карточки товара
   const handleCardClick = () => {
-    navigate(`/product/${id}`);  // Переход на страницу с подробной информацией о товаре
+    navigate(`/product/${id}`);
   };
 
   return (
@@ -49,7 +58,10 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
             <i className="fas fa-shopping-cart"></i>
           </button>
         </div>
-        <button className="add-to-favorites" onClick={handleAddToFavorites}>
+        <button
+          className={`add-to-favorites ${isFavorite ? "active" : ""}`}
+          onClick={handleAddToFavorites}
+        >
           <i className="fas fa-heart"></i>
         </button>
       </div>

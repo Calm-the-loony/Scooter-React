@@ -56,44 +56,42 @@ const CartPage = () => {
         <h2 className="cart-title">Корзина</h2>
       </div>
 
-      <table id="cart-list" className="cart-table">
-        <thead>
-          <tr>
-            <th>Изображение</th>
-            <th>Название</th>
-            <th>Цена</th>
-            <th>Количество</th>
-            <th>Действия</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cartItems.length > 0 ? (
-            cartItems.map((item) => (
-              <tr key={item.id}>
-                <td>
-                  <img src={item.image} alt={item.name} className="cart-product-image" />
-                </td>
-                <td>{item.name}</td>
-                <td>{item.price} </td>
-                <td>
-                  <div className="quantity-container">
-                    <button className="quantity-button" onClick={() => decreaseQuantity(item.id)}>-</button>
-                    <span className="quantity">{item.quantity}</span>
-                    <button className="quantity-button" onClick={() => increaseQuantity(item.id)}>+</button>
-                  </div>
-                </td>
-                <td>
-                  <button className="remove-button" onClick={() => removeFromCart(item.id)}>Удалить</button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5" style={{ textAlign: "center" }}>Ваша корзина пуста</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <div className="cart-list">
+        {cartItems.length > 0 ? (
+          cartItems.map((item) => (
+            <div key={item.id} className="cart-item">
+              <img src={item.image} alt={item.name} className="cart-product-image" />
+              <div className="cart-details">
+                <p className="cart-item-name">{item.name}</p>
+                <p className="cart-item-price">{item.price} </p>
+                <div className="quantity-container">
+                  <button
+                    className="quantity-button"
+                    onClick={() => decreaseQuantity(item.id)}
+                  >
+                    -
+                  </button>
+                  <span className="quantity">{item.quantity}</span>
+                  <button
+                    className="quantity-button"
+                    onClick={() => increaseQuantity(item.id)}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              <button
+                className="remove-button"
+                onClick={() => removeFromCart(item.id)}
+              >
+                Удалить
+              </button>
+            </div>
+          ))
+        ) : (
+          <p className="empty-cart">Ваша корзина пуста</p>
+        )}
+      </div>
 
       <div className="cart-total">
         <p>
