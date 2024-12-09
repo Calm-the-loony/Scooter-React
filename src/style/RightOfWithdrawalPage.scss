@@ -1,0 +1,111 @@
+// Основные переменные для цветов и шрифтов
+$primary-color: #007bff;
+$secondary-color: #40e0d0;
+$text-color: #333;
+$sub-text-color: #555;
+$border-color: #ccc;
+$background-color: #f8f8f8;
+
+// Основной контейнер для страницы
+.legal-page {
+  padding: 20px;
+  margin-top: 130px;
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 8px;
+
+  // Заголовок страницы
+  .legal-title {
+    margin-top: 20px; // Сдвиг вниз на 20px
+    margin-bottom: 20px;
+    font-size: 2em;
+    text-align: left;
+    color: $text-color;
+  }
+
+  // Секции информации
+  .legal-section {
+    margin-top: 20px; // Сдвиг вниз на 20px
+    margin-bottom: 40px;
+    line-height: 1.6;
+    color: $sub-text-color;
+    text-align: left;
+
+    // Заголовки секций
+    .legal-section-title {
+      margin-top: 20px; // Сдвиг вниз на 20px
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      color: #000000;
+      text-align: left;
+    }
+
+    // Ссылки в секциях
+    .legal-link {
+      a {
+        color: $primary-color;
+        text-decoration: none;
+        text-align: left;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    // Стиль текста
+    p {
+      margin-top: 20px; // Сдвиг вниз на 20px
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    // Стиль списков
+    ul {
+      margin: 20px 0;
+      padding-left: 20px;
+
+      li {
+        margin-bottom: 10px;
+        list-style-type: disc;
+      }
+    }
+  }
+
+  // Изображения
+  .legal-image {
+    max-width: 40%;
+    height: auto;
+    display: block;
+    margin: 20px 0;
+  }
+
+  // Адаптивные стили
+  @media (max-width: 768px) {
+    .legal-title {
+      font-size: 2rem;
+    }
+
+    .legal-section-title {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .legal-title {
+      font-size: 1.8rem;
+    }
+
+    .legal-section-title {
+      font-size: 1.2rem;
+    }
+
+    .subscribe-button {
+      font-size: 0.9rem;
+    }
+  }
+}

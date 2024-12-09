@@ -1,5 +1,5 @@
 import React from "react";
-import "../style/RightOfWithdrawalPage.css";
+import "../style/RightOfWithdrawalPage.scss";
 
 const RightOfWithdrawalPage = () => {
   return (

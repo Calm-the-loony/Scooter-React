@@ -77,6 +77,8 @@ const categories = [
                 extra: "Сепаратор",
                 dimensions: "17 × 14 × 12 mm",
                 tags: "30 дней",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 2,
@@ -92,6 +94,8 @@ const categories = [
                 extra: "Сепаратор",
                 dimensions: "10 × 14 × 12.5 mm",
                 tags: "30 дней",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 3,
@@ -107,6 +111,8 @@ const categories = [
                 extra: "Натяжитель цепи ГРМ",
                 dimensions: "41.2 × 12.4 mm",
                 tags: "1 год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 4,
@@ -122,6 +128,8 @@ const categories = [
                 extra: "успокоитель цепи",
                 dimensions: "18 × 5.9 × 10 mm",
                 tags: "1 год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 5,
@@ -137,6 +145,8 @@ const categories = [
                 extra: "Малянный  фильтр для мотоцикла",
                 dimensions: "41.3 × 13 × 44 mm",
                 tags: "1 год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 6,
@@ -152,6 +162,8 @@ const categories = [
                 extra: "Карбюратор",
                 dimensions: " 15 × 190 mm",
                 tags: "1 год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
         ],
     },
@@ -172,7 +184,9 @@ const categories = [
                 article: "SCOT1267573857",
                 extra: "Плотная упаковка, Запчасть на скутер",
                 dimensions: "310 мм",
-                tags: "1 год"
+                tags: "1 год",
+                description:"Отдай деньги",
+                weight: "150 г"
             },
             {
                 id: 2,
@@ -187,7 +201,9 @@ const categories = [
                 article: "SCOT1267573861",
                 extra: "Плотная упаковка, Запчасть на скутер",
                 dimensions: "240 мм",
-                tags: "1 год"
+                tags: "1 год",
+                description:"Отдай деньги",
+                weight: "150 г"
             },
             {
                 id: 3,
@@ -202,6 +218,8 @@ const categories = [
                 article: "SCOT1267573861",
                 extra: "Плотная упаковка, Запчасть на скутер",
                 dimensions: "260 мм",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
             },
             {
@@ -217,6 +235,8 @@ const categories = [
                 article: "SCOT1267573862",
                 extra: "Плотная упаковка, Запчасть на скутер",
                 dimensions: "240 мм",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
             },
         ],
@@ -239,6 +259,8 @@ const categories = [
                 extra: "Щека вариатора неподвижная на скутер Yamaha Jog",
                 dimensions: "93 × 13 × 13 мм",
                 tags: "1 год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 2,
@@ -254,6 +276,8 @@ const categories = [
                 extra: "Щека вариатора внешняя неподвижная 157QMJ",
                 dimensions: "115 × 15 мм",
                 tags: "1 год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 3,
@@ -269,6 +293,8 @@ const categories = [
                 extra: "Щека вариатора внешняя неподвижная 139QMB",
                 dimensions: "88 × 92 × 114 мм",
                 tags: "1 год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 4,
@@ -284,6 +310,8 @@ const categories = [
                 extra: "Ответная щека вариатора на Honda Dio",
                 dimensions: "12 × 115 мм",
                 tags: "1 год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 5,
@@ -299,6 +327,8 @@ const categories = [
                 extra: "Щека вариатора внешняя под вал 14 мм",
                 dimensions: "14 × 114 мм",
                 tags: "1 год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 6,
@@ -314,6 +344,8 @@ const categories = [
                 extra: "Щека вариатора",
                 dimensions: "93 × 13 мм",
                 tags: "1 год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
         ],
     },    
@@ -332,6 +364,8 @@ const categories = [
                 article: "SCOT1267234561292",
                 extra: "Доп. комплект: Плотная упаковка, Запчасть на скутер",
                 dimensions: "10 × 15 × 10 cm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
             },
             {
@@ -347,6 +381,8 @@ const categories = [
                 article: "SCOT1267234525545343",
                 extra: "Доп. комплект: Плотная упаковка, Запчасть на скутер, Карбюратор на мотоцикл мопед",
                 dimensions: "32 × 18.6 × 15.1 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
             },
             {
@@ -362,6 +398,8 @@ const categories = [
                 article: "SCOT240000000027",
                 extra: "Доп. комплект: Плотная упаковка, Запчасть на скутер, Карбюратор",
                 dimensions: "17.1 × 28.3 × 21.8 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "150 дней"
             },
             {
@@ -377,6 +415,8 @@ const categories = [
                 article: "SCOT240000000080",
                 extra: "Доп. комплект: Карбюратор на мопед мотоцикл Alpha и Дельта PZ22 с подсосом",
                 dimensions: "17.1 × 28.3 × 21.8 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "30 дней"
             },
             {
@@ -392,6 +432,8 @@ const categories = [
                 article: "SCOT1267234561293",
                 extra: "Доп. комплект: Плотная упаковка, Запчасть на скутер",
                 dimensions: "18.6 × 34.8 × 31.0 × 21.0 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
             },
             {
@@ -405,6 +447,8 @@ const categories = [
                 article: "SCOT1267234561291",
                 extra: "Доп. комплект: Плотная упаковка, Запчасть на скутер",
                 dimensions: "18.6 × 34.8 × 31.0 × 21.0 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
             }
         ],
@@ -425,6 +469,8 @@ const categories = [
                 extra: "Камера",
                 dimensions: "100 мм",
                 tags: "30 дней",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 2,
@@ -440,6 +486,8 @@ const categories = [
                 extra: "Плотная упаковка, Запчасть на скутер",
                 dimensions: "41 см",
                 tags: "1 год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 3,
@@ -455,6 +503,8 @@ const categories = [
                 extra: "Плотная упаковка, Запчасть на скутер",
                 dimensions: "41.2 × 31.7 × 7.1 мм",
                 tags: "1 год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 4,
@@ -470,6 +520,8 @@ const categories = [
                 extra: "Плотная упаковка, Запчасть на скутер",
                 dimensions: "10 × 39 × 30.13 мм",
                 tags: "1 год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 5,
@@ -482,6 +534,8 @@ const categories = [
                 article: "SCOT126753731174",
                 extra: "Плотная упаковка, Запчасть на скутер",
                 tags: "1 год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 6,
@@ -497,6 +551,8 @@ const categories = [
                 extra: "Плотная упаковка, Запчасть на скутер",
                 dimensions: "9.7 × 3.8 × 65.8 мм",
                 tags: "1 год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
         ],
     },
@@ -517,6 +573,8 @@ const categories = [
                 article: "SCOT240000000020",
                 extra: "Трос заднего тормоза",
                 dimensions: "1800 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "150 дней"
             },
             {
@@ -532,6 +590,8 @@ const categories = [
                 article: "SCOT126753731155",
                 extra: "Плотная упаковка, Запчасть на скутер",
                 dimensions: "33.4 × 41.2 × 27.2 × 45.2 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
             },
             {
@@ -547,6 +607,8 @@ const categories = [
                 article: "SCOT126753731148",
                 extra: "Плотная упаковка, Запчасть на скутер",
                 dimensions: "90 × 91 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
             },
             {
@@ -562,6 +624,8 @@ const categories = [
                 article: "SCOT126753731154",
                 extra: "Плотная упаковка, Запчасть на скутер",
                 dimensions: "40 × 42 × 77 × 70 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
             },
             {
@@ -577,6 +641,8 @@ const categories = [
                 article: "SCOT1267537311570",
                 extra: "Плотная упаковка, Запчасть на скутер",
                 dimensions: "125 × 28 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
             },
             {
@@ -592,6 +658,8 @@ const categories = [
                 article: "SCOT126753731100",
                 extra: "Плотная упаковка, Запчасть на скутер",
                 dimensions: "125 × 28 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
             }
         ],
@@ -613,6 +681,8 @@ const categories = [
                 article: "SCOT240000000075",
                 extra: "Доп. комплект: тектолитовая прокладка + резиновое кольцо",
                 dimensions: "Габариты: 25 × 47 × 5 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "Метки: 30 дней"
             },
             {
@@ -628,6 +698,8 @@ const categories = [
                 article: "SCOT240000000052",
                 extra: "Доп. комплект: Прокладка головки, прокладка цилиндра, прокладка натяжителя, прокладка глушителя, маслосъемные колпачки.",
                 dimensions: "Габариты: 52.4 × 48.3 × 33; 30; 36; 73; 57.5; 44.5; 65; 83.5 × 48.4 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "Метки: 1 год"
             },
             {
@@ -643,6 +715,8 @@ const categories = [
                 article: "SCOT736491283693246",
                 extra: "Доп. комплект: Набор прокладок на китайский скутер 157QMJ",
                 dimensions: "Габариты: 52.4 × 48.3 × 33; 30; 36; 73; 57.5; 44.5; 65; 83.5 × 48.4 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "Метки: 1 год"
             },
             {
@@ -658,6 +732,8 @@ const categories = [
                 article: "SCOT1267234561317",
                 extra: "Доп. комплект: Плотная упаковка, Запчасть на скутер",
                 dimensions: "Габариты: 52.4 × 48.3 × 33; 30; 36; 73; 57.5; 44.5; 65; 83.5 × 48.4 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "Метки: 1 год"
             },
             {
@@ -673,6 +749,8 @@ const categories = [
                 article: "SCOT1267234561321",
                 extra: "Доп. комплект: Плотная упаковка, Запчасть на скутер",
                 dimensions: "Габариты: 52.4 × 48.3 × 33; 30; 36; 73; 57.5; 44.5; 65; 83.5 × 48.4 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "Метки: 1 год"
             },
             {
@@ -688,6 +766,8 @@ const categories = [
                 article: "SCOT1267234561320",
                 extra: "Доп. комплект: Плотная упаковка, Запчасть на скутер",
                 dimensions: "Габариты: 52.4 × 48.3 × 33; 30; 36; 73; 57.5; 44.5; 65; 83.5 × 48.4 mm",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "Метки: 1 год"
             },
         ],
@@ -709,6 +789,8 @@ const categories = [
                 article: "SCOT2400000000137",
                 extra: "Плотная упаковка, универсальные шпильки глушителя",
                 dimensions: "6.3 мм",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
             },
             {
@@ -724,6 +806,8 @@ const categories = [
                 article: "SCOT240000000081",
                 extra: "Прямоток глушитель на мотоцикл, мопед, квадроцикл",
                 dimensions: "30 см × 51 × 60 × 62.5 мм",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
             },
             {
@@ -739,6 +823,8 @@ const categories = [
                 article: "SCOT240000000082",
                 extra: "Прямоток глушитель на мотоцикл, мопед, квадроцикл",
                 dimensions: "60 × 51 × 25 × 9 × 38.6 мм",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "30 дней"
             }
         ],
@@ -761,6 +847,8 @@ const categories = [
                 extra: "Доп. комплект: 2 шт. — зеркала, комплект адаптеров для установки.",
                 dimensions: "Габариты: 5 × 13 × 13 см",
                 tags: "Метки: 1, год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 23,
@@ -776,6 +864,8 @@ const categories = [
                 extra: "Доп. комплект: 2 шт. — зеркала, комплект адаптеров для установки.",
                 dimensions: "Габариты: 5 × 13 × 13 см",
                 tags: "Метки: 1, год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 28,
@@ -791,6 +881,8 @@ const categories = [
                 extra: "Доп. комплект: 2 шт. — зеркала, комплект адаптеров для установки.",
                 dimensions: "Габариты: 5 × 13 × 13 см",
                 tags: "Метки: 1, год",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 24,
@@ -806,6 +898,8 @@ const categories = [
                 extra: "Комплект: 2 штуки. Материал: резина и алюминий.",
                 dimensions: "Габариты: 3 × 9 × 9 см",
                 tags: "Метки: Аксессуары, Грипсы",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
             {
                 id: 25,
@@ -821,6 +915,8 @@ const categories = [
                 extra: "Комплект: 2 штуки. Материал: резина.",
                 dimensions: "Габариты: 3 × 9 × 9 см",
                 tags: "Метки: Аксессуары, Грипсы, Резина",
+                weight: "150 г",
+                description:"Отдай деньги",
             },
         ],
     },
@@ -841,6 +937,8 @@ const categories = [
                 article: "SCOT2400000000106",
                 extra: "Шкивы заднего вариатора спортиыне на скутер Хонда Дио / 139QMB в сборе",
                 dimensions: "Габариты: 118 мм",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
               },
               {
@@ -856,6 +954,8 @@ const categories = [
                 article: "SCOT240000000065",
                 extra: "Колодки спортивные заднего вариатора на скутер Honda Dio / 139QMB; плата сцепления ; 3 колодки с феродо; пружины сцепления",
                 dimensions: "Габариты: 105 × 15.5 × 24.2 мм",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
               },
               {
@@ -871,6 +971,8 @@ const categories = [
                 article: "SCOT2400000000105",
                 extra: "Колодки спортивные заднего вариатора на скутер Honda Dio / 139QMB; плата сцепления ; 3 колодки с феродо; пружины сцепления",
                 dimensions: "Габариты: 110 × 24.3 × 18.3 мм",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
               },
               {
@@ -886,6 +988,8 @@ const categories = [
                 article: "SCOT240000000063",
                 extra: "Шестерня редуктора под вариатор на 11 зубъев, переходная звезда редуктора на 34 зуба.",
                 dimensions: "Габариты: 22 × 15.1 × 55.7 × 12 × 136.3 × 17 мм; 32 зуба; 11 зубов",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
               },
               {
@@ -901,6 +1005,8 @@ const categories = [
                 article: "SCOT240000000064",
                 extra: "Шетсерня редуктора на 15 зубъев, переходная звезда редуктора на 42 зуба.",
                 dimensions: "Габариты: 59 × 14 × 27.3 × 17 × 68; 42 зуба; 15 зубов",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
               }
         ],
@@ -927,6 +1033,8 @@ const categories = [
                 article: "SCOT2400000000106",
                 extra: "Шкивы заднего вариатора спортиыне на скутер Хонда Дио / 139QMB в сборе",
                 dimensions: "Габариты: 118 мм",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
               },
               {
@@ -942,6 +1050,8 @@ const categories = [
                 article: "SCOT240000000065",
                 extra: "Колодки спортивные заднего вариатора на скутер Honda Dio / 139QMB; плата сцепления ; 3 колодки с феродо; пружины сцепления",
                 dimensions: "Габариты: 105 × 15.5 × 24.2 мм",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
               },
               {
@@ -957,6 +1067,8 @@ const categories = [
                 article: "SCOT2400000000105",
                 extra: "Колодки спортивные заднего вариатора на скутер Honda Dio / 139QMB; плата сцепления ; 3 колодки с феродо; пружины сцепления",
                 dimensions: "Габариты: 110 × 24.3 × 18.3 мм",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
               },
               {
@@ -972,6 +1084,8 @@ const categories = [
                 article: "SCOT240000000063",
                 extra: "Шестерня редуктора под вариатор на 11 зубъев, переходная звезда редуктора на 34 зуба.",
                 dimensions: "Габариты: 22 × 15.1 × 55.7 × 12 × 136.3 × 17 мм; 32 зуба; 11 зубов",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
               },
               {
@@ -987,6 +1101,8 @@ const categories = [
                 article: "SCOT240000000064",
                 extra: "Шетсерня редуктора на 15 зубъев, переходная звезда редуктора на 42 зуба.",
                 dimensions: "Габариты: 59 × 14 × 27.3 × 17 × 68; 42 зуба; 15 зубов",
+                weight: "150 г",
+                description:"Отдай деньги",
                 tags: "1 год"
               }
         ],

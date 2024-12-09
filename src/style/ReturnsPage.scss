@@ -1,3 +1,28 @@
+// Переменные
+$primary-color: #45efda;
+$secondary-color: #333;
+$text-color: #555;
+$background-color: transparent;
+$card-radius: 8px;
+$shadow-none: none;
+$font-size-large: 2em;
+$font-size-medium: 1.8em;
+$font-size-small: 1.5em;
+$font-size-xsmall: 1.3em;
+
+// Миксины для медиазапросов
+@mixin media($breakpoint) {
+  @if $breakpoint == small {
+    @media (max-width: 768px) {
+      @content;
+    }
+  } @else if $breakpoint == xsmall {
+    @media (max-width: 480px) {
+      @content;
+    }
+  }
+}
+
 // Основной блок возвратов
 .returns-page {
   padding: 20px;
@@ -5,16 +30,16 @@
   max-width: 70%;
   margin-left: auto;
   margin-right: auto;
-  background-color: transparent;
-  box-shadow: none;
-  border-radius: 8px;
+  background-color: $background-color;
+  box-shadow: $shadow-none;
+  border-radius: $card-radius;
 
-  @media (max-width: 768px) {
+  @include media(small) {
     padding: 15px;
     max-width: 90%;
   }
 
-  @media (max-width: 480px) {
+  @include media(xsmall) {
     padding: 10px;
   }
 }
@@ -22,33 +47,33 @@
 // Заголовок страницы
 .returns-title {
   margin-bottom: 20px;
-  font-size: 2em;
+  font-size: $font-size-large;
   text-align: left;
-  color: #333;
+  color: $secondary-color;
 
-  @media (max-width: 768px) {
-    font-size: 1.8em;
+  @include media(small) {
+    font-size: $font-size-medium;
   }
 
-  @media (max-width: 480px) {
-    font-size: 1.5em;
+  @include media(xsmall) {
+    font-size: $font-size-small;
   }
 }
 
 // Подзаголовки
 .returns-subtitle {
-  font-size: 1.8em;
+  font-size: $font-size-medium;
   margin-bottom: 10px;
-  color: #000;
+  color: $secondary-color;
   text-align: left;
   margin-top: 20px;
 
-  @media (max-width: 768px) {
-    font-size: 1.5em;
+  @include media(small) {
+    font-size: $font-size-small;
   }
 
-  @media (max-width: 480px) {
-    font-size: 1.3em;
+  @include media(xsmall) {
+    font-size: $font-size-xsmall;
   }
 }
 
@@ -60,14 +85,14 @@
 .product-guarantee {
   margin-bottom: 40px;
   line-height: 1.6;
-  color: #555;
+  color: $text-color;
   text-align: left;
 
-  @media (max-width: 768px) {
+  @include media(small) {
     margin-bottom: 30px;
   }
 
-  @media (max-width: 480px) {
+  @include media(xsmall) {
     margin-bottom: 20px;
   }
 }
@@ -85,16 +110,16 @@
   display: inline-block;
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: #45efda;
+  background-color: $primary-color;
   color: #000;
   text-decoration: none;
   border-radius: 5px;
 
-  @media (max-width: 768px) {
+  @include media(small) {
     padding: 8px 16px;
   }
 
-  @media (max-width: 480px) {
+  @include media(xsmall) {
     padding: 6px 12px;
   }
 }

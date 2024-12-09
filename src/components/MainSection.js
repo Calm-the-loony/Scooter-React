@@ -37,7 +37,7 @@ import bannerImage1 from "../image/banner3-1.png";
 import bannerImage2 from "../image/banner4-1.png";
 import bannerImage3 from "../image/Designer (1).jpeg";
 import karbyurator4 from "../image/product/karbyurator4.webp";
-import "../style/CategoryPage.css";
+import "../style/CategoryPage.scss";
 import CatImage from '../image/free-icon-black-cat-3704886.png';
 
 // Подключаем данные

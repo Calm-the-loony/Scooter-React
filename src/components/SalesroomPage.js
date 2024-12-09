@@ -1,6 +1,6 @@
 import React from "react";
 import { Map, GeoObject, ZoomControl, YMaps } from "@pbe/react-yandex-maps";
-import "../style/SalesroomPage.css";
+import "../style/SalesroomPage.scss";
 
 // Импорт изображений
 import largeImage from "../image/stroitelstvo-skladov-zapchastey-rsholod-3.jpg";

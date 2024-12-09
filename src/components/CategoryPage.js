@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import categories from "../data/categories";
 import ProductCard from "../components/ProductCard"; // Импортируем компонент ProductCard
-import "../style/CategoryPage.css";
+import "../style/CategoryPage.scss";
 import CatImage from "../image/free-icon-black-cat-3704886.png";
 import shkivyImage from "../image/product/shkivy.webp";
 

@@ -1,0 +1,114 @@
+// Переменные
+$favorites-bg-color: #f9f9f9;
+$favorites-border-color: #ddd;
+$favorites-border-radius: 8px;
+$favorites-padding: 15px 10px;
+$favorites-title-font-size: 24px;
+$favorites-text-color: #333;
+$favorites-secondary-color: #666;
+$favorites-btn-bg-color: #45EFDA;
+$favorites-btn-hover-bg-color: #33c1b4;
+$favorites-btn-add-to-cart-bg-color: #333;
+$favorites-btn-add-to-cart-hover-bg-color: #555;
+$favorites-font-size: 14px;
+$favorites-gaps: 15px;
+
+// Контейнер фаворитов
+.favorites-container {
+  max-width: 1200px;
+  margin: 120px auto 0;
+  padding: 20px;
+}
+
+.favorites-title {
+  font-size: $favorites-title-font-size;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.favorites-list {
+  display: flex;
+  flex-direction: column;
+  gap: $favorites-gaps;
+}
+
+.favorite-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $favorites-padding;
+  border: 1px solid $favorites-border-color;
+  border-radius: $favorites-border-radius;
+  background-color: $favorites-bg-color;
+}
+
+.favorite-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: $favorites-border-radius;
+}
+
+.favorite-details {
+  flex-grow: 1;
+  margin-left: 15px;
+}
+
+.favorite-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: $favorites-text-color;
+}
+
+.favorite-price {
+  font-size: $favorites-font-size;
+  color: $favorites-text-color;
+}
+
+.favorite-stock {
+  font-size: $favorites-font-size;
+  color: $favorites-secondary-color;
+}
+
+.favorite-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.favorite-remove,
+.favorite-add-to-cart {
+  padding: 10px 15px;
+  font-size: $favorites-font-size;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.favorite-remove {
+  background-color: $favorites-btn-bg-color;
+  color: #000;
+}
+
+.favorite-remove:hover {
+  background-color: $favorites-btn-hover-bg-color;
+}
+
+.favorite-add-to-cart {
+  background-color: $favorites-btn-add-to-cart-bg-color;
+  color: #fff;
+}
+
+.favorite-add-to-cart:hover {
+  background-color: $favorites-btn-add-to-cart-hover-bg-color;
+}
+
+.favorites-empty {
+  text-align: center;
+  font-size: 16px;
+  color: $favorites-secondary-color;
+  margin-top: 20px;
+}

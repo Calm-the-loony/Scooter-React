@@ -1,0 +1,38 @@
+// Переменные
+$cookie-bg-color: #4b4a4a;
+$cookie-text-color: #ffffff;
+$cookie-btn-bg-color: #45EFDA;
+$cookie-font-size: 14px;
+$cookie-padding: 15px;
+$cookie-btn-padding: 8px 16px;
+$cookie-border-radius: 4px;
+
+// Стили для cookie-консента
+.cookie-consent {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: $cookie-bg-color;
+  color: $cookie-text-color;
+  text-align: center;
+  padding: $cookie-padding;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.cookie-consent p {
+  margin: 0 0 10px;
+  font-size: $cookie-font-size;
+}
+
+.cookie-btn {
+  background-color: $cookie-btn-bg-color;
+  color: $cookie-text-color;
+  border: none;
+  padding: $cookie-btn-padding;
+  font-size: $cookie-font-size;
+  cursor: pointer;
+  border-radius: $cookie-border-radius;
+  transition: background-color 0.3s;
+}
+

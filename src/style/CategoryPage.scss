@@ -1,0 +1,241 @@
+// Переменные
+$bg-color-light: #ffffff;
+$bg-color-filter: #f8f9fa;
+$btn-bg-color: #45EFDA;
+$btn-bg-color-hover: #36c5ba;
+$btn-text-color: rgb(0, 0, 0);
+$border-color: #ddd;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$text-color-dark: #333;
+$text-color-light: #6c757d;
+$font-size-small: 0.9em;
+$font-size-medium: 1em;
+$font-size-large: 1.5em;
+$border-radius: 5px;
+
+// Основные контейнеры
+.containers {
+  display: flex;
+  margin: 20px;
+  margin-top: 150px; /* Уменьшили отступ сверху для поднятия категорий */
+}
+
+.sidebar {
+  flex: 0 0 200px;
+  margin-right: 20px;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.main-content h2 {
+  margin-top: 30px;
+  font-size: $font-size-large;
+  text-align: left;
+}
+
+// Навигация по категориям
+.categories-nav {
+  background-color: $bg-color-light; /* Светлый фон */
+  padding: 10px;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 6px $shadow-color; /* Тень */
+}
+
+.categories-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.categories-nav li {
+  margin-bottom: 10px;
+}
+
+.categories-nav .category-button {
+  background-color: #f0f0f0; /* Серый фон кнопки */
+  color: $text-color-dark; /* Темный текст */
+  border: none;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  border-radius: $border-radius;
+  transition: background-color 0.3s;
+}
+
+.categories-nav .category-button:hover {
+  background-color: $btn-bg-color; /* Изменение цвета при наведении */
+}
+
+// Хлебные крошки
+.breadcrumbs {
+  margin-bottom: 20px;
+  margin-right: 50px;
+  text-align: end;
+  position: fixed;
+}
+
+.breadcrumbs a {
+  text-decoration: none;
+  color: $text-color-dark;
+}
+
+// Фильтр
+.filter-container {
+  margin-top: 20px;
+  background-color: $bg-color-filter; /* Фон блока фильтров */
+  padding: 15px;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 6px $shadow-color;
+}
+
+.filter {
+  margin-bottom: 15px;
+}
+
+.filter label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: $font-size-medium;
+  color: $text-color-dark;
+}
+
+.filter input[type="number"],
+.filter select {
+  padding: 10px;
+  width: 100%;
+  font-size: $font-size-medium;
+  border: 1px solid #ccc;
+  border-radius: $border-radius;
+  background-color: #f3f3f3;
+  cursor: pointer;
+  appearance: none;
+}
+
+.filter input[type="number"]:focus,
+.filter select:focus {
+  border-color: $btn-bg-color;
+  outline: none;
+}
+
+.filter button,
+.reset-filters {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background-color: $btn-bg-color;
+  color: $btn-text-color;
+  cursor: pointer;
+  border-radius: $border-radius;
+  font-size: $font-size-medium;
+  transition: background-color 0.3s;
+}
+
+.reset-filters:hover {
+  background-color: $btn-bg-color-hover; /* Темнее при наведении */
+}
+
+.filter button:hover {
+  background-color: $btn-bg-color-hover; /* Темнее при наведении */
+}
+
+// Карты продуктов
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  justify-content: center;
+  background-color: $bg-color-light;
+  gap: 10px; /* Отступы между элементами */
+}
+
+.card {
+  border: 1px solid $border-color;
+  padding: 10px;
+  margin: 10px;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 5px $shadow-color;
+  width: 250px;
+  text-align: center;
+  background-color: $bg-color-light;
+}
+
+.card img {
+  max-width: 70%;
+  border-radius: $border-radius;
+}
+
+.card h3 {
+  margin: 10px 0;
+  font-size: $font-size-medium;
+}
+
+.card p {
+  font-size: $font-size-small;
+  margin: 5px 0;
+}
+
+.card .price {
+  color: $btn-bg-color;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.card .availability {
+  color: $text-color-light;
+  margin: 5px 0;
+}
+
+.card button {
+  padding: 8px;
+  border: none;
+  background-color: $btn-bg-color;
+  color: $btn-text-color;
+  cursor: pointer;
+  border-radius: $border-radius;
+  font-size: $font-size-small;
+  margin-top: 5px;
+}
+
+.no-products {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.no-products img {
+  width: 150px;
+}
+
+@keyframes jump {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.cat {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  animation: jump 0.5s infinite;
+}
+
+// Навигация для категорий
+.category-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.category-nav a {
+  font-size: $font-size-large;
+  color: $text-color-dark;
+  text-decoration: none;
+  margin-right: 10px;
+}

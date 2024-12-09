@@ -1,0 +1,140 @@
+// Переменные
+$footer-bg-color: #000000;
+$highlight-color: #45EFDA;
+$text-color-light: #ccc;
+$border-color: #ccc;
+$social-icon-size: 24px;
+$transition-duration: 0.3s;
+
+// Миксины
+@mixin border-radius($radius) {
+  border-radius: $radius;
+}
+
+@mixin transition($properties, $duration: $transition-duration) {
+  transition: $properties $duration ease;
+}
+
+// Основные стили
+.footer {
+  background-color: $footer-bg-color;
+  padding: 40px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 30px;
+  position: relative;
+
+  &::after {
+    content: "Copyright © 2024 Scooter24";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: $highlight-color;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #000;
+    margin-bottom: -30px;
+  }
+}
+
+.footer-section {
+  width: calc(50% - 130px);
+  margin-right: 10px;
+  color: $text-color-light;
+  box-sizing: border-box;
+  margin-left: 40px;
+
+  &:nth-child(n + 2) {
+    width: calc(25% - 20px);
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  h3, h4 {
+    margin-bottom: 15px;
+  }
+
+  p {
+    padding: 10px 0;
+  }
+
+  h4 a {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.yellow-text {
+  color: $highlight-color;
+  font-weight: bold;
+}
+
+.subscribe-form {
+  display: flex;
+  align-items: stretch;
+  margin: 3% auto;
+
+  input[type="email"] {
+    padding: 10px;
+    border: 1px solid $border-color;
+    @include border-radius(10px 0 0 10px);
+    height: 50px;
+    flex: 0.8;
+  }
+
+  .subscribe-button {
+    padding: 10px 20px;
+    background-color: $highlight-color;
+    color: #000;
+    border: none;
+    @include border-radius(0 10px 10px 0);
+    cursor: pointer;
+    @include transition(background-color);
+
+    &:hover {
+      background-color: darken($highlight-color, 10%);
+    }
+  }
+}
+
+.divider {
+  border: dotted 1px;
+  height: 100%;
+  background-color: rgba(204, 204, 204, 0.2);
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-right: 190px;
+
+  .social-icon {
+    margin-right: 10px;
+    color: $highlight-color;
+    font-size: 24px;
+
+    &:hover {
+      color: lighten($highlight-color, 10%);
+    }
+  }
+
+  .social-image {
+    width: $social-icon-size;
+    height: $social-icon-size;
+    margin-top: 4px;
+  }
+}
+
+.footer .highlights {
+  color: $highlight-color;
+}

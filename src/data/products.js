@@ -26,6 +26,8 @@ const products = [
         "article": "SCOT126723456122",
         "extra": "Доп. комплект: Плотная упаковка",
         "dimensions": "41.2 × 31.7 × 7.1 мм",
+        "weight": "150 г",
+        "description":"Отдай деньги",
         "tags": "1 год"
     },
     {
@@ -41,6 +43,8 @@ const products = [
         "article": "YAMAHA12345",
         "extra": "Запчасть на скутер",
         "dimensions": "42.2 × 32.7 × 8.1 мм",
+        "weight": "150 г",
+        "description":"Отдай деньги",
         "tags": "1 год"
     },
     {
@@ -56,6 +60,8 @@ const products = [
         "article": "YAMAHA12345",
         "extra": "Запчасть на скутер",
         "dimensions": "42.2 × 32.7 × 8.1 мм",
+        "weight": "150 г",
+        "description":"Отдай деньги",
         "tags": "1 год"
     },
     {
@@ -71,6 +77,8 @@ const products = [
         "article": "SCOT240000000042",
         "extra": "Сепаратор",
         "dimensions": "10 × 14 × 12.5 mm",
+        "weight": "150 г",
+        "description":"Отдай деньги",
         "tags": "30 дней"
     },
     {
@@ -86,6 +94,8 @@ const products = [
         "article": "SCOTT718591236501",
         "extra": "Натяжитель цепи ГРМ",
         "dimensions": "41.2 × 12.4 mm",
+        "weight": "150 г",
+        "description":"Отдай деньги",
         "tags": "1 год"
     },
     {
@@ -101,6 +111,8 @@ const products = [
         "article": "SCOT240000000001",
         "extra": "успокоитель цепи",
         "dimensions": "18 × 5.9 × 10 mm",
+        "weight": "150 г",
+        "description":"Отдай деньги",
         "tags": "1 год"
     },
     {
@@ -116,6 +128,8 @@ const products = [
         "article": "SCOT1267573861",
         "extra": "Плотная упаковка, Запчасть на скутер",
         "dimensions": "260 мм",
+        "weight": "150 г",
+        "description":"Отдай деньги",
         "tags": "1 год"
     },
     {
@@ -131,6 +145,8 @@ const products = [
         "article": "SCOT240000000080",
         "extra": "Доп. комплект: Карбюратор на мопед мотоцикл Alpha и Дельта PZ22 с подсосом",
         "dimensions": "17.1 × 28.3 × 21.8 mm",
+        "weight": "150 г",
+        "description":"Отдай деньги",
         "tags": "30 дней"
     }
 ];

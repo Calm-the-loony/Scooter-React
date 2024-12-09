@@ -1,0 +1,67 @@
+// Переменные для основных стилей
+$primary-color: #222;
+$secondary-color: #777;
+$background-color: #f9f9f9;
+$border-radius: 10px;
+$hover-opacity: 1;
+$default-opacity: 0.8;
+$transition-duration: 0.3s;
+$grid-gap: 10px;
+$max-width-image: 400px;
+
+// Миксин для общего стилизованного изображения
+@mixin image-hover-effect($opacity: $default-opacity, $hover-opacity: $hover-opacity) {
+  opacity: $opacity;
+  transition: opacity $transition-duration;
+
+  &:hover {
+    opacity: $hover-opacity;
+  }
+}
+
+.search-results {
+  padding: 10px;
+  padding-top: 130px; // Отступ сверху для предотвращения перекрытия
+  background-color: $background-color;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .results-title {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: $primary-color;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: $grid-gap;
+    justify-items: center;
+    width: 100%;
+  }
+
+  .no-results-wrapper {
+    text-align: center;
+    margin-top: 50px;
+
+    .no-results {
+      font-size: 1.8rem;
+      color: $secondary-color;
+      margin-bottom: 20px;
+    }
+
+    .no-results-image {
+      width: 100%;
+      max-width: $max-width-image;
+      border-radius: $border-radius;
+      @include image-hover-effect;
+
+      // Применение миксина с настраиваемыми значениями
+      @include image-hover-effect($default-opacity, $hover-opacity);
+    }
+  }
+}

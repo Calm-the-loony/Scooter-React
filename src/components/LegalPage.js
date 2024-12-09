@@ -1,5 +1,5 @@
 import React from "react";
-import "../style/LegalPage.css";
+import "../style/LegalPage.scss";
 
 const LegalPage = () => {
   return (

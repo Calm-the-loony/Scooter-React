@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../style/BrandsPage.css";
+import "../style/BrandsPage.scss";
 
 // Импорт изображений
 import brend1 from "../image/Brend1.png";

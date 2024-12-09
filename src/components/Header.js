@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import "../style/Header.css";
+import "../style/Header.scss";
 import "font-awesome/css/font-awesome.min.css";
 import logoImage from "../image/Дизайн.png";
 import searchIcon from "../image/free-icon-loupe-2482343.png";

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
-import "../style/FavoritesPage.css";
+import "../style/FavoritesPage.scss";
 
 const FavoritesPage = () => {
   const [favoriteItems, setFavoriteItems] = useState(() => {

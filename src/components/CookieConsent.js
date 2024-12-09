@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../style/CookieConsent.css"; // Создайте стиль для плашки
+import "../style/CookieConsent.scss"; // Создайте стиль для плашки
 
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);

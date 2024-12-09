@@ -1,5 +1,5 @@
 import React from "react";
-import "../style/ShippingPage.css";
+import "../style/ShippingPage.scss";
 
 // Импорт изображений
 import cdekImage from "../image/delivery.png";

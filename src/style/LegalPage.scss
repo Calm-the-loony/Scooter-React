@@ -1,0 +1,130 @@
+// Переменные
+$primary-color: #007bff;
+$text-color-dark: #333;
+$text-color-light: #555;
+$background-color-light: #ffffff;
+$border-radius: 8px;
+
+// Миксины
+@mixin box-style($bg-color, $shadow: none, $radius: $border-radius) {
+  background-color: $bg-color;
+  box-shadow: $shadow;
+  border-radius: $radius;
+}
+
+// Основные стили
+.legal-page {
+  padding: 20px;
+  margin: 130px auto 0;
+  max-width: 70%;
+  @include box-style(transparent, none);
+}
+
+.legal-title {
+  margin-bottom: 20px;
+  font-size: 2em;
+  text-align: left;
+  color: $text-color-dark;
+}
+
+.legal-section {
+  margin-bottom: 40px;
+  line-height: 1.6;
+  color: $text-color-light;
+  text-align: left;
+
+  p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  ul {
+    margin: 20px 0;
+    padding-left: 20px;
+
+    li {
+      margin-bottom: 10px;
+      list-style-type: disc;
+    }
+  }
+}
+
+.legal-section-title {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+  color: #000;
+  text-align: left;
+}
+
+.legal-link a {
+  color: $primary-color;
+  text-decoration: none;
+  text-align: left;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.legal-image {
+  max-width: 40%;
+  height: auto;
+  display: block;
+  margin: 20px 0;
+}
+
+// Стили для таблицы содержания
+.legal-toc {
+  margin-bottom: 30px;
+  @include box-style($background-color-light);
+  padding: 20px;
+}
+
+.legal-toc ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin-bottom: 10px;
+  }
+}
+
+.legal-toc a {
+  color: $primary-color;
+  text-decoration: none;
+  font-size: 1.1em;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Медиа-запросы
+@media (max-width: 768px) {
+  .legal-title {
+    font-size: 2rem;
+  }
+
+  .legal-section-title {
+    font-size: 1.5rem;
+  }
+
+  .legal-toc a {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .legal-title {
+    font-size: 1.8rem;
+  }
+
+  .legal-section-title {
+    font-size: 1.2rem;
+  }
+
+  .legal-toc a {
+    font-size: 0.9em;
+  }
+}

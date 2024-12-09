@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../context/CartContext"; // Импорт CartContext
 import products from "../data/products";
-import "../style/ProductPage.css";
+import "../style/ProductPage.scss";
 
 // Компонент аккордеона
 const Accordion = ({ product }) => {
@@ -16,37 +16,37 @@ const Accordion = ({ product }) => {
     <section className="accordion-container">
       <section className="accordion">
         {/* Детали */}
-        <div className={`accordion-item ${activeIndex === 0 ? 'open' : ''}`}>
+        <div className={`accordion-item ${activeIndex === 0 ? "open" : ""}`}>
           <div className="accordion-header" onClick={() => toggleAccordion(0)}>
             <span>Детали</span>
-            <i className={`fas fa-chevron-${activeIndex === 0 ? 'up' : 'down'}`}></i>
+            <i className={`fas fa-chevron-${activeIndex === 0 ? "up" : "down"}`}></i>
           </div>
           {activeIndex === 0 && (
             <div className="accordion-content">
-              <p>Вес: Не указан</p>
-              <p>Габариты: Не указаны</p>
+              <p><strong>Вес:</strong> {product.weight || "Не указан"}</p>
+              <p><strong>Габариты:</strong> {product.dimensions || "Не указаны"}</p>
             </div>
           )}
         </div>
 
         {/* Описание */}
-        <div className={`accordion-item ${activeIndex === 1 ? 'open' : ''}`}>
+        <div className={`accordion-item ${activeIndex === 1 ? "open" : ""}`}>
           <div className="accordion-header" onClick={() => toggleAccordion(1)}>
             <span>Описание</span>
-            <i className={`fas fa-chevron-${activeIndex === 1 ? 'up' : 'down'}`}></i>
+            <i className={`fas fa-chevron-${activeIndex === 1 ? "up" : "down"}`}></i>
           </div>
           {activeIndex === 1 && (
             <div className="accordion-content">
-              <p>Описание товара не указано.</p>
+              <p>{product.description || "Описание товара не указано."}</p>
             </div>
           )}
         </div>
 
         {/* Отзывы */}
-        <div className={`accordion-item ${activeIndex === 2 ? 'open' : ''}`}>
+        <div className={`accordion-item ${activeIndex === 2 ? "open" : ""}`}>
           <div className="accordion-header" onClick={() => toggleAccordion(2)}>
             <span>Отзывы</span>
-            <i className={`fas fa-chevron-${activeIndex === 2 ? 'up' : 'down'}`}></i>
+            <i className={`fas fa-chevron-${activeIndex === 2 ? "up" : "down"}`}></i>
           </div>
           {activeIndex === 2 && (
             <div className="accordion-content">
@@ -106,7 +106,7 @@ const ProductPage = () => {
       const updatedFavorites = [...favorites, product];
       setFavorites(updatedFavorites);
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-      alert("");
+      alert("Добавлено в избранное.");
     } else {
       alert("Этот товар уже в избранном!");
     }

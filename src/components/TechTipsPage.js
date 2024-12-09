@@ -1,5 +1,5 @@
 import React from "react";
-import "../style/TechTipsPage.css";
+import "../style/TechTipsPage.scss";
 
 // Импорт изображений
 import engineImage from "../image/bezymyannyy.jpg";

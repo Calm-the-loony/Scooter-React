@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../style/GaragePage.css";
+import "../style/GaragePage.scss";
 import products from "../data/products";
 import categories from "../data/categories";
 

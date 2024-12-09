@@ -1,5 +1,5 @@
 import React from "react";
-import "../style/PayPage.css";
+import "../style/PayPage.scss";
 
 // Импорт изображений
 import onlinePaymentImage from "../image/pay.png";
