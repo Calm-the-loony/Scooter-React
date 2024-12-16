@@ -1,6 +1,6 @@
 // Переменные
-$primary-color: #007bff;
-$primary-color-hover: #0056b3;
+$primary-color: #333;
+$primary-color-hover: #242424;
 $secondary-color: #40e0d0;
 $secondary-color-hover: #3accc1;
 $danger-color: #ff6b6b;
@@ -9,6 +9,7 @@ $text-color-dark: #333;
 $text-color-light: #555;
 $background-color-light: #f9f9f9;
 $border-color: #ddd;
+$background-color:#333;
 
 // Основные стили
 .cart-container {
@@ -74,7 +75,7 @@ $border-color: #ddd;
 }
 
 .quantity-button {
-  background-color: $background-color-light;
+  background-color: $background-color;
   border: 1px solid $border-color;
   padding: 5px;
   font-size: 14px;

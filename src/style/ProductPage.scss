@@ -109,7 +109,7 @@ body {
   }
 }
 
-// Адаптивность
+// Адаптивность для основной страницы товара
 @media (max-width: 768px) {
   .product-details {
     flex-direction: column;
@@ -130,7 +130,7 @@ body {
   }
 }
 
-// Аккордеон
+// Адаптивность для аккордеона
 .accordion-wrapper {
   margin-top: 30px;
   width: 100%;
@@ -139,7 +139,6 @@ body {
   margin-right: auto;
   transform: translateX(-200px); // Смещение влево на 60px
 }
-
 
 .accordion-container {
   .accordion {
@@ -192,6 +191,28 @@ body {
           button {
             @include button-style($primary-color, $secondary-color);
           }
+        }
+      }
+    }
+  }
+}
+
+// Адаптивность для аккордеона на мобильных устройствах
+@media (max-width: 768px) {
+  .accordion-wrapper {
+    transform: none; // Убираем смещение на мобильных
+  }
+
+  .accordion-container {
+    .accordion {
+      .accordion-item {
+        .accordion-header {
+          padding: 10px;
+          font-size: 1.1rem; // Уменьшаем размер шрифта для мобильных
+        }
+
+        .accordion-content {
+          padding: 10px;
         }
       }
     }

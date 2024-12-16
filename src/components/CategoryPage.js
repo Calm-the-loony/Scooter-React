@@ -1,44 +1,60 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import categories from "../data/categories";
-import ProductCard from "../components/ProductCard"; // Импортируем компонент ProductCard
+import ProductCard from "../components/ProductCard";
 import "../style/CategoryPage.scss";
 import CatImage from "../image/free-icon-black-cat-3704886.png";
-import shkivyImage from "../image/product/shkivy.webp";
+import { ReactComponent as ArrowIcon } from "../image/arrow-icon.svg";
 
 const CategoryPage = () => {
-  const location = useLocation(); // Используем хук useLocation для получения данных маршрута
-  const initialCategoryId = location.state?.categoryId || null; // Получаем categoryId из state, если он есть
+  const location = useLocation();
+  const initialCategoryId = location.state?.categoryId || null;
 
-  // Инициализация состояния с учетом переданного categoryId
   const [selectedCategory, setSelectedCategory] = useState(initialCategoryId);
+  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
+  const [expandedCategories, setExpandedCategories] = useState({});
   const [filters, setFilters] = useState({ minPrice: "", maxPrice: "", sort: "default" });
+  const [filteredProductsList, setFilteredProductsList] = useState([]);
 
+  // Обновление категории при изменении состояния
   useEffect(() => {
-    if (initialCategoryId) {
-      setSelectedCategory(initialCategoryId);
-    }
+    setSelectedCategory(initialCategoryId);
   }, [initialCategoryId]);
+
+  // Обновление списка товаров при смене категории/подкатегории
+  useEffect(() => {
+    const products = filteredProducts();
+    setFilteredProductsList(products);
+  }, [selectedCategory, selectedSubcategory, filters]);
+
+  const toggleCategory = (categoryId) => {
+    setExpandedCategories((prev) => ({
+      ...prev,
+      [categoryId]: !prev[categoryId],
+    }));
+  };
 
   const handleCategoryClick = (categoryId) => {
     setSelectedCategory(categoryId);
+    setSelectedSubcategory(null);
   };
 
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
-  };
-
-  const handleResetFilters = () => {
-    setFilters({ minPrice: "", maxPrice: "", sort: "default" });
+  const handleSubcategoryClick = (subcategoryId) => {
+    setSelectedSubcategory(subcategoryId);
   };
 
   const filteredProducts = () => {
     const category = categories.find((cat) => cat.id === selectedCategory);
     if (!category) return [];
-    let products = category.products;
 
-    // Фильтрация по цене
+    const subcategory = selectedSubcategory
+      ? category.subcategories.find((sub) => sub.id === selectedSubcategory)
+      : null;
+
+    let products = subcategory
+      ? subcategory.products
+      : category.subcategories.flatMap((sub) => sub.products);
+
     if (filters.minPrice) {
       products = products.filter((product) => parseFloat(product.price) >= parseFloat(filters.minPrice));
     }
@@ -46,7 +62,6 @@ const CategoryPage = () => {
       products = products.filter((product) => parseFloat(product.price) <= parseFloat(filters.maxPrice));
     }
 
-    // Сортировка
     switch (filters.sort) {
       case "price-asc":
         products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
@@ -64,6 +79,35 @@ const CategoryPage = () => {
     return products;
   };
 
+  const getCategoryName = () => {
+    const category = categories.find((cat) => cat.id === selectedCategory);
+    return category ? category.name : "Выберите категорию";
+  };
+
+  const getSubcategoryName = () => {
+    if (!selectedSubcategory) return null;
+    const category = categories.find((cat) => cat.id === selectedCategory);
+    if (category) {
+      const subcategory = category.subcategories.find((sub) => sub.id === selectedSubcategory);
+      return subcategory ? subcategory.name : null;
+    }
+    return null;
+  };
+
+  // Handle filter changes
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // Reset filters to initial state
+  const handleResetFilters = () => {
+    setFilters({ minPrice: "", maxPrice: "", sort: "default" });
+  };
+
   return (
     <main className="containers">
       <aside className="sidebar">
@@ -72,9 +116,32 @@ const CategoryPage = () => {
           <ul>
             {categories.map((category) => (
               <li key={category.id}>
-                <button onClick={() => handleCategoryClick(category.id)} className="category-button">
+                <button
+                  onClick={() => {
+                    toggleCategory(category.id);
+                    handleCategoryClick(category.id);
+                  }}
+                  className={`category-button ${expandedCategories[category.id] ? "active" : ""}`}
+                >
                   {category.name}
+                  <ArrowIcon
+                    className={`arrow-icon ${expandedCategories[category.id] ? "rotated" : ""}`}
+                  />
                 </button>
+                {expandedCategories[category.id] && (
+                  <ul className="subcategories">
+                    {category.subcategories.map((sub) => (
+                      <li key={sub.id}>
+                        <button
+                          onClick={() => handleSubcategoryClick(sub.id)}
+                          className={`subcategory-button ${selectedSubcategory === sub.id ? "active" : ""}`}
+                        >
+                          {sub.name}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>
@@ -113,20 +180,14 @@ const CategoryPage = () => {
         </div>
       </aside>
       <section className="main-content">
-        <div className="category-nav">
-          <a href="/">Главная</a> &gt;&gt; 
-          <span>{selectedCategory ? categories.find((cat) => cat.id === selectedCategory).name : "Категория"}</span>
-        </div>
-
-        <h2>{selectedCategory ? categories.find((cat) => cat.id === selectedCategory).name : "Выберите категорию"}</h2>
+        <h2>
+          {getSubcategoryName() || getCategoryName()}
+        </h2>
         <hr className="dashed-line" />
         <div className="cards-container">
-          {filteredProducts().length > 0 ? (
-            filteredProducts().map((product) => (
-              <ProductCard
-                key={product.id}
-                {...product} // Передаем все свойства продукта как пропсы
-              />
+          {filteredProductsList.length > 0 ? (
+            filteredProductsList.map((product) => (
+              <ProductCard key={product.id} {...product} />
             ))
           ) : (
             <div className="no-products">
