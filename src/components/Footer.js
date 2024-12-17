@@ -32,6 +32,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-section">
+        <div className="fot">
         <h4 className="yellow-text">НОВОСТНАЯ РАССЫЛКА</h4>
         <p>
           Получайте последние новости, специальные предложения и купоны через
@@ -46,6 +47,7 @@ const Footer = () => {
         <p>
           Проверьте <span className="highlights">все текущие коды купонов</span> на странице.
         </p>
+      </div>
       </div>
       <div>
         <hr className="divider" />

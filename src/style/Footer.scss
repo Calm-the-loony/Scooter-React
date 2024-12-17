@@ -138,3 +138,53 @@ $transition-duration: 0.3s;
 .footer .highlights {
   color: $highlight-color;
 }
+
+@media screen and (max-width: 1024px) {
+  .footer-section {
+    width: calc(50% - 20px);
+    margin-left: 20px;
+
+    &:nth-child(n + 2) {
+      width: calc(50% - 20px);
+    }
+  }
+
+  .subscribe-form, .fot {
+    display: none; // Удаление формы рассылки
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-section {
+    width: 100%;
+    margin: 10px 0;
+
+    &:nth-child(n + 2) {
+      width: 100%;
+    }
+  }
+
+  .subscribe-form, .fot {
+    display: none; // Удаление формы рассылки
+  }
+
+  .social-icons {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .footer {
+    padding: 20px 10px;
+  }
+
+  .subscribe-form, .fot {
+    display: none; // Удаление формы рассылки
+  }
+}
