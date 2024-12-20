@@ -30,28 +30,44 @@ const GaragePage = () => {
 
   const selectScooter = (index) => {
     const selected = scooters[index];
-    setSelectedScooter(selected);
-    updateDetails(selected);
-    setCurrentPage(1); // Сбрасываем страницу на первую при выборе нового скутера
+    if (selectedScooter === selected) {
+      // Если скутер уже выбран, то скрываем детали
+      setSelectedScooter(null);
+      setDetails([]);
+    } else {
+      setSelectedScooter(selected);
+      updateDetails(selected);
+      setCurrentPage(1); // Сбрасываем страницу на первую при выборе нового скутера
+    }
   };
 
   const updateDetails = (scooter) => {
+    // Проверка на undefined перед использованием toLowerCase
+    const scooterType = scooter.type?.toLowerCase() || "";
+    const scooterBrand = scooter.brand?.toLowerCase() || "";
+    const scooterModel = scooter.model?.toLowerCase() || "";
+
+    // Фильтрация товаров из 'products' массива
     const productDetails = products.filter(
       (product) =>
-        product.type === scooter.type &&
-        product.brand?.includes(scooter.brand) &&
-        product.model?.includes(scooter.model)
+        (product.type?.toLowerCase() || "").includes(scooterType) &&
+        (product.brand?.toLowerCase() || "").includes(scooterBrand) &&
+        (product.model?.toLowerCase() || "").includes(scooterModel)
     );
 
+    // Фильтрация товаров из 'categories' массива
     const categoryDetails = categories.flatMap((category) =>
-      category.products.filter(
-        (product) =>
-          product.type === scooter.type &&
-          product.brand?.includes(scooter.brand) &&
-          product.model?.includes(scooter.model)
+      category.subcategories.flatMap((subcategory) =>
+        (subcategory.products || []).filter(
+          (product) =>
+            (product.type?.toLowerCase() || "").includes(scooterType) &&
+            (product.brand?.toLowerCase() || "").includes(scooterBrand) &&
+            (product.model?.toLowerCase() || "").includes(scooterModel)
+        )
       )
     );
 
+    // Объединяем детали товаров, чтобы избежать дублирования
     const combinedDetails = [
       ...productDetails,
       ...categoryDetails.filter(

@@ -129,19 +129,20 @@ const CategoryPage = () => {
                   />
                 </button>
                 {expandedCategories[category.id] && (
-                  <ul className="subcategories">
-                    {category.subcategories.map((sub) => (
-                      <li key={sub.id}>
-                        <button
-                          onClick={() => handleSubcategoryClick(sub.id)}
-                          className={`subcategory-button ${selectedSubcategory === sub.id ? "active" : ""}`}
-                        >
-                          {sub.name}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+  <ul className={`subcategories ${expandedCategories[category.id] ? "expanded" : ""}`}>
+    {category.subcategories.map((sub) => (
+      <li key={sub.id}>
+        <button
+          onClick={() => handleSubcategoryClick(sub.id)}
+          className={`subcategory-button ${selectedSubcategory === sub.id ? "active" : ""}`}
+        >
+          {sub.name}
+        </button>
+      </li>
+    ))}
+  </ul>
+)}
+
               </li>
             ))}
           </ul>

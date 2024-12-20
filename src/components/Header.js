@@ -20,9 +20,60 @@ const Header = () => {
   const { cartItems } = useContext(CartContext);
   const navigate = useNavigate();
 
-  const allProducts = products.concat(
-    categories.flatMap((category) => category.products || [])
-  );
+  // Объединение товаров из products.js и категорий
+  const allProducts = [
+    ...products, // Продукты из products.js
+    ...categories.flatMap((category) => category.subcategories.flatMap(subcategory => subcategory.products || [])), // Продукты из всех категорий
+  ];
+
+  // Обработчик изменения текста в поле поиска
+  const handleSearchChange = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    if (query) {
+      const results = allProducts.filter((product) => {
+        return (
+          (product.name && product.name.toLowerCase().includes(query)) ||
+          (product.article && product.article.toLowerCase().includes(query))
+        );
+      });
+      setSearchResults(results);
+    } else {
+      setSearchResults([]);
+    }
+  };
+
+  // Обработчик клика на иконку поиска
+  const handleSearchClick = () => {
+    if (searchResults.length > 0) {
+      navigate("/search-results", { state: { results: searchResults } });
+    } else {
+      alert("Ничего не найдено");
+    }
+  };
+
+  // Обработчики для других кнопок в хедере
+  const handleCartClick = () => navigate("/cart");
+  const handleFavoriteClick = () => navigate("/favorites");
+  const handleGarageClick = () => navigate("/garage");
+
+  // Модальное окно для смены города
+  const openCityModal = () => setIsModalOpen(true);
+  const closeCityModal = () => setIsModalOpen(false);
+  const selectCity = (city) => {
+    document.getElementById("city-name").textContent = city;
+    closeCityModal();
+  };
+  const enterCityManually = () => {
+    const manualCity = prompt("Введите название вашего города:");
+    if (manualCity) selectCity(manualCity);
+  };
+
+  // Обработчик для открытия и закрытия меню
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   useEffect(() => {
     const header = document.getElementById("header");
@@ -69,51 +120,6 @@ const Header = () => {
     };
   }, []);
 
-  const openCityModal = () => setIsModalOpen(true);
-  const closeCityModal = () => setIsModalOpen(false);
-
-  const selectCity = (city) => {
-    document.getElementById("city-name").textContent = city;
-    closeCityModal();
-  };
-
-  const enterCityManually = () => {
-    const manualCity = prompt("Введите название вашего города:");
-    if (manualCity) selectCity(manualCity);
-  };
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const handleCartClick = () => navigate("/cart");
-  const handleFavoriteClick = () => navigate("/favorites");
-  const handleGarageClick = () => navigate("/garage");
-
-  const handleSearchChange = (e) => {
-    const query = e.target.value.toLowerCase();
-    setSearchQuery(query);
-
-    if (query) {
-      const results = allProducts.filter(
-        (product) =>
-          (product.name && product.name.toLowerCase().includes(query)) ||
-          (product.article && product.article.toLowerCase().includes(query))
-      );
-      setSearchResults(results);
-    } else {
-      setSearchResults([]);
-    }
-  };
-
-  const handleSearchClick = () => {
-    if (searchResults.length > 0) {
-      navigate("/search-results", { state: { results: searchResults } });
-    } else {
-      alert("Ничего не найдено");
-    }
-  };
-
   return (
     <>
       <header className="header" id="header">
@@ -155,35 +161,21 @@ const Header = () => {
         </div>
 
         <div id="location-container">
-  <span className="location-text">
-    Ваш город: <span id="city-name">...</span>
-  </span>
-  <button id="change-city-button" onClick={openCityModal}>Сменить</button>
-</div>
-
-        <div className="burger-menu" onClick={toggleMenu}>
-          <div className={`line ${isMenuOpen ? "open" : ""}`}></div>
-          <div className={`line ${isMenuOpen ? "open" : ""}`}></div>
-          <div className={`line ${isMenuOpen ? "open" : ""}`}></div>
+          <span className="location-text">
+            Ваш город: <span id="city-name">...</span>
+          </span>
+          <button id="change-city-button" onClick={openCityModal}>Сменить</button>
         </div>
+
+
 
         <div className={`submenu ${isMenuOpen ? "visible" : ""}`}>
           <ul>
-            <li>
-              <a href="/salesroom">Самовывоз</a>
-            </li>
-            <li>
-              <a href="/return">Возвраты</a>
-            </li>
-            <li>
-              <a href="/shipping">Доставка</a>
-            </li>
-            <li>
-              <a href="/legal">Защита данных</a>
-            </li>
-            <li>
-              <a href="/">Главная</a>
-            </li>
+            <li><a href="/salesroom">Самовывоз</a></li>
+            <li><a href="/return">Возвраты</a></li>
+            <li><a href="/shipping">Доставка</a></li>
+            <li><a href="/legal">Защита</a></li>
+            <li><a href="/">Главная</a></li>
           </ul>
         </div>
 
@@ -195,15 +187,11 @@ const Header = () => {
       {isModalOpen && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close" onClick={closeCityModal}>
-              &times;
-            </span>
+            <span className="close" onClick={closeCityModal}>&times;</span>
             <h2>Выберите ваш город</h2>
             <ul>
               <li onClick={() => selectCity("Москва")}>Москва</li>
-              <li onClick={() => selectCity("Санкт-Петербург")}>
-                Санкт-Петербург
-              </li>
+              <li onClick={() => selectCity("Санкт-Петербург")}>Санкт-Петербург</li>
               <li onClick={() => selectCity("Новосибирск")}>Новосибирск</li>
             </ul>
             <button onClick={enterCityManually}>Ввести вручную</button>

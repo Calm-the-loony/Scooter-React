@@ -117,7 +117,7 @@ body {
   transform: skew(-20deg);
   transform-origin: left;
   transition: margin-left 0.5s ease;
-  will-change: transform, left; /* Указываем, что будут изменяться transform и left */
+  will-change: transform, left; 
   z-index: 1;
 }
 
@@ -268,7 +268,7 @@ body {
     border-radius: 12px;
     width: 90%;
     max-width: 600px;
-    text-align: left; /* Текст выравнивается слева */
+    text-align: left; 
     position: relative;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     animation: slideUp 0.3s ease-out;
@@ -291,7 +291,7 @@ body {
   /* Эффект наведения на кнопку закрытия */
   .close:hover,
   .close:focus {
-    color: #2c9d86; /* Темный оттенок основного цвета */
+    color: #2c9d86; 
   }
   
   /* Заголовки в модальном окне */
@@ -329,8 +329,8 @@ body {
   }
   
   .modal-content li::before {
-    content: "✔"; /* Символ для выделения */
-    color: #45EFDA; /* Основной цвет */
+    content: "✔"; 
+    color: #45EFDA; 
     position: absolute;
     left: 0;
     top: 0;
@@ -418,7 +418,7 @@ body {
 
 
 #login-button a {
-  display: block; /* Ссылка занимает всю кнопку */
+  display: block; 
   width: 100%;
   height: 100%;
   text-decoration: none; 
@@ -462,19 +462,19 @@ body {
   height: 37px; 
   border-radius: 4px;
   margin-top: 3px;
-  border: none; /* Убираем границу */
+  border: none; 
 }
 
 .search-bar input[type="text"] {
   padding: 8px;
-  border: none; /* Убираем границу */
+  border: none; 
   border-radius: 5px;
   transform: skewX(1deg); /* Компенсируем наклон текста внутри */
   width: 100%;
   box-sizing: border-box;
-  background-color: transparent; /* Прозрачный фон, чтобы был виден черный контейнер */
+  background-color: transparent; 
   color: #ffffff; 
-  outline: none; /* Убираем контур при фокусе */
+  outline: none; 
 }
 
 .search-icon {
@@ -568,8 +568,6 @@ body {
   margin-left: -7px; 
 }
 
-
-
 /* Иконка меню */
 .menu-icon {
   cursor: pointer;
@@ -582,57 +580,47 @@ body {
   color: #45EFDA;
 }
 
-/* Стили для бургер-меню */
-.burger-menu {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    gap: 5px;
-  }
-  
-  .burger-menu .line {
-    width: 25px;
-    height: 3px;
-    background-color: #fff;
-    transition: all 0.3s ease;
-  }
-  
-  .burger-menu .line.open:nth-child(1) {
-    transform: rotate(45deg) translateY(8px);
-  }
-  
-  .burger-menu .line.open:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .burger-menu .line.open:nth-child(3) {
-    transform: rotate(-45deg) translateY(-8px);
-  }
-  
-  /* Адаптивность для мобильных устройств */
-  @media (max-width: 768px) {
-    .burger-menu {
+
+  @media screen and (max-width: 768px) {
+    .header {
       display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      height: auto;
+      padding: 10px 15px;
+      width: 100%;
     }
   
-    .submenu {
+    #parallelogram,
+    #location-container,
+    .contact-number {
       display: none;
     }
   
-    .submenu.visible {
-      display: block;
-    }
-  
+
     .action-container {
-      display: none;
+      left: 0;
+      width: 103%;
+      padding:3px;
+      display: flex;
+      justify-content: space-between;
+      transform: none;
+      height: auto;
     }
   
     .user-actions {
+      justify-content: space-around;
+      width: 100%;
+      height: auto;
+    }
+
+    .submenu ul li a {
+      margin-right: -10px;
+    }
+
+    .submenu ul li:not(:last-child)::after {
       display: none;
     }
-  
-    #location-container {
-      display: none;
-    }
+
   }
   

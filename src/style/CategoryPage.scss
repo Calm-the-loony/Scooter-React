@@ -240,27 +240,50 @@ $border-radius: 5px;
   margin-right: 10px;
 }
 
+// Подкатегории
 .subcategories {
   list-style: none;
-  padding: 0;
-  margin: 0;
-  margin-top: 5px;
+  padding-left: 20px; // Отступ для вложенности
+  margin: 5px 0;
+
+  .subcategory-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    width: 100%;
+    text-align: left;
+    font-size: $font-size-small;
+    color: $text-color-dark;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+      background-color: $btn-bg-color;
+      color: $btn-text-color;
+      border-radius: $border-radius;
+    }
+
+    &.active {
+      font-weight: bold;
+      color: $btn-bg-color;
+    }
+  }
+}
+
+// Анимация для подкатегорий
+.subcategories {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+
+  &.expanded {
+    max-height: 300px; // Плавное раскрытие
+  }
 }
 
 .subcategories li {
   margin-bottom: 5px;
 }
-
-.subcategories .subcategory-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px;
-  text-align: left;
-  width: 100%;
-  color: #333; 
-}
-
 .category-button {
   display: flex; 
   align-items: center; 

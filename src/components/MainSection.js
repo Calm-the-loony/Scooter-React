@@ -46,39 +46,42 @@ import CatImage from '../image/free-icon-black-cat-3704886.png';
 const MainSection = () => {
     // Настройки для карусели
     const carouselSettings = {
-      dots: true, 
-      infinite: true, 
-      speed: 500, 
-      slidesToShow: 4, 
-      slidesToScroll: 2, 
-      autoplay: true, 
-      autoplaySpeed: 3000, 
+      dots: true,
+      infinite: true,
+      speed: 400,
+      slidesToShow: 4,
+      slidesToScroll: 2,
+      autoplay: true,
+      autoplaySpeed: 3000,
       responsive: [
           {
-              breakpoint: 1024, 
+              breakpoint: 1024,
               settings: {
-                  slidesToShow: 3, 
+                  slidesToShow: 3,
                   slidesToScroll: 1,
                   infinite: true,
                   dots: true,
               },
           },
           {
-              breakpoint: 768, 
-              settings: {
-                  slidesToShow: 2, 
-                  slidesToScroll: 1,
-              },
-          },
-          {
-              breakpoint: 480, 
+              breakpoint: 768,
               settings: {
                   slidesToShow: 1,
                   slidesToScroll: 1,
               },
           },
+          {
+              breakpoint: 480,
+              settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  dots: false,
+              },
+          },
       ],
   };
+  
+  
   
       const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -103,64 +106,70 @@ const MainSection = () => {
       };
       
 
-    const [searchModel, setSearchModel] = useState('');
-    const [selectedBrand, setSelectedBrand] = useState('');
-    const navigate = useNavigate();
-
-    const handleSearch = () => {
-      // Объединяем данные из файлов продуктов и категорий
-      const allProducts = products.concat(
-          categories.flatMap(category => category.products)  // Предполагается, что category.products содержит список товаров
-      );
-  
-      // Фильтрация по модели и бренду с проверкой на undefined
-      const results = allProducts.filter(product => {
-          const modelMatch = product.model && product.model.toLowerCase().includes(searchModel.toLowerCase());
-          const brandMatch = selectedBrand === '' || (product.brand && product.brand.toLowerCase() === selectedBrand.toLowerCase());
+      const [searchModel, setSearchModel] = useState("");
+      const [selectedBrand, setSelectedBrand] = useState("");
+      const navigate = useNavigate();
+    
+      const handleSearch = () => {
+        // Объединяем данные из файлов продуктов и категорий
+        const allProducts = [
+          ...products,
+          ...categories.flatMap((category) =>
+            category.subcategories.flatMap((subcategory) => subcategory.products)
+          ),
+        ];
+    
+        // Фильтрация по модели и бренду с проверкой на undefined
+        const results = allProducts.filter((product) => {
+          // Проверяем, что модель и бренд определены
+          const modelMatch =
+            product && product.model && product.model.toLowerCase().includes(searchModel.toLowerCase());
+          const brandMatch =
+            selectedBrand === "" || (product && product.brand && product.brand.toLowerCase() === selectedBrand.toLowerCase());
           return modelMatch && brandMatch;
-      });
-  
-      navigate('/search-results', { state: { results } });
-  };
-  
-    return (
+        });
+    
+        navigate("/search-results", { state: { results } });
+      };
+    
+      return (
         <div>
-            <section className="parts-search">
-                <div className="background-image" style={{ backgroundImage: `url(${parkingImage})` }}>
-                    <div className="content">
-                        <h2>
-                            Найдите Свои <span className="highlight">Идеальные</span> Детали
-                        </h2>
-                        <div className="filters">
-                            <select 
-                                name="brand" 
-                                id="brand" 
-                                value={selectedBrand} 
-                                onChange={(e) => setSelectedBrand(e.target.value)}
-                            >
-                                <option value="" disabled selected hidden>
-                                    Марка
-                                </option>
-                                <option value="Yamaha">Yamaha</option>
-                                <option value="Honda">Honda</option>
-                                <option value="Vespa">Vespa</option>
-                                <option value="Suzuki">Suzuki</option>
-                                <option value="Kawasaki">Kawasaki</option>
-                                <option value="SYM">SYM</option>
-                                <option value="Kymco">Kymco</option>
-                                <option value="Aprilia">Aprilia</option>
-                            </select>
-                            <input
-                                type="text"
-                                placeholder="Модель"
-                                value={searchModel}
-                                onChange={(e) => setSearchModel(e.target.value)}
-                            />
-                            <button onClick={handleSearch}>Поиск</button>
-                        </div>
-                    </div>
+          <section className="parts-search">
+            <div className="background-image" style={{ backgroundImage: `url(${parkingImage})` }}>
+              <div className="content">
+                <h2>
+                  Найдите Свои <span className="highlight">Идеальные</span> Детали
+                </h2>
+                <div className="filters">
+                  <select
+                    name="brand"
+                    id="brand"
+                    value={selectedBrand}
+                    onChange={(e) => setSelectedBrand(e.target.value)}
+                  >
+                    <option value="" disabled selected hidden>
+                      Марка
+                    </option>
+                    <option value="Yamaha">Yamaha</option>
+                    <option value="Honda">Honda</option>
+                    <option value="Vespa">Vespa</option>
+                    <option value="Suzuki">Suzuki</option>
+                    <option value="Kawasaki">Kawasaki</option>
+                    <option value="SYM">SYM</option>
+                    <option value="Kymco">Kymco</option>
+                    <option value="Aprilia">Aprilia</option>
+                  </select>
+                  <input
+                    type="text"
+                    placeholder="Модель"
+                    value={searchModel}
+                    onChange={(e) => setSearchModel(e.target.value)}
+                  />
+                  <button onClick={handleSearch}>Поиск</button>
                 </div>
-            </section>
+              </div>
+            </div>
+          </section>
 
      {/* Секция категорий */}
 <section className="categories-section">
@@ -405,10 +414,10 @@ const MainSection = () => {
       </section>
 
       <section className="featured-products">
-  <h2 className="as">Рекомендуемые товары</h2>
-  <div className="red-line"></div>
-  <div className="product-grid">
-  <ProductCard 
+        <h2 className="as">Рекомендуемые товары</h2>
+        <div className="red-line"></div>
+        <div className="product-grid">
+        <ProductCard 
           id="1" 
           stock="23" 
           type="Скутер" 
