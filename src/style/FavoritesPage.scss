@@ -10,7 +10,7 @@ $favorites-btn-bg-color: #45EFDA;
 $favorites-btn-hover-bg-color: #33c1b4;
 $favorites-btn-add-to-cart-bg-color: #333;
 $favorites-btn-add-to-cart-hover-bg-color: #555;
-$favorites-font-size: 14px;
+$favorites-font-size: 16px;
 $favorites-gaps: 15px;
 
 // Контейнер фаворитов
@@ -56,7 +56,7 @@ $favorites-gaps: 15px;
 }
 
 .favorite-name {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   margin-bottom: 5px;
   color: $favorites-text-color;

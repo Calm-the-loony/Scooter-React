@@ -29,7 +29,7 @@
   max-width: 400px;
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Управление отступами между элементами */
+  gap: 10px; 
 }
 
 .form-label {
@@ -61,8 +61,8 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 300px;
-  max-width: 300px; /* Максимальная ширина кнопок */
-  min-width: 200px; /* Минимальная ширина кнопок для единообразия */
+  max-width: 300px; 
+  min-width: 200px; 
   margin: 10px auto;
   display: block;
   text-align: center;
@@ -142,20 +142,20 @@
 
 /* === Неавторизованный пользователь === */
 .auth-redirect {
-  display: flex; /* Для использования флекс-контейнера */
-  flex-direction: column; /* Вертикальное расположение элементов */
-  justify-content: center; /* Центрирование по вертикали */
-  align-items: center; /* Центрирование по горизонтали */
-  height: calc(80vh - 60px); /* Учет высоты шапки */
-  text-align: center; /* Центрирование текста */
-  margin: 0 auto; /* Центрирование блока */
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  height: calc(80vh - 60px); 
+  text-align: center; 
+  margin: 0 auto; 
 }
 
 .auth-redirect button {
   margin-bottom: 10px;
 }
 .account-content {
-  margin-top: 100px; /* Отступ вниз, чтобы шапка не перекрывала содержимое */
+  margin-top: 100px; 
 
   box-sizing: border-box;
 }
@@ -166,7 +166,7 @@
   .logout-btn,
   .auth-btn {
     max-width: 100%;
-    min-width: 100%; /* Занимать всю ширину на мобильных устройствах */
+    min-width: 100%; 
   }
 
   .dashboard,
@@ -181,12 +181,12 @@
   background-color: #fff;
   margin-top: 100px;
 }
-.account-page h1 {
-  text-align: center !important;  /* Применяем с !important */
-  font-size: 32px;
+.account-page h2 {
+  text-align: center !important; 
+  font-size: 24px;
   color: #212529;
-  margin-top: 0;  /* Если нужно отступить от верхнего края */
-  margin-bottom: 30px;  /* Поставьте нужный отступ */
+  margin-top: 0;  
+  margin-bottom: 30px;  
 }
 
 
@@ -290,7 +290,7 @@
 /* Контейнер кнопок редактирования */
 .edit-buttons {
   display: flex;
-  gap: 15px; /* Устанавливает расстояние между кнопками */
+  gap: 15px; 
 }
 
 /* Карточки заказов */
@@ -309,11 +309,11 @@
   text-align: left;
 }
 
-.order-title {
-  font-size: 20px;
-  margin-bottom: 10px;
-  color: #212529;
-}
+// .order-title {
+//   font-size: 20px;
+//   margin-bottom: 10px;
+//   color: #212529;
+// }
 
 .order-details-link {
   color: #007bff;
@@ -365,8 +365,8 @@
 .account-orders {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Расстояние между карточками */
-  justify-content: space-between; /* Равномерное распределение карточек */
+  gap: 20px; 
+  justify-content: space-between; 
 }
 
 /* Карточка заказа */
@@ -378,7 +378,7 @@
   margin-bottom: 20px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: calc(48% - 10px); /* 2 карточки в строке на больших экранах */
+  width: calc(48% - 10px); 
 }
 
 .order-card:hover {
@@ -398,7 +398,7 @@
   margin-bottom: 10px;
   font-size: 16px;
   color: #555;
-  line-height: 1.6; /* Улучшение читаемости */
+  line-height: 1.6; 
 }
 
 .order-info span {
@@ -448,7 +448,7 @@
 /* Адаптивность */
 @media (max-width: 768px) {
   .order-card {
-    width: 100%; /* Полная ширина на мобильных */
+    width: 100%; 
   }
 
   .order-title {

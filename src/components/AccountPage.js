@@ -73,7 +73,7 @@ const AccountPage = () => {
 
   return (
     <div className="account-page">
-      <h1>Личный кабинет</h1>
+      <h2>Личный кабинет</h2>
       <div className="account-wrapper">
         {isAuthenticated ? (
           <>
