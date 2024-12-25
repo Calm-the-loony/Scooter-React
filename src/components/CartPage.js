@@ -11,11 +11,11 @@ const CartPage = () => {
   const calculateTotal = () => {
     return cartItems
       .reduce((acc, item) => {
-        const itemPrice = parseFloat(item.price);
+        const itemPrice = parseFloat(item.price.replace(' ₽', '').replace(',', '.')); // Replace and parse price correctly
         const itemQuantity = parseInt(item.quantity, 10);
         return acc + (itemPrice * itemQuantity || 0);
       }, 0)
-      .toFixed(2);
+      .toFixed(2); // Ensure two decimal places
   };
 
   const totalPrice = calculateTotal();
@@ -63,7 +63,7 @@ const CartPage = () => {
               <img src={item.image} alt={item.name} className="cart-product-image" />
               <div className="cart-details">
                 <p className="cart-item-name">{item.name}</p>
-                <p className="cart-item-price">{item.price} </p>
+                <p className="cart-item-price">{item.price}</p>
                 <div className="quantity-container">
                   <button
                     className="quantity-button"
