@@ -53,9 +53,10 @@
     margin-right: 10px;
     width: 300px;
     background-color: #fff;
+    height: auto !important;
   }
   
-  /* Обновленные стили для секции категорий */
+  /* стили для секции категорий */
 .categories-section {
     display: flex;
     flex-wrap: wrap; /* Позволяет элементам переноситься на новую строку */
@@ -736,7 +737,7 @@
   font-weight: 500;
   margin: 10px 0;
   cursor: pointer;
-  width: 100%; /* Занимает всю ширину контейнера */
+  width: 100%; 
   transition: all 0.3s ease;
 }
 
@@ -874,4 +875,15 @@
     font-size: 1rem; /* Устанавливаем одинаковый размер шрифта */
     margin-bottom: 8px; /* Добавляем отступы между кнопками */
   }
+}
+
+.category-container i {
+  font-size: 40px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.category-container p {
+  font-size: 16px;
+  color: #333;
 }

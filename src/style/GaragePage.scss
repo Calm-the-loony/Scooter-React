@@ -243,3 +243,64 @@ $text-color: #333;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
+
+// Мобильная адаптация
+@media screen and (max-width: 768px) {
+  .garage-container {
+    padding: 15px;
+    margin-top: 100px;
+    max-width: 100%;
+  }
+
+  .add-scooter-form {
+    padding: 15px;
+
+    select,
+    input {
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .garage-list li {
+    flex-direction: column;
+    align-items: flex-start;
+
+    button {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+
+  .garage-details ul {
+    grid-template-columns: 1fr;
+  }
+
+  .pagination {
+    flex-direction: column;
+
+    .pagination-button {
+      margin: 5px 0;
+      width: 100%;
+    }
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.garage-details {
+  margin-top: 20px;
+  text-align: center;
+
+  canvas {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}

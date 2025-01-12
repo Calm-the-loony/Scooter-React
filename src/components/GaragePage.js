@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import "../style/GaragePage.scss";
 import products from "../data/products";
 import categories from "../data/categories";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ITEMS_PER_PAGE = 4; // Количество карточек на одну страницу
 
@@ -31,23 +35,20 @@ const GaragePage = () => {
   const selectScooter = (index) => {
     const selected = scooters[index];
     if (selectedScooter === selected) {
-      // Если скутер уже выбран, то скрываем детали
       setSelectedScooter(null);
       setDetails([]);
     } else {
       setSelectedScooter(selected);
       updateDetails(selected);
-      setCurrentPage(1); // Сбрасываем страницу на первую при выборе нового скутера
+      setCurrentPage(1);
     }
   };
 
   const updateDetails = (scooter) => {
-    // Проверка на undefined перед использованием toLowerCase
     const scooterType = scooter.type?.toLowerCase() || "";
     const scooterBrand = scooter.brand?.toLowerCase() || "";
     const scooterModel = scooter.model?.toLowerCase() || "";
 
-    // Фильтрация товаров из 'products' массива
     const productDetails = products.filter(
       (product) =>
         (product.type?.toLowerCase() || "").includes(scooterType) &&
@@ -55,7 +56,6 @@ const GaragePage = () => {
         (product.model?.toLowerCase() || "").includes(scooterModel)
     );
 
-    // Фильтрация товаров из 'categories' массива
     const categoryDetails = categories.flatMap((category) =>
       category.subcategories.flatMap((subcategory) =>
         (subcategory.products || []).filter(
@@ -67,7 +67,6 @@ const GaragePage = () => {
       )
     );
 
-    // Объединяем детали товаров, чтобы избежать дублирования
     const combinedDetails = [
       ...productDetails,
       ...categoryDetails.filter(
@@ -96,6 +95,23 @@ const GaragePage = () => {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+  };
+
+  // Данные для диаграммы
+  const typesCount = scooters.reduce((acc, scooter) => {
+    acc[scooter.type] = (acc[scooter.type] || 0) + 1;
+    return acc;
+  }, {});
+
+  const chartData = {
+    labels: Object.keys(typesCount),
+    datasets: [
+      {
+        data: Object.values(typesCount),
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"],
+        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"],
+      },
+    ],
   };
 
   return (
@@ -208,6 +224,15 @@ const GaragePage = () => {
             )}
           </div>
         )}
+
+        <div className="garage-details">
+          <h3>Статистика транспорта в гараже</h3>
+          {Object.keys(typesCount).length > 0 ? (
+            <Pie data={chartData} />
+          ) : (
+            <p>В гараже пока нет данных для визуализации.</p>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import marketImage from '../image/market.png';
 
 const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubscriptionConfirmed, setIsSubscriptionConfirmed] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -15,6 +16,11 @@ const Footer = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleSubscription = (event) => {
+    event.preventDefault();
+    setIsSubscriptionConfirmed(true); // Показываем уведомление об обработке данных
   };
 
   const redirectToWhatsApp = () => {
@@ -33,21 +39,21 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-section">
         <div className="fot">
-        <h4 className="yellow-text">НОВОСТНАЯ РАССЫЛКА</h4>
-        <p>
-          Получайте последние новости, специальные предложения и купоны через
-          <br />
-          электронную почту! Вы можете отменить подписку в любое время.
-        </p>
-        <form action="#" className="subscribe-form">
-          <input type="email" placeholder="Your email" />
-          <button type="submit" className="subscribe-button">Подписаться</button>
-        </form>
-        <h4 className="yellow-text">КОД КУПОНОВ</h4>
-        <p>
-          Проверьте <span className="highlights">все текущие коды купонов</span> на странице.
-        </p>
-      </div>
+          <h4 className="yellow-text">НОВОСТНАЯ РАССЫЛКА</h4>
+          <p>
+            Получайте последние новости, специальные предложения и купоны через
+            <br />
+            электронную почту! Вы можете отменить подписку в любое время.
+          </p>
+          <form action="#" className="subscribe-form" onSubmit={handleSubscription}>
+            <input type="email" placeholder="Ваш email" required />
+            <button type="submit" className="subscribe-button">Подписаться</button>
+          </form>
+          <h4 className="yellow-text">КОД КУПОНОВ</h4>
+          <p>
+            Проверьте <span className="highlights">все текущие коды купонов</span> на странице.
+          </p>
+        </div>
       </div>
       <div>
         <hr className="divider" />
@@ -59,9 +65,8 @@ const Footer = () => {
             href="#" 
             onClick={(e) => {
               e.preventDefault(); // Отключаем переход по ссылке
-              showModal(); // Открываем модальное окно
+              showModal(); // Открываем модальное окно с контактами
             }}>
-          
             Контакты
           </a>
         </h4>
@@ -69,9 +74,7 @@ const Footer = () => {
         {isModalOpen && (
           <div className="modal" id="myModal">
             <div className="modal-content">
-              <span className="close" onClick={closeModal}>
-                &times;
-              </span>
+              <span className="close" onClick={closeModal}>&times;</span>
               <button className="whatsapp-btn" onClick={redirectToWhatsApp}>
                 WhatsApp
               </button>
@@ -85,8 +88,7 @@ const Footer = () => {
           </div>
         )}
 
-        {/* Обновлённая ссылка на способы оплаты */}
-        <h4><Link to="/pay">Способы оплаты</Link></h4> 
+        <h4><Link to="/pay">Способы оплаты</Link></h4>
         <h4><Link to="/shipping">Доставка</Link></h4>
         <h4><Link to="/return">Возвраты</Link></h4>
         <h4><Link to="/salesroom">Торговое помещение</Link></h4>
@@ -100,8 +102,8 @@ const Footer = () => {
         <h4><Link to="/legal">Защита данных</Link></h4>
         <h4><Link to="/right">Право отзыва</Link></h4>
         <h4><Link to="/jobs">Вакансии</Link></h4>
-       < h4><Link to="/tech">Технические советы и руководства</Link></h4>
-       <h4><Link to="/brand">Бренды</Link></h4>
+        <h4><Link to="/tech">Технические советы и руководства</Link></h4>
+        <h4><Link to="/brand">Бренды</Link></h4>
         <h3 className="yellow-text">Social</h3>
         <div className="social-icons">
           <a href="https://telegram.example.com" className="social-icon">
@@ -121,6 +123,20 @@ const Footer = () => {
           </a>
         </div>
       </div>
+
+      {/* Модальное окно с согласием на обработку данных */}
+      {isSubscriptionConfirmed && (
+        <div className="subscription-modal">
+          <div className="subscription-modal-content">
+            <h4>Согласие на обработку данных</h4>
+            <p>
+              Нажимая кнопку "Подписаться", вы соглашаетесь на обработку ваших данных в
+              соответствии с нашей <a href="/privacy-policy">Политикой конфиденциальности</a>.
+            </p>
+            <button onClick={() => setIsSubscriptionConfirmed(false)}>Закрыть</button>
+          </div>
+        </div>
+      )}
     </footer>
   );
 };

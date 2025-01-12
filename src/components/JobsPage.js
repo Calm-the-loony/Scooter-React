@@ -3,6 +3,7 @@ import "../style/JobsPage.scss";
 
 const JobsPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [isChecked, setIsChecked] = useState(false); // Состояние для галочки согласия
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
@@ -14,6 +15,20 @@ const JobsPage = () => {
 
   const closeApplicationForm = () => {
     document.getElementById("applicationModal").style.display = "none";
+  };
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked); // Переключаем состояние чекбокса
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!isChecked) {
+      alert("Пожалуйста, подтвердите согласие на обработку данных.");
+    } else {
+      alert("Ваш отклик отправлен!");
+      closeApplicationForm(); // Закрыть модальное окно после отправки
+    }
   };
 
   const jobList = [
@@ -78,8 +93,6 @@ const JobsPage = () => {
       experience: "Да",
     },
   ];
-  
-  
 
   const filteredJobs = jobList.filter(
     (job) => job.title.toLowerCase().includes(searchQuery.toLowerCase()) || job.description.toLowerCase().includes(searchQuery.toLowerCase())
@@ -126,35 +139,48 @@ const JobsPage = () => {
 
       {/* Модальное окно для формы отклика */}
       <div className="jobs-modal" id="applicationModal">
-  <div className="jobs-modal-content">
-    <button className="jobs-modal-close" onClick={closeApplicationForm}>&times;</button>
-    <h2>Отклик на вакансию</h2>
-    <form id="applicationForm">
-      <div className="form-group">
-        <label htmlFor="name">Имя</label>
-        <input type="text" id="name" name="name" placeholder="Введите ваше имя" required />
+        <div className="jobs-modal-content">
+          <button className="jobs-modal-close" onClick={closeApplicationForm}>&times;</button>
+          <h2>Отклик на вакансию</h2>
+          <form id="applicationForm" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name">Имя</label>
+              <input type="text" id="name" name="name" placeholder="Введите ваше имя" required />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="Введите ваш email" required />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="phone">Телефон</label>
+              <input type="tel" id="phone" name="phone" placeholder="Введите ваш номер телефона" required />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="experience">Опыт работы</label>
+              <textarea id="experience" name="experience" placeholder="Опишите ваш опыт работы" required></textarea>
+            </div>
+
+            {/* Кнопка для согласия на обработку данных */}
+            <div className="form-group">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={handleCheckboxChange}
+                />
+                Я согласен на обработку моих персональных данных
+              </label>
+            </div>
+
+            <button type="submit" className="form-submit-button" disabled={!isChecked}>
+              Отправить отклик
+            </button>
+          </form>
+        </div>
       </div>
-
-      <div className="form-group">
-        <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Введите ваш email" required />
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="phone">Телефон</label>
-        <input type="tel" id="phone" name="phone" placeholder="Введите ваш номер телефона" required />
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="experience">Опыт работы</label>
-        <textarea id="experience" name="experience" placeholder="Опишите ваш опыт работы" required></textarea>
-      </div>
-
-      <button type="submit" className="form-submit-button">Отправить отклик</button>
-    </form>
-  </div>
-</div>
-
 
       <a href="/" className="back-to-main">Вернуться на главную страницу</a>
     </main>

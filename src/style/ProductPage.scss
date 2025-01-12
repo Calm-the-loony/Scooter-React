@@ -218,3 +218,43 @@ body {
     }
   }
 }
+
+.viewed-products {
+  margin-top: 40px;
+
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .viewed-list {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .viewed-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 150px;
+      text-align: center;
+      background-color: #f4f4f4;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+
+      img {
+        max-width: 100px;
+        max-height: 100px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 0.9rem;
+        margin: 5px 0;
+      }
+    }
+  }
+}

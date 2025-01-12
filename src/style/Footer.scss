@@ -188,3 +188,43 @@ $transition-duration: 0.3s;
     display: none; // Удаление формы рассылки
   }
 }
+
+.subscription-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.subscription-modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+
+  h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: #45efda;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}

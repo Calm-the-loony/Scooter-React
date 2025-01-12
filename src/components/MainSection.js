@@ -172,7 +172,7 @@ const MainSection = () => {
           </section>
 
      {/* Секция категорий */}
-<section className="categories-section">
+     {/* <section className="categories-section">
   <div className="category">
     <Link 
       to={{
@@ -314,6 +314,153 @@ const MainSection = () => {
       className="category-container"
     >
       <img src={configurationIcon} alt="Разное" />
+      <p>Разное</p>
+    </Link>
+  </div>
+</section> */}
+
+<section className="categories-section">
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/engine",
+      }} 
+      state={{ categoryId: "engine" }} 
+      className="category-container"
+    >
+      <i className="fas fa-cogs"></i>
+      <p>Двигатель</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/suspension",
+      }} 
+      state={{ categoryId: "suspension" }} 
+      className="category-container"
+    >
+      <i className="fas fa-shield-alt"></i>
+      <p>Подвеска</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/fuel-system",
+      }} 
+      state={{ categoryId: "fuel-system" }} 
+      className="category-container"
+    >
+      <i className="fas fa-gas-pump"></i>
+      <p>Топливная система</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/transmission",
+      }} 
+      state={{ categoryId: "transmission" }} 
+      className="category-container"
+    >
+      <i className="fas fa-exchange-alt"></i>
+      <p>Трансмиссия</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/electrics",
+      }} 
+      state={{ categoryId: "electrics" }} 
+      className="category-container"
+    >
+      <i className="fas fa-bolt"></i>
+      <p>Электрика</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/brake-system",
+      }} 
+      state={{ categoryId: "brake-system" }} 
+      className="category-container"
+    >
+      <i className="fas fa-car-crash"></i>
+      <p>Тормозная система</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/gaskets-seals",
+      }} 
+      state={{ categoryId: "gaskets-seals" }} 
+      className="category-container"
+    >
+      <i className="fas fa-ring"></i>
+      <p>Прокладки и сальники</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/mufflers",
+      }} 
+      state={{ categoryId: "mufflers" }} 
+      className="category-container"
+    >
+      <i className="fas fa-headphones-alt"></i>
+      <p>Глушители</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/accessories",
+      }} 
+      state={{ categoryId: "accessories" }} 
+      className="category-container"
+    >
+      <i className="fas fa-tools"></i>
+      <p>Расходники</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/tuning",
+      }} 
+      state={{ categoryId: "tuning" }} 
+      className="category-container"
+    >
+      <i className="fas fa-tachometer-alt"></i>
+      <p>Тюнинг</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/body-parts",
+      }} 
+      state={{ categoryId: "body-parts" }} 
+      className="category-container"
+    >
+      <i className="fas fa-car-side"></i>
+      <p>Кузовные элементы</p>
+    </Link>
+  </div>
+  <div className="category">
+    <Link 
+      to={{
+        pathname: "/category/uncategorized",
+      }} 
+      state={{ categoryId: "uncategorized" }} 
+      className="category-container"
+    >
+      <i className="fas fa-ellipsis-h"></i>
       <p>Разное</p>
     </Link>
   </div>
