@@ -8,9 +8,9 @@ import scooterIcon from "../image/scooter.png";
 import cartIcon from "../image/cart.png";
 import userIcon from "../image/free-icon-user-2603906.png";
 import { useNavigate } from "react-router-dom";
-import { CartContext } from "../context/CartContext";
-import products from "../data/products";
-import categories from "../data/categories";
+import { CartContext } from "../../../context/CartContext";
+import products from "../../../data/products";
+import categories from "../../../data/categories";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

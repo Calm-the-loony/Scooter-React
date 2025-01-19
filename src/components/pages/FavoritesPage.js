@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { CartContext } from "../context/CartContext";
+import { CartContext } from "../../context/CartContext";
 import "../style/FavoritesPage.scss";
 
 const FavoritesPage = () => {

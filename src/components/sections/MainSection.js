@@ -6,8 +6,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "font-awesome/css/font-awesome.min.css";
 import ProductCard from './ProductCard';
-import products from "../data/products";  
-import categories from "../data/categories"; 
+import products from "../../data/products";  
+import categories from "../../data/categories"; 
 
 
 // Изображения

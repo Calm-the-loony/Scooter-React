@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import categories from "../data/categories";
-import ProductCard from "../components/ProductCard";
+import categories from "../../data/categories";
+import ProductCard from "../cards/ProductCard";
 import "../style/CategoryPage.scss";
 import CatImage from "../image/free-icon-black-cat-3704886.png";
 import { ReactComponent as ArrowIcon } from "../image/arrow-icon.svg";

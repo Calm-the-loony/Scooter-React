@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { CartContext } from "../context/CartContext";
+import { CartContext } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ id, stock, type, brand, model, category, image, name, price }) => {
