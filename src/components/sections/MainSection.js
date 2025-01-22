@@ -39,6 +39,7 @@ import bannerImage3 from "../../image/Designer (1).jpeg";
 import karbyurator4 from "../../image/product/karbyurator4.webp";
 import "../../style/CategoryPage.scss";
 import CatImage from '../../image/free-icon-black-cat-3704886.png';
+import { AuthService } from "../../service/api/auth/AuthApiService";
 
 // Подключаем данные
 // import products from "../data/products.json";  
@@ -81,8 +82,7 @@ const MainSection = () => {
       ],
   };
   
-  
-  
+
       const [isModalOpen, setIsModalOpen] = useState(false);
 
       const showModal = () => {
