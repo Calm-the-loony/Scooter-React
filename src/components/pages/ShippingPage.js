@@ -1,10 +1,10 @@
 import React from "react";
-import "../style/ShippingPage.scss";
+import "../../style/ShippingPage.scss";
 
 // Импорт изображений
-import cdekImage from "../image/delivery.png";
-import russianPostImage from "../image/delivery3.png";
-import yamarketImage from "../image/Delivery2.png";
+import cdekImage from "../../image/delivery.png";
+import russianPostImage from "../../image/delivery3.png";
+import yamarketImage from "../../image/Delivery2.png";
 
 const ShippingPage = () => {
   return (

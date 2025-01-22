@@ -1,8 +1,8 @@
 // src/components/FeaturedProducts.js
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
-import ProductCard from "./ProductCard"; // Убедитесь, что у вас есть компонент ProductCard
-import productsData from "../data/products.json"; // Импорт данных
+import ProductCard from "../cards/ProductCard"; // Убедитесь, что у вас есть компонент ProductCard
+import productsData from "../../data/products.json"; // Импорт данных
 
 
 const FeaturedProducts = () => {

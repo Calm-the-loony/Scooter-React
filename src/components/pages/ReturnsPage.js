@@ -1,5 +1,5 @@
 import React from "react";
-import "../style/ReturnsPage.scss"; // Стили для страницы возврата
+import "../../style/ReturnsPage.scss"; // Стили для страницы возврата
 
 const ReturnsPage = () => {
   return (

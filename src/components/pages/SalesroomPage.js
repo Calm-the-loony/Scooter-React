@@ -1,11 +1,11 @@
 import React from "react";
 import { Map, GeoObject, ZoomControl, YMaps } from "@pbe/react-yandex-maps";
-import "../style/SalesroomPage.scss";
+import "../../style/SalesroomPage.scss";
 
 // Импорт изображений
-import largeImage from "../image/stroitelstvo-skladov-zapchastey-rsholod-3.jpg";
-import smallImage1 from "../image/sto_sklad.jpg";
-import smallImage2 from "../image/sto_sklad2.jpg";
+import largeImage from "../../image/stroitelstvo-skladov-zapchastey-rsholod-3.jpg";
+import smallImage1 from "../../image/sto_sklad.jpg";
+import smallImage2 from "../../image/sto_sklad2.jpg";
 
 const SalesroomPage = () => {
   return (

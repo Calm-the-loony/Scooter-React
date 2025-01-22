@@ -1,10 +1,10 @@
 import React from "react";
-import "../style/PayPage.scss";
+import "../../style/PayPage.scss";
 
 // Импорт изображений
-import onlinePaymentImage from "../image/pay.png";
-import cashPaymentImage from "../image/pay1.png";
-import codPaymentImage from "../image/pay2.png";
+import onlinePaymentImage from "../../image/pay.png";
+import cashPaymentImage from "../../image/pay1.png";
+import codPaymentImage from "../../image/pay2.png";
 
 const PayPage = () => {
   return (

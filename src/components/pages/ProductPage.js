@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../../context/CartContext"; // Импорт CartContext
 import products from "../../data/products";
-import "../style/ProductPage.scss";
+import "../../style/ProductPage.scss";
 
 // Компонент аккордеона
 const Accordion = ({ product }) => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../style/styles.scss';
+import '../../style/styles.scss';
 
 const AccountPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

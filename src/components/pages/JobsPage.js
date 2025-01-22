@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../style/JobsPage.scss";
+import "../../style/JobsPage.scss";
 
 const JobsPage = () => {
   const [searchQuery, setSearchQuery] = useState("");

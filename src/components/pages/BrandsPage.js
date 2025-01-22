@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import "../style/BrandsPage.scss";
+import "../../style/BrandsPage.scss";
 
 // Импорт изображений
-import brend1 from "../image/Brend1.png";
-import brend2 from "../image/Brend2.jpg";
-import brend3 from "../image/Brend3.png";
-import brend4 from "../image/Brend4.png";
-import brend5 from "../image/Brend5.png";
-import brend6 from "../image/Brend6.png";
-import brend7 from "../image/Brend7.png";
+import brend1 from "../../image/Brend1.png";
+import brend2 from "../../image/Brend2.jpg";
+import brend3 from "../../image/Brend3.png";
+import brend4 from "../../image/Brend4.png";
+import brend5 from "../../image/Brend5.png";
+import brend6 from "../../image/Brend6.png";
+import brend7 from "../../image/Brend7.png";
 
 const brandsData = [
   {

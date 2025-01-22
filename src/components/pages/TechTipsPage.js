@@ -1,10 +1,10 @@
 import React from "react";
-import "../style/TechTipsPage.scss";
+import "../../style/TechTipsPage.scss";
 
 // Импорт изображений
-import engineImage from "../image/bezymyannyy.jpg";
-import transmissionImage from "../image/LcBIeuFLP9M.jpg";
-import suspensionImage from "../image/Ha666317831a4499db4f0f211c0e3e02ew.jpg_480x480.webp";
+import engineImage from "../../image/bezymyannyy.jpg";
+import transmissionImage from "../../image/LcBIeuFLP9M.jpg";
+import suspensionImage from "../../image/Ha666317831a4499db4f0f211c0e3e02ew.jpg_480x480.webp";
 
 const TechTipsPage = () => {
   return (

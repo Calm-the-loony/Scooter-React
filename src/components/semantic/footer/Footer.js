@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom"; // Импорт Link
-import '../style/Footer.scss';
+import '../../../style/Footer.scss';
 import 'font-awesome/css/font-awesome.min.css';
-import wbImage from '../image/Wb.png';
-import ozonImage from '../image/ozon.png';
-import marketImage from '../image/market.png';
+import wbImage from '../../../image/Wb.png';
+import ozonImage from '../../../image/ozon.png';
+import marketImage from '../../../image/market.png';
 
 const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

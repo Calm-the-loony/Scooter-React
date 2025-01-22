@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import "../style/GaragePage.scss";
+import "../../style/GaragePage.scss";
 import products from "../../data/products";
 import categories from "../../data/categories";
 

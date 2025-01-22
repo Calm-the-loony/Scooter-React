@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../style/styles.scss';
+import '../../style/styles.scss';
 
 const RegisterPage = () => {
   const [role, setRole] = useState('user'); // Роль по умолчанию - обычный пользователь

@@ -1,28 +1,28 @@
 import React from "react";
 import { render, screen } from '@testing-library/react';
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import MainSection from "./components/MainSection";
-import PayPage from "./components/PayPage";
-import ShippingPage from "./components/ShippingPage";
-import ReturnsPage from "./components/ReturnsPage";
-import SalesroomPage from "./components/SalesroomPage";
-import LegalPage from "./components/LegalPage";
-import RightOfWithdrawalPage from "./components/RightOfWithdrawalPage";
-import JobsPage from "./components/JobsPage";
-import TechTipsPage from "./components/TechTipsPage";
-import BrandsPage from "./components/BrandsPage";
-import CategoryPage from "./components/CategoryPage";
-import NotFoundPage from "./components/NotFoundPage";
-import CartPage from "./components/CartPage";
-import FavoritesPage from "./components/FavoritesPage";
-import GaragePage from "./components/GaragePage";
-import AccountPage from "./components/AccountPage";
-import LoginPage from "./components/LoginPage"; // Страница авторизации
-import RegistrationPage from "./components/RegistrationPage"; // Страница регистрации
-import CookieConsent from "./components/CookieConsent"; // Новый компонент
-import ProductPage from "./components/ProductPage";  // Импортируем компонент страницы товара
-import SearchResults from "./components/SearchResults";
+import Header from "./components/semantic/header/Header";
+import Footer from "./components/semantic/footer/Footer";
+import MainSection from "./components/sections/MainSection";
+import PayPage from "./components/pages/PayPage";
+import ShippingPage from "./components/pages/ShippingPage";
+import ReturnsPage from "./components/pages/ReturnsPage";
+import SalesroomPage from "./components/pages/SalesroomPage";
+import LegalPage from "./components/pages/LegalPage";
+import RightOfWithdrawalPage from "./components/pages/RightOfWithdrawalPage";
+import JobsPage from "./components/pages/JobsPage";
+import TechTipsPage from "./components/pages/TechTipsPage";
+import BrandsPage from "./components/pages/BrandsPage";
+import CategoryPage from "./components/pages/CategoryPage";
+import NotFoundPage from "./components/pages/NotFoundPage";
+import CartPage from "./components/pages/CartPage";
+import FavoritesPage from "./components/pages/FavoritesPage";
+import GaragePage from "./components/pages/GaragePage";
+import AccountPage from "./components/pages/AccountPage";
+import LoginPage from "./components/pages/LoginPage"; // Страница авторизации
+import RegistrationPage from "./components/pages/RegistrationPage"; // Страница регистрации
+import CookieConsent from "./components/other/CookieConsent"; // Новый компонент
+import ProductPage from "./components/pages/ProductPage";  // Импортируем компонент страницы товара
+import SearchResults from "./components/other/SearchResults";
 // import PaymentPage from "./components/PaymentPage";
 // import FeaturedProducts from "./components/FeaturedProducts";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
