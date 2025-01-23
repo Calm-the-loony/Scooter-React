@@ -1,6 +1,7 @@
 import axios from "axios";
 import { TokenMixin } from "../mixins/UserMixins";
 
+
 export class AuthService {
     static async loginUser(userEmail, userPassword) {
         
@@ -26,7 +27,13 @@ export class AuthService {
     }
 
     static async registerUser(userData) {
-        let req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/register", {}, {
+        let req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/register", {
+            email_user: userData.emailUser,
+            password_user: userData.passwordUser,
+            name_user: userData.nameUser,
+            surname_user: userData.surnameUser,
+            main_name_user: userData.mainNameUser
+        }, {
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json"
