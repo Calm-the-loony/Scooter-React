@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../style/styles.scss';
+import { TokenMixin } from '../../service/api/mixins/UserMixins';
+import { UserApiService } from '../../service/api/user/UserApiService';
+
 
 const AccountPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -12,11 +15,17 @@ const AccountPage = () => {
 
   useEffect(() => {
     const authStatus = localStorage.getItem('isAuthenticated') === 'true';
-    const user = JSON.parse(localStorage.getItem('userData'));
+
+    // Запрос на получение информации о пользователе
+    const data = UserApiService.informationAboutUser().then((dataUser) => {
+      setUserData(dataUser);
+    }).catch((er) => {
+
+    });
+
     setIsAuthenticated(authStatus);
 
-    if (authStatus && user) {
-      setUserData(user);
+    if (authStatus && userData) {
       setIsAdmin(localStorage.getItem('isAdmin') === 'true'); // Проверяем, является ли пользователь администратором
     }
   }, []);
@@ -26,6 +35,7 @@ const AccountPage = () => {
     setIsAuthenticated(false);
     setIsAdmin(false);
     setUserData(null);
+    TokenMixin.clearToken();
     navigate('/login');
   };
 
@@ -73,7 +83,8 @@ const AccountPage = () => {
 
   return (
     <div className="account-page">
-      <h2>Личный кабинет</h2>
+      {userData? <div>
+        <h2>Личный кабинет</h2>
       <div className="account-wrapper">
         {isAuthenticated ? (
           <>
@@ -117,7 +128,7 @@ const AccountPage = () => {
                   name="name"
                   className="account-input"
                   required
-                  defaultValue={userData?.name || ''}
+                  defaultValue={userData? userData.main_name_user : ''}
                   disabled={!isEditing}
                 />
 
@@ -128,7 +139,7 @@ const AccountPage = () => {
                   name="dob"
                   className="account-input"
                   required
-                  defaultValue={userData?.dob || ''}
+                  defaultValue={userData?.date_birthday || ''}
                   disabled={!isEditing}
                 />
 
@@ -150,7 +161,7 @@ const AccountPage = () => {
                   name="email"
                   className="account-input"
                   required
-                  defaultValue={userData?.email || ''}
+                  defaultValue={userData? userData.email_user : ''}
                   disabled={!isEditing}
                 />
 
@@ -160,7 +171,7 @@ const AccountPage = () => {
                   id="account_phone"
                   name="phone"
                   className="account-input"
-                  defaultValue={userData?.phone || ''}
+                  defaultValue={userData?.telephone || ''}
                   disabled={!isEditing}
                 />
 
@@ -285,6 +296,7 @@ const AccountPage = () => {
           </div>
         )}
       </div>
+      </div> : ""}
     </div>
   );
 };

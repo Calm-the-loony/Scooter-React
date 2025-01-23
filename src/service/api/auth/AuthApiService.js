@@ -27,18 +27,20 @@ export class AuthService {
     }
 
     static async registerUser(userData) {
-        let req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/register", {
+        console.log(userData);
+        let req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/registration", {
             email_user: userData.emailUser,
             password_user: userData.passwordUser,
             name_user: userData.nameUser,
             surname_user: userData.surnameUser,
-            main_name_user: userData.mainNameUser
+            main_name_user: userData.mainNameUser,
+            date_registration: null
         }, {
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json"
-            }
-        })
+            },
+        });
 
         if (req.status === 201) {
             return true

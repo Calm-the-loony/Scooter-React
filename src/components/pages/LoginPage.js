@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../style/styles.scss';
+import { AuthService } from '../../service/api/auth/AuthApiService';
+
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -9,19 +11,16 @@ const LoginPage = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
-    // Проверяем данные пользователя в localStorage
-    const storedUser = JSON.parse(localStorage.getItem('userData'));
-
-    if (storedUser && storedUser.email === email && storedUser.password === password) {
-      // Устанавливаем флаг авторизации и роль пользователя
-      localStorage.setItem('isAuthenticated', 'true');
-      localStorage.setItem('isAdmin', storedUser.role === 'admin' ? 'true' : 'false');
-
-      navigate('/account');
-    } else {
-      alert('Неверные данные для входа');
-    }
+      
+      let req = AuthService.loginUser(email, password).then((message) => {
+        // Устанавливаем флаг авторизации и роль пользователя
+        localStorage.setItem('isAuthenticated', 'true');
+        // localStorage.setItem('isAdmin', storedUser.role === 'admin' ? 'true' : 'false');
+        navigate('/account');
+      }).catch((er) => {
+        console.log(er);
+        alert("Неверные данные для входа");
+      });
   };
 
   return (
