@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../../style/styles.scss';
 import { TokenMixin } from '../../service/api/mixins/UserMixins';
 import { UserApiService } from '../../service/api/user/UserApiService';
+import UserDTO from '../../service/dto/UserDTO';
 
 
 const AccountPage = () => {
@@ -11,6 +12,13 @@ const AccountPage = () => {
   const [activeTab, setActiveTab] = useState('account-section');
   const [isEditing, setIsEditing] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false); // Добавляем состояние для проверки на админа
+
+  // Данные состояния для обновления информации о пользователе
+  const [address, setAddress] = useState(null);
+  const [dateBirthday, setDateBirthDay] = useState(null);
+  const [mainNameUser, setMainNameUser] = useState(null);
+  const [telephone, setTelephoneUser] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -81,6 +89,17 @@ const AccountPage = () => {
     localStorage.setItem('userData', JSON.stringify(updatedUserData));
   };
 
+  const updateUserData = function(event) {
+    let userData = new UserDTO(mainNameUser, dateBirthday, address, telephone);
+    let req = UserApiService.updateUserInformation(
+      userData
+    ).then((okMessage) => {
+      console.log("Данные обновились");
+    }).catch((erMessage) => {
+      alert("Не удалось обновить информацию!");
+    });
+  }
+
   return (
     <div className="account-page">
       {userData? <div>
@@ -130,6 +149,9 @@ const AccountPage = () => {
                   required
                   defaultValue={userData? userData.main_name_user : ''}
                   disabled={!isEditing}
+                  onChange={(value) => {
+                    setMainNameUser(value.target.value);
+                  }}
                 />
 
                 <label htmlFor="account_dob" className="account-label">Дата рождения:</label>
@@ -141,6 +163,9 @@ const AccountPage = () => {
                   required
                   defaultValue={userData?.date_birthday || ''}
                   disabled={!isEditing}
+                  onChange={(value) => {
+                    setDateBirthDay(value.target.value);
+                  }}
                 />
 
                 <label htmlFor="account_address" className="account-label">Адрес:</label>
@@ -152,6 +177,9 @@ const AccountPage = () => {
                   required
                   defaultValue={userData?.address || ''}
                   disabled={!isEditing}
+                  onChange={(value) => {
+                    setAddress(value.target.value);
+                  }}
                 />
 
                 <label htmlFor="account_email" className="account-label">Email:</label>
@@ -162,7 +190,7 @@ const AccountPage = () => {
                   className="account-input"
                   required
                   defaultValue={userData? userData.email_user : ''}
-                  disabled={!isEditing}
+                  disabled={true}
                 />
 
                 <label htmlFor="account_phone" className="account-label">Телефон:</label>
@@ -173,11 +201,14 @@ const AccountPage = () => {
                   className="account-input"
                   defaultValue={userData?.telephone || ''}
                   disabled={!isEditing}
+                  onChange={(value) => {
+                    setTelephoneUser(value.target.value);
+                  }}
                 />
 
                 {isEditing ? (
                   <div className="edit-buttons">
-                    <button type="submit" className="account-button">Сохранить изменения</button>
+                    <button type="submit" className="account-button" onClick={updateUserData}>Сохранить изменения</button>
                     <button type="button" className="account-button" onClick={handleCancelEdit}>Отмена</button>
                   </div>
                 ) : (
