@@ -9,6 +9,7 @@ import UserDTO from '../../service/dto/UserDTO';
 const AccountPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [userOrdersData, setUserOrdersData] = useState(null);
   const [activeTab, setActiveTab] = useState('account-section');
   const [isEditing, setIsEditing] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false); // Добавляем состояние для проверки на админа
@@ -18,6 +19,10 @@ const AccountPage = () => {
   const [dateBirthday, setDateBirthDay] = useState(null);
   const [mainNameUser, setMainNameUser] = useState(null);
   const [telephone, setTelephoneUser] = useState(null);
+
+  // Данные безопасности (пароль)
+  const [userOldPassword, setUserOldPassword] = useState(null);
+  const [userNewPassword, setUserNewPassword] = useState(null);
 
   const navigate = useNavigate();
 
@@ -48,6 +53,11 @@ const AccountPage = () => {
   };
 
   const handleTabClick = (tab) => {
+    const req = UserApiService.userOrders().then((data) => {
+      setUserOrdersData(data);
+    }).catch((er) => {
+      
+    })
     setActiveTab(tab);
   };
 
@@ -90,13 +100,24 @@ const AccountPage = () => {
   };
 
   const updateUserData = function(event) {
-    let userData = new UserDTO(mainNameUser, dateBirthday, address, telephone);
-    let req = UserApiService.updateUserInformation(
+    const userData = new UserDTO(mainNameUser, dateBirthday, address, telephone);
+    const req = UserApiService.updateUserInformation(
       userData
     ).then((okMessage) => {
-      console.log("Данные обновились");
+      
     }).catch((erMessage) => {
       alert("Не удалось обновить информацию!");
+    });
+  };
+
+  const updateUserPassword = function(event) {
+    event.preventDefault();
+
+    const req = UserApiService.updateUserPassword(userOldPassword, userNewPassword).then((ok) => {
+      TokenMixin.clearToken();
+      navigate("/login");
+    }).catch((er) => {
+      console.log(er);
     });
   }
 
@@ -220,42 +241,40 @@ const AccountPage = () => {
             <section className={`account-orders-section ${activeTab === 'account-orders-section' ? 'active' : ''}`}>
               <h2 className="account-subheader">Мои заказы</h2>
               <div className="account-orders">
-                {userData?.orders?.length ? (
-                  userData.orders.map((order, index) => (
+                {userOrdersData?.orders?.length ? (
+                  userOrdersData.orders.map((order, index) => (
                     <div key={index} className="order-card">
-                      <h3 className="order-title">Заказ №{order.id}</h3>
+                      <h3 className="order-title">Заказ №{order.order_data.id}</h3>
                       <div className="order-info">
                         <p>
-                          <span>Дата:</span> {order.date}
+                          <span>Дата:</span> {order.order_data.date_buy}
                         </p>
                         <p>
-                          <span>Статус:</span>{' '}
+                          <span>Статус:</span>{''}
                           <span
                             style={{
-                              color: order.status === 'Доставлен' ? 'green' : 'orange',
+                              color: order.order_data.status === 'Доставлен' ? 'green' : 'orange',
                               fontWeight: 'bold',
                             }}
                           >
-                            {order.status}
+                            {order.order_data.status}
                           </span>
                         </p>
                         <p>
                           <span>Способ доставки:</span> {order.deliveryMethod}
                         </p>
                         <p>
-                          <span>Способ оплаты:</span> {order.paymentMethod}
+                          <span>Способ оплаты:</span> {'Картой'}
                         </p>
                         <p>
-                          <span>Сумма:</span> {order.total} ₽
+                          <span>Сумма:</span> {order.order_data.price_result} ₽
                         </p>
                       </div>
                       <h4>Товары:</h4>
                       <ul className="order-items">
-                        {order.items.map((item) => (
-                          <li key={item.id}>
-                            <span>{item.name}</span> — {item.quantity} шт. ({item.price} ₽/шт)
-                          </li>
-                        ))}
+                        <li key={order.product_data.title}>
+                          <span>{order.product_data.name_product}</span> — {order.order_data.quantity} шт. ({order.product_data.price_product} ₽/шт)
+                        </li>
                       </ul>
                     </div>
                   ))
@@ -267,7 +286,7 @@ const AccountPage = () => {
 
             <section className={`account-password-section ${activeTab === 'account-password-section' ? 'active' : ''}`}>
               <h2 className="account-subheader">Изменить пароль</h2>
-              <form className="account-form">
+              <form className="account-form" onSubmit={updateUserPassword}>
                 <label htmlFor="current_password" className="account-label">Текущий пароль:</label>
                 <input
                   type="password"
@@ -275,6 +294,9 @@ const AccountPage = () => {
                   name="current_password"
                   className="account-input"
                   required
+                  onChange={(e) => {
+                    setUserOldPassword(e.target.value);
+                  }}
                 />
 
                 <label htmlFor="new_password" className="account-label">Новый пароль:</label>
@@ -284,6 +306,9 @@ const AccountPage = () => {
                   name="new_password"
                   className="account-input"
                   required
+                  onChange={(e) => {
+                    setUserNewPassword(e.target.value);
+                  }}
                 />
 
                 <button type="submit" className="account-button">Сохранить пароль</button>
