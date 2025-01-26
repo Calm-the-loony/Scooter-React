@@ -12,6 +12,7 @@ import { CartContext } from "../../../context/CartContext";
 import products from "../../../data/products";
 import categories from "../../../data/categories";
 
+
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
