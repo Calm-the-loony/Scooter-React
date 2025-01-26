@@ -1,6 +1,5 @@
 import axios from "axios";
-import { TokenMixin } from "../mixins/UserMixins";
-import UserDTO from "../../dto/UserDTO";
+import { AuthService } from "../auth/AuthApiService";
 
 
 export class UserApiService {
@@ -10,29 +9,37 @@ export class UserApiService {
      * @returns 
      */
     static async informationAboutUser() {
-        const tokens = await TokenMixin.tokenData();
-        const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/user/information_about_user", {
-            headers: {
-                "Authorization": "Bearer " + tokens[0]
+        try {
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/user/information_about_user", {
+                headers: {
+                },
+                withCredentials: true
+            });
+
+            return req.data;
+        } catch {
+            const updateToken = await AuthService.updateUserToken();
+            if (updateToken === true) {
+                await this.informationAboutUser();
+            } else {
+                return false
             }
-        });
-        
-        if (req.status === 200) {
-            return req.data
-        } else {
-            return false
         }
     }
 
+    /**
+     * Обновление пользовательской информации
+     * @param {*} userDataToUpdate 
+     * @returns 
+     */
     static async updateUserInformation(userDataToUpdate) {
-        const data = await TokenMixin.tokenData();
         const req = await axios.put(process.env.REACT_APP_BACKEND_URL + "/user/update_user_information", userDataToUpdate, {
             withCredentials: true,
             headers: {
-                Authorization: "Bearer " + data[0],
                 "Content-Type": "application/json"
             }
         });
+
         
         if (req.status === 200) {
             return true;
@@ -41,15 +48,18 @@ export class UserApiService {
         }
     }
 
+    /**
+     * Получение заказов пользователя
+     * @returns 
+     */
     static async userOrders() {
-        const data = await TokenMixin.tokenData();
         const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/order/get_orders_by_id_user", {
             headers: {
-                withCredentials: true,
-                Authorization: "Bearer " + data[0] 
-            }
+                
+            },
+            withCredentials: true
         });
-
+        
         if (req.status === 200) {
             return req.data;
         } else {
@@ -57,24 +67,34 @@ export class UserApiService {
         }
     }
 
+    /**
+     * Обновление пароля пользователя
+     * @param {*} oldPassword 
+     * @param {*} newPassword 
+     * @returns 
+     */
     static async updateUserPassword(oldPassword, newPassword) {
-        const data = await TokenMixin.tokenData();
         const req = await axios.patch(process.env.REACT_APP_BACKEND_URL + "/auth/update_password", {
             "old_password": oldPassword,
             "new_password": newPassword
         }, {
             headers: {
                 withCredentials: true,
-                Authorization: "Bearer " + data[0],
                 "Content-Type": "application/json"
             }
         });
 
         if (req.status === 204) {
-            console.log(req);
             return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * Избранные товары пользователя
+     * @returns
+     */
+    static async userFavourites() {
     }
 }

@@ -1,8 +1,13 @@
 import axios from "axios";
-import { TokenMixin } from "../mixins/UserMixins";
 
 
 export class AuthService {
+    /**
+     * Авторизация пользователя
+     * @param {*} userEmail 
+     * @param {*} userPassword 
+     * @returns 
+     */
     static async loginUser(userEmail, userPassword) {
         
         let formAuthData = new FormData();
@@ -19,15 +24,18 @@ export class AuthService {
         });
 
         if (req.status === 201) {
-            await TokenMixin.safeToken(req.data);
             return true
         }
 
         return false
     }
 
+    /**
+     * Регистрация пользователя
+     * @param {*} userData 
+     * @returns 
+     */
     static async registerUser(userData) {
-        console.log(userData);
         let req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/registration", {
             email_user: userData.emailUser,
             password_user: userData.passwordUser,
@@ -47,5 +55,22 @@ export class AuthService {
         }
 
         return false
+    }
+
+    /**
+     * Обновление токенов безопасности
+     * @returns 
+     */
+    static async updateUserToken() {
+        const req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/update_token", {
+        }, {
+            withCredentials: true
+        });
+
+        if (req.status === 201) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

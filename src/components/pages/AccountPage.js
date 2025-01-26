@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../style/styles.scss';
-import { TokenMixin } from '../../service/api/mixins/UserMixins';
 import { UserApiService } from '../../service/api/user/UserApiService';
 import UserDTO from '../../service/dto/UserDTO';
 
@@ -48,7 +47,6 @@ const AccountPage = () => {
     setIsAuthenticated(false);
     setIsAdmin(false);
     setUserData(null);
-    TokenMixin.clearToken();
     navigate('/login');
   };
 
@@ -114,7 +112,6 @@ const AccountPage = () => {
     event.preventDefault();
 
     const req = UserApiService.updateUserPassword(userOldPassword, userNewPassword).then((ok) => {
-      TokenMixin.clearToken();
       navigate("/login");
     }).catch((er) => {
       console.log(er);
