@@ -150,13 +150,13 @@ export class UserApiService {
      */
     static async addNewFavourite(id_product) {
         try {
-            await axios.post(process.env.REACT_APP_BACKEND_URL + "/favourite/create_a_new_favourite_product", {
+            const req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/favourite/create_a_new_favourite_product", {
                 id_product: id_product
             }, {
                 withCredentials: true
             })
 
-            return true;
+            return req.data;
         } catch {
             const updateUserToken = await AuthService.updateUserToken();
             if (updateUserToken === true) {
@@ -225,7 +225,6 @@ export class UserApiService {
             await axios.delete(process.env.REACT_APP_BACKEND_URL + `/order/delete_order/${id_order}`, {
                 withCredentials: true
             });
-
             return true;
         } catch (err) {
             if (err.status === 401) {
@@ -233,6 +232,8 @@ export class UserApiService {
                 if (updateUserTokens === true) {
                     return this.deleteUserOrder(id_order);
                 }
+            } else {
+                return false;
             }
         }
 

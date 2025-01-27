@@ -1,42 +1,58 @@
 import React, { useContext, useState, useEffect } from "react";
 import { CartContext } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import { UserApiService } from "../../service/api/user/UserApiService";
+
 
 const ProductCard = ({ id, stock, type, brand, model, category, image, name, price }) => {
-  const { addToCart } = useContext(CartContext);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [idFavourite, setIdFavourite] = useState(null);
   const navigate = useNavigate();
 
   // Проверка при монтировании компонента, находится ли товар в избранном
   useEffect(() => {
-    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    const isAlreadyFavorite = favorites.some((item) => item.id === id);
-    setIsFavorite(isAlreadyFavorite);
+    const favorites = async () => {
+      let userFavourite = await UserApiService.userFavourites();
+      if (userFavourite) {
+        userFavourite.favourites.forEach((el) => {
+          if (el.product_info.id_product === id) {
+            setIsFavorite(true);
+            setIdFavourite(el.product_info.id_favourite);
+          }
+        })
+      }
+    }
+
+    favorites();
   }, [id]);
 
   // Функция для добавления товара в избранное
-  const handleAddToFavorites = (event) => {
+  const handleAddToFavorites = async (event, id_product) => {
     event.stopPropagation();
-    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    const isAlreadyFavorite = favorites.some((item) => item.id === id);
 
-    if (!isAlreadyFavorite) {
-      favorites.push({ id, name, price, image, stock });
-      localStorage.setItem("favorites", JSON.stringify(favorites));
-      setIsFavorite(true);
+    if (!isFavorite) {
+
+      // Добавление товара в избранное
+      let id_fav = await UserApiService.addNewFavourite(id);
+      if (id_fav) {
+        setIdFavourite(id_fav);
+        setIsFavorite(true);
+      }
+
     } else {
-      // Если товар уже в избранном, можно добавить логику для его удаления
-      const updatedFavorites = favorites.filter((item) => item.id !== id);
-      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-      setIsFavorite(false);
+      // Удаление товара из избранных
+
+      let deleteFav = await UserApiService.deleteUserFavourite(idFavourite);
+      if (deleteFav) {
+        setIsFavorite(false);
+        setIdFavourite(null);
+      }
     }
   };
 
   // Функция для добавления товара в корзину
-  const handleAddToCart = (event) => {
-    event.stopPropagation();
-    addToCart({ id, name, price, image });
-   
+  const handleAddToCart = async (event, id_product) => {
+      await UserApiService.addProductToBasket(id_product);
   };
 
   // Функция для открытия карточки товара
@@ -54,13 +70,13 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
           <div className="original-price-wrapper no-discount">
             <span className="original-prices">{price} ₽</span>
           </div>
-          <button className="add-to-cart" onClick={handleAddToCart}>
+          <button className="add-to-cart" onClick={(e) => handleAddToCart(e, id)}>
             <i className="fas fa-shopping-cart"></i>
           </button>
         </div>
         <button
           className={`add-to-favorites ${isFavorite ? "active" : ""}`}
-          onClick={handleAddToFavorites}
+          onClick={(e) => handleAddToFavorites(e, id)}
         >
           <i className="fas fa-heart"></i>
         </button>

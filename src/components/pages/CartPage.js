@@ -73,7 +73,6 @@ const CartPage = () => {
 
   const deleteProduct = async (id_product) => {
     const req = await UserApiService.deleteUserOrder(id_product);
-    setOrderProduct(null);
   }
 
   useEffect(() => {
