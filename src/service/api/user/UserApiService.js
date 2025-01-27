@@ -53,17 +53,25 @@ export class UserApiService {
      * @returns 
      */
     static async userOrders() {
-        const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/order/get_orders_by_id_user", {
-            headers: {
-                
-            },
-            withCredentials: true
-        });
-        
-        if (req.status === 200) {
+        try {
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/order/get_orders_by_id_user", {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                withCredentials: true
+            });
+            
             return req.data;
+        } catch (er) {
+            if (er.status === 401) {
+                const updateUserTokens = await AuthService.updateUserToken();
+                if (updateUserTokens === true) {
+                    return this.userOrders();
+                }
+            }
+
+            return false;
         }
-        return false;
     }
 
     /**
@@ -156,5 +164,78 @@ export class UserApiService {
             }
             return false;
         }
+    }
+
+    /**
+     * Добавление товара в корзину
+     * @param {*} id_product 
+     * @returns 
+     */
+    static async addProductToBasket(id_product) {
+
+        try {
+            const req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/order/create_order", {
+                id_product: id_product,
+            }, {
+                withCredentials: true
+            });
+            return true;
+        } catch (er) {
+            if (er.status === 401) {
+                const updateUserTokens = await AuthService.updateUserToken();
+                if (updateUserTokens === true) {
+                    return this.addProductToBasket(id_product);
+                }
+            }
+            return false;
+        }
+    }
+
+    /**
+     * Список заказов пользователя
+     * @returns 
+     */
+    static async userOrders() {
+        try {
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/order/get_orders_by_id_user", {
+                withCredentials: true
+            });
+
+            return req.data
+        } catch (er) {
+            if (er.status === 401) {
+                const updateUserTokens = await AuthService.updateUserToken();
+                if (updateUserTokens === true) {
+                    return this.userOrders();
+                }
+            }
+
+            return false;
+        }
+    }
+
+
+    /**
+     * Удаление заказа
+     * @param {*} quantity 
+     * @returns 
+     */
+    static async deleteUserOrder(id_order) {
+        try {
+            const req = await axios.delete(process.env.REACT_APP_BACKEND_URL + `/order/delete_order/${id_order}`, {
+                withCredentials: true
+            });
+
+            return true;
+        } catch (err) {
+            if (err.status === 401) {
+                const updateUserTokens = await AuthService.updateUserToken();
+                if (updateUserTokens === true) {
+                    return this.deleteUserOrder(id_order);
+                }
+            }
+        }
+
+        return false;
     }
 }

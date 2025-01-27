@@ -1,54 +1,92 @@
-import React, { useContext, useState } from "react";
-import { CartContext } from "../../context/CartContext";
+import React, { useContext, useEffect, useState } from "react";
 import "../../style/CartPage.scss";
+import { UserApiService } from "../../service/api/user/UserApiService";
+
 
 const CartPage = () => {
-  const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, clearCart } = useContext(CartContext);
+
   const [isModalOpen, setModalOpen] = useState(false);
+  const [orderProducts, setOrderProduct] = useState(false);
   const [selectedOption, setSelectedOption] = useState("delivery");
   const [paymentMethod, setPaymentMethod] = useState("card");
-
-  const calculateTotal = () => {
-    return cartItems
-      .reduce((acc, item) => {
-        const itemPrice = parseFloat(item.price.replace(' ₽', '').replace(',', '.')); // Replace and parse price correctly
-        const itemQuantity = parseInt(item.quantity, 10);
-        return acc + (itemPrice * itemQuantity || 0);
-      }, 0)
-      .toFixed(2); // Ensure two decimal places
-  };
-
-  const totalPrice = calculateTotal();
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const handlePurchase = () => {
     setModalOpen(true);
   };
 
   const handleConfirm = () => {
-    const user = JSON.parse(localStorage.getItem("userData")) || {};
-    const orders = user.orders || [];
 
     const newOrder = {
-      id: orders.length + 1,
+      id: orderProducts.length + 1,
       date: new Date().toLocaleString(),
       status: "Ожидает обработки",
-      items: cartItems,
-      total: totalPrice,
+      items: orderProducts,
+      total: 1000,
       deliveryMethod: selectedOption === "delivery" ? "Доставка" : "Самовывоз",
       paymentMethod: paymentMethod === "card" ? "Карта" : "Наличные",
     };
 
-    user.orders = [...orders, newOrder];
-    localStorage.setItem("userData", JSON.stringify(user));
 
     alert(`Ваш заказ успешно оформлен! 
     Способ доставки: ${newOrder.deliveryMethod}
     Способ оплаты: ${newOrder.paymentMethod}
-    Сумма: ${totalPrice} ₽`);
+    Сумма: ${1000} ₽`);
 
     setModalOpen(false);
-    clearCart();
+    // clearCart();
   };
+
+  const plusProduct = (id_order) => {
+    const newOrderData = orderProducts.map((el, indx) => {
+      if (el.order_data.id_order === id_order) {
+        orderProducts[indx].order_data.quantity += 1;
+      }
+      return el
+    });
+
+    setOrderProduct(newOrderData);
+    sumResultPrice();
+  }
+
+  const minusProduct = (id_order) => {
+    const newOrderData = orderProducts.map((el, indx) => {
+      if (el.order_data.id_order === id_order) {
+        if (orderProducts[indx].order_data.quantity !== 0) {
+          orderProducts[indx].order_data.quantity -= 1;
+        }
+      }
+      return el
+    });
+
+    setOrderProduct(newOrderData);
+    sumResultPrice();
+  }
+
+  const sumResultPrice = () => {
+    if (orderProducts) {
+      orderProducts.forEach((el) => {
+        setTotalPrice(el.order_data.price_result * el.order_data.quantity);
+      })
+    }
+  }
+
+  const deleteProduct = async (id_product) => {
+    const req = await UserApiService.deleteUserOrder(id_product);
+    setOrderProduct(null);
+  }
+
+  useEffect(() => {
+    const req = async () => {
+      const userOrders = await UserApiService.userOrders();
+      if (userOrders) {
+        setOrderProduct(userOrders.orders);
+        sumResultPrice();
+      }
+    }
+    
+    return req;
+  }, []);
 
   return (
     <div className="cart-container">
@@ -57,24 +95,24 @@ const CartPage = () => {
       </div>
 
       <div className="cart-list">
-        {cartItems.length > 0 ? (
-          cartItems.map((item) => (
-            <div key={item.id} className="cart-item">
-              <img src={item.image} alt={item.name} className="cart-product-image" />
+        {orderProducts.length > 0 ? (
+          orderProducts.map((item) => (
+            <div key={item.order_data.id} className="cart-item">
+              <img src={item.product_data.photos?.[0]} alt={item.product_data.name_product} className="cart-product-image" />
               <div className="cart-details">
-                <p className="cart-item-name">{item.name}</p>
-                <p className="cart-item-price">{item.price}</p>
+                <p className="cart-item-name">{item.product_data.name_product}</p>
+                <p className="cart-item-price">{item.order_data.price_result}</p>
                 <div className="quantity-container">
                   <button
                     className="quantity-button"
-                    onClick={() => decreaseQuantity(item.id)}
+                    onClick={() => minusProduct(item.order_data.id_order)}
                   >
                     -
                   </button>
-                  <span className="quantity">{item.quantity}</span>
+                  <span className="quantity">{item.order_data.quantity}</span>
                   <button
                     className="quantity-button"
-                    onClick={() => increaseQuantity(item.id)}
+                    onClick={() => plusProduct(item.order_data.id_order)}
                   >
                     +
                   </button>
@@ -82,7 +120,7 @@ const CartPage = () => {
               </div>
               <button
                 className="remove-button"
-                onClick={() => removeFromCart(item.id)}
+                onClick={() => deleteProduct(item.order_data.id_order)}
               >
                 Удалить
               </button>
@@ -97,7 +135,7 @@ const CartPage = () => {
         <p>
           Итого: <span id="total-price">{totalPrice} ₽</span>
         </p>
-        {cartItems.length > 0 && (
+        {orderProducts.length > 0 && (
           <button className="buy-button" onClick={handlePurchase}>
             Купить
           </button>

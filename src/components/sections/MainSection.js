@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import '../../style/MainSection.scss';
 import Slider from "react-slick";
@@ -7,8 +7,6 @@ import "slick-carousel/slick/slick-theme.css";
 import "font-awesome/css/font-awesome.min.css";
 import ProductCard from '../cards/ProductCard';
 import products from "../../data/products";  
-import categories from "../../data/categories"; 
-
 
 // Изображения
 import parkingImage from "../../image/parking_main_1.jpg";
@@ -39,12 +37,12 @@ import bannerImage3 from "../../image/Designer (1).jpeg";
 import karbyurator4 from "../../image/product/karbyurator4.webp";
 import "../../style/CategoryPage.scss";
 import CatImage from '../../image/free-icon-black-cat-3704886.png';
-import { AuthService } from "../../service/api/auth/AuthApiService";
+import CategoryApiService from "../../service/api/product/CategoryService";
+import MarkApiService from "../../service/api/product/MarkService";
 
-// Подключаем данные
-// import products from "../data/products.json";  
 
 const MainSection = () => {
+
     // Настройки для карусели
     const carouselSettings = {
       dots: true,
@@ -108,30 +106,43 @@ const MainSection = () => {
 
       const [searchModel, setSearchModel] = useState("");
       const [selectedBrand, setSelectedBrand] = useState("");
+      const [categoryData, setCategoryData] = useState(null);
+      const [marks, setMarks] = useState(null);
       const navigate = useNavigate();
     
-      const handleSearch = () => {
-        // Объединяем данные из файлов продуктов и категорий
-        const allProducts = [
-          ...products,
-          ...categories.flatMap((category) =>
-            category.subcategories.flatMap((subcategory) => subcategory.products)
-          ),
-        ];
-    
+      const handleSearch = () => {    
         // Фильтрация по модели и бренду с проверкой на undefined
-        const results = allProducts.filter((product) => {
-          // Проверяем, что модель и бренд определены
-          const modelMatch =
-            product && product.model && product.model.toLowerCase().includes(searchModel.toLowerCase());
-          const brandMatch =
-            selectedBrand === "" || (product && product.brand && product.brand.toLowerCase() === selectedBrand.toLowerCase());
-          return modelMatch && brandMatch;
-        });
+        // const results = allProducts.filter((product) => {
+        //   // Проверяем, что модель и бренд определены
+        //   const modelMatch =
+        //     product && product.model && product.model.toLowerCase().includes(searchModel.toLowerCase());
+        //   const brandMatch =
+        //     selectedBrand === "" || (product && product.brand && product.brand.toLowerCase() === selectedBrand.toLowerCase());
+        //   return modelMatch && brandMatch;
+        // });
     
-        navigate("/search-results", { state: { results } });
+        // navigate("/search-results", { state: { results } });
       };
-    
+
+      useEffect(() => {
+        const reqCategories = async () => {
+          let categories = await CategoryApiService.allCategories();
+          if (categories) {
+            setCategoryData(categories);
+          }
+        }
+
+        const reqMarks = async () => {
+          let marks = await MarkApiService.allMarks();
+          if (marks) {
+            setMarks(marks);
+          }
+        }
+
+        reqCategories();
+        reqMarks();
+      }, []);
+
       return (
         <div>
           <section className="parts-search">
@@ -141,27 +152,35 @@ const MainSection = () => {
                   Найдите Свои <span className="highlight">Идеальные</span> Детали
                 </h2>
                 <div className="filters">
-                  <select
+                  {marks?
+                    <select
+                      name="brand"
+                      id="brand"
+                      value={selectedBrand}
+                      onChange={(e) => setSelectedBrand(e.target.value)}
+                    >
+                      <option value="" disabled selected hidden>
+                        Марка
+                      </option>
+                      {marks.marks.map((mark) => {
+                        return <option value={mark.name_mark} >{mark.name_mark}</option>
+                      })}
+                    </select>
+                  :
+                    <select
                     name="brand"
                     id="brand"
                     value={selectedBrand}
                     onChange={(e) => setSelectedBrand(e.target.value)}
-                  >
-                    <option value="" disabled selected hidden>
-                      Марка
-                    </option>
-                    <option value="Yamaha">Yamaha</option>
-                    <option value="Honda">Honda</option>
-                    <option value="Vespa">Vespa</option>
-                    <option value="Suzuki">Suzuki</option>
-                    <option value="Kawasaki">Kawasaki</option>
-                    <option value="SYM">SYM</option>
-                    <option value="Kymco">Kymco</option>
-                    <option value="Aprilia">Aprilia</option>
-                  </select>
+                    >
+                      <option value="" disabled selected hidden>
+                        Марка
+                      </option>
+                    </select>
+                  }
                   <input
                     type="text"
-                    placeholder="Модель"
+                    placeholder={selectedBrand}
                     value={searchModel}
                     onChange={(e) => setSearchModel(e.target.value)}
                   />
@@ -170,364 +189,26 @@ const MainSection = () => {
               </div>
             </div>
           </section>
-
-     {/* Секция категорий */}
-     {/* <section className="categories-section">
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/engine",
-      }} 
-      state={{ categoryId: "engine" }} 
-      className="category-container"
-    >
-      <img src={engineIcon} alt="Двигатель" />
-      <p>Двигатель</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/suspension",
-      }} 
-      state={{ categoryId: "suspension" }} 
-      className="category-container"
-    >
-      <img src={suspensionIcon} alt="Подвеска" />
-      <p>Подвеска</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/fuel-system",
-      }} 
-      state={{ categoryId: "fuel-system" }} 
-      className="category-container"
-    >
-      <img src={fuelSystemIcon} alt="Топливная система" />
-      <p>Топливная система</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/transmission",
-      }} 
-      state={{ categoryId: "transmission" }} 
-      className="category-container"
-    >
-      <img src={drivetrainIcon} alt="Трансмиссия" />
-      <p>Трансмиссия</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/electrics",
-      }} 
-      state={{ categoryId: "electrics" }} 
-      className="category-container"
-    >
-      <img src={electricalServiceIcon} alt="Электрика" />
-      <p>Электрика</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/brake-system",
-      }} 
-      state={{ categoryId: "brake-system" }} 
-      className="category-container"
-    >
-      <img src={brakeDiscIcon} alt="Тормозная система" />
-      <p>Тормозная система</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/gaskets-seals",
-      }} 
-      state={{ categoryId: "gaskets-seals" }} 
-      className="category-container"
-    >
-      <img src={carPartsIcon} alt="Прокладки и сальники" />
-      <p>Прокладки и сальники</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/mufflers",
-      }} 
-      state={{ categoryId: "mufflers" }} 
-      className="category-container"
-    >
-      <img src={mufflerIcon} alt="Глушители" />
-      <p>Глушители</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/accessories",
-      }} 
-      state={{ categoryId: "accessories" }} 
-      className="category-container"
-    >
-      <img src={sparePartsIcon} alt="Расходники" />
-      <p>Расходники</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/tuning",
-      }} 
-      state={{ categoryId: "tuning" }} 
-      className="category-container"
-    >
-      <img src={tuningIcon} alt="Тюнинг" />
-      <p>Тюнинг</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/body-parts",
-      }} 
-      state={{ categoryId: "body-parts" }} 
-      className="category-container"
-    >
-      <img src={bodyPartsIcon} alt="Кузовные элементы" />
-      <p>Кузовные элементы</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/uncategorized",
-      }} 
-      state={{ categoryId: "uncategorized" }} 
-      className="category-container"
-    >
-      <img src={configurationIcon} alt="Разное" />
-      <p>Разное</p>
-    </Link>
-  </div>
-</section> */}
-
-<section className="categories-section">
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/engine",
-      }} 
-      state={{ categoryId: "engine" }} 
-      className="category-container"
-    >
-      <i className="fas fa-cogs"></i>
-      <p>Двигатель</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/suspension",
-      }} 
-      state={{ categoryId: "suspension" }} 
-      className="category-container"
-    >
-      <i className="fas fa-shield-alt"></i>
-      <p>Подвеска</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/fuel-system",
-      }} 
-      state={{ categoryId: "fuel-system" }} 
-      className="category-container"
-    >
-      <i className="fas fa-gas-pump"></i>
-      <p>Топливная система</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/transmission",
-      }} 
-      state={{ categoryId: "transmission" }} 
-      className="category-container"
-    >
-      <i className="fas fa-exchange-alt"></i>
-      <p>Трансмиссия</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/electrics",
-      }} 
-      state={{ categoryId: "electrics" }} 
-      className="category-container"
-    >
-      <i className="fas fa-bolt"></i>
-      <p>Электрика</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/brake-system",
-      }} 
-      state={{ categoryId: "brake-system" }} 
-      className="category-container"
-    >
-      <i className="fas fa-car-crash"></i>
-      <p>Тормозная система</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/gaskets-seals",
-      }} 
-      state={{ categoryId: "gaskets-seals" }} 
-      className="category-container"
-    >
-      <i className="fas fa-ring"></i>
-      <p>Прокладки и сальники</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/mufflers",
-      }} 
-      state={{ categoryId: "mufflers" }} 
-      className="category-container"
-    >
-      <i className="fas fa-headphones-alt"></i>
-      <p>Глушители</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/accessories",
-      }} 
-      state={{ categoryId: "accessories" }} 
-      className="category-container"
-    >
-      <i className="fas fa-tools"></i>
-      <p>Расходники</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/tuning",
-      }} 
-      state={{ categoryId: "tuning" }} 
-      className="category-container"
-    >
-      <i className="fas fa-tachometer-alt"></i>
-      <p>Тюнинг</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/body-parts",
-      }} 
-      state={{ categoryId: "body-parts" }} 
-      className="category-container"
-    >
-      <i className="fas fa-car-side"></i>
-      <p>Кузовные элементы</p>
-    </Link>
-  </div>
-  <div className="category">
-    <Link 
-      to={{
-        pathname: "/category/uncategorized",
-      }} 
-      state={{ categoryId: "uncategorized" }} 
-      className="category-container"
-    >
-      <i className="fas fa-ellipsis-h"></i>
-      <p>Разное</p>
-    </Link>
-  </div>
-</section>
-
-    
-    <section className="featured-products">
-    <h2 className="as">Топ продаж</h2>
-    <div className="red-lines"></div>
-    <Slider {...carouselSettings}>
-    {products.map((product) => (
-        <ProductCard
-            key={product.id}
-            id={product.id}
-            stock={product.stock}
-            type={product.type}
-            brand={product.brand}
-            category={product.category}
-            model={product.model}
-            image={product.image}
-            name={product.name}
-            price={product.price}
-            article={product.article}
-            extra={product.extra}
-            dimensions={product.dimensions}
-            tags={product.tags}
-        />
-    ))}
-</Slider>
-
-</section>
-
-{/* Раздел баннеров */}
-<section className="banner-container">
-        <div className="contact-banner">
-          <div className="banner-item">
-            <a href="https://www.ozon.ru/seller/scooter24-462340/products/?miniapp=seller_462340">
-              <img src={banner1} alt="Banner 1" />
-              <div className="banner-text">
-                <p className="banner-title">Оформить заказ</p>
-                <p>на площадке Ozon</p>
-                <p className="banner-description">Жми <span className="arrow">&#x2192;</span></p>
-              </div>
-            </a>
-          </div>
-          <div className="banner-item">
-            <a href="https://market.yandex.ru/business--scooter-24/35256421">
-              <img src={banner2} alt="Banner 2" />
-              <div className="banner-text">
-                <p className="banner-title">Оформить заказ</p>
-                <p>на площадке Я.Маркет</p>
-                <p className="banner-description">Жми <span className="arrow">&#x2192;</span></p>
-              </div>
-            </a>
-          </div>
-          <div className="banner-item">
-            <a href="https://global.wildberries.ru/brands/756907-s24">
-              <img src={banner3} alt="Banner 3" />
-              <div className="banner-text">
-                <p className="banner-title">Оформить заказ</p>
-                <p>на площадке Wildberries</p>
-                <p className="banner-description">Жми <span className="arrow">&#x2192;</span></p>
-              </div>
-            </a>
-          </div>
-        </div>
-      </section>
+  {categoryData? 
+    <section className="categories-section">
+      {categoryData.categories.map((category) => {
+        return <div className="category">
+          <Link 
+            to={{
+              pathname: "/category/engine",
+            }} 
+            state={{ categoryId: "engine" }} 
+            className="category-container"
+          >
+            <i className={category.icon_category}></i>
+            <p>{ category.name_category }</p>
+          </Link>
+      </div>
+      })}
+    </section>
+    :
+    ""
+    }
       {/* Раздел гарантии */}
       <section className="guarantees">
         <div className="guarantee-item">

@@ -1,14 +1,13 @@
-class RegisterUser {
-    constructor (emailUser, passwordUser, nameUser, surnameUser, mainNameUser) {
+export class RegisterUser {
+    constructor (emailUser, passwordUser, nameUser, mainNameUser) {
         this.emailUser = emailUser;
         this.passwordUser = passwordUser;
         this.nameUser = nameUser;
-        this.surnameUser = surnameUser;
         this.mainNameUser = mainNameUser;
     }
 };
 
-class UpdateUser {
+export class UpdateUser {
     constructor (mainNameUser, dateBirthDay, address, telephone) {
         this.main_name_user = mainNameUser;
         this.address = address;
@@ -16,5 +15,3 @@ class UpdateUser {
         this.date_birthday = new Date(dateBirthDay);
     }
 }
-
-export default (RegisterUser, UpdateUser);

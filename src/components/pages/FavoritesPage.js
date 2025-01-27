@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 const FavoritesPage = () => {
   
   const [favouriteProducts, setFavouriteProducts] = useState(null);
-  const { addToCart } = useContext(CartContext);
   const navigator = useNavigate();
 
   useEffect(
@@ -15,15 +14,17 @@ const FavoritesPage = () => {
       const req = async () => {
         const favData = await UserApiService.userFavourites();
         if (favData) {
-          setFavouriteProducts(favData);
+          if (favData.favourites.length >= 1) {
+            setFavouriteProducts(favData)
+          }
         }
       }
 
       req();
     }, []);
 
-  const handleAddToCart = (item) => {
-    addToCart({ ...item, quantity: 1 });
+  const handleAddToCart = async (id_product) => {
+    const req = await UserApiService.addProductToBasket(id_product);
   };
 
 
@@ -38,10 +39,12 @@ const FavoritesPage = () => {
       }
   }
 
+  console.log(favouriteProducts);
+
   return (
     <div className="favorites-container">
       <h2 className="favorites-title">Избранное</h2>
-      {favouriteProducts ? (
+      {favouriteProducts !== null ? (
         <div className="favorites-list">
           {favouriteProducts.favourites.map((item) => (
             <div key={item.product_info.id_favourite} className="favorite-item">
@@ -58,7 +61,7 @@ const FavoritesPage = () => {
                   Удалить
                 </button>
                 {item.product_info.quantity > 0 && (
-                  <button className="favorite-add-to-cart" onClick={() => handleAddToCart(item)}>
+                  <button className="favorite-add-to-cart" onClick={() => handleAddToCart(item.product_info.id_product)}>
                     В корзину
                   </button>
                 )}

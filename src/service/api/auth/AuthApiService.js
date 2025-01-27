@@ -36,11 +36,11 @@ export class AuthService {
      * @returns 
      */
     static async registerUser(userData) {
+
         let req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/registration", {
             email_user: userData.emailUser,
             password_user: userData.passwordUser,
             name_user: userData.nameUser,
-            surname_user: userData.surnameUser,
             main_name_user: userData.mainNameUser,
             date_registration: null
         }, {

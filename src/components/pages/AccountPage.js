@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../style/styles.scss';
 import { UserApiService } from '../../service/api/user/UserApiService';
-import UserDTO from '../../service/dto/UserDTO';
+import { UpdateUser } from '../../service/dto/UserDTO';
 
 
 const AccountPage = () => {
@@ -98,7 +98,7 @@ const AccountPage = () => {
   };
 
   const updateUserData = function(event) {
-    const userData = new UserDTO(mainNameUser, dateBirthday, address, telephone);
+    const userData = new UpdateUser(mainNameUser, dateBirthday, address, telephone);
     const req = UserApiService.updateUserInformation(
       userData
     ).then((okMessage) => {

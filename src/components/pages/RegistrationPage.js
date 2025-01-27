@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../style/styles.scss';
 import { AuthService } from '../../service/api/auth/AuthApiService';
-import RegisterUser from '../../service/dto/UserDTO';
+import { RegisterUser } from '../../service/dto/UserDTO';
 
 
 const RegisterPage = () => {
@@ -15,17 +15,9 @@ const RegisterPage = () => {
   const handleRegister = (e) => {
 
     e.preventDefault();
-    const userDto = new RegisterUser(email, password, name, '', '');
-
+    const userDto = new RegisterUser(email, password, name, '');
     let reqAuth = AuthService.registerUser(userDto).then((res) => {
       const newUser = { name, email, password, orders: [] };
-  
-      // if (role === 'admin') {
-      //   localStorage.setItem('isAdmin', 'true');
-      // } else {
-      //   localStorage.setItem('isAdmin', 'false');
-      // }
-  
       navigate('/login');
     }).catch((er) => {
 
