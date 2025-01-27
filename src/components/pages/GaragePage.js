@@ -4,6 +4,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import "../../style/GaragePage.scss";
 import products from "../../data/products";
 import categories from "../../data/categories";
+import ProductApiService from "../../service/api/product/ProductService";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -11,17 +12,28 @@ const ITEMS_PER_PAGE = 4; // Количество карточек на одну
 
 const GaragePage = () => {
   const [scooters, setScooters] = useState([]);
-  const [newScooter, setNewScooter] = useState({ type: "", brand: "", model: "" });
+  const [newScooter, setNewScooter] = useState({ type: null, brand: null, model: null });
   const [selectedScooter, setSelectedScooter] = useState(null);
   const [details, setDetails] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+  // Типы транспорта
+  const [typeMoto, setTypeMoto] = useState([]);
+
   useEffect(() => {
-    const storedScooters = JSON.parse(localStorage.getItem("garage")) || [];
-    setScooters(storedScooters);
+    let req = async () => {
+      let allTypeModels = await ProductApiService.allTypeModels();
+      if (allTypeModels) {
+        setTypeMoto(allTypeModels.moto_types);
+      }
+    }
+
+    req();
   }, []);
 
+
   const addScooter = () => {
+    console.log(newScooter);
     if (newScooter.type && newScooter.brand && newScooter.model) {
       const updatedScooters = [...scooters, newScooter];
       setScooters(updatedScooters);
@@ -128,8 +140,9 @@ const GaragePage = () => {
               onChange={(e) => setNewScooter({ ...newScooter, type: e.target.value })}
             >
               <option value="">Выберите тип</option>
-              <option value="Скутер">Скутер</option>
-              <option value="Мотоцикл">Мотоцикл</option>
+              {typeMoto.map((tm) => {
+                return <option value={tm.name_type} id={tm.id_mt}>{tm.name_type}</option>
+              })}
             </select>
             <input
               type="text"

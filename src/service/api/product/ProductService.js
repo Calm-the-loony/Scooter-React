@@ -28,4 +28,13 @@ export default class ProductApiService {
             return false;
         }
     }
+
+    /**
+     * Получение всех типов транспорта
+     * @returns
+     */
+    static async allTypeModels() {
+        const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/mt/all");
+        return req.data;
+    }
 }
