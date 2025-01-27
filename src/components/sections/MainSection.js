@@ -37,50 +37,15 @@ import bannerImage3 from "../../image/Designer (1).jpeg";
 import karbyurator4 from "../../image/product/karbyurator4.webp";
 import "../../style/CategoryPage.scss";
 import CatImage from '../../image/free-icon-black-cat-3704886.png';
+
+// API Сервисы
 import CategoryApiService from "../../service/api/product/CategoryService";
 import MarkApiService from "../../service/api/product/MarkService";
+import ProductApiService from "../../service/api/product/ProductService";
 
 
 const MainSection = () => {
-
-    // Настройки для карусели
-    const carouselSettings = {
-      dots: true,
-      infinite: true,
-      speed: 400,
-      slidesToShow: 4,
-      slidesToScroll: 2,
-      autoplay: true,
-      autoplaySpeed: 3000,
-      responsive: [
-          {
-              breakpoint: 1024,
-              settings: {
-                  slidesToShow: 3,
-                  slidesToScroll: 1,
-                  infinite: true,
-                  dots: true,
-              },
-          },
-          {
-              breakpoint: 768,
-              settings: {
-                  slidesToShow: 1,
-                  slidesToScroll: 1,
-              },
-          },
-          {
-              breakpoint: 480,
-              settings: {
-                  slidesToShow: 1,
-                  slidesToScroll: 1,
-                  dots: false,
-              },
-          },
-      ],
-  };
   
-
       const [isModalOpen, setIsModalOpen] = useState(false);
 
       const showModal = () => {
@@ -106,9 +71,51 @@ const MainSection = () => {
 
       const [searchModel, setSearchModel] = useState("");
       const [selectedBrand, setSelectedBrand] = useState("");
+
+      // Сторонние данные
       const [categoryData, setCategoryData] = useState(null);
       const [marks, setMarks] = useState(null);
+      const [recProduct, setRecProduct] = useState(null);
+      const [lastSellsProduct, setLastSellsProduct] = useState([]);
+      const [userOrderCnt, setUserOrder] = useState(0);
       const navigate = useNavigate();
+
+      // Настройки для карусели
+      const carouselSettings = {
+        dots: true,
+        infinite: lastSellsProduct.length >= 4,
+        speed: 400,
+        slidesToShow: Math.min(lastSellsProduct.length, 4),
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: Math.min(lastSellsProduct.length, 2),
+                    slidesToScroll: 1,
+                    infinite: lastSellsProduct.length > 1,
+                    dots: true,
+                },
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    dots: false,
+                },
+            },
+        ],
+    };
     
       const handleSearch = () => {    
         // Фильтрация по модели и бренду с проверкой на undefined
@@ -139,9 +146,28 @@ const MainSection = () => {
           }
         }
 
+        const reqRecommendedProducts = async () => {
+          let recommendedProducts = await ProductApiService.recommendsProduct();
+          if (recommendedProducts) {
+            setRecProduct(recommendedProducts);
+          }
+        }
+
+        const reqSellsProducts = async () => {
+          let sellsProducts = await ProductApiService.allSalledProducts();
+          if (sellsProducts) {
+            if (sellsProducts.products.length > 0) {
+              setLastSellsProduct(sellsProducts.products);
+            }
+          }
+        }
+
         reqCategories();
         reqMarks();
+        reqRecommendedProducts();
+        reqSellsProducts();
       }, []);
+      
 
       return (
         <div>
@@ -245,128 +271,30 @@ const MainSection = () => {
         <h2 className="as">Рекомендуемые товары</h2>
         <div className="red-line"></div>
         <div className="product-grid">
-        <ProductCard 
-          id="1" 
-          stock="23" 
-          type="Скутер" 
-          brand="Honda, Honling, Gryphon" 
-          category="Электрика"
-          model="Dio (Honda)"
-          image={coilImage}
-          name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
-          price="653,00 ₽"
-          article="SCOT126723456120"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41 см"
-          tags="1 год"
-        />
-        <ProductCard 
-          id="2" 
-          stock="23" 
-           category="Электрика"
-          type="Скутер" 
-          brand="Suzuki" 
-          model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
-          image={coil2Image}
-          name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
-          price="1027,00 ₽"
-          article="SCOT126723456122"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41.2 × 31.7 × 7.1 мм"
-          tags="1 год"
-        />
-        <ProductCard 
-          id="3" 
-          stock="23" 
-           category="Электрика"
-          type="Скутер" 
-          brand="Honda, Honling, Gryphon" 
-          model="Dio (Honda)"
-          image={coilImage}
-          name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
-          price="653,00 ₽"
-          article="SCOT126723456120"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41 см"
-          tags="1 год"
-        />
-        <ProductCard 
-          id="4" 
-          stock="23" 
-           category="Электрика"
-          type="Скутер" 
-          brand="Suzuki" 
-          model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
-          image={coil2Image}
-          name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
-          price="1027,00 ₽"
-          article="SCOT126723456122"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41.2 × 31.7 × 7.1 мм"
-          tags="1 год"
-        />
-         <ProductCard 
-          id="5" 
-          stock="23" 
-          type="Скутер" 
-          brand="Honda, Honling, Gryphon" 
-          category="Электрика"
-          model="Dio (Honda)"
-          image={coilImage}
-          name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
-          price="653,00 ₽"
-          article="SCOT126723456120"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41 см"
-          tags="1 год"
-        />
-        <ProductCard 
-          id="6" 
-          stock="23" 
-           category="Электрика"
-          type="Скутер" 
-          brand="Suzuki" 
-          model="Address 50 (Suzuki), Address 110 (Suzuki), Address (Suzuki)"
-          image={coil2Image}
-          name="Катушка зажигания (коммутатор) на скутер Сузуки Адрес/Сепия 50 кубов (v50g) Suzuki Address / Sepia"
-          price="1027,00 ₽"
-          article="SCOT126723456122"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41.2 × 31.7 × 7.1 мм"
-          tags="1 год"
-        />
-        <ProductCard 
-          id="7" 
-          stock="23" 
-           category="Электрика"
-          type="Скутер" 
-          brand="Honda, Honling, Gryphon" 
-          model="Dio (Honda)"
-          image={coilImage}
-          name="Катушка зажигания на скутер Хонда Дио (Af-18/27/34) и китайский скутер (139QMB/152QMI/157QMJ) Honda Dio / Tact"
-          price="653,00 ₽"
-          article="SCOT126723456120"
-          extra="Плотная упаковка, Запчасть на скутер"
-          dimensions="41 см"
-          tags="1 год"
-        />
-        <ProductCard 
-           id= "8"
-           name= "Карбюратор PZ22 на мопед альфа 110-125 кубов для 4Т двигателей 152FMI 152FMH"
-           price= "2191,00 ₽"
-           stock= "22"
-           type="Мотоцикл"
-           brand= "Alpha, Delta"
-           model= "ABM, Baltmotors, Cyclone"
-           category= "Топливная система"
-           image= {karbyurator4}
-           article= "SCOT240000000080"
-           extra= "Доп. комплект: Карбюратор на мопед мотоцикл Alpha и Дельта PZ22 с подсосом"
-           dimensions= "17.1 × 28.3 × 21.8 mm"
-           tags= "30 дней"
-        />
-  </div>
-</section>
+          {recProduct? 
+          recProduct.products.map((product) => {
+            return (
+            <ProductCard 
+              id={product.id_product}
+              stock={product.quantity_product}
+              type={product.type_pr}
+              brand={product.brand_mark}
+              category={product.id_sub_category}
+              model={product.models}
+              image={product.photo[0]}
+              name={product.title_product}
+              price={product.price_product}
+              article={product.article_product}
+              extra={product.explanation_product}
+              dimensions={product.weight_product}
+              tags={product.label_product}
+            />
+          )
+          })
+          :
+          "Упс-с, а где рекомендованные товары?"}
+        </div>
+      </section>
 
 <section className="dual-banner-container">
       <div className="dual-banner">
@@ -399,27 +327,31 @@ const MainSection = () => {
     <section className="featured-products">
       <h2 className="as">Топ продаж</h2>
       <div className="red-lines"></div>
-
-      <Slider {...carouselSettings}>
-        {products.map((product) => (
-            <ProductCard
-                key={product.id}
-                id={product.id}
-                stock={product.stock}
-                type={product.type}
-                brand={product.brand}
-                category={product.category}
-                model={product.model}
-                image={product.image}  
-                name={product.name}
-                price={product.price}
-                article={product.article}
-                extra={product.extra}
-                dimensions={product.dimensions}
-                tags={product.tags}
-            />
-        ))}
-    </Slider>
+      <div>
+        {lastSellsProduct?
+              <Slider {...carouselSettings}>
+                {lastSellsProduct.map((product) => (
+                    <ProductCard
+                      id={product.id_product}
+                      key={product.id_product}
+                      stock={product.quantity_product}
+                      type={product.type_pr}
+                      brand={product.brand_mark}
+                      category={product.id_sub_category}
+                      model={product.models}
+                      image={product.photo[0]}
+                      name={product.title_product}
+                      price={product.price_product}
+                      article={product.article_product}
+                      extra={product.explanation_product}
+                      dimensions={product.weight_product}
+                      tags={product.label_product}
+                    />
+                ))}
+            </Slider>
+        :
+        <p>К сожалению пока продаж нету. Станьте первым!</p>}
+      </div>
     </section>
     <section>
       <div className="banner-container">

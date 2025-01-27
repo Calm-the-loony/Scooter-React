@@ -8,9 +8,9 @@ import scooterIcon from "../../../image/scooter.png";
 import cartIcon from "../../../image/cart.png";
 import userIcon from "../../../image/free-icon-user-2603906.png";
 import { useNavigate } from "react-router-dom";
-import { CartContext } from "../../../context/CartContext";
 import products from "../../../data/products";
 import categories from "../../../data/categories";
+import { UserApiService } from "../../../service/api/user/UserApiService";
 
 
 const Header = () => {
@@ -18,8 +18,8 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const { cartItems } = useContext(CartContext);
   const navigate = useNavigate();
+  const [cntOrder, setOrders] = useState(0);
 
   // Объединение товаров из products.js и категорий
   const allProducts = [
@@ -101,6 +101,13 @@ const Header = () => {
       }
     };
 
+    const userOrders = async () => {
+      let orders = await UserApiService.userOrders();
+      if (orders) {
+        setOrders(orders.orders.length);
+      }
+    }
+
     updateClasses(); // Инициализация при загрузке страницы
     window.addEventListener("scroll", updateClasses);
 
@@ -115,6 +122,8 @@ const Header = () => {
         console.error("Ошибка получения города:", error);
         document.getElementById("city-name").textContent = "Неизвестно";
       });
+
+    userOrders();
 
     return () => {
       window.removeEventListener("scroll", updateClasses);
@@ -153,7 +162,7 @@ const Header = () => {
             </button>
             <button onClick={handleCartClick}>
               <img src={cartIcon} alt="Корзина" />
-              <span>{cartItems.length}</span>
+              <span>{cntOrder}</span>
             </button>
             <button onClick={() => navigate("/account")}>
               <img src={userIcon} alt="Личный кабинет" />

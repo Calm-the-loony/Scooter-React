@@ -62,14 +62,19 @@ export class AuthService {
      * @returns 
      */
     static async updateUserToken() {
-        const req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/update_token", {
-        }, {
-            withCredentials: true
-        });
 
-        if (req.status === 201) {
-            return true;
-        } else {
+        try {
+            const req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/update_token", {
+            }, {
+                withCredentials: true
+            });
+    
+            if (req.status === 201) {
+                return true;
+            } else {
+                throw Error("Не удалось обновить токен безопасности");
+            }
+        } catch {
             return false;
         }
     }
