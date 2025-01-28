@@ -16,11 +16,11 @@ const GaragePage = () => {
   const [newScooter, setNewScooter] = useState(
     {
      type: null,
-     brand: null,
+     mark: null,
      model: null,
      
      id_moto_type: null,
-     id_brand: null,
+     id_mark: null,
      id_model: null
     }
   );
@@ -32,6 +32,15 @@ const GaragePage = () => {
 
   // Типы транспорта
   const [typeMoto, setTypeMoto] = useState([]);
+
+  // Марки (Транспорт)
+  const [marks, setMarks] = useState([]);
+
+  // Модели (Транспорт)
+  const [models, setModels] = useState([]);
+
+  // Бренды (Транспорт)
+  const [brands, setBrands] = useState([]);
 
   useEffect(() => {
     const reqTypeMoto = async () => {
@@ -48,16 +57,45 @@ const GaragePage = () => {
       }
     }
 
+    const reqBrands = async () => {
+      let allBrands = await ProductApiService.allBrands();
+      if (allBrands) {
+        setBrands(allBrands.brands);
+      }
+    }
+
+    const reqModels = async () => {
+      let allModels = await ProductApiService.allModels();
+      if (allModels) {
+        setModels(allModels.all_models);
+      }
+    }
+
+    const reqMarks = async () => {
+      let allMarks = await ProductApiService.allMarks();
+      if (allMarks) {
+        setMarks(allMarks.marks);
+      }
+    }
+
     reqTypeMoto();
     reqMyGarage();
+    reqBrands();
+    reqMarks();
+    reqModels();
   }, []);
 
 
   const addScooter = async () => {
-    console.log(newScooter);
-    if (newScooter.id_moto_type && newScooter.id_brand && newScooter.id_model) {
-      const req = await GarageApiService.addedGarage({});
-      setNewScooter({ type: null, brand: null, model: null });
+    if (newScooter.id_moto_type && newScooter.id_model && newScooter.id_mark) {
+      const req = await GarageApiService.addedGarage(
+        {
+          id_model: newScooter.id_model,
+          id_moto_type: newScooter.id_moto_type,
+          id_mark: newScooter.id_mark
+        }
+      );
+      setNewScooter({ type: null, mark: null, model: null });
     } else {
       alert("Пожалуйста, заполните все поля.");
     }
@@ -165,14 +203,14 @@ const GaragePage = () => {
             </select>
             <input
               type="text"
-              placeholder="Бренд"
-              list="brand-list"
-              value={newScooter.brand}
-              onChange={(e) => setNewScooter({ ...newScooter, brand: e.target.value })}
+              placeholder="Марка"
+              list="mark-list"
+              value={newScooter.mark}
+              onChange={(e) => setNewScooter({ ...newScooter, mark: e.target.value, id_mark: marks.find((el, index, array) => el.name_mark === e.target.value).id_mark})}
             />
-            <datalist id="brand-list">
-              {["Honda", "Yamaha", "Suzuki", "Kawasaki", "BMW"].map((brand, index) => (
-                <option key={index} value={brand} />
+            <datalist id="mark-list">
+              {marks.map((mark) => (
+                <option key={mark.id_mark} value={mark.name_mark} />
               ))}
             </datalist>
             <input
@@ -180,11 +218,11 @@ const GaragePage = () => {
               placeholder="Модель"
               list="model-list"
               value={newScooter.model}
-              onChange={(e) => setNewScooter({ ...newScooter, model: e.target.value })}
+              onChange={(e) => setNewScooter({ ...newScooter, model: e.target.value, id_model: models.find((el) => el.name_model === e.target.value).id_model })}
             />
             <datalist id="model-list">
-              {["Dio", "Aerox", "Burgman", "Zuma", "Riva"].map((model, index) => (
-                <option key={index} value={model} />
+              {models.map((model) => (
+                <option key={model.id_model} value={model.name_model} />
               ))}
             </datalist>
             <button onClick={addScooter}>Добавить</button>
