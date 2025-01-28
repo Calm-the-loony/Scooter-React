@@ -75,7 +75,7 @@ const MainSection = () => {
       // Сторонние данные
       const [categoryData, setCategoryData] = useState(null);
       const [marks, setMarks] = useState(null);
-      const [recProduct, setRecProduct] = useState(null);
+      const [recProduct, setRecProduct] = useState([]);
       const [lastSellsProduct, setLastSellsProduct] = useState([]);
       const [userOrderCnt, setUserOrder] = useState(0);
       const navigate = useNavigate();
@@ -149,7 +149,7 @@ const MainSection = () => {
         const reqRecommendedProducts = async () => {
           let recommendedProducts = await ProductApiService.recommendsProduct();
           if (recommendedProducts) {
-            setRecProduct(recommendedProducts);
+            setRecProduct(recommendedProducts.products);
           }
         }
 
@@ -271,8 +271,8 @@ const MainSection = () => {
         <h2 className="as">Рекомендуемые товары</h2>
         <div className="red-line"></div>
         <div className="product-grid">
-          {recProduct? 
-          recProduct.products.map((product) => {
+          {recProduct.length?
+          recProduct.map((product) => {
             return (
             <ProductCard 
               id={product.id_product}
@@ -328,7 +328,7 @@ const MainSection = () => {
       <h2 className="as">Топ продаж</h2>
       <div className="red-lines"></div>
       <div>
-        {lastSellsProduct?
+        {lastSellsProduct.length?
               <Slider {...carouselSettings}>
                 {lastSellsProduct.map((product) => (
                     <ProductCard

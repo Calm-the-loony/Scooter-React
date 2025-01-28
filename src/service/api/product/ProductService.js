@@ -37,4 +37,31 @@ export default class ProductApiService {
         const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/mt/all");
         return req.data;
     }
+
+    /**
+     * Получение всех брендов
+     * @returns 
+     */
+    static async allBrands() {
+        const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/brand/get_all_brands");
+        return req.data;
+    }
+
+    /**
+     * Получение всех моделей
+     * @returns 
+     */
+    static async allModels() {
+        const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/model/get_all_models");
+        return req.data;
+    }
+
+    /**
+     * Получение всех марок
+     * @returns 
+     */
+    static async allMarks() {
+        const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/mark/get_all_marks");
+        return req.data;
+    }
 }

@@ -5,6 +5,7 @@ import "../../style/GaragePage.scss";
 import products from "../../data/products";
 import categories from "../../data/categories";
 import ProductApiService from "../../service/api/product/ProductService";
+import GarageApiService from "../../service/api/product/GarageService";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -12,33 +13,51 @@ const ITEMS_PER_PAGE = 4; // Количество карточек на одну
 
 const GaragePage = () => {
   const [scooters, setScooters] = useState([]);
-  const [newScooter, setNewScooter] = useState({ type: null, brand: null, model: null });
+  const [newScooter, setNewScooter] = useState(
+    {
+     type: null,
+     brand: null,
+     model: null,
+     
+     id_moto_type: null,
+     id_brand: null,
+     id_model: null
+    }
+  );
   const [selectedScooter, setSelectedScooter] = useState(null);
+
   const [details, setDetails] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [garage, setGarage] = useState([]);
 
   // Типы транспорта
   const [typeMoto, setTypeMoto] = useState([]);
 
   useEffect(() => {
-    let req = async () => {
+    const reqTypeMoto = async () => {
       let allTypeModels = await ProductApiService.allTypeModels();
       if (allTypeModels) {
         setTypeMoto(allTypeModels.moto_types);
       }
     }
 
-    req();
+    const reqMyGarage = async () => {
+      let myGarage = await GarageApiService.myGarage();
+      if (myGarage) {
+        setGarage(myGarage.garage);
+      }
+    }
+
+    reqTypeMoto();
+    reqMyGarage();
   }, []);
 
 
-  const addScooter = () => {
+  const addScooter = async () => {
     console.log(newScooter);
-    if (newScooter.type && newScooter.brand && newScooter.model) {
-      const updatedScooters = [...scooters, newScooter];
-      setScooters(updatedScooters);
-      localStorage.setItem("garage", JSON.stringify(updatedScooters));
-      setNewScooter({ type: "", brand: "", model: "" });
+    if (newScooter.id_moto_type && newScooter.id_brand && newScooter.id_model) {
+      const req = await GarageApiService.addedGarage({});
+      setNewScooter({ type: null, brand: null, model: null });
     } else {
       alert("Пожалуйста, заполните все поля.");
     }
@@ -110,8 +129,8 @@ const GaragePage = () => {
   };
 
   // Данные для диаграммы
-  const typesCount = scooters.reduce((acc, scooter) => {
-    acc[scooter.type] = (acc[scooter.type] || 0) + 1;
+  const typesCount = garage.reduce((acc, scooter) => {
+    acc[scooter.moto_type_data.name_moto_type] = (acc[scooter.moto_type_data.name_moto_type] || 0) + 1;
     return acc;
   }, {});
 
@@ -137,7 +156,7 @@ const GaragePage = () => {
           <div>
             <select
               value={newScooter.type}
-              onChange={(e) => setNewScooter({ ...newScooter, type: e.target.value })}
+              onChange={(e) => {setNewScooter({ ...newScooter, type: e.target.value, id_moto_type: Number(e.target.options[e.target.options.selectedIndex].id) }); }}
             >
               <option value="">Выберите тип</option>
               {typeMoto.map((tm) => {
@@ -173,16 +192,16 @@ const GaragePage = () => {
         </div>
 
         <div className="garage-list">
-          <h3>Сохраненные скутеры</h3>
+          <h3>Сохраненные мототранспорты</h3>
           <ul>
-            {scooters.length > 0 ? (
-              scooters.map((scooter, index) => (
+            {garage.length > 0 ? (
+              garage.map((scooter, index) => (
                 <li key={index}>
                   <button
                     onClick={() => selectScooter(index)}
                     className={selectedScooter === scooter ? "selected" : ""}
                   >
-                    {scooter.type} {scooter.brand} {scooter.model}
+                    {scooter.moto_type_data.name_moto_type} {scooter.models_data.name_model} {scooter.mark_data.name_mark}
                   </button>
                   <button
                     className="remove-scooter"
