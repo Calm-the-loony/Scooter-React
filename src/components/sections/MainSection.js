@@ -226,7 +226,7 @@ const MainSection = () => {
             state={{ categoryId: "engine" }} 
             className="category-container"
           >
-            <i className={category.icon_category}></i>
+            <i className={!['icon', '', null].includes(category.icon_category)? category.icon_category : "fa fa-spinner"}></i>
             <p>{ category.name_category }</p>
           </Link>
       </div>
