@@ -2,21 +2,27 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../style/styles.scss';
 import { AuthService } from '../../service/api/auth/AuthApiService';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../state/actions/authAction';
 
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const selector = useSelector((state) => state);
 
   const handleLogin = (e) => {
     e.preventDefault();
       
       let req = AuthService.loginUser(email, password).then((message) => {
-        // Устанавливаем флаг авторизации и роль пользователя
-        localStorage.setItem('isAuthenticated', 'true');
-        // localStorage.setItem('isAdmin', storedUser.role === 'admin' ? 'true' : 'false');
+        // Устанавливаем флаг авторизации
+        console.log(selector);
+        dispatch(loginUser());
+        console.log(selector);
         navigate('/account');
+
       }).catch((er) => {
         console.log(er);
         alert("Неверные данные для входа");

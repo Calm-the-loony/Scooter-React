@@ -23,20 +23,26 @@ import RegistrationPage from "./components/pages/RegistrationPage"; // Стра�
 import CookieConsent from "./components/other/CookieConsent"; // Новый компонент
 import ProductPage from "./components/pages/ProductPage";  // Импортируем компонент страницы товара
 import SearchResults from "./components/other/SearchResults";
+import { RedirectUser } from "./components/other/redirectUser";
 // import PaymentPage from "./components/PaymentPage";
 // import FeaturedProducts from "./components/FeaturedProducts";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CartProvider from "./context/CartContext"; // Провайдер контекста корзины
+import { useSelector } from "react-redux";
 
 import "./App.css";
 
 const App = () => {
+  
+  const selector = useSelector((state) => state);
+  
   return (
     <CartProvider> {/* Обернули приложение в CartProvider */}
       <Router>
         <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
           <Header />
           <main style={{ flex: 1 }}>
+            {selector? 
             <Routes>
               <Route path="/" element={<MainSection />} />
               <Route path="/pay" element={<PayPage />} />
@@ -56,14 +62,31 @@ const App = () => {
               <Route path="/register" element={<RegistrationPage />} /> {/* Страница регистрации */}
               <Route path="/product/:id" element={<ProductPage />} /> {/* Новый маршрут для страницы товара */}
               <Route path="/search-results" element={<SearchResults />} />
-              {/* <Route path="/paym" element={<PaymentPage />}  */}
-              {/* Маршруты для категорий */}
               <Route path="/category/:categoryId" element={<CategoryPage />} />
-
-              {/* Страница 404 */}
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
-            {/* <FeaturedProducts />  */}
+            :
+            <Routes>
+              <Route path="/" element={<MainSection />} />
+              <Route path="/pay" element={<PayPage />} />
+              <Route path="/shipping" element={<ShippingPage />} />
+              <Route path="/return" element={<ReturnsPage />} />
+              <Route path="/salesroom" element={<SalesroomPage />} />
+              <Route path="/legal" element={<LegalPage />} />
+              <Route path="/right" element={<RightOfWithdrawalPage />} />
+              <Route path="/jobs" element={<JobsPage />} />
+              <Route path="/tech" element={<TechTipsPage />} />
+              <Route path="/brand" element={<BrandsPage />} />
+              <Route path="/login" element={<LoginPage />} /> {/* Страница авторизации */}
+              <Route path="/register" element={<RegistrationPage />} /> {/* Страница регистрации */}
+              <Route path="/product/:id" element={<ProductPage />} /> {/* Новый маршрут для страницы товара */}
+              <Route path="/search-results" element={<SearchResults />} />
+              <Route path="/category/:categoryId" element={<CategoryPage />} />
+              <Route path="*" element={<RedirectUser/>} />
+            </Routes>
+            }
+            <Routes>
+            </Routes>
           </main>
           <Footer />
           <CookieConsent /> {/* Новый компонент добавлен здесь */}

@@ -1,10 +1,12 @@
-export const authUserReducer = (state, action) => {
+export const authUserReducer = (state = false, action) => {
     switch (action.type) {
         case "AUTH": {
-            return true;
+            state = true;
+            return state;
         };
         case "EXIT": {
-            return false;
+            state = false;
+            return state;
         };
         default:
             return state;

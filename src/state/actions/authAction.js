@@ -6,6 +6,6 @@ export const loginUser = () => {
 
 export const exitUser = () => {
     return {
-        type: "EXIT"
+        type: "AUTH_EXIT"
     };
 }
