@@ -1,5 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
-import { CartContext } from "../../context/CartContext";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserApiService } from "../../service/api/user/UserApiService";
 
@@ -41,7 +40,6 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
 
     } else {
       // Удаление товара из избранных
-
       let deleteFav = await UserApiService.deleteUserFavourite(idFavourite);
       if (deleteFav) {
         setIsFavorite(false);
@@ -52,16 +50,17 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
 
   // Функция для добавления товара в корзину
   const handleAddToCart = async (event, id_product) => {
+      console.log(event, id_product);
       await UserApiService.addProductToBasket(id_product);
   };
 
   // Функция для открытия карточки товара
   const handleCardClick = () => {
-    navigate(`/product/${id}`);
+    // navigate(`/product/${id}`);
   };
 
   return (
-    <div className="product-card" data-id={id} onClick={handleCardClick}>
+    <div className="product-card" data-id={id} onClick={handleAddToCart}>
       <img src={image} alt={name} />
       <div className="details">
         <p className="category">{category}</p>

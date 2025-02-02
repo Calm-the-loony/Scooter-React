@@ -175,7 +175,6 @@ export class UserApiService {
         }
     }
 
-
     /**
      * Удаление заказа
      * @param {*} quantity 

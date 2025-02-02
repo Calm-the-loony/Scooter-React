@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../style/JobsPage.scss";
+import { JobsApiService } from "../../service/api/jobs/JobsApiService";
+
 
 const JobsPage = () => {
+
   const [searchQuery, setSearchQuery] = useState("");
   const [isChecked, setIsChecked] = useState(false); // Состояние для галочки согласия
+  const [jobs, setJobs] = useState([]);
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
@@ -31,72 +35,18 @@ const JobsPage = () => {
     }
   };
 
-  const jobList = [
-    {
-      title: "Сборщик товаров",
-      description: "Работа по сборке и упаковке товаров на нашем складе. Требуется внимание к деталям и аккуратность.",
-      salary: "40 000 - 50 000 руб.",
-      experience: "Нет",
-    },
-    {
-      title: "Кладовщик",
-      description: "Работа на складе, прием и размещение товаров, контроль за наличием и состоянием товаров.",
-      salary: "45 000 - 55 000 руб.",
-      experience: "Нет",
-    },
-    {
-      title: "Оператор погрузчика",
-      description: "Управление погрузчиком для перемещения товаров на складе. Необходимы навыки управления погрузчиком.",
-      salary: "50 000 - 60 000 руб.",
-      experience: "Да",
-    },
-    {
-      title: "Упаковщик",
-      description: "Упаковка товаров для отправки клиентам. Важно внимание к деталям и аккуратность.",
-      salary: "35 000 - 45 000 руб.",
-      experience: "Нет",
-    },
-    {
-      title: "Менеджер по продажам",
-      description: "Обработка заявок и продажа продукции клиентам, работа с базой данных клиентов.",
-      salary: "60 000 - 80 000 руб.",
-      experience: "Да",
-    },
-    {
-      title: "Инженер-метролог",
-      description: "Проведение измерений и калибровка оборудования для проверки точности работы.",
-      salary: "50 000 - 70 000 руб.",
-      experience: "Да",
-    },
-    {
-      title: "Администратор офиса",
-      description: "Организация работы офиса, встречи с клиентами, документооборот.",
-      salary: "35 000 - 45 000 руб.",
-      experience: "Нет",
-    },
-    {
-      title: "Юрист",
-      description: "Консультирование по юридическим вопросам, подготовка документов, представление интересов компании.",
-      salary: "70 000 - 90 000 руб.",
-      experience: "Да",
-    },
-    {
-      title: "Кассир",
-      description: "Осуществление расчетов с клиентами, работа с кассовым аппаратом.",
-      salary: "30 000 - 40 000 руб.",
-      experience: "Нет",
-    },
-    {
-      title: "Рекрутер",
-      description: "Поиск и подбор персонала для компании, проведение собеседований.",
-      salary: "50 000 - 65 000 руб.",
-      experience: "Да",
-    },
-  ];
-
-  const filteredJobs = jobList.filter(
-    (job) => job.title.toLowerCase().includes(searchQuery.toLowerCase()) || job.description.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredJobs = jobs.filter(
+    (job) => job.type_work.name_type.toLowerCase().includes(searchQuery.toLowerCase()) || job.description_vacancies.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+
+  useEffect(() => {
+    JobsApiService.allJobs().then((jobsData) => {
+      setJobs(jobsData.vacancies);
+    });
+
+  }, [])
+
 
   return (
     <main className="jobs">
@@ -125,16 +75,21 @@ const JobsPage = () => {
             onChange={handleSearch}
           />
         </section>
-
-        {filteredJobs.map((job, index) => (
-          <div key={index} className="vacancy-card">
-            <h3>{job.title}</h3>
-            <p>Описание: {job.description}</p>
-            <p>Зарплата: {job.salary}</p>
-            <p>Требуется опыт работы: {job.experience}</p>
-            <button className="apply-button" onClick={showApplicationForm}>Откликнуться</button>
-          </div>
-        ))}
+        {jobs?
+        <div>
+            {jobs.map((job, index) => (
+              <div key={index} className="vacancy-card">
+                <h3>{job.type_work.name_type}</h3>
+                <p>Описание: {job.description_vacancies}</p>
+                <p>Зарплата: {job.salary_employee}</p>
+                <p>Требуется опыт работы: {job.is_worked}</p>
+                <button className="apply-button" onClick={showApplicationForm}>Откликнуться</button>
+              </div>
+            ))}
+        </div>
+        :
+        ""
+        }
       </section>
 
       {/* Модальное окно для формы отклика */}

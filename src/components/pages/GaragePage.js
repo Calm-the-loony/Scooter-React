@@ -151,14 +151,10 @@ const GaragePage = () => {
     setDetails(combinedDetails);
   };
 
+  // Удаление мототранспорта
   const removeScooter = (index) => {
-    const updatedScooters = scooters.filter((_, i) => i !== index);
-    setScooters(updatedScooters);
-    localStorage.setItem("garage", JSON.stringify(updatedScooters));
-    if (selectedScooter === scooters[index]) {
-      setSelectedScooter(null);
-      setDetails([]);
-    }
+    const req = GarageApiService.deleteTransport(index).then((ok) => {
+    })
   };
 
   const totalPages = Math.ceil(details.length / ITEMS_PER_PAGE);
@@ -248,7 +244,7 @@ const GaragePage = () => {
                   </button>
                   <button
                     className="remove-scooter"
-                    onClick={() => removeScooter(index)}
+                    onClick={() => removeScooter(scooter.id_garage)}
                   >
                     Удалить
                   </button>

@@ -38,4 +38,24 @@ export default class GarageApiService {
         }
 
     }
+
+    /**
+     * Удаление транспорта с гаража
+     * @param {*} id_mt 
+     * @returns 
+     */
+    static async deleteTransport(id_mt) {
+        try {
+            await axios.delete(process.env.REACT_APP_BACKEND_URL + "/garage/delete", {
+                params: {
+                    id_mt: id_mt
+                },
+                withCredentials: true
+            });
+
+            return true;
+        } catch {
+            return false;
+        }
+    }
 }

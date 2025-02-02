@@ -75,7 +75,7 @@ const CartPage = () => {
   }
 
   const deleteProduct = async (id_product) => {
-    const req = await UserApiService.deleteUserOrder(id_product);
+    await UserApiService.deleteUserOrder(id_product);
   }
 
   useEffect(() => {
@@ -89,9 +89,10 @@ const CartPage = () => {
       }
     }
     
-    return req;
+    req();
   }, []);
 
+  
   return (
     <div className="cart-container">
       <div className="cart-header">
