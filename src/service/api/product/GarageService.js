@@ -17,15 +17,9 @@ export default class GarageApiService {
 
             return req.data;
         } catch (er) {
-            if (er.status === 401) {
-                const updateUserTokens = await AuthService.updateUserToken();
-                if (updateUserTokens === true) {
-                    return this.addedGarage(newTrasport);
-                }
-            }
+            return false;
         }
 
-        return false;
     }
 
     /**
@@ -40,14 +34,8 @@ export default class GarageApiService {
 
             return req.data;
         } catch (er) {
-            if (er.status === 401) {
-                const updateTokens = await AuthService.updateUserToken();
-                if (updateTokens === true) {
-                    return this.myGarage();
-                }
-            }
+            return false;
         }
 
-        return false;
     }
 }

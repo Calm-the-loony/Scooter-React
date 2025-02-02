@@ -18,12 +18,7 @@ export class UserApiService {
 
             return req.data;
         } catch {
-            const updateToken = await AuthService.updateUserToken();
-            if (updateToken === true) {
-                await this.informationAboutUser();
-            } else {
-                return false
-            }
+            return false;
         }
     }
 
@@ -63,13 +58,6 @@ export class UserApiService {
             
             return req.data;
         } catch (er) {
-            if (er.status === 401) {
-                const updateUserTokens = await AuthService.updateUserToken();
-                if (updateUserTokens === true) {
-                    return this.userOrders();
-                }
-            }
-
             return false;
         }
     }
@@ -94,10 +82,6 @@ export class UserApiService {
 
             return true
         } catch {
-            const updateUserPassword = await AuthService.updateUserToken();
-            if (updateUserPassword === true) {
-                return await this.updateUserPassword();
-            }
             return false;
         }
     }
@@ -113,10 +97,6 @@ export class UserApiService {
             });
             return req.data;
         } catch {
-            const updateTokens = await AuthService.updateUserToken();
-            if (updateTokens === true) {
-                return await this.userFavourites();
-            }
             return false;
         }
     }
@@ -135,10 +115,6 @@ export class UserApiService {
             });
             return true
         } catch {
-            const updateUserToken = await AuthService.updateUserToken();
-            if (updateUserToken === true) {
-                return this.deleteUserFavourite(id_favourite);
-            }
             return false;
         }
     }
@@ -158,10 +134,6 @@ export class UserApiService {
 
             return req.data;
         } catch {
-            const updateUserToken = await AuthService.updateUserToken();
-            if (updateUserToken === true) {
-                return this.addNewFavourite(id_product);
-            }
             return false;
         }
     }
@@ -181,12 +153,6 @@ export class UserApiService {
             });
             return true;
         } catch (er) {
-            if (er.status === 401) {
-                const updateUserTokens = await AuthService.updateUserToken();
-                if (updateUserTokens === true) {
-                    return this.addProductToBasket(id_product);
-                }
-            }
             return false;
         }
     }
@@ -203,12 +169,6 @@ export class UserApiService {
 
             return req.data
         } catch (er) {
-            if (er.status === 401) {
-                const updateUserTokens = await AuthService.updateUserToken();
-                if (updateUserTokens === true) {
-                    return this.userOrders();
-                }
-            }
 
             return false;
         }
@@ -227,16 +187,7 @@ export class UserApiService {
             });
             return true;
         } catch (err) {
-            if (err.status === 401) {
-                const updateUserTokens = await AuthService.updateUserToken();
-                if (updateUserTokens === true) {
-                    return this.deleteUserOrder(id_order);
-                }
-            } else {
-                return false;
-            }
+            return false;
         }
-
-        return false;
     }
 }

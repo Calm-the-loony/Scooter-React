@@ -34,8 +34,12 @@ export default class ProductApiService {
      * @returns
      */
     static async allTypeModels() {
-        const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/mt/all");
-        return req.data;
+        try {
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/mt/all");
+            return req.data;
+        } catch {
+            return [];
+        }
     }
 
     /**
@@ -43,8 +47,12 @@ export default class ProductApiService {
      * @returns 
      */
     static async allBrands() {
-        const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/brand/get_all_brands");
-        return req.data;
+        try {
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/brand/get_all_brands");
+            return req.data;
+        } catch {
+            return [];
+        }
     }
 
     /**
@@ -52,8 +60,12 @@ export default class ProductApiService {
      * @returns 
      */
     static async allModels() {
-        const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/model/get_all_models");
-        return req.data;
+        try {
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/model/get_all_models");
+            return req.data;
+        } catch {
+            return [];
+        }
     }
 
     /**
@@ -61,7 +73,11 @@ export default class ProductApiService {
      * @returns 
      */
     static async allMarks() {
-        const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/mark/get_all_marks");
-        return req.data;
+        try {
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/mark/get_all_marks");
+            return req.data;
+        } catch {
+            return [];
+        }
     }
 }
