@@ -28,19 +28,20 @@ export class UserApiService {
      * @returns 
      */
     static async updateUserInformation(userDataToUpdate) {
-        const req = await axios.put(process.env.REACT_APP_BACKEND_URL + "/user/update_user_information", userDataToUpdate, {
-            withCredentials: true,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
 
-        
-        if (req.status === 200) {
+        try {
+            const req = await axios.put(process.env.REACT_APP_BACKEND_URL + "/user/update_user_information", userDataToUpdate, {
+                withCredentials: true,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
             return true;
-        } else {
+        } catch {
             return false;
         }
+        
     }
 
     /**

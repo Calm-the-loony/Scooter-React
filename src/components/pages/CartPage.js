@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import "../../style/CartPage.scss";
 import { UserApiService } from "../../service/api/user/UserApiService";
+import { useDispatch } from "react-redux";
+import {exitUser} from "../../state/actions/authAction";
 
 
 const CartPage = () => {
@@ -10,6 +12,7 @@ const CartPage = () => {
   const [selectedOption, setSelectedOption] = useState("delivery");
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [totalPrice, setTotalPrice] = useState(0);
+  const dispatch = useDispatch();
 
   const handlePurchase = () => {
     setModalOpen(true);
@@ -81,6 +84,8 @@ const CartPage = () => {
       if (userOrders) {
         setOrderProduct(userOrders.orders);
         sumResultPrice();
+      } else {
+        dispatch(exitUser());
       }
     }
     

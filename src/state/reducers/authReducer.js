@@ -1,14 +1,16 @@
 export const authUserReducer = (state = false, action) => {
     switch (action.type) {
         case "AUTH": {
-            state = true;
-            return state;
+            localStorage.setItem("isAuthenticated", true);
+            return true;
         };
-        case "EXIT": {
-            state = false;
-            return state;
+        case "AUTH_EXIT": {
+            localStorage.removeItem("isAuthenticated");
+            return false;
         };
-        default:
+        default: {
+            state = localStorage.getItem("isAuthenticated");
             return state;
+        }
     }
 };

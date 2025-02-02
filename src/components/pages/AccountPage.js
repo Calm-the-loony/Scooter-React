@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import '../../style/styles.scss';
 import { UserApiService } from '../../service/api/user/UserApiService';
 import { UpdateUser } from '../../service/dto/UserDTO';
+import { useDispatch } from 'react-redux';
+import {exitUser} from "../../state/actions/authAction";
 
 
 const AccountPage = () => {
@@ -12,6 +14,7 @@ const AccountPage = () => {
   const [activeTab, setActiveTab] = useState('account-section');
   const [isEditing, setIsEditing] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false); // Добавляем состояние для проверки на админа
+  const dispatch = useDispatch();
 
   // Данные состояния для обновления информации о пользователе
   const [address, setAddress] = useState(null);
@@ -30,21 +33,24 @@ const AccountPage = () => {
 
     // Запрос на получение информации о пользователе
     const data = UserApiService.informationAboutUser().then((dataUser) => {
-      setUserData(dataUser);
-    }).catch((er) => {
+      
+      if (dataUser === false) {
 
+        // Очистка состояния
+        dispatch(exitUser());
+      }
+
+      setUserData(dataUser);
     });
 
-    setIsAuthenticated(authStatus);
-
-    if (authStatus && userData) {
-      setIsAdmin(localStorage.getItem('isAdmin') === 'true'); // Проверяем, является ли пользователь администратором
-    }
   }, []);
 
   const logout = () => {
-    localStorage.setItem('isAuthenticated', 'false');
-    setIsAuthenticated(false);
+
+
+    // Обновление в хранилище
+    dispatch(exitUser());
+
     setIsAdmin(false);
     setUserData(null);
     navigate('/login');
@@ -123,8 +129,6 @@ const AccountPage = () => {
       {userData? <div>
         <h2>Личный кабинет</h2>
       <div className="account-wrapper">
-        {isAuthenticated ? (
-          <>
             <div className="account-tabs">
               <div
                 className={`account-tab ${activeTab === 'account-section' ? 'active' : ''}`}
@@ -144,14 +148,6 @@ const AccountPage = () => {
               >
                 Изменить пароль
               </div>
-              {isAdmin && (
-                <div
-                  className={`account-tab ${activeTab === 'admin-panel' ? 'active' : ''}`}
-                  onClick={() => handleTabClick('admin-panel')}
-                >
-                  Админ-панель
-                </div>
-              )}
             </div>
 
             <section className={`account-section ${activeTab === 'account-section' ? 'active' : ''}`}>
@@ -312,42 +308,9 @@ const AccountPage = () => {
               </form>
             </section>
 
-            {isAdmin && (
-              <section className={`admin-panel ${activeTab === 'admin-panel' ? 'active' : ''}`}>
-                <h2 className="account-subheader">Админ-панель</h2>
-                <div className="admin-orders">
-                  {userData?.orders?.length ? (
-                    userData.orders.map((order) => (
-                      <div key={order.id} className="order-card">
-                        <h4>Заказ №{order.id}</h4>
-                        <p>Статус: {order.status}</p>
-                        <button onClick={() => handleOrderStatusChange(order.id, 'Доставлен')}>Отметить как доставленный</button>
-                      </div>
-                    ))
-                  ) : (
-                    <p>Нет заказов для администрирования.</p>
-                  )}
-                </div>
-              </section>
-            )}
-
             <button onClick={logout} className="logout-btn">
               <i className="fa fa-sign-out-alt"></i> Выйти
             </button>
-          </>
-        ) : (
-          <div className="auth-redirect">
-            <h2>Вы не авторизованы</h2>
-            <button onClick={() => navigate('/login')} className="auth-btn">
-              <i className="fa fa-sign-in-alt"></i> Авторизоваться
-            </button>
-            <p>
-              <button onClick={() => navigate('/register')} className="auth-btn">
-                <i className="fa fa-user-plus"></i> Зарегистрироваться
-              </button>
-            </p>
-          </div>
-        )}
       </div>
       </div> : ""}
     </div>

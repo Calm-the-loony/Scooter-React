@@ -18,13 +18,10 @@ const LoginPage = () => {
       
       let req = AuthService.loginUser(email, password).then((message) => {
         // Устанавливаем флаг авторизации
-        console.log(selector);
         dispatch(loginUser());
-        console.log(selector);
         navigate('/account');
 
       }).catch((er) => {
-        console.log(er);
         alert("Неверные данные для входа");
       });
   };

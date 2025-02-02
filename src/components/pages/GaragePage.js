@@ -6,6 +6,8 @@ import products from "../../data/products";
 import categories from "../../data/categories";
 import ProductApiService from "../../service/api/product/ProductService";
 import GarageApiService from "../../service/api/product/GarageService";
+import { useDispatch } from "react-redux";
+import {exitUser} from "../../state/actions/authAction";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -29,6 +31,7 @@ const GaragePage = () => {
   const [details, setDetails] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [garage, setGarage] = useState([]);
+  const dispatch = useDispatch();
 
   // Типы транспорта
   const [typeMoto, setTypeMoto] = useState([]);
@@ -54,6 +57,8 @@ const GaragePage = () => {
       let myGarage = await GarageApiService.myGarage();
       if (myGarage) {
         setGarage(myGarage.garage);
+      } else {
+        dispatch(exitUser());
       }
     }
 

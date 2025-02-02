@@ -3,11 +3,14 @@ import { CartContext } from "../../context/CartContext";
 import { UserApiService } from "../../service/api/user/UserApiService";
 import "../../style/FavoritesPage.scss";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {exitUser} from "../../state/actions/authAction";
 
 const FavoritesPage = () => {
   
   const [favouriteProducts, setFavouriteProducts] = useState(null);
   const navigator = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(
     () => {
@@ -17,6 +20,8 @@ const FavoritesPage = () => {
           if (favData.favourites.length >= 1) {
             setFavouriteProducts(favData)
           }
+        } else {
+          dispatch(exitUser());
         }
       }
 
@@ -39,8 +44,7 @@ const FavoritesPage = () => {
       }
   }
 
-  console.log(favouriteProducts);
-
+  
   return (
     <div className="favorites-container">
       <h2 className="favorites-title">Избранное</h2>
