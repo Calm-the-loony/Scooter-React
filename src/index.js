@@ -5,12 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import scooterStore from './state/store/configureStore';
+import { persist } from './state/store/configureStore';
+import { PersistGate } from 'redux-persist/integration/react';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={scooterStore}>
-    <App />
+    <PersistGate loading={
+      <div>Loading...</div>
+    } persistor={persist}>
+      <App />
+    </PersistGate>
   </Provider>
 );
 

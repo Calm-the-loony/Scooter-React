@@ -42,7 +42,7 @@ const App = () => {
         <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
           <Header />
           <main style={{ flex: 1 }}>
-            {selector? 
+            {selector.isAuthenticated? 
             <Routes>
               <Route path="/" element={<MainSection />} />
               <Route path="/pay" element={<PayPage />} />

@@ -1,16 +1,20 @@
-export const authUserReducer = (state = false, action) => {
+import { UserApiService } from "../../service/api/user/UserApiService";
+
+
+const initial_state = {
+    isAuthenticated: false
+}
+
+export const authUserReducer = (state = initial_state, action) => {
     switch (action.type) {
         case "AUTH": {
-            localStorage.setItem("isAuthenticated", true);
-            return true;
+            return {...state, isAuthenticated: true};
         };
         case "AUTH_EXIT": {
-            localStorage.removeItem("isAuthenticated");
-            return false;
+            return {...state, isAuthenticated: false};
         };
         default: {
-            state = localStorage.getItem("isAuthenticated");
-            return state;
+            return {...state};
         }
     }
 };

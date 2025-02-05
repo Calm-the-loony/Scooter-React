@@ -3,12 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import '../../style/styles.scss';
 import { UserApiService } from '../../service/api/user/UserApiService';
 import { UpdateUser } from '../../service/dto/UserDTO';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {exitUser} from "../../state/actions/authAction";
 
 
 const AccountPage = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState(null);
   const [userOrdersData, setUserOrdersData] = useState(null);
   const [activeTab, setActiveTab] = useState('account-section');
@@ -29,18 +28,18 @@ const AccountPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const authStatus = localStorage.getItem('isAuthenticated') === 'true';
 
     // Запрос на получение информации о пользователе
     const data = UserApiService.informationAboutUser().then((dataUser) => {
       
       if (dataUser === false) {
-
+        
         // Очистка состояния
         dispatch(exitUser());
+      } else {
+        setUserData(dataUser);
       }
 
-      setUserData(dataUser);
     });
 
   }, []);

@@ -1,6 +1,9 @@
+import { UserApiService } from "../../service/api/user/UserApiService";
+
 export const loginUser = () => {
     return {
-        type: "AUTH"
+        type: "AUTH",
+        payload: {},
     };
 }
 
