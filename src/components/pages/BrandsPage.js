@@ -1,58 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../../style/BrandsPage.scss";
 
 // Импорт изображений
 import brend1 from "../../image/Brend1.png";
-import brend2 from "../../image/Brend2.jpg";
-import brend3 from "../../image/Brend3.png";
-import brend4 from "../../image/Brend4.png";
-import brend5 from "../../image/Brend5.png";
-import brend6 from "../../image/Brend6.png";
-import brend7 from "../../image/Brend7.png";
 
-const brandsData = [
-  {
-    name: 'Scooter24',
-    description: 'Поставщик качественных запчастей для скутеров и мотоциклов.',
-    img: brend1
-  },
-  {
-    name: 'SM Motors',
-    description: 'Известный бренд запчастей и аксессуаров для скутеров.',
-    img: brend2
-  },
-  {
-    name: 'Tmmp',
-    description: 'Производитель высококачественных запчастей для скутеров и мотоциклов.',
-    img: brend3
-  },
-  {
-    name: 'Komatsu',
-    description: 'Японский бренд, известный своими инновационными решениями в производстве запчастей для скутеров.',
-    img: brend4
-  },
-  {
-    name: 'Koso',
-    description: 'Производитель премиальных запчастей и аксессуаров для скутеров.',
-    img: brend5
-  },
-  {
-    name: 'ATHENA',
-    description: 'Итальянский производитель высококачественных запчастей для скутеров.',
-    img: brend6
-  },
-  {
-    name: 'Tecnigas',
-    description: 'Ведущий испанский бренд, специализирующийся на выпуске глушителей и других запчастей для скутеров.',
-    img: brend7
-  },
-];
+import ProductApiService from "../../service/api/product/ProductService";
+
 
 const BrandsPage = () => {
-  const [filteredBrands, setFilteredBrands] = useState(brandsData);
+  const [filteredBrands, setFilteredBrands] = useState([]);
+  const [brands, setBrands] = useState([]);
 
   const filterByLetter = (letter) => {
-    const filtered = brandsData.filter((brand) =>
+    const filtered = brands.filter((brand) =>
       brand.name.startsWith(letter)
     );
     setFilteredBrands(filtered);
@@ -60,11 +20,18 @@ const BrandsPage = () => {
 
   const filterBrands = (event) => {
     const filter = event.target.value.toLowerCase();
-    const filtered = brandsData.filter((brand) =>
+    const filtered = brands.filter((brand) =>
       brand.name.toLowerCase().includes(filter)
     );
     setFilteredBrands(filtered);
   };
+
+
+  useEffect(() => {
+    ProductApiService.allBrands().then((data) => {
+      setBrands(data);
+    });
+  }, []);
 
   return (
     <main className="container">
@@ -86,19 +53,23 @@ const BrandsPage = () => {
             {letter}
           </button>
         ))}
-        <button className="clear-filter" onClick={() => setFilteredBrands(brandsData)}>
+        <button className="clear-filter" onClick={() => setFilteredBrands(brands)}>
           Все
         </button>
       </section>
-      <section className="brands">
-        {filteredBrands.map((brand) => (
-          <div key={brand.name} className="brand-card" data-name={brand.name}>
-            <img src={brand.img} alt={brand.name} />
-            <p>{brand.description}</p>
-          </div>
-        ))}
-      </section>
-      <a href="index.html" className="back-to-main">Вернуться на главную страницу</a>
+      {brands?
+        <section className="brands">
+          {brands.map((brand) => (
+            <div key={brand.id_brand} className="brand-card" data-name={brand.name}>
+              <img src={brand.url_brand? brand.url_brand : brend1} alt={brand.name_brand} />
+              <p>{brand.name_brand}</p>
+            </div>
+          ))}
+        </section>
+      :
+      ""
+      }
+      <a href="/" className="back-to-main">Вернуться на главную страницу</a>
     </main>
   );
 };

@@ -23,7 +23,7 @@ export class JobsApiService {
      */
     static async sendUserRequest(userData, id_vacancy) {
         try {
-            const req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/vr/create", {
+            const req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/vacancy/create/req", {
                 ...userData,
                 id_vacancy: id_vacancy
             }, {});

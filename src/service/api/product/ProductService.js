@@ -42,18 +42,6 @@ export default class ProductApiService {
         }
     }
 
-    /**
-     * Получение всех брендов
-     * @returns 
-     */
-    static async allBrands() {
-        try {
-            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/brand/get_all_brands");
-            return req.data;
-        } catch {
-            return [];
-        }
-    }
 
     /**
      * Получение всех моделей
@@ -78,6 +66,19 @@ export default class ProductApiService {
             return req.data;
         } catch {
             return [];
+        }
+    }
+
+    /**
+     * Получение всех брендов магазина
+     * @returns 
+     */
+    static async allBrands() {
+        try {
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/brand/all");
+            return req.data.brands;
+        } catch {
+            return []
         }
     }
 }

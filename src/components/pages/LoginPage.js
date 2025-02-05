@@ -24,7 +24,6 @@ const LoginPage = () => {
         navigate('/account');
 
       }).catch((er) => {
-        console.log(er);
         alert("Неверные данные для входа");
       });
   };
