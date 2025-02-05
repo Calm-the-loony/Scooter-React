@@ -10,7 +10,7 @@ export class UserApiService {
      */
     static async informationAboutUser() {
         try {
-            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/user/information_about_user", {
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/user/information", {
                 headers: {
                 },
                 withCredentials: true
@@ -30,7 +30,7 @@ export class UserApiService {
     static async updateUserInformation(userDataToUpdate) {
 
         try {
-            const req = await axios.put(process.env.REACT_APP_BACKEND_URL + "/user/update_user_information", userDataToUpdate, {
+            const req = await axios.put(process.env.REACT_APP_BACKEND_URL + "/user/update", userDataToUpdate, {
                 withCredentials: true,
                 headers: {
                     "Content-Type": "application/json"
@@ -50,7 +50,7 @@ export class UserApiService {
      */
     static async userOrders() {
         try {
-            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/order/get_orders_by_id_user", {
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/order/orders", {
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -71,7 +71,7 @@ export class UserApiService {
      */
     static async updateUserPassword(oldPassword, newPassword) {
         try {
-            await axios.patch(process.env.REACT_APP_BACKEND_URL + "/auth/update_password", {
+            await axios.patch(process.env.REACT_APP_BACKEND_URL + "/auth/update/password", {
                 "old_password": oldPassword,
                 "new_password": newPassword
             }, {
@@ -93,7 +93,7 @@ export class UserApiService {
      */
     static async userFavourites() {
         try {
-            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/favourite/get_all_favourites_by_user_id", {
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/favourite/all/user", {
                 withCredentials: true
             });
             return req.data;
@@ -108,7 +108,7 @@ export class UserApiService {
      */
     static async deleteUserFavourite(id_favourite) {
         try {
-            await axios.delete(process.env.REACT_APP_BACKEND_URL + "/favourite/delete_favourite_product", {
+            await axios.delete(process.env.REACT_APP_BACKEND_URL + "/favourite/delete", {
                 params: {
                     id_favourite: id_favourite
                 },
@@ -127,7 +127,7 @@ export class UserApiService {
      */
     static async addNewFavourite(id_product) {
         try {
-            const req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/favourite/create_a_new_favourite_product", {
+            const req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/favourite/create", {
                 id_product: id_product
             }, {
                 withCredentials: true
@@ -147,7 +147,7 @@ export class UserApiService {
     static async addProductToBasket(id_product) {
 
         try {
-            await axios.post(process.env.REACT_APP_BACKEND_URL + "/order/create_order", {
+            await axios.post(process.env.REACT_APP_BACKEND_URL + "/order/create", {
                 id_product: id_product,
             }, {
                 withCredentials: true
@@ -164,7 +164,7 @@ export class UserApiService {
      */
     static async userOrders() {
         try {
-            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/order/get_orders_by_id_user", {
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/order/all/user", {
                 withCredentials: true
             });
 
@@ -182,7 +182,7 @@ export class UserApiService {
      */
     static async deleteUserOrder(id_order) {
         try {
-            await axios.delete(process.env.REACT_APP_BACKEND_URL + `/order/delete_order/${id_order}`, {
+            await axios.delete(process.env.REACT_APP_BACKEND_URL + `/order/delete/${id_order}`, {
                 withCredentials: true
             });
             return true;

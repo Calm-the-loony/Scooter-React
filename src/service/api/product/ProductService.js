@@ -9,7 +9,7 @@ export default class ProductApiService {
      */
     static async recommendsProduct() {
         try {
-            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/product/recommends_products");
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/product/recommends");
             return req.data;
         } catch {
             return false;
@@ -22,7 +22,7 @@ export default class ProductApiService {
      */
     static async allSalledProducts() {
         try {
-            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/product/last_sells");
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/product/last/sells");
             return req.data;
         } catch {
             return false;
@@ -49,7 +49,7 @@ export default class ProductApiService {
      */
     static async allModels() {
         try {
-            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/model/get_all_models");
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/model/all");
             return req.data;
         } catch {
             return [];
@@ -62,7 +62,7 @@ export default class ProductApiService {
      */
     static async allMarks() {
         try {
-            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/mark/get_all_marks");
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/mark/all");
             return req.data;
         } catch {
             return [];
