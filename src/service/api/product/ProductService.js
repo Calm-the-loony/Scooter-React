@@ -39,6 +39,19 @@ export default class ProductApiService {
     }
 
     /**
+     * Получение информации о продукте по идентификатору
+     * @param {*} id_product 
+     */
+    static async productData(id_product) {
+        const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/product/information/full", {
+            params: {
+                id_product: id_product
+            }
+        });
+        return req.data;
+    }
+
+    /**
      * Получение рекомендованных товаров
      * @returns 
      */

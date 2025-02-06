@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserApiService } from "../../service/api/user/UserApiService";
+import "../../style/ProductCard.scss";
 
 
 const ProductCard = ({ id, stock, type, brand, model, category, image, name, price }) => {
@@ -53,9 +54,9 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
       await UserApiService.addProductToBasket(id);
   };
 
-  // Функция для открытия карточки товара
+  // Открытие карточки товара
   const handleCardClick = () => {
-    // navigate(`/product/${id}`);
+    navigate(`/product/${id}`);
   };
 
   return (
@@ -71,6 +72,9 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
           <button className="add-to-cart" onClick={handleAddToCart}>
             <i className="fas fa-shopping-cart"></i>
           </button>
+          <a className="button_more" onClick={handleCardClick}>
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+          </a>
         </div>
         <button
           className={`add-to-favorites ${isFavorite ? "active" : ""}`}
