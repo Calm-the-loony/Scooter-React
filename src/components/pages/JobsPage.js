@@ -20,6 +20,7 @@ const JobsPage = () => {
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
+    setJobs({jobs: jobs.jobs, filtered: filteredJobs()});
   };
 
   const showApplicationForm = (id_vacancy) => {
@@ -49,18 +50,17 @@ const JobsPage = () => {
     }
   };
 
-  const filteredJobs = jobs.filter(
+  const filteredJobs = () => jobs.jobs.filter(
     (job) => job.type_work.name_type.toLowerCase().includes(searchQuery.toLowerCase()) || job.description_vacancies.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
 
   useEffect(() => {
     JobsApiService.allJobs().then((jobsData) => {
-      setJobs(jobsData.vacancies);
+      setJobs({jobs: jobsData.vacancies});
     });
 
   }, [])
-
 
   return (
     <main className="jobs">
@@ -89,20 +89,35 @@ const JobsPage = () => {
             onChange={handleSearch}
           />
         </section>
-        {jobs?
+        {jobs.filtered?
         <div>
-            {jobs.map((job, index) => (
-              <div key={job.id_vacancy} className="vacancy-card">
-                <h3>{job.type_work.name_type}</h3>
-                <p>Описание: {job.description_vacancies}</p>
-                <p>Зарплата: {job.salary_employee}</p>
-                <p>Требуется опыт работы: {job.is_worked}</p>
-                <button className="apply-button" onClick={(e) => showApplicationForm(job.id_vacancy)}>Откликнуться</button>
-              </div>
-            ))}
+          {jobs.filtered.map((job, index) => (
+          <div key={job.id_vacancy} className="vacancy-card">
+            <h3>{job.type_work.name_type}</h3>
+            <p>Описание: {job.description_vacancies}</p>
+            <p>Зарплата: {job.salary_employee}</p>
+            <p>Требуется опыт работы: {job.is_worked}</p>
+            <button className="apply-button" onClick={(e) => showApplicationForm(job.id_vacancy)}>Откликнуться</button>
+          </div>
+          ))}
         </div>
         :
-        ""
+        <div>
+          {jobs['jobs']?
+            <div>
+              {jobs.jobs.map((job, index) => (
+                <div key={job.id_vacancy} className="vacancy-card">
+                  <h3>{job.type_work.name_type}</h3>
+                  <p>Описание: {job.description_vacancies}</p>
+                  <p>Зарплата: {job.salary_employee}</p>
+                  <p>Требуется опыт работы: {job.is_worked}</p>
+                  <button className="apply-button" onClick={(e) => showApplicationForm(job.id_vacancy)}>Откликнуться</button>
+                </div>
+              ))}
+            </div> 
+          :
+          ""}
+        </div>
         }
       </section>
 

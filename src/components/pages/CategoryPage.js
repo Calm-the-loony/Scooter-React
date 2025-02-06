@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import categories from "../../data/categories";
 import ProductCard from "../cards/ProductCard";
 import "../../style/CategoryPage.scss";
 import CatImage from "../../image/free-icon-black-cat-3704886.png";
 import { ReactComponent as ArrowIcon } from "../../image/arrow-icon.svg";
+import ProductApiService from "../../service/api/product/ProductService";
+import CategoryApiService from "../../service/api/product/CategoryService";
+
 
 const CategoryPage = () => {
   const location = useLocation();
   const initialCategoryId = location.state?.categoryId || null;
 
   const [selectedCategory, setSelectedCategory] = useState(initialCategoryId);
+  const [categories, setCategories] = useState([]);
   const [selectedSubcategory, setSelectedSubcategory] = useState(null);
   const [expandedCategories, setExpandedCategories] = useState({});
-  const [filters, setFilters] = useState({ minPrice: "", maxPrice: "", sort: "default" });
+  const [filters, setFilters] = useState({ minPrice: "", maxPrice: "", sort: false });
   const [filteredProductsList, setFilteredProductsList] = useState([]);
 
   // Обновление категории при изменении состояния
@@ -24,8 +27,19 @@ const CategoryPage = () => {
   // Обновление списка товаров при смене категории/подкатегории
   useEffect(() => {
     const products = filteredProducts();
-    setFilteredProductsList(products);
+    //setFilteredProductsList(products);
   }, [selectedCategory, selectedSubcategory, filters]);
+
+  // Получаем список товаров
+  useEffect(() => {
+    ProductApiService.filterProducts().then((productData) => {
+      setFilteredProductsList(productData);
+    });
+
+    CategoryApiService.allCategories().then((cat) => {
+      setCategories(cat.categories);
+    })
+  }, []);
 
   const toggleCategory = (categoryId) => {
     setExpandedCategories((prev) => ({
@@ -41,42 +55,6 @@ const CategoryPage = () => {
 
   const handleSubcategoryClick = (subcategoryId) => {
     setSelectedSubcategory(subcategoryId);
-  };
-
-  const filteredProducts = () => {
-    const category = categories.find((cat) => cat.id === selectedCategory);
-    if (!category) return [];
-
-    const subcategory = selectedSubcategory
-      ? category.subcategories.find((sub) => sub.id === selectedSubcategory)
-      : null;
-
-    let products = subcategory
-      ? subcategory.products
-      : category.subcategories.flatMap((sub) => sub.products);
-
-    if (filters.minPrice) {
-      products = products.filter((product) => parseFloat(product.price) >= parseFloat(filters.minPrice));
-    }
-    if (filters.maxPrice) {
-      products = products.filter((product) => parseFloat(product.price) <= parseFloat(filters.maxPrice));
-    }
-
-    switch (filters.sort) {
-      case "price-asc":
-        products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-        break;
-      case "price-desc":
-        products.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
-        break;
-      case "availability":
-        products.sort((a, b) => b.stock - a.stock);
-        break;
-      default:
-        break;
-    }
-
-    return products;
   };
 
   const getCategoryName = () => {
@@ -108,6 +86,42 @@ const CategoryPage = () => {
     setFilters({ minPrice: "", maxPrice: "", sort: "default" });
   };
 
+  /**
+   * Фильтрация продуктов
+   */
+  const filteredProducts = () => {
+    let availability = filters.sort === "availability";
+    let desc = null;
+    
+    switch (filters.sort) {
+      case "asc": {
+        desc = "asc";
+        break;
+      }
+      case "desc": {
+        desc = "desc";
+        break;
+      }
+      default: {
+        desc = "default";
+        break;
+      }
+    }
+
+    ProductApiService.filterProducts(
+      null,
+      selectedCategory ? selectedCategory : null,
+      selectedSubcategory ? selectedSubcategory : null,
+      Number(filters.minPrice) ? Number(filters.minPrice) : null,
+      Number(filters.maxPrice) ? Number(filters.maxPrice) : null,
+      desc,
+      availability
+    ).then((filtProductList) => {
+      // Установка отфильтрованных продуктов
+      setFilteredProductsList(filtProductList);
+    })
+  }
+
   return (
     <main className="containers">
       <aside className="sidebar">
@@ -115,33 +129,33 @@ const CategoryPage = () => {
           <h2>Категории</h2>
           <ul>
             {categories.map((category) => (
-              <li key={category.id}>
+              <li key={category.id_category}>
                 <button
                   onClick={() => {
-                    toggleCategory(category.id);
-                    handleCategoryClick(category.id);
+                    toggleCategory(category.id_category);
+                    handleCategoryClick(category.id_category);
                   }}
-                  className={`category-button ${expandedCategories[category.id] ? "active" : ""}`}
+                  className={`category-button ${expandedCategories[category.id_category] ? "active" : ""}`}
                 >
-                  {category.name}
+                  {category.name_category}
                   <ArrowIcon
-                    className={`arrow-icon ${expandedCategories[category.id] ? "rotated" : ""}`}
+                    className={`arrow-icon ${expandedCategories[category.id_category] ? "rotated" : ""}`}
                   />
                 </button>
-                {expandedCategories[category.id] && (
-  <ul className={`subcategories ${expandedCategories[category.id] ? "expanded" : ""}`}>
-    {category.subcategories.map((sub) => (
-      <li key={sub.id}>
-        <button
-          onClick={() => handleSubcategoryClick(sub.id)}
-          className={`subcategory-button ${selectedSubcategory === sub.id ? "active" : ""}`}
-        >
-          {sub.name}
-        </button>
-      </li>
-    ))}
-  </ul>
-)}
+                {expandedCategories[category.id_category] && (
+                  <ul className={`subcategories ${expandedCategories[category.id_category] ? "expanded" : ""}`}>
+                    {category.subcategory.map((sub) => (
+                      <li key={sub.id_subcategory}>
+                        <button
+                          onClick={() => handleSubcategoryClick(sub.id_subcategory)}
+                          className={`subcategory-button ${selectedSubcategory === sub.id_subcategory ? "active" : ""}`}
+                        >
+                          {sub.name}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
 
               </li>
             ))}
@@ -170,8 +184,8 @@ const CategoryPage = () => {
             <label>Сортировать по:</label>
             <select name="sort" value={filters.sort} onChange={handleFilterChange}>
               <option value="default">По умолчанию</option>
-              <option value="price-asc">Цена: по возрастанию</option>
-              <option value="price-desc">Цена: по убыванию</option>
+              <option value="asc">Цена: по возрастанию</option>
+              <option value="desc">Цена: по убыванию</option>
               <option value="availability">Наличие на складе</option>
             </select>
           </div>
@@ -188,7 +202,21 @@ const CategoryPage = () => {
         <div className="cards-container">
           {filteredProductsList.length > 0 ? (
             filteredProductsList.map((product) => (
-              <ProductCard key={product.id} {...product} />
+              <ProductCard 
+                id={product.id_product}
+                stock={product.quantity_product}
+                type={product.type_pr}
+                brand={product.brand_mark}
+                category={product.id_sub_category}
+                model={product.models}
+                image={product.photo[0]? product.photo[0].photo_url : null}
+                name={product.title_product}
+                price={product.price_product}
+                article={product.article_product}
+                extra={product.explanation_product}
+                dimensions={product.weight_product}
+                tags={product.label_product}
+              />
             ))
           ) : (
             <div className="no-products">

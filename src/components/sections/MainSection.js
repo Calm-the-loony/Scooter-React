@@ -10,23 +10,6 @@ import products from "../../data/products";
 
 // Изображения
 import parkingImage from "../../image/parking_main_1.jpg";
-import engineIcon from "../../image/free-icon-battery-4549259.png";
-import suspensionIcon from "../../image/free-icon-shock-4549308.png";
-import fuelSystemIcon from "../../image/free-icon-petrol-station-4549325.png";
-import drivetrainIcon from "../../image/free-icon-sprocket-4549247.png";
-import electricalServiceIcon from "../../image/free-icon-screw-driver-4549322.png";
-import brakeDiscIcon from "../../image/free-icon-tire-4549255.png";
-import carPartsIcon from "../../image/free-icon-bike-4549271.png";
-import mufflerIcon from "../../image/free-icon-muffler-4549252.png";
-import sparePartsIcon from "../../image/free-icon-helmet-4549230.png";
-import tuningIcon from "../../image/free-icon-tuning-4749061.png";
-import bodyPartsIcon from "../../image/free-icon-motorbike-4549313.png";
-import configurationIcon from "../../image/free-icon-wrench-4549320.png";
-import coilImage from "../../image/product/coil.webp";
-import coil2Image from "../../image/product/coil2.webp";
-import banner1 from '../../image/шапка-мп-14.png';
-import banner2 from '../../image/шапка-мп-13.png';
-import banner3 from '../../image/Group 36.png';
 import smileyIcon from '../../image/free-icon-smiley-142310.png';
 import thumbsUpIcon from '../../image/free-icon-thumb-up-like-13578170.png';
 import airplaneIcon from '../../image/free-icon-airplane-31069.png';
@@ -36,7 +19,6 @@ import bannerImage2 from "../../image/banner4-1.png";
 import bannerImage3 from "../../image/Designer (1).jpeg";
 import karbyurator4 from "../../image/product/karbyurator4.webp";
 import "../../style/CategoryPage.scss";
-import CatImage from '../../image/free-icon-black-cat-3704886.png';
 
 // API Сервисы
 import CategoryApiService from "../../service/api/product/CategoryService";

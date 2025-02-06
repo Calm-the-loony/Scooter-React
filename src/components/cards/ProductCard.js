@@ -49,9 +49,8 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
   };
 
   // Функция для добавления товара в корзину
-  const handleAddToCart = async (event, id_product) => {
-      console.log(event, id_product);
-      await UserApiService.addProductToBasket(id_product);
+  const handleAddToCart = async (event) => {
+      await UserApiService.addProductToBasket(id);
   };
 
   // Функция для открытия карточки товара
@@ -60,8 +59,8 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
   };
 
   return (
-    <div className="product-card" data-id={id} onClick={handleAddToCart}>
-      <img src={image} alt={name} />
+    <div className="product-card" data-id={id}>
+      <img src={image? image : ""} alt={name} />
       <div className="details">
         <p className="category">{category}</p>
         <p className="name ellipsis">{name}</p>
@@ -69,7 +68,7 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
           <div className="original-price-wrapper no-discount">
             <span className="original-prices">{price} ₽</span>
           </div>
-          <button className="add-to-cart" onClick={(e) => handleAddToCart(e, id)}>
+          <button className="add-to-cart" onClick={handleAddToCart}>
             <i className="fas fa-shopping-cart"></i>
           </button>
         </div>

@@ -62,7 +62,7 @@ const App = () => {
               <Route path="/register" element={<RegistrationPage />} /> {/* Страница регистрации */}
               <Route path="/product/:id" element={<ProductPage />} /> {/* Новый маршрут для страницы товара */}
               <Route path="/search-results" element={<SearchResults />} />
-              <Route path="/category/:categoryId" element={<CategoryPage />} />
+              <Route path="/category/" element={<CategoryPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
             :

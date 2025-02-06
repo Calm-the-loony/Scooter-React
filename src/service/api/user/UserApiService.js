@@ -145,12 +145,13 @@ export class UserApiService {
      * @returns 
      */
     static async addProductToBasket(id_product) {
-
         try {
+            let dateNow = new Date();
             await axios.post(process.env.REACT_APP_BACKEND_URL + "/order/create", {
                 id_product: id_product,
+                date_create: `${dateNow.getFullYear()}-${dateNow.getMonth().toString().padStart(2, '0')}-${dateNow.getDate().toString().padStart(2, "0")}`
             }, {
-                withCredentials: true
+                withCredentials: true,
             });
             return true;
         } catch (er) {

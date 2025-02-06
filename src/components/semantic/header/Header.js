@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import products from "../../../data/products";
 import categories from "../../../data/categories";
 import { UserApiService } from "../../../service/api/user/UserApiService";
+import ProductApiService from "../../../service/api/product/ProductService";
 
 
 const Header = () => {
@@ -47,11 +48,12 @@ const Header = () => {
 
   // Обработчик клика на иконку поиска
   const handleSearchClick = () => {
-    if (searchResults.length > 0) {
-      navigate("/search-results", { state: { results: searchResults } });
-    } else {
-      alert("Ничего не найдено");
-    }
+
+    // Получаем продукты по фильтру (Title)
+    ProductApiService.filterProducts(searchQuery).then((data) => {
+      setSearchResults(data);
+      navigate("/search-results", { state: { results: data } });
+    });
   };
 
   // Обработчики для других кнопок в хедере
