@@ -18,7 +18,7 @@ export default class ProductApiService {
         id_subcategory = null,
         min_price = null,
         max_price = null,
-        desc = false, 
+        desc = "default", 
         availability = false) {
         try {
             const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/product/all/filter", {
@@ -29,7 +29,7 @@ export default class ProductApiService {
                     min_price: min_price,
                     max_price: max_price,
                     desc_or_not: desc,
-                    availability: Boolean(availability)
+                    availability: availability
                 }
             });
             return req.data.products;

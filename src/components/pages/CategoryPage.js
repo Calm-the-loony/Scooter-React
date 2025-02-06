@@ -6,6 +6,8 @@ import CatImage from "../../image/free-icon-black-cat-3704886.png";
 import { ReactComponent as ArrowIcon } from "../../image/arrow-icon.svg";
 import ProductApiService from "../../service/api/product/ProductService";
 import CategoryApiService from "../../service/api/product/CategoryService";
+import {Pagination} from "@mui/material";
+import {Stack} from "@mui/material";
 
 
 const CategoryPage = () => {
@@ -18,6 +20,37 @@ const CategoryPage = () => {
   const [expandedCategories, setExpandedCategories] = useState({});
   const [filters, setFilters] = useState({ minPrice: "", maxPrice: "", sort: false });
   const [filteredProductsList, setFilteredProductsList] = useState([]);
+  const [pageProducts, setPageProducts] = useState([]);
+
+  // Состояния пагинации
+  const [currentPage, setCurrentPage] = useState(1);
+  const maxLengthPagination = 10;
+
+  /**
+   * Обновление страницы
+   * @param {*} event 
+   * @param {*} value 
+   */
+  const pageChanged = (event, value) => {
+    setCurrentPage(value);
+    window.scrollTo({top: 0, behavior: "smooth"});
+
+    let pageProductsList = [];
+    let cnt = 0;
+    value--;
+
+    while (cnt < maxLengthPagination) {
+      if ((maxLengthPagination*value+cnt) >= pageProducts.length) {
+        break;
+      } else {
+        pageProductsList.push(pageProducts[maxLengthPagination*value+cnt]);
+      }
+      cnt++;
+    }
+
+    // Установка продуктов на страницу
+    setFilteredProductsList(pageProductsList);
+  }
 
   // Обновление категории при изменении состояния
   useEffect(() => {
@@ -33,13 +66,28 @@ const CategoryPage = () => {
   // Получаем список товаров
   useEffect(() => {
     ProductApiService.filterProducts().then((productData) => {
+
+      // Устанавливаем данные
+      setPageProducts(productData);
       setFilteredProductsList(productData);
+
     });
 
     CategoryApiService.allCategories().then((cat) => {
       setCategories(cat.categories);
+    }).catch((er) => {
+      setCategories([]);
     })
   }, []);
+
+  
+  /**
+   * Следим за прогрузкой элементов
+   */
+  useEffect(() => {
+        // Прогружаем страницу согласно пагинации
+        pageChanged(null, currentPage);
+  }, [pageProducts]);
 
   const toggleCategory = (categoryId) => {
     setExpandedCategories((prev) => ({
@@ -117,8 +165,13 @@ const CategoryPage = () => {
       desc,
       availability
     ).then((filtProductList) => {
+
       // Установка отфильтрованных продуктов
       setFilteredProductsList(filtProductList);
+      setPageProducts(filtProductList);
+
+      // Прогрузка продуктов
+      pageChanged(null, currentPage);
     })
   }
 
@@ -225,6 +278,18 @@ const CategoryPage = () => {
             </div>
           )}
         </div>
+        {filteredProductsList.length > 0 ? 
+          <Stack spacing={2} alignItems="center">
+            <Pagination
+              count={Math.round((filteredProductsList.length > pageProducts.length ? filteredProductsList : pageProducts).length / maxLengthPagination)}
+              shape="rounded"
+              page={currentPage}
+              onChange={pageChanged}
+            />
+          </Stack>
+        :
+        ""
+        }
       </section>
     </main>
   );
