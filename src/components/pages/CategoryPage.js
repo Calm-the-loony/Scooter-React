@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ProductCard from "../cards/ProductCard";
 import "../../style/CategoryPage.scss";
-import CatImage from "../../image/free-icon-black-cat-3704886.png";
 import { ReactComponent as ArrowIcon } from "../../image/arrow-icon.svg";
 import ProductApiService from "../../service/api/product/ProductService";
 import CategoryApiService from "../../service/api/product/CategoryService";
-import {Pagination} from "@mui/material";
-import {Stack} from "@mui/material";
+import PaginationScooter from "../other/pagination/Pagination";
 
 
 const CategoryPage = () => {
@@ -20,37 +18,7 @@ const CategoryPage = () => {
   const [expandedCategories, setExpandedCategories] = useState({});
   const [filters, setFilters] = useState({ minPrice: "", maxPrice: "", sort: false });
   const [filteredProductsList, setFilteredProductsList] = useState([]);
-  const [pageProducts, setPageProducts] = useState([]);
 
-  // Состояния пагинации
-  const [currentPage, setCurrentPage] = useState(1);
-  const maxLengthPagination = 10;
-
-  /**
-   * Обновление страницы
-   * @param {*} event 
-   * @param {*} value 
-   */
-  const pageChanged = (event, value) => {
-    setCurrentPage(value);
-    window.scrollTo({top: 0, behavior: "smooth"});
-
-    let pageProductsList = [];
-    let cnt = 0;
-    value--;
-
-    while (cnt < maxLengthPagination) {
-      if ((maxLengthPagination*value+cnt) >= pageProducts.length) {
-        break;
-      } else {
-        pageProductsList.push(pageProducts[maxLengthPagination*value+cnt]);
-      }
-      cnt++;
-    }
-
-    // Установка продуктов на страницу
-    setFilteredProductsList(pageProductsList);
-  }
 
   // Обновление категории при изменении состояния
   useEffect(() => {
@@ -59,8 +27,7 @@ const CategoryPage = () => {
 
   // Обновление списка товаров при смене категории/подкатегории
   useEffect(() => {
-    const products = filteredProducts();
-    //setFilteredProductsList(products);
+    filteredProducts();
   }, [selectedCategory, selectedSubcategory, filters]);
 
   // Получаем список товаров
@@ -68,7 +35,6 @@ const CategoryPage = () => {
     ProductApiService.filterProducts().then((productData) => {
 
       // Устанавливаем данные
-      setPageProducts(productData);
       setFilteredProductsList(productData);
 
     });
@@ -80,14 +46,6 @@ const CategoryPage = () => {
     })
   }, []);
 
-  
-  /**
-   * Следим за прогрузкой элементов
-   */
-  useEffect(() => {
-        // Прогружаем страницу согласно пагинации
-        pageChanged(null, currentPage);
-  }, [pageProducts]);
 
   const toggleCategory = (categoryId) => {
     setExpandedCategories((prev) => ({
@@ -132,6 +90,7 @@ const CategoryPage = () => {
   // Reset filters to initial state
   const handleResetFilters = () => {
     setFilters({ minPrice: "", maxPrice: "", sort: "default" });
+    filteredProducts();
   };
 
   /**
@@ -168,10 +127,6 @@ const CategoryPage = () => {
 
       // Установка отфильтрованных продуктов
       setFilteredProductsList(filtProductList);
-      setPageProducts(filtProductList);
-
-      // Прогрузка продуктов
-      pageChanged(null, currentPage);
     })
   }
 
@@ -252,44 +207,7 @@ const CategoryPage = () => {
           {getSubcategoryName() || getCategoryName()}
         </h2>
         <hr className="dashed-line" />
-        <div className="cards-container">
-          {filteredProductsList.length > 0 ? (
-            filteredProductsList.map((product) => (
-              <ProductCard 
-                id={product.id_product}
-                stock={product.quantity_product}
-                type={product.type_pr}
-                brand={product.brand_mark}
-                category={product.id_sub_category}
-                model={product.models}
-                image={product.photo[0]? product.photo[0].photo_url : null}
-                name={product.title_product}
-                price={product.price_product}
-                article={product.article_product}
-                extra={product.explanation_product}
-                dimensions={product.weight_product}
-                tags={product.label_product}
-              />
-            ))
-          ) : (
-            <div className="no-products">
-              <p>Товаров, соответствующих вашему запросу, не обнаружено.</p>
-              <img src={CatImage} alt="Jumping Cat" className="cat" />
-            </div>
-          )}
-        </div>
-        {filteredProductsList.length > 0 ? 
-          <Stack spacing={2} alignItems="center">
-            <Pagination
-              count={Math.round((filteredProductsList.length > pageProducts.length ? filteredProductsList : pageProducts).length / maxLengthPagination)}
-              shape="rounded"
-              page={currentPage}
-              onChange={pageChanged}
-            />
-          </Stack>
-        :
-        ""
-        }
+        <PaginationScooter type="rounded" items={filteredProductsList}></PaginationScooter>
       </section>
     </main>
   );
