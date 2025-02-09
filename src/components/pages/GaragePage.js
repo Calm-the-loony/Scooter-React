@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import "../../style/GaragePage.scss";
-import products from "../../data/products";
-import categories from "../../data/categories";
 import ProductApiService from "../../service/api/product/ProductService";
 import GarageApiService from "../../service/api/product/GarageService";
 import { useDispatch } from "react-redux";
@@ -119,36 +117,6 @@ const GaragePage = () => {
   };
 
   const updateDetails = (scooter) => {
-    const scooterType = scooter.type?.toLowerCase() || "";
-    const scooterBrand = scooter.brand?.toLowerCase() || "";
-    const scooterModel = scooter.model?.toLowerCase() || "";
-
-    const productDetails = products.filter(
-      (product) =>
-        (product.type?.toLowerCase() || "").includes(scooterType) &&
-        (product.brand?.toLowerCase() || "").includes(scooterBrand) &&
-        (product.model?.toLowerCase() || "").includes(scooterModel)
-    );
-
-    const categoryDetails = categories.flatMap((category) =>
-      category.subcategories.flatMap((subcategory) =>
-        (subcategory.products || []).filter(
-          (product) =>
-            (product.type?.toLowerCase() || "").includes(scooterType) &&
-            (product.brand?.toLowerCase() || "").includes(scooterBrand) &&
-            (product.model?.toLowerCase() || "").includes(scooterModel)
-        )
-      )
-    );
-
-    const combinedDetails = [
-      ...productDetails,
-      ...categoryDetails.filter(
-        (detail) => !productDetails.some((pd) => pd.id === detail.id)
-      ),
-    ];
-
-    setDetails(combinedDetails);
   };
 
   // Удаление мототранспорта

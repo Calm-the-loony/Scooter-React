@@ -6,7 +6,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "font-awesome/css/font-awesome.min.css";
 import ProductCard from '../cards/ProductCard';
-import products from "../../data/products";  
 
 // Изображения
 import parkingImage from "../../image/parking_main_1.jpg";
@@ -17,7 +16,6 @@ import dollarIcon from '../../image/free-icon-dollar-symbol-126179.png';
 import bannerImage1 from "../../image/banner3-1.png";
 import bannerImage2 from "../../image/banner4-1.png";
 import bannerImage3 from "../../image/Designer (1).jpeg";
-import karbyurator4 from "../../image/product/karbyurator4.webp";
 import "../../style/CategoryPage.scss";
 
 // API Сервисы

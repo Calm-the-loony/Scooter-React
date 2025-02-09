@@ -1,6 +1,5 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import ProductCard from '../cards/ProductCard';
 import "../../style/SearchResults.scss";
 import PaginationScooter from './pagination/Pagination';
 

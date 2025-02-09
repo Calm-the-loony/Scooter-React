@@ -24,8 +24,6 @@ import CookieConsent from "./components/other/CookieConsent"; // Новый ко
 import ProductPage from "./components/pages/ProductPage";  // Импортируем компонент страницы товара
 import SearchResults from "./components/other/SearchResults";
 import { RedirectUser } from "./components/other/redirectUser";
-// import PaymentPage from "./components/PaymentPage";
-// import FeaturedProducts from "./components/FeaturedProducts";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CartProvider from "./context/CartContext"; // Провайдер контекста корзины
 import { useSelector } from "react-redux";

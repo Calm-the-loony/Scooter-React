@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
-import { CartContext } from "../../context/CartContext";
+import React, { useState, useEffect } from "react";
 import { UserApiService } from "../../service/api/user/UserApiService";
 import "../../style/FavoritesPage.scss";
 import { useNavigate } from "react-router-dom";

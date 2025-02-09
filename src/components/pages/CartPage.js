@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../style/CartPage.scss";
 import { UserApiService } from "../../service/api/user/UserApiService";
 import { useDispatch } from "react-redux";

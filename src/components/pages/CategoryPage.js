@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import ProductCard from "../cards/ProductCard";
+import { useLocation } from "react-router-dom";
 import "../../style/CategoryPage.scss";
 import { ReactComponent as ArrowIcon } from "../../image/arrow-icon.svg";
 import ProductApiService from "../../service/api/product/ProductService";

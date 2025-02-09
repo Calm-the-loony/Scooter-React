@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../../style/styles.scss';
 import { UserApiService } from '../../service/api/user/UserApiService';
 import { UpdateUser } from '../../service/dto/UserDTO';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {exitUser} from "../../state/actions/authAction";
 
 

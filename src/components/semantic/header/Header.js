@@ -8,8 +8,6 @@ import scooterIcon from "../../../image/scooter.png";
 import cartIcon from "../../../image/cart.png";
 import userIcon from "../../../image/free-icon-user-2603906.png";
 import { useNavigate } from "react-router-dom";
-import products from "../../../data/products";
-import categories from "../../../data/categories";
 import { UserApiService } from "../../../service/api/user/UserApiService";
 import ProductApiService from "../../../service/api/product/ProductService";
 
@@ -22,28 +20,11 @@ const Header = () => {
   const navigate = useNavigate();
   const [cntOrder, setOrders] = useState(0);
 
-  // Объединение товаров из products.js и категорий
-  const allProducts = [
-    ...products, // Продукты из products.js
-    ...categories.flatMap((category) => category.subcategories.flatMap(subcategory => subcategory.products || [])), // Продукты из всех категорий
-  ];
 
   // Обработчик изменения текста в поле поиска
   const handleSearchChange = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
-
-    if (query) {
-      const results = allProducts.filter((product) => {
-        return (
-          (product.name && product.name.toLowerCase().includes(query)) ||
-          (product.article && product.article.toLowerCase().includes(query))
-        );
-      });
-      setSearchResults(results);
-    } else {
-      setSearchResults([]);
-    }
   };
 
   // Обработчик клика на иконку поиска
