@@ -51,7 +51,7 @@ const FavoritesPage = () => {
         <div className="favorites-list">
           {favouriteProducts.favourites.map((item) => (
             <div key={item.product_info.id_favourite} className="favorite-item">
-              <img src={item.product_info.photos[0]} alt={item.product_name} className="favorite-image" />
+              <img src={item.product_info.photos[0]?item.product_info.photos[0].photo_url : ""} alt={item.product_name} className="favorite-image" />
               <div className="favorite-details">
                 <p className="favorite-name">{item.product_info.product_name}</p>
                 <p className="favorite-price">{item.product_info.price_product} ₽</p>

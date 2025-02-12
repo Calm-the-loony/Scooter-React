@@ -104,16 +104,12 @@ const GaragePage = () => {
     }
   };
 
-  const selectScooter = (index) => {
-    const selected = scooters[index];
-    if (selectedScooter === selected) {
-      setSelectedScooter(null);
-      setDetails([]);
-    } else {
-      setSelectedScooter(selected);
-      updateDetails(selected);
-      setCurrentPage(1);
-    }
+  const selectScooter = (scooterData) => {
+    setSelectedScooter(scooterData);
+    GarageApiService.productForGarage(scooterData.id_mark, scooterData.id_moto_type, scooterData.id_model).then((productData) => {
+      setSelectedScooter(scooterData);
+      setDetails(productData.products);
+    });
   };
 
   const updateDetails = (scooter) => {
@@ -205,7 +201,7 @@ const GaragePage = () => {
               garage.map((scooter, index) => (
                 <li key={index}>
                   <button
-                    onClick={() => selectScooter(index)}
+                    onClick={() => selectScooter(scooter)}
                     className={selectedScooter === scooter ? "selected" : ""}
                   >
                     {scooter.moto_type_data.name_moto_type} {scooter.models_data.name_model} {scooter.mark_data.name_mark}
@@ -227,19 +223,19 @@ const GaragePage = () => {
         {selectedScooter && (
           <div className="garage-details">
             <h3>
-              Детали для {selectedScooter.brand} {selectedScooter.model}
+              Детали для {selectedScooter.mark_data.name_mark} {selectedScooter.models_data.name_model}
             </h3>
             {details.length > 0 ? (
               <>
                 <ul className="products-grid">
                   {paginatedDetails.map((detail) => (
-                    <li key={detail.id}>
+                    <li key={detail.id_product}>
                       <div className="products-card">
-                        <img src={detail.image} alt={detail.name} />
-                        <h4>{detail.name}</h4>
-                        <p>Цена: {detail.price}</p>
-                        <p>В наличии: {detail.stock}</p>
-                        <p>Артикул: {detail.article}</p>
+                        <img src={detail.photo[0].photo_url} alt={detail.title_product} />
+                        <h4>{detail.title_product}</h4>
+                        <p>Цена: {detail.price_product}</p>
+                        <p>В наличии: {detail.quantity_product}</p>
+                        <p>Артикул: {detail.article_product}</p>
                       </div>
                     </li>
                   ))}

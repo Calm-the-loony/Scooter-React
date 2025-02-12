@@ -103,21 +103,21 @@ const CartPage = () => {
         {orderProducts.length > 0 ? (
           orderProducts.map((item) => (
             <div key={item.product_data.id} className="cart-item">
-              <img src={item.product_data.photos?.[0]} alt={item.product_data.title_product} className="cart-product-image" />
+              <img src={item.product_data.photos[0]? item.product_data.photos[0].photo_url : ""} alt={item.product_data.name_product} className="cart-product-image" />
               <div className="cart-details">
-                <p className="cart-item-name">{item.product_data.title_product}</p>
-                <p className="cart-item-price">{item.product_data.price}</p>
+                <p className="cart-item-name">{item.product_data.name_product}</p>
+                <p className="cart-item-price">{item.product_data.price_product}</p>
                 <div className="quantity-container">
                   <button
                     className="quantity-button"
-                    onClick={() => minusProduct(item.product_data.id)}
+                    onClick={() => minusProduct(item.order_data.id_order)}
                   >
                     -
                   </button>
-                  <span className="quantity">{item.product_data.count_buy}</span>
+                  <span className="quantity">{item.order_data.quantity}</span>
                   <button
                     className="quantity-button"
-                    onClick={() => plusProduct(item.product_data.id)}
+                    onClick={() => plusProduct(item.order_data.id_order)}
                   >
                     +
                   </button>
@@ -125,7 +125,7 @@ const CartPage = () => {
               </div>
               <button
                 className="remove-button"
-                onClick={() => deleteProduct(item.product_data.id)}
+                onClick={() => deleteProduct(item.order_data.id_order)}
               >
                 Удалить
               </button>

@@ -4,6 +4,30 @@ import { AuthService } from "../auth/AuthApiService";
 
 export default class GarageApiService {
 
+    static async productForGarage(id_mark, id_moto_type, id_model) {
+        try {
+            id_mark ??= null;
+            id_model ??= null;
+            id_moto_type ??= null;
+
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/product/all/garage/filter", {
+                params: {
+                    id_brand: id_mark,
+                    id_model: id_model,
+                    id_moto_type: id_moto_type
+                },
+                withCredentials: true,
+                headers: {
+                    "COntent-Type": "application/json"
+                }
+            })
+
+            return req.data;
+        } catch {
+            return [];
+        }
+    }
+
     /**
      * Добавление транспорта в гараж
      * @param {*} newTrasport 

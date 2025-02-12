@@ -287,7 +287,7 @@ const MainSection = () => {
               brand={product.brand_mark}
               category={product.id_sub_category}
               model={product.models}
-              image={product.photo[0]}
+              image={product.photo[0]? product.photo[0].photo_url : ""}
               name={product.title_product}
               price={product.price_product}
               article={product.article_product}
