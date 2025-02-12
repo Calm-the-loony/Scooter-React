@@ -56,7 +56,7 @@ const AccountPage = () => {
   };
 
   const handleTabClick = (tab) => {
-    const req = UserApiService.userOrders().then((data) => {
+    const req = UserApiService.userSuccessOrders().then((data) => {
       setUserOrdersData(data);
     }).catch((er) => {
       
@@ -233,23 +233,23 @@ const AccountPage = () => {
             <section className={`account-orders-section ${activeTab === 'account-orders-section' ? 'active' : ''}`}>
               <h2 className="account-subheader">Мои заказы</h2>
               <div className="account-orders">
-                {userOrdersData?.orders?.length ? (
+                {userOrdersData?.orders.length ? (
                   userOrdersData.orders.map((order, index) => (
                     <div key={index} className="order-card">
-                      <h3 className="order-title">Заказ №{order.order_data.id}</h3>
+                      <h3 className="order-title">Заказ №{order.product_data.id}</h3>
                       <div className="order-info">
                         <p>
-                          <span>Дата:</span> {order.order_data.date_buy}
+                          <span>Дата:</span> {order.product_data.date_buy}
                         </p>
                         <p>
                           <span>Статус:</span>{''}
                           <span
                             style={{
-                              color: order.order_data.status === 'Доставлен' ? 'green' : 'orange',
+                              color: ["Доставлен", "В процессе"].includes(order.product_data.type_operation) ? 'green' : 'orange',
                               fontWeight: 'bold',
                             }}
                           >
-                            {order.order_data.status}
+                            {order.product_data.type_operation}
                           </span>
                         </p>
                         <p>
@@ -259,13 +259,13 @@ const AccountPage = () => {
                           <span>Способ оплаты:</span> {'Картой'}
                         </p>
                         <p>
-                          <span>Сумма:</span> {order.order_data.price_result} ₽
+                          <span>Сумма:</span> {order.product_data.price} ₽
                         </p>
                       </div>
                       <h4>Товары:</h4>
                       <ul className="order-items">
-                        <li key={order.product_data.title}>
-                          <span>{order.product_data.name_product}</span> — {order.order_data.quantity} шт. ({order.product_data.price_product} ₽/шт)
+                        <li key={order.product_data.title_product}>
+                          <span>{order.product_data.title_product}</span> — {order.product_data.count_buy} шт. ({order.product_data.price} ₽/шт)
                         </li>
                       </ul>
                     </div>

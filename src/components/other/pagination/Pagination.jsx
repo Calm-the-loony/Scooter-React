@@ -46,8 +46,10 @@ function PaginationScooter({items, type = "rounded"}) {
      * Прослушивание изменения items
      */
     useEffect(() => {
-        setProducts([...items]);
-        changePage(null, currentPage);
+        if (items) {
+            setProducts([...items]);
+            changePage(null, currentPage);
+        }
     }, [items]);
 
 

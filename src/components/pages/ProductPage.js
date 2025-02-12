@@ -41,11 +41,12 @@ const ProductPage = () => {
     }
   };
 
+  
   return (
     <div className="product-page">
       <div className="product-details">
         <div className="product-image">
-          <img src={product.photo[0]? product.photo.photo_url : ""} alt={product.title_product} />
+          <img src={product.photo? product.photo[0].photo_url : ""} alt={product.title_product} />
         </div>
 
         <div className="product-info">

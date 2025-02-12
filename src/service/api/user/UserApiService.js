@@ -64,6 +64,24 @@ export class UserApiService {
     }
 
     /**
+     * Получение оплаченных заказов пользователем
+     */
+    static async userSuccessOrders() {
+        try {
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/user/success/orders", {
+                withCredentials: true,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+
+            return req.data;
+        } catch {
+            return false;
+        }
+    }
+
+    /**
      * Обновление пароля пользователя
      * @param {*} oldPassword 
      * @param {*} newPassword 

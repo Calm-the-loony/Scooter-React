@@ -11,6 +11,7 @@ const CategoryPage = () => {
   const location = useLocation();
   const initialCategoryId = location.state?.categoryId || null;
 
+
   const [selectedCategory, setSelectedCategory] = useState(initialCategoryId);
   const [categories, setCategories] = useState([]);
   const [selectedSubcategory, setSelectedSubcategory] = useState(null);
@@ -31,7 +32,7 @@ const CategoryPage = () => {
 
   // Получаем список товаров
   useEffect(() => {
-    ProductApiService.filterProducts().then((productData) => {
+    ProductApiService.filterProducts(null, initialCategoryId? initialCategoryId : null).then((productData) => {
 
       // Устанавливаем данные
       setFilteredProductsList(productData);

@@ -102,22 +102,22 @@ const CartPage = () => {
       <div className="cart-list">
         {orderProducts.length > 0 ? (
           orderProducts.map((item) => (
-            <div key={item.order_data.id} className="cart-item">
-              <img src={item.product_data.photos?.[0]} alt={item.product_data.name_product} className="cart-product-image" />
+            <div key={item.product_data.id} className="cart-item">
+              <img src={item.product_data.photos?.[0]} alt={item.product_data.title_product} className="cart-product-image" />
               <div className="cart-details">
-                <p className="cart-item-name">{item.product_data.name_product}</p>
-                <p className="cart-item-price">{item.order_data.price_result}</p>
+                <p className="cart-item-name">{item.product_data.title_product}</p>
+                <p className="cart-item-price">{item.product_data.price}</p>
                 <div className="quantity-container">
                   <button
                     className="quantity-button"
-                    onClick={() => minusProduct(item.order_data.id_order)}
+                    onClick={() => minusProduct(item.product_data.id)}
                   >
                     -
                   </button>
-                  <span className="quantity">{item.order_data.quantity}</span>
+                  <span className="quantity">{item.product_data.count_buy}</span>
                   <button
                     className="quantity-button"
-                    onClick={() => plusProduct(item.order_data.id_order)}
+                    onClick={() => plusProduct(item.product_data.id)}
                   >
                     +
                   </button>
@@ -125,7 +125,7 @@ const CartPage = () => {
               </div>
               <button
                 className="remove-button"
-                onClick={() => deleteProduct(item.order_data.id_order)}
+                onClick={() => deleteProduct(item.product_data.id)}
               >
                 Удалить
               </button>

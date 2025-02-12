@@ -61,6 +61,7 @@ const App = () => {
               <Route path="/product/:id" element={<ProductPage />} /> {/* Новый маршрут для страницы товара */}
               <Route path="/search-results" element={<SearchResults />} />
               <Route path="/category/" element={<CategoryPage />} />
+              <Route path="/category/:id_category" element={<CategoryPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
             :

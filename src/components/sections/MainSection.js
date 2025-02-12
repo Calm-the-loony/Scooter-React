@@ -49,8 +49,13 @@ const MainSection = () => {
       };
       
 
-      const [searchModel, setSearchModel] = useState("");
-      const [selectedBrand, setSelectedBrand] = useState("");
+      const [models, setModels] = useState([]);
+      const [selectedModels, setSelectedModels] = useState({
+        name_model: "", id_model: null
+      });
+      const [selectedMark, setSelectedMark] = useState({
+        name_mark: "", id_mark: null
+      });
 
       // Сторонние данные
       const [categoryData, setCategoryData] = useState(null);
@@ -96,19 +101,35 @@ const MainSection = () => {
             },
         ],
     };
+
+      /**
+       * Установка значений при выборе марки
+       * @param {*} e 
+       */
+      const selectMark = (e, type) => {
+        if (type === "mark") {
+          setSelectedMark({name_mark: e.target.value, id_mark: e.target.options[e.target.selectedIndex].getAttribute("data-mark-id")});
+          // Получение всех моделей по марке
+          ProductApiService.findModelByMark(Number(e.target.options[e.target.selectedIndex].getAttribute("data-mark-id"))).then((data) => {
+            setModels(data.all_models);
+          }).catch((er) => {
+          });
+        } else if (type === "model") {
+            setSelectedModels({
+              name_model: e.target.value,
+              id_model: e.target.options[e.target.selectedIndex].getAttribute("data-model-id")
+            });
+        }
+      }
     
-      const handleSearch = () => {    
-        // Фильтрация по модели и бренду с проверкой на undefined
-        // const results = allProducts.filter((product) => {
-        //   // Проверяем, что модель и бренд определены
-        //   const modelMatch =
-        //     product && product.model && product.model.toLowerCase().includes(searchModel.toLowerCase());
-        //   const brandMatch =
-        //     selectedBrand === "" || (product && product.brand && product.brand.toLowerCase() === selectedBrand.toLowerCase());
-        //   return modelMatch && brandMatch;
-        // });
-    
-        // navigate("/search-results", { state: { results } });
+      const handleSearch = () => {
+        if (selectedModels.id_model === null || selectedMark.id_mark === null) {
+          navigate("/category");
+        } else {
+          ProductApiService.searchProduct(Number(selectedMark.id_mark), Number(selectedModels.id_model)).then((data) => {
+            navigate("/search-results", { state: { results: data.products } });
+          });
+        }
       };
 
       useEffect(() => {
@@ -162,34 +183,39 @@ const MainSection = () => {
                     <select
                       name="brand"
                       id="brand"
-                      value={selectedBrand}
-                      onChange={(e) => setSelectedBrand(e.target.value)}
+                      value={selectedMark.name_mark}
+                      onChange={(e) => selectMark(e, "mark")}
                     >
                       <option value="" disabled selected hidden>
                         Марка
                       </option>
                       {marks.marks.map((mark) => {
-                        return <option value={mark.name_mark} >{mark.name_mark}</option>
+                        return <option value={mark.name_mark} data-mark-id={mark.id_mark}>{mark.name_mark}</option>
                       })}
                     </select>
                   :
                     <select
                     name="brand"
                     id="brand"
-                    value={selectedBrand}
-                    onChange={(e) => setSelectedBrand(e.target.value)}
+                    value={selectedMark.name_mark}
+                    onChange={(e) => selectMark(e, "mark")}
                     >
                       <option value="" disabled selected hidden>
                         Марка
                       </option>
                     </select>
                   }
-                  <input
-                    type="text"
-                    placeholder={selectedBrand}
-                    value={searchModel}
-                    onChange={(e) => setSearchModel(e.target.value)}
-                  />
+                  <select
+                    name="models"
+                    id="models"
+                    value={selectedModels.name_model}
+                    onChange={(e) => selectMark(e, "model")}
+                  >
+                    <option value="Модель" data-id-model={null}>Модель</option>
+                    {models.map((model) => {
+                      return <option value={model.name_model} data-model-id={model.id_model}>{model.name_model}</option>
+                    })}
+                  </select>
                   <button onClick={handleSearch}>Поиск</button>
                 </div>
               </div>
@@ -201,9 +227,9 @@ const MainSection = () => {
         return <div className="category">
           <Link 
             to={{
-              pathname: "/category/engine",
+              pathname: "/category/"+category.id_category,
             }} 
-            state={{ categoryId: "engine" }} 
+            state={{ categoryId: category.id_category }} 
             className="category-container"
           >
             <i className={!['icon', '', null].includes(category.icon_category)? category.icon_category : "fa fa-spinner"}></i>

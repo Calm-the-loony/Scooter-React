@@ -52,6 +52,21 @@ export default class ProductApiService {
     }
 
     /**
+     * Поиск продуктов по марке и модели
+     * @param {*} id_mark 
+     * @param {*} id_model 
+     */
+    static async searchProduct(id_mark=null, id_model=null) {
+        const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/product/all/search", {
+            params: {
+                mark: id_mark,
+                model: id_model
+            }
+        });
+        return req.data;
+    }
+
+    /**
      * Получение рекомендованных товаров
      * @returns 
      */
@@ -115,6 +130,20 @@ export default class ProductApiService {
         } catch {
             return [];
         }
+    }
+    
+    /**
+     * Поиск моделей по марке
+     * @param {*} id_mark 
+     */
+    static async findModelByMark(id_mark = null) {
+        const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/model/all/by/mark", {
+            params: {
+                id_mark: id_mark
+            }
+        });
+
+        return req.data;
     }
 
     /**
