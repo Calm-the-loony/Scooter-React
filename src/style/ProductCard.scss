@@ -1,10 +1,15 @@
-.product-card .ellipsis {
+$button_more-color: #40e0d0;
+$button_more-color-hover: #3accc1;
+
+.product-card
+  .ellipsis {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
     -webkit-line-clamp: 2; /* Ограничиваем до 2 строк */
     text-overflow: ellipsis;
   }
+
   .ellipsis {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -13,3 +18,17 @@
     text-overflow: ellipsis;
   }
   
+.button_more {
+  background-color: $button_more-color;
+  padding: 3.5%;
+  text-align: center;
+  color: black;
+  width: 20%;
+  border-radius: 5px;
+  margin-left: 10px;
+
+  &:hover {
+    background-color: $button_more-color-hover;
+    transition: all 0.5s ease-in-out;
+  }
+}
