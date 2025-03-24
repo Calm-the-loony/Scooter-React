@@ -10,6 +10,7 @@ import userIcon from "../../../image/free-icon-user-2603906.png";
 import { useNavigate } from "react-router-dom";
 import { UserApiService } from "../../../service/api/user/UserApiService";
 import ProductApiService from "../../../service/api/product/ProductService";
+import { Search } from "lucide-react";
 
 
 const Header = () => {
@@ -121,20 +122,17 @@ const Header = () => {
         </div>
 
         <div className="action-container">
-          <div className="search-bar">
-            <input
-              type="text"
-              placeholder="Поиск..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-            <img
-              src={searchIcon}
-              className="search-icon"
-              alt="Поиск"
-              onClick={handleSearchClick}
-            />
-          </div>
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Поиск..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+          <button className="search-button" onClick={handleSearchClick} >
+          <Search size={20} strokeWidth={2} color="white" className="flipped-icon"/>
+          </button>
+        </div>
 
           <div className="user-actions">
             <button onClick={handleFavoriteClick}>

@@ -17,7 +17,7 @@ $border-radius: 5px;
 .containers {
   display: flex;
   margin: 20px;
-  margin-top: 150px; /* Уменьшили отступ сверху для поднятия категорий */
+  margin-top: 150px; 
 }
 
 .sidebar {
@@ -37,10 +37,10 @@ $border-radius: 5px;
 
 // Навигация по категориям
 .categories-nav {
-  background-color: $bg-color-light; /* Светлый фон */
+  background-color: $bg-color-light; 
   padding: 10px;
   border-radius: $border-radius;
-  box-shadow: 0 4px 6px $shadow-color; /* Тень */
+  box-shadow: 0 4px 6px $shadow-color; 
 }
 
 .categories-nav ul {
@@ -54,8 +54,8 @@ $border-radius: 5px;
 }
 
 .categories-nav .category-button {
-  background-color: #f0f0f0; /* Серый фон кнопки */
-  color: $text-color-dark; /* Темный текст */
+  background-color: #f0f0f0; 
+  color: $text-color-dark; 
   border: none;
   padding: 10px;
   width: 100%;
@@ -66,7 +66,7 @@ $border-radius: 5px;
 }
 
 .categories-nav .category-button:hover {
-  background-color: $btn-bg-color; /* Изменение цвета при наведении */
+  background-color: $btn-bg-color;
 }
 
 // Хлебные крошки
@@ -85,7 +85,7 @@ $border-radius: 5px;
 // Фильтр
 .filter-container {
   margin-top: 20px;
-  background-color: $bg-color-filter; /* Фон блока фильтров */
+  background-color: $bg-color-filter; 
   padding: 15px;
   border-radius: $border-radius;
   box-shadow: 0 4px 6px $shadow-color;
@@ -135,11 +135,11 @@ $border-radius: 5px;
 }
 
 .reset-filters:hover {
-  background-color: $btn-bg-color-hover; /* Темнее при наведении */
+  background-color: $btn-bg-color-hover; 
 }
 
 .filter button:hover {
-  background-color: $btn-bg-color-hover; /* Темнее при наведении */
+  background-color: $btn-bg-color-hover; 
 }
 
 // Карты продуктов
@@ -149,7 +149,7 @@ $border-radius: 5px;
   padding: 10px;
   justify-content: center;
   background-color: $bg-color-light;
-  gap: 10px; /* Отступы между элементами */
+  gap: 10px; 
 }
 
 .card {
@@ -243,7 +243,7 @@ $border-radius: 5px;
 // Подкатегории
 .subcategories {
   list-style: none;
-  padding-left: 20px; // Отступ для вложенности
+  padding-left: 20px; 
   margin: 5px 0;
 
   .subcategory-button {

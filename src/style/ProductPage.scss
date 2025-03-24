@@ -39,7 +39,7 @@ body {
   align-items: center;
   padding: 20px;
   margin-top: 130px;
-  min-height: 100vh; // Обеспечиваем, чтобы контейнер занимал всю высоту
+  min-height: 100vh; 
 }
 
 .product-details {
@@ -52,9 +52,9 @@ body {
 
   .product-image {
     img {
-      width: 500px; // Ширина изображения
+      width: 500px; 
       border-radius: $border-radius;
-      max-width: 100%; // Адаптация под мобильные
+      max-width: 100%; 
     }
   }
 
@@ -116,7 +116,7 @@ body {
     align-items: center;
 
     .product-image img {
-      width: 100%; // Полная ширина для мобильных
+      width: 100%; 
     }
 
     .product-info {
@@ -137,7 +137,7 @@ body {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
-  transform: translateX(-200px); // Смещение влево на 60px
+  transform: translateX(-200px); 
 }
 
 .accordion-container {
@@ -200,7 +200,7 @@ body {
 // Адаптивность для аккордеона на мобильных устройствах
 @media (max-width: 768px) {
   .accordion-wrapper {
-    transform: none; // Убираем смещение на мобильных
+    transform: none;
   }
 
   .accordion-container {
@@ -208,7 +208,7 @@ body {
       .accordion-item {
         .accordion-header {
           padding: 10px;
-          font-size: 1.1rem; // Уменьшаем размер шрифта для мобильных
+          font-size: 1.1rem; 
         }
 
         .accordion-content {
@@ -257,4 +257,125 @@ body {
       }
     }
   }
+}
+//если доп.комплект превышает 2-3 строки
+.expand-text {
+  color: #40e0d0;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.expand-text:hover {
+  text-decoration: underline;
+}
+
+//для сворачивания
+.collapse-text {
+  color: #40e0d0;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.collapse-text:hover {
+  text-decoration: underline;
+}
+
+//раздел с добавленными отзывами
+/* Стили для звездного рейтинга */
+.star-rating {
+  display: flex;
+  gap: 5px;
+}
+
+.star {
+  font-size: 1.5rem;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.star.filled {
+  color: #FFD700; /* Желтый для заполненных звезд */
+}
+
+/* Кнопка для добавления отзыва */
+.review-button {
+  background-color: #45EFDA;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: white;
+  margin-top: 10px;
+}
+
+.review-button:hover {
+  background-color: #3db6b0;
+}
+
+/* Стили для формы */
+.review-form {
+  margin-top: 20px;
+}
+
+.review-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.review-form button {
+  background-color: #5578DF;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.review-form button:hover {
+  background-color: #3b64b1;
+}
+
+/* Кнопка закрытия формы */
+.close-form-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #333;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.close-form-button:hover {
+  color: #e63946;
+}
+.star-rating {
+  display: flex;
+  gap: 5px;
+}
+
+.star {
+  font-size: 1.5rem; /* Увеличиваем размер звезд */
+  color: #ccc; /* По умолчанию звезды серые */
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.star.filled {
+  color: #FFD700; /* Желтый цвет для заполненной звезды */
+}
+
+.review-rating span {
+  font-size: 1.5rem; /* Увеличиваем размер звезд в отзывах */
+  color: #FFD700; /* Желтые звезды */
 }

@@ -5,6 +5,8 @@ $text-color-dark: #333;
 $text-color-light: #555;
 $background-color-transparent: transparent;
 $border-radius: 8px;
+$background-color-light: #ffffff;  
+
 
 // Миксины
 @mixin box-style($bg-color, $shadow: none, $radius: $border-radius) {
@@ -16,7 +18,7 @@ $border-radius: 8px;
 // Основные стили
 .pay-page {
   padding: 20px;
-  margin: 150px auto 0;
+  margin: 130px auto 0;
   max-width: 70%;
   @include box-style($background-color-transparent, none);
 }
@@ -29,29 +31,28 @@ $border-radius: 8px;
 }
 
 .pay-toc {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  @include box-style($background-color-light);
+  padding: 20px;
 
   ul {
-    list-style: none;
-    padding-left: 0;
-    text-align: left;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 
     li {
-      display: inline-block;
-      margin-right: 15px;
       margin-bottom: 10px;
-
-      a {
-        text-decoration: none;
-        color: $primary-color;
-        font-weight: bold;
-        font-size: 15.8px;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
     }
+  }
+}
+
+.pay-toc a {
+  color: $primary-color;
+  text-decoration: none;
+  font-size: 1.1em;
+
+  &:hover {
+    text-decoration: underline;
   }
 }
 
@@ -62,7 +63,7 @@ $border-radius: 8px;
   text-align: left;
 }
 
-.pay-method-title {
+.pay-section-title {
   font-size: 1.8em;
   margin-bottom: 15px;
   color: #000;
@@ -84,8 +85,8 @@ $border-radius: 8px;
   max-width: 40%;
   height: auto;
   display: block;
-  margin: 20px 0;
-  text-align: left;
+  margin: 20px auto;
+  text-align: center;
 }
 
 .pay-link {
@@ -110,19 +111,14 @@ $border-radius: 8px;
 // Медиазапросы
 @media (max-width: 768px) {
   .pay-title {
-    font-size: 2em;
+    font-size: 2rem;
   }
 
-  .pay-toc ul {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .pay-toc ul li {
+  .pay-toc a {
     font-size: 1em;
   }
 
-  .pay-method-title {
+  .pay-section-title {
     font-size: 1.5em;
   }
 
@@ -133,19 +129,11 @@ $border-radius: 8px;
 
 @media (max-width: 480px) {
   .pay-title {
-    font-size: 1.8em;
+    font-size: 1.8rem;
   }
 
-  .pay-toc ul {
-    padding: 0 10px;
-  }
-
-  .pay-section {
-    margin-bottom: 30px;
-  }
-
-  .pay-method-title {
-    font-size: 1.3em;
+  .pay-section-title {
+    font-size: 1.3rem;
   }
 
   .pay-img {

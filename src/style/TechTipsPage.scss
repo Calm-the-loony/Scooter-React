@@ -1,27 +1,25 @@
-// Переменные для базовых стилей
-$background-color: #ffffff;
-$box-shadow-color: rgba(0, 0, 0, 0.1);
-$hover-box-shadow-color: rgba(0, 0, 0, 0.2);
-$border-radius: 10px;
-$highlight-color: #45EFDA;
-$text-color-primary: #35424a;
-$text-color-secondary: #000000;
-$padding: 20px;
-$margin-bottom: 40px;
-$video-height: 500px;
-
-// Миксин для общих стилей для элементов с изображениями и видео
 @mixin media-element {
   max-width: 100%;
-  border-radius: $border-radius;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-// Основной контейнер страницы
+// Переменные для цветов
+$background-color: #f7f7f7;
+$highlight-color: #45efda;
+$text-color-primary: #333;
+$text-color-secondary: #555;
+$primary-color: #5578DF;
+$box-shadow-color: rgba(0, 0, 0, 0.1);
+$border-radius: 8px;
+$padding: 20px;
+$margin-bottom: 30px;
+
 .tech-tips-page {
   .container {
     width: 80%;
     margin: 20px auto;
-    margin-top: 150px; // Увеличиваем отступ сверху на 50 пикселей
+    margin-top: 150px;
   }
 
   section {
@@ -44,7 +42,7 @@ $video-height: 500px;
     }
   }
 
-  .component, .video, .article {
+  .component, .article, .faq-item, .maintenance-tips {
     margin-bottom: 20px;
     padding: 10px;
 
@@ -56,7 +54,7 @@ $video-height: 500px;
   .link {
     display: inline-block;
     margin-top: 10px;
-    margin-right: 15px; // увеличиваем отступ между кнопками
+    margin-right: 15px;
     padding: 10px 20px;
     background: $highlight-color;
     color: $text-color-secondary;
@@ -69,22 +67,48 @@ $video-height: 500px;
     }
   }
 
-  .video {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    iframe {
-      @include media-element;
-      height: $video-height; // фиксированная высота для видео
-    }
+  ul {
+    list-style-type: disc;
+    margin-left: 20px;
   }
 
-  article {
+  .back-to-main {
+    display: inline-block;
+    text-decoration: none;
+    background-color: $primary-color;
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 30px;
+    text-align: center;
+    border-radius: 5px;
+
     &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 15px $hover-box-shadow-color;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
+
+.maintenance-tips {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  ul {
+    margin-left: 20px;
+    list-style-type: disc;
+    color: #555;
+    
+    li {
+      margin-bottom: 10px;
+      font-size: 1.1em;
     }
   }
 }

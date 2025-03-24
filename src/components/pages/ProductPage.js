@@ -1,19 +1,18 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../../style/ProductPage.scss";
 import Accordion from "../other/accordion/Accordion";
 import ProductApiService from "../../service/api/product/ProductService";
 
-
 const ProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-
   const [favorites, setFavorites] = useState([]);
-
   const [viewedProducts, setViewedProducts] = useState(() => {
     return JSON.parse(localStorage.getItem("viewedProducts")) || [];
   });
+
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     ProductApiService.productData(id).then((productData) => {
@@ -41,12 +40,19 @@ const ProductPage = () => {
     }
   };
 
-  
+  const truncateText = (text, lines = 2) => {
+    const words = text.split(" ");
+    if (words.length > lines * 8) {
+      return words.slice(0, lines * 8).join(" ");
+    }
+    return text;
+  };
+
   return (
     <div className="product-page">
       <div className="product-details">
         <div className="product-image">
-          <img src={product.photo? product.photo[0].photo_url : ""} alt={product.title_product} />
+          <img src={product.photo ? product.photo[0].photo_url : ""} alt={product.title_product} />
         </div>
 
         <div className="product-info">
@@ -56,9 +62,7 @@ const ProductPage = () => {
               <strong>Цена:</strong>
               {product.product_discount ? (
                 <>
-                  <span
-                    style={{ textDecoration: "line-through", marginRight: "10px" }}
-                  >
+                  <span style={{ textDecoration: "line-through", marginRight: "10px" }}>
                     {product.price_product}
                   </span>
                   {product.price_product - (product.price_product * product.product_discount) / 100} ₽
@@ -83,7 +87,26 @@ const ProductPage = () => {
           </div>
           <div className="info-panel">
             <p>
-              <strong>Доп. комплект:</strong> {product.explanation_product || "Нет данных"}
+              <strong>Доп. комплект:</strong>{" "}
+              {isExpanded
+                ? product.explanation_product
+                : truncateText(product.explanation_product || "Нет данных")}
+              {!isExpanded && product.explanation_product?.length > 50 && (
+                <span
+                  className="expand-text"
+                  onClick={() => setIsExpanded(true)}
+                >
+                  {" ..."}
+                </span>
+              )}
+              {isExpanded && (
+                <span
+                  className="collapse-text"
+                  onClick={() => setIsExpanded(false)}
+                >
+                  {" Свернуть"}
+                </span>
+              )}
             </p>
             <p>
               <strong>Артикул:</strong> {product.article_product}
@@ -103,7 +126,7 @@ const ProductPage = () => {
       </div>
 
       {/* Просмотренные товары */}
-      <div className="viewed-products">
+      {/* <div className="viewed-products">
         <h2>Вы недавно смотрели</h2>
         <div className="viewed-list">
           {viewedProducts.map((item) => (
@@ -114,7 +137,7 @@ const ProductPage = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
