@@ -1,4 +1,5 @@
 import axios from "axios";
+import { parseCookieString } from "../../token_service";
 
 
 export class JobsApiService {
@@ -9,7 +10,7 @@ export class JobsApiService {
      */
     static async allJobs() {
         try {
-            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/vacancy/all");
+            const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/vacancy/all", {});
             return req.data;
         } catch {
             return false;
