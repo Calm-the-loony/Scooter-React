@@ -56,8 +56,8 @@ const App = () => {
               <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/garage" element={<GaragePage />} />
               <Route path="/account" element={<AccountPage />} />
-              <Route path="/register" element={<RegistrationPage />} /> {/* Страница регистрации */}
               <Route path="/login" element={<LoginPage />} /> {/* Страница авторизации */}
+              <Route path="/register" element={<RegistrationPage />} /> {/* Страница регистрации */}
               <Route path="/product/:id" element={<ProductPage />} /> {/* Новый маршрут для страницы товара */}
               <Route path="/search-results" element={<SearchResults />} />
               <Route path="/category/" element={<CategoryPage />} />
