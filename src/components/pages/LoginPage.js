@@ -17,13 +17,14 @@ const LoginPage = () => {
     e.preventDefault();
       
       AuthService.loginUser(email, password).then((message) => {
-
+        
         // Устанавливаем флаг авторизации
         dispatch(loginUser());
 
         navigate('/account');
 
       }).catch((er) => {
+        console.log(er)
         alert("Неверные данные для входа");
       });
   };
