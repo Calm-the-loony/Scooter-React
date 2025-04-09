@@ -1,5 +1,6 @@
 import axios from "axios";
 import { AuthService } from "../auth/AuthApiService";
+import {parseCookieString} from "../../token_service";
 
 
 export class UserApiService {
@@ -8,17 +9,23 @@ export class UserApiService {
      * GET: Получаем краткую информацию о пользователе
      * @returns 
      */
-    static async informationAboutUser() {
+    static async informationAboutUser(limit=0) {
         try {
+            const cookies = parseCookieString();
+
             const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/user/information", {
                 headers: {
+                    Authorization: cookies.token_type + " " + cookies.access_token
                 },
-                withCredentials: true
             });
-
             return req.data;
-        } catch {
-            return false;
+        } catch (er) {
+            if (limit > 0) {
+                return false;
+            }
+
+            await AuthService.updateUserToken();
+            await this.informationAboutUser(limit+1);
         }
     }
 
@@ -27,19 +34,25 @@ export class UserApiService {
      * @param {*} userDataToUpdate 
      * @returns 
      */
-    static async updateUserInformation(userDataToUpdate) {
+    static async updateUserInformation(userDataToUpdate, limit=0) {
 
         try {
+            const cookies = parseCookieString();
             const req = await axios.put(process.env.REACT_APP_BACKEND_URL + "/user/update", userDataToUpdate, {
-                withCredentials: true,
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: cookies.token_type + " " + cookies.access_token
                 }
             });
 
             return true;
         } catch {
-            return false;
+            if (limit > 0) {
+                return false;
+            }
+
+            await AuthService.updateUserToken();
+            await this.updateUserInformation(limit+1);
         }
         
     }
@@ -48,36 +61,48 @@ export class UserApiService {
      * Получение заказов пользователя
      * @returns 
      */
-    static async userOrders() {
+    static async userOrders(limit=0) {
         try {
+            const cookies = parseCookieString();
             const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/order/orders", {
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: cookies.token_type + " " + cookies.access_token
                 },
-                withCredentials: true
             });
             
             return req.data;
         } catch (er) {
-            return false;
+            if (limit > 0) {
+                return false;
+            }
+
+            await AuthService.updateUserToken();
+            await this.userOrders(limit+1);
         }
     }
 
     /**
      * Получение оплаченных заказов пользователем
      */
-    static async userSuccessOrders() {
+    static async userSuccessOrders(limit=0) {
         try {
+            const cookies = parseCookieString();
             const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/user/success/orders", {
-                withCredentials: true,
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: cookies.token_type + " " + cookies.access_token
                 }
             })
 
             return req.data;
         } catch {
-            return false;
+            if (limit > 0) {
+                return false;
+            }
+
+            await AuthService.updateUserToken();
+            await this.userSuccessOrders(limit+1);
         }
     }
 
@@ -87,21 +112,27 @@ export class UserApiService {
      * @param {*} newPassword 
      * @returns 
      */
-    static async updateUserPassword(oldPassword, newPassword) {
+    static async updateUserPassword(oldPassword, newPassword, limit=0) {
         try {
+            const cookies = parseCookieString();
             await axios.patch(process.env.REACT_APP_BACKEND_URL + "/auth/update/password", {
                 "old_password": oldPassword,
                 "new_password": newPassword
             }, {
                 headers: {
-                    withCredentials: true,
+                    Authorization: cookies.token_type + " " + cookies.access_token,
                     "Content-Type": "application/json"
                 }
             });
 
             return true
         } catch {
-            return false;
+            if (limit > 0) {
+                return false;
+            }
+
+            await AuthService.updateUserToken();
+            await this.updateUserPassword(limit+1);
         }
     }
 
@@ -109,14 +140,22 @@ export class UserApiService {
      * Избранные товары пользователя
      * @returns
      */
-    static async userFavourites() {
+    static async userFavourites(limit=0) {
         try {
+            const cookies = parseCookieString();
             const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/favourite/all/user", {
-                withCredentials: true
+                headers: {
+                    Authorization: cookies.token_type + " " + cookies.access_token
+                }
             });
             return req.data;
         } catch {
-            return false;
+            if (limit > 0) {
+                return false;
+            }
+
+            await AuthService.updateUserToken();
+            await this.userFavourites(limit+1);
         }
     }
 
@@ -124,17 +163,25 @@ export class UserApiService {
      * Удаление избранного товара
      * @returns
      */
-    static async deleteUserFavourite(id_favourite) {
+    static async deleteUserFavourite(id_favourite, limit=0) {
         try {
+            const cookies = parseCookieString();
             await axios.delete(process.env.REACT_APP_BACKEND_URL + "/favourite/delete", {
                 params: {
                     id_favourite: id_favourite
                 },
-                withCredentials: true,
+                headers: {
+                    Authorization: cookies.token_type + " " + cookies.access_token
+                }
             });
             return true
         } catch {
-            return false;
+            if (limit > 0) {
+                return false;
+            }
+
+            await AuthService.updateUserToken();
+            await this.deleteUserFavourite(limit+1);
         }
     }
 
@@ -143,17 +190,25 @@ export class UserApiService {
      * @param {*} id_product 
      * @returns 
      */
-    static async addNewFavourite(id_product) {
+    static async addNewFavourite(id_product, limit=0) {
         try {
+            const cookies = parseCookieString();
             const req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/favourite/create", {
                 id_product: id_product
             }, {
-                withCredentials: true
+                headers: {
+                    Authorization: cookies.token_type + " " + cookies.access_token
+                }
             })
 
             return req.data;
         } catch {
-            return false;
+            if (limit > 0) {
+                return false;
+            }
+
+            await AuthService.updateUserToken();
+            await this.addNewFavourite(limit+1);
         }
     }
 
@@ -162,18 +217,26 @@ export class UserApiService {
      * @param {*} id_product 
      * @returns 
      */
-    static async addProductToBasket(id_product) {
+    static async addProductToBasket(id_product, limit=0) {
         try {
+            const cookies = parseCookieString();
             let dateNow = new Date();
             await axios.post(process.env.REACT_APP_BACKEND_URL + "/order/create", {
                 id_product: id_product,
                 date_create: `${dateNow.getFullYear()}-${dateNow.getMonth().toString().padStart(2, '0')}-${dateNow.getDate().toString().padStart(2, "0")}`
             }, {
-                withCredentials: true,
+                headers: {
+                    Authorization: cookies.token_type + " " + cookies.access_token
+                }
             });
             return true;
         } catch (er) {
-            return false;
+            if (limit > 0) {
+                return false;
+            }
+
+            await AuthService.updateUserToken();
+            await this.addProductToBasket(limit+1);
         }
     }
 
@@ -181,16 +244,23 @@ export class UserApiService {
      * Список заказов пользователя
      * @returns 
      */
-    static async userOrders() {
+    static async userOrders(limit=0) {
         try {
+            const cookies = parseCookieString();
             const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/order/all/user", {
-                withCredentials: true
+                headers: {
+                    Authorization: cookies.token_type + " " + cookies.access_token
+                }
             });
 
             return req.data
         } catch (er) {
+            if (limit > 0) {
+                return false;
+            }
 
-            return false;
+            await AuthService.updateUserToken();
+            await this.userOrders(limit+1);
         }
     }
 
@@ -199,14 +269,22 @@ export class UserApiService {
      * @param {*} quantity 
      * @returns 
      */
-    static async deleteUserOrder(id_order) {
+    static async deleteUserOrder(id_order, limit=0) {
         try {
+            const cookies = parseCookieString();
             await axios.delete(process.env.REACT_APP_BACKEND_URL + `/order/delete/${id_order}`, {
-                withCredentials: true
+                headers: {
+                    Authorization: cookies.token_type + " " + cookies.access_token
+                }
             });
             return true;
         } catch (err) {
-            return false;
+            if (limit > 0) {
+                return false;
+            }
+
+            await AuthService.updateUserToken();
+            await this.deleteUserOrder(limit+1);
         }
     }
 }
