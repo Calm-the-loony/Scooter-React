@@ -88,6 +88,7 @@ export class AuthService {
             });
     
             if (req.status === 201) {
+                document.cookie = "access_token=; Max-Age=-1; path=/";
                 document.cookie = "access_token="+req.data.access_token;
                 this.dispatch(loginUser());
                 return true;
