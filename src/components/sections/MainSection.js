@@ -22,6 +22,8 @@ import "../../style/CategoryPage.scss";
 import CategoryApiService from "../../service/api/product/CategoryService";
 import MarkApiService from "../../service/api/product/MarkService";
 import ProductApiService from "../../service/api/product/ProductService";
+import { FaFontAwesome } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const MainSection = () => {
@@ -134,28 +136,35 @@ const MainSection = () => {
 
       useEffect(() => {
         const reqCategories = async () => {
-          let categories = await CategoryApiService.allCategories();
+          const categories = await CategoryApiService.allCategories();
           if (categories) {
             setCategoryData(categories);
           }
         }
 
+        const reqModels = async () => {
+          const models = await ProductApiService.allModels();
+          if (models) {
+            setModels(models.all_models);
+          }
+        }
+
         const reqMarks = async () => {
-          let marks = await MarkApiService.allMarks();
+          const marks = await MarkApiService.allMarks();
           if (marks) {
             setMarks(marks);
           }
         }
 
         const reqRecommendedProducts = async () => {
-          let recommendedProducts = await ProductApiService.recommendsProduct();
+          const recommendedProducts = await ProductApiService.recommendsProduct();
           if (recommendedProducts) {
             setRecProduct(recommendedProducts.products);
           }
         }
 
         const reqSellsProducts = async () => {
-          let sellsProducts = await ProductApiService.allSalledProducts();
+          const sellsProducts = await ProductApiService.allSalledProducts();
           if (sellsProducts) {
             if (sellsProducts.products.length > 0) {
               setLastSellsProduct(sellsProducts.products);
@@ -163,6 +172,7 @@ const MainSection = () => {
           }
         }
 
+        reqModels();
         reqCategories();
         reqMarks();
         reqRecommendedProducts();
@@ -232,7 +242,12 @@ const MainSection = () => {
             state={{ categoryId: category.id_category }} 
             className="category-container"
           >
-            <i className={!['icon', '', null].includes(category.icon_category)? category.icon_category : "fa fa-spinner"}></i>
+            {
+              category.icon_category ?
+              <img src={category.icon_category} alt="Категория"/>
+              :
+              <i className={!['icon', '', null].includes(category.icon_category)? category.icon_category : "fa fa-spinner"}></i>
+            }
             <p>{ category.name_category }</p>
           </Link>
       </div>
@@ -345,7 +360,7 @@ const MainSection = () => {
                       brand={product.brand_mark}
                       category={product.id_sub_category}
                       model={product.models}
-                      image={product.photo[0]}
+                      image={product.photo[0]? product.photo[0].photo_url : ''}
                       name={product.title_product}
                       price={product.price_product}
                       article={product.article_product}

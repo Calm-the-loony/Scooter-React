@@ -9,9 +9,11 @@ import {exitUser} from "../../state/actions/authAction";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const ITEMS_PER_PAGE = 4; // Количество карточек на одну страницу
+const ITEMS_PER_PAGE = 4;
 
 const GaragePage = () => {
+
+  const [isUpdate, setIsUpdate] = useState(false);
   const [scooters, setScooters] = useState([]);
   const [newScooter, setNewScooter] = useState(
     {
@@ -81,26 +83,25 @@ const GaragePage = () => {
       }
     }
 
+    setIsUpdate(false);
     reqTypeMoto();
     reqMyGarage();
     reqBrands();
     reqMarks();
     reqModels();
-  }, []);
+  }, [isUpdate]);
 
 
   const addScooter = async () => {
     if (newScooter.id_moto_type && newScooter.id_model && newScooter.id_mark) {
-      const req = await GarageApiService.addedGarage(
+      await GarageApiService.addedGarage(
         {
           id_model: newScooter.id_model,
           id_moto_type: newScooter.id_moto_type,
           id_mark: newScooter.id_mark
         }
       );
-      setNewScooter({ type: null, mark: null, model: null });
-    } else {
-      alert("Пожалуйста, заполните все поля.");
+      setIsUpdate(true);
     }
   };
 
@@ -112,12 +113,11 @@ const GaragePage = () => {
     });
   };
 
-  const updateDetails = (scooter) => {
-  };
 
   // Удаление мототранспорта
   const removeScooter = (index) => {
     const req = GarageApiService.deleteTransport(index).then((ok) => {
+      setGarage((garage) => garage.filter((el) => el.id_garage !== index))
     })
   };
 

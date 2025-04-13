@@ -1,6 +1,6 @@
 import axios from "axios";
 import { AuthService } from "../auth/AuthApiService";
-import {parseCookieString} from "../../token_service";
+import {parseCookieString, deleteCookieData} from "../../token_service";
 
 
 export class UserApiService {
@@ -121,18 +121,17 @@ export class UserApiService {
             }, {
                 headers: {
                     Authorization: cookies.token_type + " " + cookies.access_token,
-                    "Content-Type": "application/json"
-                }
+                    "Content-Type": "application/json",
+                },
             });
+
+            deleteCookieData();
 
             return true
         } catch {
             if (limit > 0) {
                 return false;
             }
-
-            await AuthService.updateUserToken();
-            await this.updateUserPassword(limit+1);
         }
     }
 

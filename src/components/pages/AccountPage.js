@@ -5,6 +5,7 @@ import { UserApiService } from '../../service/api/user/UserApiService';
 import { UpdateUser } from '../../service/dto/UserDTO';
 import { useDispatch } from 'react-redux';
 import {exitUser} from "../../state/actions/authAction";
+import PaginationScooter from '../other/pagination/Pagination';
 
 
 const AccountPage = () => {
@@ -233,46 +234,7 @@ const AccountPage = () => {
             <section className={`account-orders-section ${activeTab === 'account-orders-section' ? 'active' : ''}`}>
               <h2 className="account-subheader">Мои заказы</h2>
               <div className="account-orders">
-                {userOrdersData?.orders.length ? (
-                  userOrdersData.orders.map((order, index) => (
-                    <div key={index} className="order-card">
-                      <h3 className="order-title">Заказ №{order.product_data.id}</h3>
-                      <div className="order-info">
-                        <p>
-                          <span>Дата:</span> {order.product_data.date_buy}
-                        </p>
-                        <p>
-                          <span>Статус:</span>{''}
-                          <span
-                            style={{
-                              color: ["Доставлен", "В процессе"].includes(order.product_data.type_operation) ? 'green' : 'orange',
-                              fontWeight: 'bold',
-                            }}
-                          >
-                            {order.product_data.type_operation}
-                          </span>
-                        </p>
-                        <p>
-                          <span>Способ доставки:</span> {order.deliveryMethod}
-                        </p>
-                        <p>
-                          <span>Способ оплаты:</span> {'Картой'}
-                        </p>
-                        <p>
-                          <span>Сумма:</span> {order.product_data.price} ₽
-                        </p>
-                      </div>
-                      <h4>Товары:</h4>
-                      <ul className="order-items">
-                        <li key={order.product_data.title_product}>
-                          <span>{order.product_data.title_product}</span> — {order.product_data.count_buy} шт. ({order.product_data.price} ₽/шт)
-                        </li>
-                      </ul>
-                    </div>
-                  ))
-                ) : (
-                  <p>У вас пока нет заказов.</p>
-                )}
+                <PaginationScooter type='rounded' items={userOrdersData?.orders ? userOrdersData.orders : []} typePagination='order'></PaginationScooter>
               </div>
             </section>
 

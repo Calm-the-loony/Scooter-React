@@ -4,6 +4,7 @@ import "../../style/FavoritesPage.scss";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {exitUser} from "../../state/actions/authAction";
+import PaginationScooter from "../other/pagination/Pagination";
 
 const FavoritesPage = () => {
   
@@ -49,28 +50,16 @@ const FavoritesPage = () => {
       <h2 className="favorites-title">Избранное</h2>
       {favouriteProducts !== null ? (
         <div className="favorites-list">
-          {favouriteProducts.favourites.map((item) => (
-            <div key={item.product_info.id_favourite} className="favorite-item">
-              <img src={item.product_info.photos[0]?item.product_info.photos[0].photo_url : ""} alt={item.product_name} className="favorite-image" />
-              <div className="favorite-details">
-                <p className="favorite-name">{item.product_info.product_name}</p>
-                <p className="favorite-price">{item.product_info.price_product} ₽</p>
-                <p className="favorite-stock">
-                  {item.product_info.quantity > 0 ? `В наличии (${item.product_info.quantity} шт)` : "Нет в наличии"}
-                </p>
-              </div>
-              <div className="favorite-actions">
-                <button className="favorite-remove" onClick={(e) => deleteFavouriteProduct(item.product_info.id_favourite)}>
-                  Удалить
-                </button>
-                {item.product_info.quantity > 0 && (
-                  <button className="favorite-add-to-cart" onClick={() => handleAddToCart(item.product_info.id_product)}>
-                    В корзину
-                  </button>
-                )}
-              </div>
-            </div>
-          ))}
+          <PaginationScooter 
+          items={favouriteProducts.favourites}
+          typePagination="favourite"
+          methods={
+            {
+              deleteFavouriteProduct: deleteFavouriteProduct,
+              handleAddToCart: handleAddToCart
+            }
+          }
+          type="rounded" />
         </div>
       ) : (
         <p className="favorites-empty">Ваш список избранного пуст.</p>

@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import ProductApiService from "../../../service/api/product/ProductService";
 
 const StarRating = ({ rating, setRating }) => {
   const handleClick = (index) => {
-    setRating(index + 1); // Устанавливаем рейтинг, начиная с 1
+    setRating(index + 1);
   };
 
   return (
@@ -20,15 +22,16 @@ const StarRating = ({ rating, setRating }) => {
   );
 };
 
-const Accordion = ({ product }) => {
+export default function Accordion({ product }) {
+
   const [activeIndex, setActiveIndex] = useState(null);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [newReview, setNewReview] = useState({
-    name: "",
-    email: "",
     rating: 1,
     comment: "",
   });
+  const [sendReview, setSendReview] = useState(false);
+  const [productReview, setProductReview] = useState([]);
 
   const toggleAccordion = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -44,19 +47,32 @@ const Accordion = ({ product }) => {
 
   const handleSubmitReview = (e) => {
     e.preventDefault();
-    product.reviews.push({
-      name: newReview.name,
-      rating: newReview.rating,
-      comment: newReview.comment,
+
+    ProductApiService.createReview({
+      text_review: newReview.comment,
+      estimation_review: newReview.rating,
+      id_product: product.id_product
+    })
+    .then((d) => {
+      
+    })
+    .catch(() => {
+    
     });
+
     setShowReviewForm(false);
     setNewReview({
-      name: "",
-      email: "",
       rating: 1,
       comment: "",
     });
   };
+
+  useEffect(() => {
+    ProductApiService.getAllReviewByProductId(product.id_product).then((data) => {
+      setProductReview([...data.reviews]);
+    });
+    setSendReview(false);
+  }, [sendReview])
 
   return (
     <section className="accordion-container">
@@ -103,21 +119,20 @@ const Accordion = ({ product }) => {
               {product.reviews && product.reviews.length > 0 ? (
                 <div className="reviews">
                   <h3>Отзывы о товаре:</h3>
-                  {product.reviews.map((review, index) => (
+                  {productReview.map((review, index) => (
                     <div key={index} className="review">
                       <p>
-                        <strong>{review.name}</strong>
                         {" (Оценка: "}
                         <span className="review-rating">
-                          {[...Array(5)].map((_, starIndex) => (
-                            <span key={starIndex}>
-                              {starIndex < review.rating ? "★" : "☆"}
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <span key={star}>
+                              {star < review.estimation_review ? "★" : "☆"}
                             </span>
                           ))}
                         </span>
                         {")"}
                       </p>
-                      <p>{review.comment}</p>
+                      <p>{review.text_review}</p>
                     </div>
                   ))}
                 </div>
@@ -139,22 +154,6 @@ const Accordion = ({ product }) => {
                     <button type="button" onClick={() => setShowReviewForm(false)} className="close-form-button">
                       × Закрыть форму
                     </button>
-                    <label>Имя *</label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={newReview.name}
-                      onChange={handleInputChange}
-                      required
-                    />
-                    <label>Email *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={newReview.email}
-                      onChange={handleInputChange}
-                      required
-                    />
                     <label>Ваша оценка *</label>
                     <StarRating rating={newReview.rating} setRating={(rating) => setNewReview({ ...newReview, rating })} />
                     <label>Ваш отзыв *</label>
@@ -175,22 +174,3 @@ const Accordion = ({ product }) => {
     </section>
   );
 };
-
-// Пример данных продукта с отзывом
-const product = {
-  name: "Товар 1",
-  weight_product: "1 кг",
-  dimensions: "10x10x10 см",
-  explanation_product: "Описание продукта...",
-  reviews: [
-    {
-      name: "Иван Иванов",
-      rating: 5,
-      comment: "Отличный товар! Все работает как нужно."
-    }
-  ]
-};
-
-export default function App() {
-  return <Accordion product={product} />;
-}

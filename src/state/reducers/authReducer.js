@@ -1,7 +1,6 @@
 import { parseCookieString } from "../../service/token_service";
 
 const cookieData = parseCookieString();
-console.log(cookieData, 3232323);
 
 const initial_state = {
     isAuthenticated: cookieData.access_token || cookieData.refresh_token ? true : false

@@ -15,3 +15,13 @@ export function parseCookieString() {
     });
     return cookies;
 }
+
+
+export function deleteCookieData() {
+  const cookieKeys = document.cookie.split(";");
+
+  for (let cookie of cookieKeys) {
+    document.cookie = cookie.split("=")[0]+"=; Max-Age=-1; path=/";
+  }
+
+}
