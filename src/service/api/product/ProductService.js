@@ -1,4 +1,5 @@
 import axios from "axios";
+import { parseCookieString } from "../../token_service";
 
 
 export default class ProductApiService {
@@ -156,6 +157,43 @@ export default class ProductApiService {
             return req.data.brands;
         } catch {
             return []
+        }
+    }
+
+    /**
+     * Создание отзыва на товар
+     */
+    static async createReview(dataUser) {
+        const tokenData = parseCookieString();
+        console.log(dataUser, 232323);
+        const req = await axios.post(
+            process.env.REACT_APP_BACKEND_URL + "/review/create",
+            dataUser,
+            {
+                headers: {
+                    Authorization: "Bearer " + tokenData["access_token"],
+                },
+            }
+        )
+
+        if (req.status === 201) {
+            return true;
+        } else {
+            throw Error("Не удалось создать отзыв")
+        }
+    }
+
+    /**
+     * Все отзывы товара
+     */
+    static async getAllReviewByProductId(id_product) {
+        const req = await axios.get(
+            process.env.REACT_APP_BACKEND_URL + "/review/all/product/"+id_product
+        );
+        if (req.status === 200) {
+            return req.data;
+        } else {
+            throw Error("Не удалось найти отзывы продукта");
         }
     }
 }
