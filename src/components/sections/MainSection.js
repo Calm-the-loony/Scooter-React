@@ -22,6 +22,8 @@ import "../../style/CategoryPage.scss";
 import CategoryApiService from "../../service/api/product/CategoryService";
 import MarkApiService from "../../service/api/product/MarkService";
 import ProductApiService from "../../service/api/product/ProductService";
+import { FaFontAwesome } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const MainSection = () => {
@@ -240,7 +242,12 @@ const MainSection = () => {
             state={{ categoryId: category.id_category }} 
             className="category-container"
           >
-            <i className={!['icon', '', null].includes(category.icon_category)? category.icon_category : "fa fa-spinner"}></i>
+            {
+              category.icon_category ?
+              <img src={category.icon_category} alt="Категория"/>
+              :
+              <i className={!['icon', '', null].includes(category.icon_category)? category.icon_category : "fa fa-spinner"}></i>
+            }
             <p>{ category.name_category }</p>
           </Link>
       </div>
