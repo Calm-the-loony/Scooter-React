@@ -23,6 +23,7 @@ import RegistrationPage from "./components/pages/RegistrationPage"; // Стра�
 import CookieConsent from "./components/other/CookieConsent"; // Новый компонент
 import ProductPage from "./components/pages/ProductPage";  // Импортируем компонент страницы товара
 import SearchResults from "./components/other/SearchResults";
+import VerifyCodePage from "./components/pages/VerifyCodePage"; 
 import { RedirectUser } from "./components/other/redirectUser";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CartProvider from "./context/CartContext"; // Провайдер контекста корзины
@@ -57,6 +58,7 @@ const App = () => {
               <Route path="/garage" element={<GaragePage />} />
               <Route path="/account" element={<AccountPage />} />
               <Route path="/register" element={<RegistrationPage />} /> {/* Страница регистрации */}
+              <Route path="/verify-code" element={<VerifyCodePage />} />
               <Route path="/login" element={<LoginPage />} /> {/* Страница авторизации */}
               <Route path="/product/:id" element={<ProductPage />} /> {/* Новый маршрут для страницы товара */}
               <Route path="/search-results" element={<SearchResults />} />
@@ -78,6 +80,7 @@ const App = () => {
               <Route path="/brand" element={<BrandsPage />} />
               <Route path="/login" element={<LoginPage />} /> {/* Страница авторизации */}
               <Route path="/register" element={<RegistrationPage />} /> {/* Страница регистрации */}
+              <Route path="/verify-code" element={<VerifyCodePage />} />
               <Route path="/product/:id" element={<ProductPage />} /> {/* Новый маршрут для страницы товара */}
               <Route path="/search-results" element={<SearchResults />} />
               <Route path="/category/" element={<CategoryPage />} />
