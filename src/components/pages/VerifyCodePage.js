@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthService } from "../../service/api/auth/AuthApiService";
 import styles from "../../style/ConfirmCode.module.scss";
 
 const VerifyCodePage = () => {
@@ -8,13 +9,11 @@ const VerifyCodePage = () => {
   const navigate = useNavigate();
 
   const handleChange = (index, value) => {
-    if (/^\d?$/.test(value)) {
-      const newCode = [...code];
-      newCode[index] = value;
-      setCode(newCode);
-      if (value !== "" && index < 5) {
-        inputsRef.current[index + 1].focus();
-      }
+    const newCode = [...code];
+    newCode[index] = value;
+    setCode(newCode);
+    if (value !== "" && index < 5) {
+      inputsRef.current[index + 1].focus();
     }
   };
 
@@ -27,8 +26,11 @@ const VerifyCodePage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const fullCode = code.join("");
-    console.log("Код подтверждения:", fullCode);
-    navigate("/account"); // Переход на страницу аккаунта (или любое другое действие)
+    
+    AuthService.success_acount(fullCode).then(() => {
+      localStorage.removeItem("email-registration");
+      navigate("/account");
+    });
   };
 
   return (

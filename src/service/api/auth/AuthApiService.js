@@ -52,13 +52,9 @@ export class AuthService {
      */
     static async registerUser(userData) {
 
-        let req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/registration", {
-            email_user: userData.emailUser,
-            password_user: userData.passwordUser,
-            name_user: userData.nameUser,
-            main_name_user: userData.mainNameUser,
-            date_registration: null
-        }, {
+        console.log(JSON.stringify(userData));
+
+        let req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/registration", JSON.stringify(userData), {
             headers: {
                 "Content-Type": "application/json"
             },
@@ -98,5 +94,25 @@ export class AuthService {
         } catch {
             return false;
         }
+    }
+
+    static async success_acount(secretCode) {
+
+        const req = await axios.get(process.env.REACT_APP_BACKEND_URL + "/auth/access_create_account", {
+            params: {
+                email: localStorage.getItem("email-registration"),
+                secret_key: secretCode
+            }
+        }, {
+            headers: {
+                "Content-Type": "application/json"
+            },
+        });
+
+        if (req.status === 201) {
+            return true;
+        }
+
+        throw new Error("Не удалось подвердить аккаунт пользователя");
     }
 }
