@@ -6,21 +6,28 @@ import { JobsApiService } from "../../service/api/jobs/JobsApiService";
 const JobsPage = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [isChecked, setIsChecked] = useState(false); // Состояние для галочки согласия
+  const [isChecked, setIsChecked] = useState(false);
+
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [error, setError] = useState("");
+
   const [jobs, setJobs] = useState([]);
 
-  // Данные пользователя
   const [userData, setUserData] = useState({
     name_user: null,
     email_user: null,
     telephone_user: null,
     experience_user: null
   });
+
   const [vacancy, setVacancy] = useState(null);
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
-    setJobs({jobs: jobs.jobs, filtered: filteredJobs()});
+    
+    if (jobs.jobs.length > 0) {
+      setJobs({jobs: jobs.jobs, filtered: filteredJobs()});
+    }
   };
 
   const showApplicationForm = (id_vacancy) => {
@@ -33,20 +40,23 @@ const JobsPage = () => {
   };
 
   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked); // Переключаем состояние чекбокса
+    setIsChecked(!isChecked);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!isChecked) {
-      alert("Пожалуйста, подтвердите согласие на обработку данных.");
+      setNotificationMessage("Пожалуйста, подтвердите согласие на обработку данных.");
     } else {
       JobsApiService.sendUserRequest(
         userData,
         vacancy
-      )
-      alert("Ваш отклик отправлен!");
-      closeApplicationForm(); // Закрыть модальное окно после отправки
+      ).then(() => {
+        closeApplicationForm();
+      }).catch(() => {
+        setError("Не удалось отправить отклик на вакансию");
+      });
+
     }
   };
 
@@ -171,7 +181,11 @@ const JobsPage = () => {
               Отправить отклик
             </button>
           </form>
+          {notificationMessage.length > 0 ?
+            <div>{notificationMessage}</div> : ""
+          }
         </div>
+        {error.length > 0 ? <div className="error">{error}</div> : ""}
       </div>
 
       <a href="/" className="back-to-main">Вернуться на главную страницу</a>
