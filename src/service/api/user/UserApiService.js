@@ -1,6 +1,6 @@
 import axios from "axios";
 import { AuthService } from "../auth/AuthApiService";
-import {parseCookieString, deleteCookieData} from "../../token_service";
+import {parseCookieString, deleteCookieDatagit } from "../../token_service";
 
 
 export class UserApiService {
