@@ -19,30 +19,26 @@ export class AuthService {
      */
     static async loginUser(userEmail, userPassword) {
         
-        try {
-            let formAuthData = new FormData();
-        
-            // Данные для аутентификации
-            formAuthData.append("username", userEmail);
-            formAuthData.append("password", userPassword);
+        let formAuthData = new FormData();
     
-            let req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/login", formAuthData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            });
-    
-            if (req.status === 201) {
-                document.cookie = `access_token=${req.data.access_token}`;
-                document.cookie = `refresh_token=${req.data.refresh_token}`;
-                document.cookie = `token_type=${req.data.token_type}`;
-                return true
+        // Данные для аутентификации
+        formAuthData.append("username", userEmail);
+        formAuthData.append("password", userPassword);
+
+        let req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/login", formAuthData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
             }
-    
-            return false
-        } catch (e) {
-            return false;
+        });
+
+        if (req.status === 201) {
+            document.cookie = `access_token=${req.data.access_token}`;
+            document.cookie = `refresh_token=${req.data.refresh_token}`;
+            document.cookie = `token_type=${req.data.token_type}`;
+            return true
         }
+
+        throw new Error("Не удалось авторизировать пользователя");
     }
 
     /**

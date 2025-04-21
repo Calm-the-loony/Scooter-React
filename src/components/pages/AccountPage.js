@@ -6,6 +6,7 @@ import { UpdateUser } from '../../service/dto/UserDTO';
 import { useDispatch } from 'react-redux';
 import {exitUser} from "../../state/actions/authAction";
 import PaginationScooter from '../other/pagination/Pagination';
+import { deleteCookieData } from '../../service/token_service';
 
 
 const AccountPage = () => {
@@ -13,16 +14,14 @@ const AccountPage = () => {
   const [userOrdersData, setUserOrdersData] = useState(null);
   const [activeTab, setActiveTab] = useState('account-section');
   const [isEditing, setIsEditing] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false); // Добавляем состояние для проверки на админа
+  const [isAdmin, setIsAdmin] = useState(false);
   const dispatch = useDispatch();
 
-  // Данные состояния для обновления информации о пользователе
   const [address, setAddress] = useState(null);
   const [dateBirthday, setDateBirthDay] = useState(null);
   const [mainNameUser, setMainNameUser] = useState(null);
   const [telephone, setTelephoneUser] = useState(null);
 
-  // Данные безопасности (пароль)
   const [userOldPassword, setUserOldPassword] = useState(null);
   const [userNewPassword, setUserNewPassword] = useState(null);
 
@@ -47,10 +46,10 @@ const AccountPage = () => {
 
   const logout = () => {
 
-
     // Обновление в хранилище
     dispatch(exitUser());
-
+    deleteCookieData();
+    
     setIsAdmin(false);
     setUserData(null);
     navigate('/login');

@@ -63,7 +63,7 @@ const RegisterPage = () => {
           <button type="submit" className="btn-login">Зарегистрироваться</button>
         </form>
         {errorMessage.length > 0 ?
-          <div>
+          <div class="error">
             <p>{errorMessage}</p>
           </div>
           :

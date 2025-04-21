@@ -5,23 +5,24 @@ import { AuthService } from '../../service/api/auth/AuthApiService';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../state/actions/authAction';
 
+
 const LoginPage = () => {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await AuthService.loginUser(email, password);
+    AuthService.loginUser(email, password).then(() => {
       dispatch(loginUser());
       navigate('/account');
-    } catch (error) {
-      console.error('Ошибка входа:', error);
-      alert('Неверные данные для входа или ошибка соединения');
-    }
+    }).catch(() => {
+      setError('Неверные данные для входа или ошибка соединения');
+    });
   };
 
   const handleNavigateToRegister = () => {
@@ -58,7 +59,14 @@ const LoginPage = () => {
 
           <button type="submit" className="btn-login">Войти</button>
         </form>
-
+        {error.length > 0 ? 
+          <div className='error'>
+            {error}
+          </div>
+          :
+          ""
+        }
+        <div></div>
         <div className="register-text">
           Нет аккаунта?{" "}
           <span onClick={handleNavigateToRegister} className="link-register">
