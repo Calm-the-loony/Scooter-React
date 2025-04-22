@@ -30,7 +30,7 @@ export class AuthService {
                 "Content-Type": "multipart/form-data"
             }
         });
-
+        
         if (req.status === 201) {
             document.cookie = `access_token=${req.data.access_token}`;
             document.cookie = `refresh_token=${req.data.refresh_token}`;
@@ -47,8 +47,6 @@ export class AuthService {
      * @returns 
      */
     static async registerUser(userData) {
-
-        console.log(JSON.stringify(userData));
 
         let req = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/registration", JSON.stringify(userData), {
             headers: {
