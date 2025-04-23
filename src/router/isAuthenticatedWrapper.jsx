@@ -1,14 +1,12 @@
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
+export default function AuthenticatedWrapper({ children }) {
+  const selector = useSelector((state) => state.isAuthenticated);
 
-export default function AuthenticatedWrapper({children}) {
+  if (selector) {
+    return <div>{children}</div>;
+  }
 
-    const selector = useSelector(state => state.isAuthenticated);
-
-    if (selector) {
-        return <div>{children}</div>
-    }
-
-    return <Navigate to="/login" />
+  return <Navigate to="/login" />;
 }

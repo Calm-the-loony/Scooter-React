@@ -28,7 +28,7 @@ $box-shadow-color: rgba(64, 224, 208, 0.6);
 // Основные стили
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   background-color: $background-color-light;
   color: $text-color-dark;
 }
@@ -39,7 +39,7 @@ body {
   align-items: center;
   padding: 20px;
   margin-top: 130px;
-  min-height: 100vh; 
+  min-height: 100vh;
 }
 
 .product-details {
@@ -52,9 +52,9 @@ body {
 
   .product-image {
     img {
-      width: 500px; 
+      width: 500px;
       border-radius: $border-radius;
-      max-width: 100%; 
+      max-width: 100%;
     }
   }
 
@@ -116,7 +116,7 @@ body {
     align-items: center;
 
     .product-image img {
-      width: 100%; 
+      width: 100%;
     }
 
     .product-info {
@@ -137,7 +137,7 @@ body {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
-  transform: translateX(-200px); 
+  transform: translateX(-200px);
 }
 
 .accordion-container {
@@ -208,7 +208,7 @@ body {
       .accordion-item {
         .accordion-header {
           padding: 10px;
-          font-size: 1.1rem; 
+          font-size: 1.1rem;
         }
 
         .accordion-content {
@@ -294,12 +294,12 @@ body {
 }
 
 .star.filled {
-  color: #FFD700; /* Желтый для заполненных звезд */
+  color: #ffd700; /* Желтый для заполненных звезд */
 }
 
 /* Кнопка для добавления отзыва */
 .review-button {
-  background-color: #45EFDA;
+  background-color: #45efda;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -334,7 +334,7 @@ body {
 }
 
 .review-form button {
-  background-color: #5578DF;
+  background-color: #5578df;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -372,10 +372,10 @@ body {
 }
 
 .star.filled {
-  color: #FFD700; /* Желтый цвет для заполненной звезды */
+  color: #ffd700; /* Желтый цвет для заполненной звезды */
 }
 
 .review-rating span {
   font-size: 1.5rem; /* Увеличиваем размер звезд в отзывах */
-  color: #FFD700; /* Желтые звезды */
+  color: #ffd700; /* Желтые звезды */
 }

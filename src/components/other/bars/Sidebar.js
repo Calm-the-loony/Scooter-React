@@ -1,6 +1,6 @@
-import React from 'react';
-import categories from '../../../data/categories';
-import { Link } from 'react-router-dom';
+import React from "react";
+import categories from "../../../data/categories";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => (
   <aside className="sidebar">

@@ -52,7 +52,10 @@ const ProductPage = () => {
     <div className="product-page">
       <div className="product-details">
         <div className="product-image">
-          <img src={product.photo ? product.photo[0].photo_url : ""} alt={product.title_product} />
+          <img
+            src={product.photo ? product.photo[0].photo_url : ""}
+            alt={product.title_product}
+          />
         </div>
 
         <div className="product-info">
@@ -62,10 +65,18 @@ const ProductPage = () => {
               <strong>Цена:</strong>
               {product.product_discount ? (
                 <>
-                  <span style={{ textDecoration: "line-through", marginRight: "10px" }}>
+                  <span
+                    style={{
+                      textDecoration: "line-through",
+                      marginRight: "10px",
+                    }}
+                  >
                     {product.price_product}
                   </span>
-                  {product.price_product - (product.price_product * product.product_discount) / 100} ₽
+                  {product.price_product -
+                    (product.price_product * product.product_discount) /
+                      100}{" "}
+                  ₽
                 </>
               ) : (
                 product.price_product
@@ -74,7 +85,8 @@ const ProductPage = () => {
           </div>
           <div className="product-stock">
             <p>
-              <strong>На складе:</strong> {product.quantity_product > 0 ? "В наличии" : "Не в наличии"}
+              <strong>На складе:</strong>{" "}
+              {product.quantity_product > 0 ? "В наличии" : "Не в наличии"}
             </p>
           </div>
           <div className="product-buttons">

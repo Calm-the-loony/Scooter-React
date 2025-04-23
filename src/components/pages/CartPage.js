@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import "../../style/CartPage.scss";
 import { UserApiService } from "../../service/api/user/UserApiService";
 import { useDispatch } from "react-redux";
-import {exitUser} from "../../state/actions/authAction";
-
+import { exitUser } from "../../state/actions/authAction";
 
 const CartPage = () => {
-
   const [isModalOpen, setModalOpen] = useState(false);
   const [orderProducts, setOrderProduct] = useState(false);
   const [selectedOption, setSelectedOption] = useState("delivery");
@@ -19,7 +17,6 @@ const CartPage = () => {
   };
 
   const handleConfirm = () => {
-
     const newOrder = {
       id: orderProducts.length + 1,
       date: new Date().toLocaleString(),
@@ -29,7 +26,6 @@ const CartPage = () => {
       deliveryMethod: selectedOption === "delivery" ? "Доставка" : "Самовывоз",
       paymentMethod: paymentMethod === "card" ? "Карта" : "Наличные",
     };
-
 
     alert(`Ваш заказ успешно оформлен! 
     Способ доставки: ${newOrder.deliveryMethod}
@@ -45,12 +41,12 @@ const CartPage = () => {
       if (el.order_data.id_order === id_order) {
         orderProducts[indx].order_data.quantity += 1;
       }
-      return el
+      return el;
     });
 
     setOrderProduct(newOrderData);
     sumResultPrice();
-  }
+  };
 
   const minusProduct = (id_order) => {
     const newOrderData = orderProducts.map((el, indx) => {
@@ -59,24 +55,24 @@ const CartPage = () => {
           orderProducts[indx].order_data.quantity -= 1;
         }
       }
-      return el
+      return el;
     });
 
     setOrderProduct(newOrderData);
     sumResultPrice();
-  }
+  };
 
   const sumResultPrice = () => {
     if (orderProducts) {
       orderProducts.forEach((el) => {
         setTotalPrice(el.order_data.price_result * el.order_data.quantity);
-      })
+      });
     }
-  }
+  };
 
   const deleteProduct = async (id_product) => {
     await UserApiService.deleteUserOrder(id_product);
-  }
+  };
 
   useEffect(() => {
     const req = async () => {
@@ -87,12 +83,11 @@ const CartPage = () => {
       } else {
         dispatch(exitUser());
       }
-    }
-    
+    };
+
     req();
   }, []);
 
-  
   return (
     <div className="cart-container">
       <div className="cart-header">
@@ -103,10 +98,22 @@ const CartPage = () => {
         {orderProducts.length > 0 ? (
           orderProducts.map((item) => (
             <div key={item.product_data.id} className="cart-item">
-              <img src={item.product_data.photos[0]? item.product_data.photos[0].photo_url : ""} alt={item.product_data.name_product} className="cart-product-image" />
+              <img
+                src={
+                  item.product_data.photos[0]
+                    ? item.product_data.photos[0].photo_url
+                    : ""
+                }
+                alt={item.product_data.name_product}
+                className="cart-product-image"
+              />
               <div className="cart-details">
-                <p className="cart-item-name">{item.product_data.name_product}</p>
-                <p className="cart-item-price">{item.product_data.price_product}</p>
+                <p className="cart-item-name">
+                  {item.product_data.name_product}
+                </p>
+                <p className="cart-item-price">
+                  {item.product_data.price_product}
+                </p>
                 <div className="quantity-container">
                   <button
                     className="quantity-button"
@@ -199,7 +206,10 @@ const CartPage = () => {
               <button className="confirm-button" onClick={handleConfirm}>
                 Подтвердить
               </button>
-              <button className="cancel-button" onClick={() => setModalOpen(false)}>
+              <button
+                className="cancel-button"
+                onClick={() => setModalOpen(false)}
+              >
                 Отмена
               </button>
             </div>

@@ -5,27 +5,24 @@ import "../../style/GaragePage.scss";
 import ProductApiService from "../../service/api/product/ProductService";
 import GarageApiService from "../../service/api/product/GarageService";
 import { useDispatch } from "react-redux";
-import {exitUser} from "../../state/actions/authAction";
+import { exitUser } from "../../state/actions/authAction";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ITEMS_PER_PAGE = 4;
 
 const GaragePage = () => {
-
   const [isUpdate, setIsUpdate] = useState(false);
   const [scooters, setScooters] = useState([]);
-  const [newScooter, setNewScooter] = useState(
-    {
-     type: null,
-     mark: null,
-     model: null,
-     
-     id_moto_type: null,
-     id_mark: null,
-     id_model: null
-    }
-  );
+  const [newScooter, setNewScooter] = useState({
+    type: null,
+    mark: null,
+    model: null,
+
+    id_moto_type: null,
+    id_mark: null,
+    id_model: null,
+  });
   const [selectedScooter, setSelectedScooter] = useState(null);
 
   const [details, setDetails] = useState([]);
@@ -51,7 +48,7 @@ const GaragePage = () => {
       if (allTypeModels) {
         setTypeMoto(allTypeModels.moto_types);
       }
-    }
+    };
 
     const reqMyGarage = async () => {
       let myGarage = await GarageApiService.myGarage();
@@ -60,14 +57,14 @@ const GaragePage = () => {
       } else {
         dispatch(exitUser());
       }
-    }
+    };
 
     const reqBrands = async () => {
       let allBrands = await ProductApiService.allBrands();
       if (allBrands) {
         setBrands(allBrands.brands);
       }
-    }
+    };
 
     const reqModels = async () => {
       let allModels = await ProductApiService.allModels();
@@ -75,14 +72,14 @@ const GaragePage = () => {
         console.log(allModels);
         setModels(allModels.all_models);
       }
-    }
+    };
 
     const reqMarks = async () => {
       let allMarks = await ProductApiService.allMarks();
       if (allMarks) {
         setMarks(allMarks.marks);
       }
-    }
+    };
 
     setIsUpdate(false);
     reqTypeMoto();
@@ -92,40 +89,40 @@ const GaragePage = () => {
     reqModels();
   }, [isUpdate]);
 
-
   const addScooter = async () => {
     if (newScooter.id_moto_type && newScooter.id_model && newScooter.id_mark) {
-      await GarageApiService.addedGarage(
-        {
-          id_model: newScooter.id_model,
-          id_moto_type: newScooter.id_moto_type,
-          id_mark: newScooter.id_mark
-        }
-      );
+      await GarageApiService.addedGarage({
+        id_model: newScooter.id_model,
+        id_moto_type: newScooter.id_moto_type,
+        id_mark: newScooter.id_mark,
+      });
       setIsUpdate(true);
     }
   };
 
   const selectScooter = (scooterData) => {
     setSelectedScooter(scooterData);
-    GarageApiService.productForGarage(scooterData.id_mark, scooterData.id_moto_type, scooterData.id_model).then((productData) => {
+    GarageApiService.productForGarage(
+      scooterData.id_mark,
+      scooterData.id_moto_type,
+      scooterData.id_model,
+    ).then((productData) => {
       setSelectedScooter(scooterData);
       setDetails(productData.products);
     });
   };
 
-
   // Удаление мототранспорта
   const removeScooter = (index) => {
     const req = GarageApiService.deleteTransport(index).then((ok) => {
-      setGarage((garage) => garage.filter((el) => el.id_garage !== index))
-    })
+      setGarage((garage) => garage.filter((el) => el.id_garage !== index));
+    });
   };
 
   const totalPages = Math.ceil(details.length / ITEMS_PER_PAGE);
   const paginatedDetails = details.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
 
   const handlePageChange = (pageNumber) => {
@@ -134,7 +131,8 @@ const GaragePage = () => {
 
   // Данные для диаграммы
   const typesCount = garage.reduce((acc, scooter) => {
-    acc[scooter.moto_type_data.name_moto_type] = (acc[scooter.moto_type_data.name_moto_type] || 0) + 1;
+    acc[scooter.moto_type_data.name_moto_type] =
+      (acc[scooter.moto_type_data.name_moto_type] || 0) + 1;
     return acc;
   }, {});
 
@@ -143,8 +141,20 @@ const GaragePage = () => {
     datasets: [
       {
         data: Object.values(typesCount),
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"],
-        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"],
+        backgroundColor: [
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56",
+          "#4BC0C0",
+          "#9966FF",
+        ],
+        hoverBackgroundColor: [
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56",
+          "#4BC0C0",
+          "#9966FF",
+        ],
       },
     ],
   };
@@ -160,11 +170,23 @@ const GaragePage = () => {
           <div>
             <select
               value={newScooter.type}
-              onChange={(e) => {setNewScooter({ ...newScooter, type: e.target.value, id_moto_type: Number(e.target.options[e.target.options.selectedIndex].id) }); }}
+              onChange={(e) => {
+                setNewScooter({
+                  ...newScooter,
+                  type: e.target.value,
+                  id_moto_type: Number(
+                    e.target.options[e.target.options.selectedIndex].id,
+                  ),
+                });
+              }}
             >
               <option value="">Выберите тип</option>
               {typeMoto.map((tm) => {
-                return <option value={tm.name_type} id={tm.id_mt}>{tm.name_type}</option>
+                return (
+                  <option value={tm.name_type} id={tm.id_mt}>
+                    {tm.name_type}
+                  </option>
+                );
               })}
             </select>
             <input
@@ -172,7 +194,15 @@ const GaragePage = () => {
               placeholder="Марка"
               list="mark-list"
               value={newScooter.mark}
-              onChange={(e) => setNewScooter({ ...newScooter, mark: e.target.value, id_mark: marks.find((el, index, array) => el.name_mark === e.target.value)?.id_mark})}
+              onChange={(e) =>
+                setNewScooter({
+                  ...newScooter,
+                  mark: e.target.value,
+                  id_mark: marks.find(
+                    (el, index, array) => el.name_mark === e.target.value,
+                  )?.id_mark,
+                })
+              }
             />
             <datalist id="mark-list">
               {marks.map((mark) => (
@@ -184,7 +214,15 @@ const GaragePage = () => {
               placeholder="Модель"
               list="model-list"
               value={newScooter.model}
-              onChange={(e) => setNewScooter({ ...newScooter, model: e.target.value, id_model: models.find((el) => el.name_model === e.target.value)?.id_model })}
+              onChange={(e) =>
+                setNewScooter({
+                  ...newScooter,
+                  model: e.target.value,
+                  id_model: models.find(
+                    (el) => el.name_model === e.target.value,
+                  )?.id_model,
+                })
+              }
             />
             <datalist id="model-list">
               {models.map((model) => (
@@ -205,7 +243,9 @@ const GaragePage = () => {
                     onClick={() => selectScooter(scooter)}
                     className={selectedScooter === scooter ? "selected" : ""}
                   >
-                    {scooter.moto_type_data.name_moto_type} {scooter.models_data.name_model} {scooter.mark_data.name_mark}
+                    {scooter.moto_type_data.name_moto_type}{" "}
+                    {scooter.models_data.name_model}{" "}
+                    {scooter.mark_data.name_mark}
                   </button>
                   <button
                     className="remove-scooter"
@@ -224,7 +264,8 @@ const GaragePage = () => {
         {selectedScooter && (
           <div className="garage-details">
             <h3>
-              Детали для {selectedScooter.mark_data.name_mark} {selectedScooter.models_data.name_model}
+              Детали для {selectedScooter.mark_data.name_mark}{" "}
+              {selectedScooter.models_data.name_model}
             </h3>
             {details.length > 0 ? (
               <>
@@ -232,7 +273,10 @@ const GaragePage = () => {
                   {paginatedDetails.map((detail) => (
                     <li key={detail.id_product}>
                       <div className="products-card">
-                        <img src={detail.photo[0].photo_url} alt={detail.title_product} />
+                        <img
+                          src={detail.photo[0].photo_url}
+                          alt={detail.title_product}
+                        />
                         <h4>{detail.title_product}</h4>
                         <p>Цена: {detail.price_product}</p>
                         <p>В наличии: {detail.quantity_product}</p>

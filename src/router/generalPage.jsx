@@ -1,4 +1,4 @@
-import {Fragment} from "react";
+import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
 
 import Header from "../components/semantic/header/Header";
@@ -6,14 +6,16 @@ import Footer from "../components/semantic/footer/Footer";
 import CookieConsent from "../components/other/CookieConsent";
 
 export default function Layout() {
-    return (
-        <Fragment>
-            <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-                <Header />
-                <Outlet />
-                <Footer />
-                <CookieConsent />
-            </div>
-        </Fragment>
-    )
+  return (
+    <Fragment>
+      <div
+        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+      >
+        <Header />
+        <Outlet />
+        <Footer />
+        <CookieConsent />
+      </div>
+    </Fragment>
+  );
 }

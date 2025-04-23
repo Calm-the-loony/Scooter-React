@@ -6,11 +6,9 @@ import { router } from "./router/router";
 import "./App.css";
 
 const App = () => {
-  
   return (
     <CartProvider>
-      <RouterProvider router={router}>
-      </RouterProvider>
+      <RouterProvider router={router}></RouterProvider>
     </CartProvider>
   );
 };

@@ -88,23 +88,21 @@ const SalesroomPage = () => {
         <h2>Наше местоположение</h2>
         <div className="map-container">
           <YMaps>
-          <Map
-  defaultState={{ center: [47.235779, 39.690893], zoom: 13 }}
-  style={{ height: "100%", width: "100%" }}
->
-  <GeoObject
-    geometry={{
-      type: "Point",
-      coordinates: [47.235779, 39.690893], // Updated coordinates
-    }}
-    properties={{
-      balloonContent: "Торговое помещение.<br />Ул. Дранко 141",
-    }}
-  />
-  <ZoomControl />
-</Map>
-
-
+            <Map
+              defaultState={{ center: [47.235779, 39.690893], zoom: 13 }}
+              style={{ height: "100%", width: "100%" }}
+            >
+              <GeoObject
+                geometry={{
+                  type: "Point",
+                  coordinates: [47.235779, 39.690893], // Updated coordinates
+                }}
+                properties={{
+                  balloonContent: "Торговое помещение.<br />Ул. Дранко 141",
+                }}
+              />
+              <ZoomControl />
+            </Map>
           </YMaps>
         </div>
       </section>

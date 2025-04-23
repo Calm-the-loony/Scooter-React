@@ -8,7 +8,7 @@ const NotFoundPage = () => {
       <p>Страница не найдена</p>
       <a href="/">Вернуться на главную</a>
     </div>
-  )
-}
+  );
+};
 
 export default NotFoundPage;

@@ -5,11 +5,19 @@ import { useNavigate } from "react-router-dom";
 import { UserApiService } from "../../service/api/user/UserApiService";
 import "../../style/ProductCard.scss";
 
+const ProductCard = ({
+  id,
+  stock,
+  type,
+  brand,
+  model,
+  category,
+  image,
+  name,
+  price,
+}) => {
+  const auth = useSelector((state) => state.isAuthenticated);
 
-const ProductCard = ({ id, stock, type, brand, model, category, image, name, price }) => {
-
-  const auth = useSelector(state => state.isAuthenticated);
-  
   const [isFavorite, setIsFavorite] = useState(false);
   const [idFavourite, setIdFavourite] = useState(null);
   const navigate = useNavigate();
@@ -24,9 +32,9 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
             setIsFavorite(true);
             setIdFavourite(el.product_info.id_favourite);
           }
-        })
+        });
       }
-    }
+    };
 
     favorites();
   }, [id]);
@@ -36,14 +44,12 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
     event.stopPropagation();
 
     if (!isFavorite) {
-
       // Добавление товара в избранное
       let id_fav = await UserApiService.addNewFavourite(id);
       if (id_fav) {
         setIdFavourite(id_fav);
         setIsFavorite(true);
       }
-
     } else {
       // Удаление товара из избранных
       let deleteFav = await UserApiService.deleteUserFavourite(idFavourite);
@@ -56,7 +62,7 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
 
   // Функция для добавления товара в корзину
   const handleAddToCart = async (event) => {
-      await UserApiService.addProductToBasket(id);
+    await UserApiService.addProductToBasket(id);
   };
 
   // Открытие карточки товара
@@ -66,7 +72,7 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
 
   return (
     <div className="product-card" data-id={id} key={id}>
-      <img src={image? image : ""} alt={name} />
+      <img src={image ? image : ""} alt={name} />
       <div className="details">
         <p className="category">{category}</p>
         <p className="name ellipsis">{name}</p>
@@ -74,7 +80,11 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
           <div className="original-price-wrapper no-discount">
             <span className="original-prices">{price} ₽</span>
           </div>
-          <button className={`add-to-cart ${!auth ? "disabled": ""}`} onClick={handleAddToCart} disabled={!auth}>
+          <button
+            className={`add-to-cart ${!auth ? "disabled" : ""}`}
+            onClick={handleAddToCart}
+            disabled={!auth}
+          >
             <i className="fas fa-shopping-cart"></i>
           </button>
           <a className="button_more" onClick={handleCardClick}>
@@ -82,7 +92,7 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
           </a>
         </div>
         <button
-          className={`add-to-favorites ${isFavorite ? "active" : ""} ${!auth ? "disabled": ""}`}
+          className={`add-to-favorites ${isFavorite ? "active" : ""} ${!auth ? "disabled" : ""}`}
           disabled={!auth}
           onClick={(e) => handleAddToFavorites(e, id)}
         >

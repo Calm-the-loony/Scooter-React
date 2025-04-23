@@ -6,20 +6,20 @@ import ProductApiService from "../../service/api/product/ProductService";
 import CategoryApiService from "../../service/api/product/CategoryService";
 import PaginationScooter from "../other/pagination/Pagination";
 
-
 const CategoryPage = () => {
-
   const location = useLocation();
   const initialCategoryId = location.state?.categoryId || null;
-
 
   const [selectedCategory, setSelectedCategory] = useState(initialCategoryId);
   const [categories, setCategories] = useState([]);
   const [selectedSubcategory, setSelectedSubcategory] = useState(null);
   const [expandedCategories, setExpandedCategories] = useState({});
-  const [filters, setFilters] = useState({ minPrice: "", maxPrice: "", sort: false });
+  const [filters, setFilters] = useState({
+    minPrice: "",
+    maxPrice: "",
+    sort: false,
+  });
   const [filteredProductsList, setFilteredProductsList] = useState([]);
-
 
   // Обновление категории при изменении состояния
   useEffect(() => {
@@ -33,20 +33,22 @@ const CategoryPage = () => {
 
   // Получаем список товаров
   useEffect(() => {
-    ProductApiService.filterProducts(null, initialCategoryId? initialCategoryId : null).then((productData) => {
-
+    ProductApiService.filterProducts(
+      null,
+      initialCategoryId ? initialCategoryId : null,
+    ).then((productData) => {
       // Устанавливаем данные
       setFilteredProductsList(productData);
-
     });
 
-    CategoryApiService.allCategories().then((cat) => {
-      setCategories(cat.categories);
-    }).catch((er) => {
-      setCategories([]);
-    })
+    CategoryApiService.allCategories()
+      .then((cat) => {
+        setCategories(cat.categories);
+      })
+      .catch((er) => {
+        setCategories([]);
+      });
   }, []);
-
 
   const toggleCategory = (categoryId) => {
     setExpandedCategories((prev) => ({
@@ -73,7 +75,9 @@ const CategoryPage = () => {
     if (!selectedSubcategory) return null;
     const category = categories.find((cat) => cat.id === selectedCategory);
     if (category) {
-      const subcategory = category.subcategories.find((sub) => sub.id === selectedSubcategory);
+      const subcategory = category.subcategories.find(
+        (sub) => sub.id === selectedSubcategory,
+      );
       return subcategory ? subcategory.name : null;
     }
     return null;
@@ -100,7 +104,7 @@ const CategoryPage = () => {
   const filteredProducts = () => {
     let availability = filters.sort === "availability";
     let desc = null;
-    
+
     switch (filters.sort) {
       case "asc": {
         desc = "asc";
@@ -123,13 +127,12 @@ const CategoryPage = () => {
       Number(filters.minPrice) ? Number(filters.minPrice) : null,
       Number(filters.maxPrice) ? Number(filters.maxPrice) : null,
       desc,
-      availability
+      availability,
     ).then((filtProductList) => {
-
       // Установка отфильтрованных продуктов
       setFilteredProductsList(filtProductList);
-    })
-  }
+    });
+  };
 
   return (
     <main className="containers">
@@ -152,11 +155,15 @@ const CategoryPage = () => {
                   />
                 </button>
                 {expandedCategories[category.id_category] && (
-                  <ul className={`subcategories ${expandedCategories[category.id_category] ? "expanded" : ""}`}>
+                  <ul
+                    className={`subcategories ${expandedCategories[category.id_category] ? "expanded" : ""}`}
+                  >
                     {category.subcategory.map((sub) => (
                       <li key={sub.id_subcategory}>
                         <button
-                          onClick={() => handleSubcategoryClick(sub.id_subcategory)}
+                          onClick={() =>
+                            handleSubcategoryClick(sub.id_subcategory)
+                          }
                           className={`subcategory-button ${selectedSubcategory === sub.id_subcategory ? "active" : ""}`}
                         >
                           {sub.name}
@@ -165,7 +172,6 @@ const CategoryPage = () => {
                     ))}
                   </ul>
                 )}
-
               </li>
             ))}
           </ul>
@@ -191,7 +197,11 @@ const CategoryPage = () => {
           </div>
           <div className="filter">
             <label>Сортировать по:</label>
-            <select name="sort" value={filters.sort} onChange={handleFilterChange}>
+            <select
+              name="sort"
+              value={filters.sort}
+              onChange={handleFilterChange}
+            >
               <option value="default">По умолчанию</option>
               <option value="asc">Цена: по возрастанию</option>
               <option value="desc">Цена: по убыванию</option>
@@ -204,11 +214,12 @@ const CategoryPage = () => {
         </div>
       </aside>
       <section className="main-content">
-        <h2>
-          {getSubcategoryName() || getCategoryName()}
-        </h2>
+        <h2>{getSubcategoryName() || getCategoryName()}</h2>
         <hr className="dashed-line" />
-        <PaginationScooter type="rounded" items={filteredProductsList}></PaginationScooter>
+        <PaginationScooter
+          type="rounded"
+          items={filteredProductsList}
+        ></PaginationScooter>
       </section>
     </main>
   );

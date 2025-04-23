@@ -23,7 +23,6 @@ const StarRating = ({ rating, setRating }) => {
 };
 
 export default function Accordion({ product }) {
-
   const [activeIndex, setActiveIndex] = useState(null);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [newReview, setNewReview] = useState({
@@ -51,14 +50,10 @@ export default function Accordion({ product }) {
     ProductApiService.createReview({
       text_review: newReview.comment,
       estimation_review: newReview.rating,
-      id_product: product.id_product
+      id_product: product.id_product,
     })
-    .then((d) => {
-      
-    })
-    .catch(() => {
-    
-    });
+      .then((d) => {})
+      .catch(() => {});
 
     setShowReviewForm(false);
     setNewReview({
@@ -68,11 +63,13 @@ export default function Accordion({ product }) {
   };
 
   useEffect(() => {
-    ProductApiService.getAllReviewByProductId(product.id_product).then((data) => {
-      setProductReview([...data.reviews]);
-    });
+    ProductApiService.getAllReviewByProductId(product.id_product).then(
+      (data) => {
+        setProductReview([...data.reviews]);
+      },
+    );
     setSendReview(false);
-  }, [sendReview])
+  }, [sendReview]);
 
   return (
     <section className="accordion-container">
@@ -81,7 +78,9 @@ export default function Accordion({ product }) {
         <div className={`accordion-item ${activeIndex === 0 ? "open" : ""}`}>
           <div className="accordion-header" onClick={() => toggleAccordion(0)}>
             <span>Детали</span>
-            <i className={`fas fa-chevron-${activeIndex === 0 ? "up" : "down"}`}></i>
+            <i
+              className={`fas fa-chevron-${activeIndex === 0 ? "up" : "down"}`}
+            ></i>
           </div>
           {activeIndex === 0 && (
             <div className="accordion-content">
@@ -99,7 +98,9 @@ export default function Accordion({ product }) {
         <div className={`accordion-item ${activeIndex === 1 ? "open" : ""}`}>
           <div className="accordion-header" onClick={() => toggleAccordion(1)}>
             <span>Описание</span>
-            <i className={`fas fa-chevron-${activeIndex === 1 ? "up" : "down"}`}></i>
+            <i
+              className={`fas fa-chevron-${activeIndex === 1 ? "up" : "down"}`}
+            ></i>
           </div>
           {activeIndex === 1 && (
             <div className="accordion-content">
@@ -112,7 +113,9 @@ export default function Accordion({ product }) {
         <div className={`accordion-item ${activeIndex === 2 ? "open" : ""}`}>
           <div className="accordion-header" onClick={() => toggleAccordion(2)}>
             <span>Отзывы</span>
-            <i className={`fas fa-chevron-${activeIndex === 2 ? "up" : "down"}`}></i>
+            <i
+              className={`fas fa-chevron-${activeIndex === 2 ? "up" : "down"}`}
+            ></i>
           </div>
           {activeIndex === 2 && (
             <div className="accordion-content">
@@ -142,7 +145,10 @@ export default function Accordion({ product }) {
 
               {/* Кнопка для отображения формы отзыва */}
               {!showReviewForm && (
-                <button onClick={() => setShowReviewForm(true)} className="review-button">
+                <button
+                  onClick={() => setShowReviewForm(true)}
+                  className="review-button"
+                >
                   Оставить отзыв
                 </button>
               )}
@@ -151,11 +157,20 @@ export default function Accordion({ product }) {
               {showReviewForm && (
                 <div className="review-form">
                   <form onSubmit={handleSubmitReview}>
-                    <button type="button" onClick={() => setShowReviewForm(false)} className="close-form-button">
+                    <button
+                      type="button"
+                      onClick={() => setShowReviewForm(false)}
+                      className="close-form-button"
+                    >
                       × Закрыть форму
                     </button>
                     <label>Ваша оценка *</label>
-                    <StarRating rating={newReview.rating} setRating={(rating) => setNewReview({ ...newReview, rating })} />
+                    <StarRating
+                      rating={newReview.rating}
+                      setRating={(rating) =>
+                        setNewReview({ ...newReview, rating })
+                      }
+                    />
                     <label>Ваш отзыв *</label>
                     <textarea
                       name="comment"
@@ -173,4 +188,4 @@ export default function Accordion({ product }) {
       </section>
     </section>
   );
-};
+}

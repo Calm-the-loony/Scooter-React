@@ -5,13 +5,7 @@ import scooterStore from "../state/store/configureStore";
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-
-  return (
-    <Provider store={scooterStore}>
-      {children}
-    </Provider>
-  );
+  return <Provider store={scooterStore}>{children}</Provider>;
 };
-
 
 export default CartProvider;

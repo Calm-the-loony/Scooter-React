@@ -53,7 +53,9 @@ const ShippingPage = () => {
 
       {/* Доставка СДЕК */}
       <section id="cdek" className="shipping-section">
-        <h2 className="shipping-section-title">Доставка транспортной компанией СДЕК</h2>
+        <h2 className="shipping-section-title">
+          Доставка транспортной компанией СДЕК
+        </h2>
         <img src={cdekImage} alt="Доставка СДЕК" className="shipping-img" />
         <p>
           СДЕК — дешевый, удобный и быстрый способ доставки. Вы можете оформить
@@ -70,7 +72,11 @@ const ShippingPage = () => {
       {/* Доставка Почтой России */}
       <section id="russian-post" className="shipping-section">
         <h2 className="shipping-section-title">Доставка Почтой России</h2>
-        <img src={russianPostImage} alt="Доставка Почтой России" className="shipping-img" />
+        <img
+          src={russianPostImage}
+          alt="Доставка Почтой России"
+          className="shipping-img"
+        />
         <p>
           Доставка Почтой России — это не всегда быстро, но дешево и с
           возможностью доставки в любой уголок России.
@@ -79,8 +85,14 @@ const ShippingPage = () => {
 
       {/* Доставка Я.Маркет */}
       <section id="yamarket" className="shipping-section">
-        <h2 className="shipping-section-title">Доставка почтовым сервисом Я.Маркета</h2>
-        <img src={yamarketImage} alt="Доставка Я.Маркета" className="shipping-img" />
+        <h2 className="shipping-section-title">
+          Доставка почтовым сервисом Я.Маркета
+        </h2>
+        <img
+          src={yamarketImage}
+          alt="Доставка Я.Маркета"
+          className="shipping-img"
+        />
         <p>
           Я.Маркет — один из самых быстрых и надежных способов доставки. Курьер
           доставит ваш заказ до ближайшего к вам пункта выдачи. Возможность
@@ -131,7 +143,9 @@ const ShippingPage = () => {
         <p>ОКВЭД: 52.50.3; 50.30.2</p>
       </section>
 
-      <a href="/" className="back-to-main">Вернуться на главную страницу</a>
+      <a href="/" className="back-to-main">
+        Вернуться на главную страницу
+      </a>
     </main>
   );
 };

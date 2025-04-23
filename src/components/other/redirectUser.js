@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 
 export const RedirectUser = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        navigate("/login");
-    }, [navigate]);
-
-}
+  useEffect(() => {
+    navigate("/login");
+  }, [navigate]);
+};

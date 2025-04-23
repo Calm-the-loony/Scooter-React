@@ -26,7 +26,7 @@ const VerifyCodePage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const fullCode = code.join("");
-    
+
     AuthService.success_acount(fullCode).then(() => {
       localStorage.removeItem("email-registration");
       navigate("/account");
@@ -36,7 +36,10 @@ const VerifyCodePage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <button onClick={() => navigate("/register")} className={styles.backButton}>
+        <button
+          onClick={() => navigate("/register")}
+          className={styles.backButton}
+        >
           ←
         </button>
         <h2 className={styles.title}>🔐 Введите код</h2>

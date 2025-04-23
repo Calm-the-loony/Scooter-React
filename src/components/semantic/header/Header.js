@@ -12,7 +12,6 @@ import { UserApiService } from "../../../service/api/user/UserApiService";
 import ProductApiService from "../../../service/api/product/ProductService";
 import { Search } from "lucide-react";
 
-
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,7 +19,6 @@ const Header = () => {
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
   const [cntOrder, setOrders] = useState(0);
-
 
   // Обработчик изменения текста в поле поиска
   const handleSearchChange = (e) => {
@@ -30,7 +28,6 @@ const Header = () => {
 
   // Обработчик клика на иконку поиска
   const handleSearchClick = () => {
-
     // Получаем продукты по фильтру (Title)
     ProductApiService.filterProducts(searchQuery).then((data) => {
       setSearchResults(data);
@@ -90,7 +87,7 @@ const Header = () => {
       if (orders) {
         setOrders(orders.orders.length);
       }
-    }
+    };
 
     updateClasses(); // Инициализация при загрузке страницы
     window.addEventListener("scroll", updateClasses);
@@ -122,17 +119,22 @@ const Header = () => {
         </div>
 
         <div className="action-container">
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Поиск..."
-            value={searchQuery}
-            onChange={handleSearchChange}
-          />
-          <button className="search-button" onClick={handleSearchClick} >
-          <Search size={20} strokeWidth={2} color="white" className="flipped-icon"/>
-          </button>
-        </div>
+          <div className="search-bar">
+            <input
+              type="text"
+              placeholder="Поиск..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
+            <button className="search-button" onClick={handleSearchClick}>
+              <Search
+                size={20}
+                strokeWidth={2}
+                color="white"
+                className="flipped-icon"
+              />
+            </button>
+          </div>
 
           <div className="user-actions">
             <button onClick={handleFavoriteClick}>
@@ -155,18 +157,28 @@ const Header = () => {
           <span className="location-text">
             Ваш город: <span id="city-name">...</span>
           </span>
-          <button id="change-city-button" onClick={openCityModal}>Сменить</button>
+          <button id="change-city-button" onClick={openCityModal}>
+            Сменить
+          </button>
         </div>
-
-
 
         <div className={`submenu ${isMenuOpen ? "visible" : ""}`}>
           <ul>
-            <li><a href="/salesroom">Самовывоз</a></li>
-            <li><a href="/return">Возвраты</a></li>
-            <li><a href="/shipping">Доставка</a></li>
-            <li><a href="/legal">Защита</a></li>
-            <li><a href="/">Главная</a></li>
+            <li>
+              <a href="/salesroom">Самовывоз</a>
+            </li>
+            <li>
+              <a href="/return">Возвраты</a>
+            </li>
+            <li>
+              <a href="/shipping">Доставка</a>
+            </li>
+            <li>
+              <a href="/legal">Защита</a>
+            </li>
+            <li>
+              <a href="/">Главная</a>
+            </li>
           </ul>
         </div>
 
@@ -178,11 +190,15 @@ const Header = () => {
       {isModalOpen && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close" onClick={closeCityModal}>&times;</span>
+            <span className="close" onClick={closeCityModal}>
+              &times;
+            </span>
             <h2>Выберите ваш город</h2>
             <ul>
               <li onClick={() => selectCity("Москва")}>Москва</li>
-              <li onClick={() => selectCity("Санкт-Петербург")}>Санкт-Петербург</li>
+              <li onClick={() => selectCity("Санкт-Петербург")}>
+                Санкт-Петербург
+              </li>
               <li onClick={() => selectCity("Новосибирск")}>Новосибирск</li>
             </ul>
             <button onClick={enterCityManually}>Ввести вручную</button>

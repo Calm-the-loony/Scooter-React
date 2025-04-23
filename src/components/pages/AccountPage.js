@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../../style/styles.scss';
-import { UserApiService } from '../../service/api/user/UserApiService';
-import { UpdateUser } from '../../service/dto/UserDTO';
-import { useDispatch } from 'react-redux';
-import {exitUser} from "../../state/actions/authAction";
-import PaginationScooter from '../other/pagination/Pagination';
-import { deleteCookieData } from '../../service/token_service';
-
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../../style/styles.scss";
+import { UserApiService } from "../../service/api/user/UserApiService";
+import { UpdateUser } from "../../service/dto/UserDTO";
+import { useDispatch } from "react-redux";
+import { exitUser } from "../../state/actions/authAction";
+import PaginationScooter from "../other/pagination/Pagination";
+import { deleteCookieData } from "../../service/token_service";
 
 const AccountPage = () => {
   const [userData, setUserData] = useState(null);
   const [userOrdersData, setUserOrdersData] = useState(null);
-  const [activeTab, setActiveTab] = useState('account-section');
+  const [activeTab, setActiveTab] = useState("account-section");
   const [isEditing, setIsEditing] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const dispatch = useDispatch();
@@ -28,39 +27,33 @@ const AccountPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     // Запрос на получение информации о пользователе
     const data = UserApiService.informationAboutUser().then((dataUser) => {
-      
       if (dataUser === false) {
-        
         // Очистка состояния
         dispatch(exitUser());
       } else {
         setUserData(dataUser);
       }
-
     });
-
   }, []);
 
   const logout = () => {
-
     // Обновление в хранилище
     dispatch(exitUser());
     deleteCookieData();
-    
+
     setIsAdmin(false);
     setUserData(null);
-    navigate('/login');
+    navigate("/login");
   };
 
   const handleTabClick = (tab) => {
-    const req = UserApiService.userSuccessOrders().then((data) => {
-      setUserOrdersData(data);
-    }).catch((er) => {
-      
-    })
+    const req = UserApiService.userSuccessOrders()
+      .then((data) => {
+        setUserOrdersData(data);
+      })
+      .catch((er) => {});
     setActiveTab(tab);
   };
 
@@ -78,7 +71,7 @@ const AccountPage = () => {
     };
 
     setUserData(updatedUserData);
-    localStorage.setItem('userData', JSON.stringify(updatedUserData));
+    localStorage.setItem("userData", JSON.stringify(updatedUserData));
     setIsEditing(false);
   };
 
@@ -99,120 +92,141 @@ const AccountPage = () => {
     });
     const updatedUserData = { ...userData, orders: updatedOrders };
     setUserData(updatedUserData);
-    localStorage.setItem('userData', JSON.stringify(updatedUserData));
+    localStorage.setItem("userData", JSON.stringify(updatedUserData));
   };
 
-  const updateUserData = function(event) {
-    const userData = new UpdateUser(mainNameUser, dateBirthday, address, telephone);
-    const req = UserApiService.updateUserInformation(
-      userData
-    ).then((okMessage) => {
-      
-    }).catch((erMessage) => {
-      alert("Не удалось обновить информацию!");
-    });
+  const updateUserData = function (event) {
+    const userData = new UpdateUser(
+      mainNameUser,
+      dateBirthday,
+      address,
+      telephone,
+    );
+    const req = UserApiService.updateUserInformation(userData)
+      .then((okMessage) => {})
+      .catch((erMessage) => {
+        alert("Не удалось обновить информацию!");
+      });
   };
 
-  const updateUserPassword = function(event) {
+  const updateUserPassword = function (event) {
     event.preventDefault();
 
-    const req = UserApiService.updateUserPassword(userOldPassword, userNewPassword).then((ok) => {
-      navigate("/login");
-    }).catch((er) => {
-      console.log(er);
-    });
-  }
+    const req = UserApiService.updateUserPassword(
+      userOldPassword,
+      userNewPassword,
+    )
+      .then((ok) => {
+        navigate("/login");
+      })
+      .catch((er) => {
+        console.log(er);
+      });
+  };
 
   return (
     <div className="account-page">
-      {userData? <div>
-        <h2>Личный кабинет</h2>
-      <div className="account-wrapper">
+      {userData ? (
+        <div>
+          <h2>Личный кабинет</h2>
+          <div className="account-wrapper">
             <div className="account-tabs">
               <div
-                className={`account-tab ${activeTab === 'account-section' ? 'active' : ''}`}
-                onClick={() => handleTabClick('account-section')}
+                className={`account-tab ${activeTab === "account-section" ? "active" : ""}`}
+                onClick={() => handleTabClick("account-section")}
               >
                 Мои данные
               </div>
               <div
-                className={`account-tab ${activeTab === 'account-orders-section' ? 'active' : ''}`}
-                onClick={() => handleTabClick('account-orders-section')}
+                className={`account-tab ${activeTab === "account-orders-section" ? "active" : ""}`}
+                onClick={() => handleTabClick("account-orders-section")}
               >
                 Мои заказы
               </div>
               <div
-                className={`account-tab ${activeTab === 'account-password-section' ? 'active' : ''}`}
-                onClick={() => handleTabClick('account-password-section')}
+                className={`account-tab ${activeTab === "account-password-section" ? "active" : ""}`}
+                onClick={() => handleTabClick("account-password-section")}
               >
                 Изменить пароль
               </div>
             </div>
 
-            <section className={`account-section ${activeTab === 'account-section' ? 'active' : ''}`}>
+            <section
+              className={`account-section ${activeTab === "account-section" ? "active" : ""}`}
+            >
               <h2 className="account-subheader">Мои данные</h2>
 
               <form onSubmit={handleFormSubmit} className="account-form">
-                <label htmlFor="account_name" className="account-label">ФИО:</label>
+                <label htmlFor="account_name" className="account-label">
+                  ФИО:
+                </label>
                 <input
                   type="text"
                   id="account_name"
                   name="name"
                   className="account-input"
                   required
-                  defaultValue={userData? userData.main_name_user : ''}
+                  defaultValue={userData ? userData.main_name_user : ""}
                   disabled={!isEditing}
                   onChange={(value) => {
                     setMainNameUser(value.target.value);
                   }}
                 />
 
-                <label htmlFor="account_dob" className="account-label">Дата рождения:</label>
+                <label htmlFor="account_dob" className="account-label">
+                  Дата рождения:
+                </label>
                 <input
                   type="date"
                   id="account_dob"
                   name="dob"
                   className="account-input"
                   required
-                  defaultValue={userData?.date_birthday || ''}
+                  defaultValue={userData?.date_birthday || ""}
                   disabled={!isEditing}
                   onChange={(value) => {
                     setDateBirthDay(value.target.value);
                   }}
                 />
 
-                <label htmlFor="account_address" className="account-label">Адрес:</label>
+                <label htmlFor="account_address" className="account-label">
+                  Адрес:
+                </label>
                 <input
                   type="text"
                   id="account_address"
                   name="address"
                   className="account-input"
                   required
-                  defaultValue={userData?.address || ''}
+                  defaultValue={userData?.address || ""}
                   disabled={!isEditing}
                   onChange={(value) => {
                     setAddress(value.target.value);
                   }}
                 />
 
-                <label htmlFor="account_email" className="account-label">Email:</label>
+                <label htmlFor="account_email" className="account-label">
+                  Email:
+                </label>
                 <input
                   type="email"
                   id="account_email"
                   name="email"
                   className="account-input"
                   required
-                  defaultValue={userData? userData.email_user : ''}
+                  defaultValue={userData ? userData.email_user : ""}
                   disabled={true}
                 />
 
-                <label htmlFor="account_phone" className="account-label">Телефон:</label>
+                <label htmlFor="account_phone" className="account-label">
+                  Телефон:
+                </label>
                 <input
                   type="tel"
                   id="account_phone"
                   name="phone"
                   className="account-input"
-                  defaultValue={userData?.telephone || ''}
+                  defaultValue={userData?.telephone || ""}
                   disabled={!isEditing}
                   onChange={(value) => {
                     setTelephoneUser(value.target.value);
@@ -221,26 +235,54 @@ const AccountPage = () => {
 
                 {isEditing ? (
                   <div className="edit-buttons">
-                    <button type="submit" className="account-button" onClick={updateUserData}>Сохранить изменения</button>
-                    <button type="button" className="account-button" onClick={handleCancelEdit}>Отмена</button>
+                    <button
+                      type="submit"
+                      className="account-button"
+                      onClick={updateUserData}
+                    >
+                      Сохранить изменения
+                    </button>
+                    <button
+                      type="button"
+                      className="account-button"
+                      onClick={handleCancelEdit}
+                    >
+                      Отмена
+                    </button>
                   </div>
                 ) : (
-                  <button type="button" className="account-button" onClick={handleEditClick}>Редактировать</button>
+                  <button
+                    type="button"
+                    className="account-button"
+                    onClick={handleEditClick}
+                  >
+                    Редактировать
+                  </button>
                 )}
               </form>
             </section>
 
-            <section className={`account-orders-section ${activeTab === 'account-orders-section' ? 'active' : ''}`}>
+            <section
+              className={`account-orders-section ${activeTab === "account-orders-section" ? "active" : ""}`}
+            >
               <h2 className="account-subheader">Мои заказы</h2>
               <div className="account-orders">
-                <PaginationScooter type='rounded' items={userOrdersData?.orders ? userOrdersData.orders : []} typePagination='order'></PaginationScooter>
+                <PaginationScooter
+                  type="rounded"
+                  items={userOrdersData?.orders ? userOrdersData.orders : []}
+                  typePagination="order"
+                ></PaginationScooter>
               </div>
             </section>
 
-            <section className={`account-password-section ${activeTab === 'account-password-section' ? 'active' : ''}`}>
+            <section
+              className={`account-password-section ${activeTab === "account-password-section" ? "active" : ""}`}
+            >
               <h2 className="account-subheader">Изменить пароль</h2>
               <form className="account-form" onSubmit={updateUserPassword}>
-                <label htmlFor="current_password" className="account-label">Текущий пароль:</label>
+                <label htmlFor="current_password" className="account-label">
+                  Текущий пароль:
+                </label>
                 <input
                   type="password"
                   id="current_password"
@@ -252,7 +294,9 @@ const AccountPage = () => {
                   }}
                 />
 
-                <label htmlFor="new_password" className="account-label">Новый пароль:</label>
+                <label htmlFor="new_password" className="account-label">
+                  Новый пароль:
+                </label>
                 <input
                   type="password"
                   id="new_password"
@@ -264,15 +308,20 @@ const AccountPage = () => {
                   }}
                 />
 
-                <button type="submit" className="account-button">Сохранить пароль</button>
+                <button type="submit" className="account-button">
+                  Сохранить пароль
+                </button>
               </form>
             </section>
 
             <button onClick={logout} className="logout-btn">
               <i className="fa fa-sign-out-alt"></i> Выйти
             </button>
-      </div>
-      </div> : ""}
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

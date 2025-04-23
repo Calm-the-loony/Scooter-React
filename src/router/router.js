@@ -24,90 +24,113 @@ import PayPage from "../components/pages/PayPage";
 import Layout from "./generalPage";
 
 export const router = createBrowserRouter([
-    {
-      element: <Layout />, children: [
-        {
-            path: "/", element: <MainSection />,
-        },
-        {
-            path: "/pay", element: <PayPage />
-        },
-        {
-            path: "/shipping", element: <ShippingPage />
-        },
-        {
-            path: "/return", element: <ReturnsPage />
-        },
-        {
-            path: "/salesroom", element: <SalesroomPage />
-        },
-        {
-            path: "/legal", element: <LegalPage />
-        },
-        {
-            path: "/right", element: <RightOfWithdrawalPage />
-        },
-        {
-            path: "/jobs", element: <JobsPage />
-        },
-        {
-            path: "/tech", element: <TechTipsPage />
-        },
-        {
-            path: "/brand", element: <BrandsPage />
-        },
-        {
-            path: "/cart", element: (
-                <AuthenticatedWrapper>
-                    <CartPage />
-                </AuthenticatedWrapper>
-            )
-        },
-        {
-            path: "/favourites", element: (
-                <AuthenticatedWrapper>
-                    <FavoritesPage />
-                </AuthenticatedWrapper>
-            )
-        },
-        {
-            path: "/garage", element: (
-                <AuthenticatedWrapper>
-                    <GaragePage />
-                </AuthenticatedWrapper>
-            )
-        },
-        {
-            path: "/account", element: (
-                <AuthenticatedWrapper>
-                    <AccountPage />
-                </AuthenticatedWrapper>
-            )
-        },
-        {
-            path: "/register", element: <RegisterPage />
-        },
-        {
-            path: "/verify-code", element: <VerifyCodePage />
-        },
-        {
-            path: "/login", element: <LoginPage />
-        },
-        {
-            path: "/product/:id", element: <ProductPage />
-        },
-        {
-            path: "/search-results", element: <SearchResults />
-        },
-        {
-            path: "/category", element: <CategoryPage />
-        },
-        {
-            path: "/category/:id_category", element: <CategoryPage />
-        },
-        {
-            path: "*", element: <NotFoundPage />
-        }
-      ]
-    },
-])
+  {
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <MainSection />,
+      },
+      {
+        path: "/pay",
+        element: <PayPage />,
+      },
+      {
+        path: "/shipping",
+        element: <ShippingPage />,
+      },
+      {
+        path: "/return",
+        element: <ReturnsPage />,
+      },
+      {
+        path: "/salesroom",
+        element: <SalesroomPage />,
+      },
+      {
+        path: "/legal",
+        element: <LegalPage />,
+      },
+      {
+        path: "/right",
+        element: <RightOfWithdrawalPage />,
+      },
+      {
+        path: "/jobs",
+        element: <JobsPage />,
+      },
+      {
+        path: "/tech",
+        element: <TechTipsPage />,
+      },
+      {
+        path: "/brand",
+        element: <BrandsPage />,
+      },
+      {
+        path: "/cart",
+        element: (
+          <AuthenticatedWrapper>
+            <CartPage />
+          </AuthenticatedWrapper>
+        ),
+      },
+      {
+        path: "/favourites",
+        element: (
+          <AuthenticatedWrapper>
+            <FavoritesPage />
+          </AuthenticatedWrapper>
+        ),
+      },
+      {
+        path: "/garage",
+        element: (
+          <AuthenticatedWrapper>
+            <GaragePage />
+          </AuthenticatedWrapper>
+        ),
+      },
+      {
+        path: "/account",
+        element: (
+          <AuthenticatedWrapper>
+            <AccountPage />
+          </AuthenticatedWrapper>
+        ),
+      },
+      {
+        path: "/register",
+        element: <RegisterPage />,
+      },
+      {
+        path: "/verify-code",
+        element: <VerifyCodePage />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/product/:id",
+        element: <ProductPage />,
+      },
+      {
+        path: "/search-results",
+        element: <SearchResults />,
+      },
+      {
+        path: "/category",
+        element: <CategoryPage />,
+      },
+      {
+        path: "/category/:id_category",
+        element: <CategoryPage />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
+      },
+    ],
+  },
+]);

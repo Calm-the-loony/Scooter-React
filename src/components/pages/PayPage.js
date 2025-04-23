@@ -38,11 +38,7 @@ const PayPage = () => {
           <li>Электронные кошельки: Яндекс.Деньги, KIWI</li>
           <li>Терминалы Евросеть и другие</li>
         </ul>
-        <img
-          src={onlinePaymentImage}
-          alt="Робокасса"
-          className="pay-img"
-        />
+        <img src={onlinePaymentImage} alt="Робокасса" className="pay-img" />
       </section>
 
       {/* Оплата наличными */}
@@ -85,7 +81,9 @@ const PayPage = () => {
         />
       </section>
 
-      <a href="/" className="back-to-main">Вернуться на главную страницу</a>
+      <a href="/" className="back-to-main">
+        Вернуться на главную страницу
+      </a>
     </main>
   );
 };

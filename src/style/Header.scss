@@ -1,40 +1,39 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow", sans-serif;
   height: 2000px; /* Для прокрутки контента */
 }
 
 body {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow", sans-serif;
 }
 /*шапка*/
- .user-actions button {
+.user-actions button {
   background-color: #4b4a4a !important;
   border: none;
   padding: 0;
   position: relative;
-} 
- 
+}
 
 .user-actions button img {
   width: 20px;
   height: 20px;
   filter: invert(1);
-  transform: none !important; 
+  transform: none !important;
 }
 
 .user-actions button:hover img {
-  filter: invert(1); 
+  filter: invert(1);
   transform: none !important;
 }
 
 .user-actions button:not(:last-child)::after {
-  content: '';
+  content: "";
   position: absolute;
   height: calc(100% + 14px);
   width: 1px;
@@ -43,7 +42,6 @@ body {
   right: -11px;
   transform: rotate(2deg); /* Черточка под углом */
 }
-
 
 /* Основные стили */
 .header {
@@ -57,7 +55,9 @@ body {
   top: 0;
   width: 100%;
   z-index: 1000;
-  transition: height 0.5s, padding 0.5s; 
+  transition:
+    height 0.5s,
+    padding 0.5s;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45);
 }
 
@@ -68,16 +68,15 @@ body {
   left: 0;
   width: 100%;
   height: 5px;
-  background-color: #45EFDA;
+  background-color: #45efda;
 }
-
 
 /* Лого */
 #parallelogram {
   width: 150px;
   height: 98%;
   transform: skew(-20deg);
-  background-color: #45EFDA;
+  background-color: #45efda;
   position: absolute;
   top: 0;
   left: 100px;
@@ -92,7 +91,7 @@ body {
   transform: translate(-50%, -50%) skew(20deg);
   max-width: 95px;
   height: auto;
-  transition: all 0.5s ease; 
+  transition: all 0.5s ease;
 }
 
 .header.collapsed .logo-image {
@@ -117,17 +116,15 @@ body {
   transform: skew(-20deg);
   transform-origin: left;
   transition: margin-left 0.5s ease;
-  will-change: transform, left; 
+  will-change: transform, left;
   z-index: 1;
 }
-
 
 .user-actions {
   display: flex;
   align-items: center;
   gap: 15px;
 }
-
 
 .action-container .content {
   -webkit-transform: skew(20deg);
@@ -138,22 +135,22 @@ body {
   margin-left: auto;
 }
 
-.user-actions #favorite-button, #cart-button {
+.user-actions #favorite-button,
+#cart-button {
   position: relative;
 }
 
-.user-actions #favorite-count, #cart-count {
+.user-actions #favorite-count,
+#cart-count {
   position: absolute;
   top: -5px;
   right: -5px;
-  background-color: #45EFDA;
+  background-color: #45efda;
   color: rgb(0, 0, 0);
   border-radius: 50%;
   padding: 2px 6px;
   font-size: 12px;
 }
-
-
 
 .user-actions button {
   color: #fff;
@@ -162,18 +159,18 @@ body {
   padding: 8px 15px;
   margin-left: 10px;
   cursor: pointer;
-  transform: none; 
+  transform: none;
 }
 
 .contact-number {
   margin-right: 130px;
   margin-bottom: 0px;
   font-size: 16px;
-  color: #ffffff; 
+  color: #ffffff;
 }
 
 .contact-number a {
-  color: #ffffff; 
+  color: #ffffff;
   text-decoration: none;
 }
 
@@ -183,14 +180,16 @@ body {
 
 /* Основные стили для контейнера геолокации */
 
-
 #header {
   transition: height 0.5s ease;
 }
 
 /* Сабменю */
 .submenu {
-  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease,
+    transform 0.5s ease;
   opacity: 0; /* Изначально скрыто */
   visibility: hidden;
   transform: translateY(-20px); /* Поднимаем элемент, когда он скрыт */
@@ -206,13 +205,15 @@ body {
 /* Геолокация */
 #location-container {
   font-size: 13px;
-  font-weight: 700; 
+  font-weight: 700;
   text-align: center;
   text-transform: uppercase; /* Делаем все буквы заглавными */
   color: #ffffff;
   margin-top: 48px;
   margin-left: 250px;
-  transition: opacity 0.5s ease, transform 0.5s ease; /* Плавное появление/скрытие */
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease; /* Плавное появление/скрытие */
   position: relative;
 }
 
@@ -220,7 +221,9 @@ body {
 .hidden {
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
   transform: translateY(-20px); /* Поднимаем элемент при скрытии */
 }
 
@@ -228,13 +231,15 @@ body {
 .visible {
   opacity: 1;
   pointer-events: auto;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
   transform: translateY(0); /* Возвращаем элемент в исходное положение */
 }
 
 /* Стили для кнопки */
 #change-city-button {
-  background-color: #45EFDA;
+  background-color: #45efda;
   color: #000000;
   border: none;
   border-radius: 5px;
@@ -244,162 +249,155 @@ body {
   margin-left: 3px;
 }
 
-
 /* Модальное окно */
 .modal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); 
-    z-index: 2000;
-    overflow: auto;
-    animation: fadeIn 0.3s ease-out;
-  }
-  
-  /* Контент модального окна */
-  .modal-content {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 600px;
-    text-align: left; 
-    position: relative;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-    animation: slideUp 0.3s ease-out;
-  }
-  
-  /* Кнопка закрытия */
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 30px;
-    font-weight: bold;
-    color: #45EFDA; 
-    cursor: pointer;
-    border: none;
-    background: none;
-    transition: color 0.3s ease;
-  }
-  
-  /* Эффект наведения на кнопку закрытия */
-  .close:hover,
-  .close:focus {
-    color: #2c9d86; 
-  }
-  
-  /* Заголовки в модальном окне */
-  .modal-content h1,
-  .modal-content h2,
-  .modal-content h3 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 20px;
-    font-weight: 600;
-  }
-  
-  /* Абзацы */
-  .modal-content p {
-    font-size: 16px;
-    color: #555;
-    line-height: 1.6;
-    margin: 10px 0;
-    text-align: left;
-  }
-  
-  /* Убираем маркеры списка и добавляем отступы */
-  .modal-content ul {
-    list-style: none;
-    padding-left: 0;
-    margin: 15px 0;
-  }
-  
-  .modal-content li {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 8px;
-    padding-left: 20px;
-    position: relative;
-  }
-  
-  .modal-content li::before {
-    content: "✔"; 
-    color: #45EFDA; 
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 18px;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  overflow: auto;
+  animation: fadeIn 0.3s ease-out;
+}
 
-  
-  /* Поле ввода */
-  input[type="text"],
-  textarea {
-    width: 100%;
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    transition: border-color 0.3s ease;
-    
-  }
-  
-  /* Изменение границы при фокусе */
-  input[type="text"]:focus,
-  textarea:focus {
-    border-color: #45EFDA;
-    outline: none;
-  }
-  
-  /* Кнопка подтверждения */
-  button {
-    background-color: #45EFDA;
-    color: white;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Эффект наведения на кнопку */
-  button:hover {
-    background-color: #2c9d86;
-  }
-  
-  /* Анимации */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
-  @keyframes slideUp {
-    from {
-      transform: translateY(30px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-  
+/* Контент модального окна */
+.modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  text-align: left;
+  position: relative;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.3s ease-out;
+}
 
+/* Кнопка закрытия */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #45efda;
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: color 0.3s ease;
+}
 
+/* Эффект наведения на кнопку закрытия */
+.close:hover,
+.close:focus {
+  color: #2c9d86;
+}
+
+/* Заголовки в модальном окне */
+.modal-content h1,
+.modal-content h2,
+.modal-content h3 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Абзацы */
+.modal-content p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+  margin: 10px 0;
+  text-align: left;
+}
+
+/* Убираем маркеры списка и добавляем отступы */
+.modal-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 15px 0;
+}
+
+.modal-content li {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.modal-content li::before {
+  content: "✔";
+  color: #45efda;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 18px;
+}
+
+/* Поле ввода */
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  transition: border-color 0.3s ease;
+}
+
+/* Изменение границы при фокусе */
+input[type="text"]:focus,
+textarea:focus {
+  border-color: #45efda;
+  outline: none;
+}
+
+/* Кнопка подтверждения */
+button {
+  background-color: #45efda;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Эффект наведения на кнопку */
+button:hover {
+  background-color: #2c9d86;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
 #manual-city-button {
   background-color: #4b4a4a;
@@ -414,19 +412,17 @@ body {
   background-color: #333;
 }
 
-
-
-
 #login-button a {
-  display: block; 
+  display: block;
   width: 100%;
   height: 100%;
-  text-decoration: none; 
+  text-decoration: none;
   color: inherit;
 }
 
-#add-scooter:hover, #login-button:hover {
-  background-color: #45EFDA;
+#add-scooter:hover,
+#login-button:hover {
+  background-color: #45efda;
 }
 .scooter-content {
   display: flex;
@@ -456,7 +452,7 @@ body {
   background-color: #222;
   padding-left: 10px;
   margin-left: auto;
-  transform: skewX(-1deg); 
+  transform: skewX(-1deg);
   border-radius: 4px;
   width: 280px;
   height: 40px;
@@ -498,7 +494,9 @@ body {
 .search-button img {
   width: 22px;
   height: 22px;
-  transition: transform 0.2s ease-in-out, opacity 0.2s;
+  transition:
+    transform 0.2s ease-in-out,
+    opacity 0.2s;
 }
 
 .search-button:hover img {
@@ -514,11 +512,13 @@ body {
 /* Подменю */
 .submenu {
   opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
   height: auto;
   pointer-events: none;
   margin-left: 55px;
-  margin-top: 48px; 
+  margin-top: 48px;
   visibility: hidden;
   transform: translateY(-10px);
   display: none;
@@ -535,10 +535,10 @@ body {
 .submenu ul {
   display: flex;
   flex-direction: row;
-  justify-content: space-between; 
+  justify-content: space-between;
   list-style-type: none;
   padding: 0;
-  margin: 0; 
+  margin: 0;
 }
 
 .submenu ul li {
@@ -552,11 +552,10 @@ body {
   font-size: 13px;
   font-weight: 700;
   display: block;
-  padding: 10px 5px; 
-  text-transform: uppercase; 
+  padding: 10px 5px;
+  text-transform: uppercase;
   text-align: center;
 }
-
 
 .submenu ul li a:hover {
   background-color: #1c1c1c;
@@ -564,11 +563,10 @@ body {
   transition: all 0.3s ease;
 }
 
-
 .submenu ul li:not(:last-child)::after {
-  content: '';
+  content: "";
   position: absolute;
-  height: calc(100% + 20px); 
+  height: calc(100% + 20px);
   width: 1px;
   background-color: #4b4a4a;
   top: -10px;
@@ -578,12 +576,12 @@ body {
 
 /* Контейнер действий */
 .action-container {
-  transition: margin-left 0.3s ease; 
+  transition: margin-left 0.3s ease;
 }
 
 /* При сворачивании */
 .header.collapsed .action-container {
-  margin-left: -7px; 
+  margin-left: -7px;
 }
 
 /* Иконка меню */
@@ -595,50 +593,46 @@ body {
 }
 
 .menu-icon:hover {
-  color: #45EFDA;
+  color: #45efda;
 }
 
-
-  @media screen and (max-width: 768px) {
-    .header {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      height: auto;
-      padding: 10px 15px;
-      width: 100%;
-    }
-  
-    #parallelogram,
-    #location-container,
-    .contact-number {
-      display: none;
-    }
-  
-
-    .action-container {
-      left: 0;
-      width: 103%;
-      padding:3px;
-      display: flex;
-      justify-content: space-between;
-      transform: none;
-      height: auto;
-    }
-  
-    .user-actions {
-      justify-content: space-around;
-      width: 100%;
-      height: auto;
-    }
-
-    .submenu ul li a {
-      margin-right: -10px;
-    }
-
-    .submenu ul li:not(:last-child)::after {
-      display: none;
-    }
-
+@media screen and (max-width: 768px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 10px 15px;
+    width: 100%;
   }
-  
+
+  #parallelogram,
+  #location-container,
+  .contact-number {
+    display: none;
+  }
+
+  .action-container {
+    left: 0;
+    width: 103%;
+    padding: 3px;
+    display: flex;
+    justify-content: space-between;
+    transform: none;
+    height: auto;
+  }
+
+  .user-actions {
+    justify-content: space-around;
+    width: 100%;
+    height: auto;
+  }
+
+  .submenu ul li a {
+    margin-right: -10px;
+  }
+
+  .submenu ul li:not(:last-child)::after {
+    display: none;
+  }
+}

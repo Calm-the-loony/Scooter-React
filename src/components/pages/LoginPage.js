@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../../style/styles.scss';
-import { AuthService } from '../../service/api/auth/AuthApiService';
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../../state/actions/authAction';
-
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../../style/styles.scss";
+import { AuthService } from "../../service/api/auth/AuthApiService";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../state/actions/authAction";
 
 const LoginPage = () => {
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    AuthService.loginUser(email, password).then(() => {
-      dispatch(loginUser());
-      navigate('/account');
-    }).catch(() => {
-      setError('Неверные данные для входа или ошибка соединения');
-    });
+    AuthService.loginUser(email, password)
+      .then(() => {
+        dispatch(loginUser());
+        navigate("/account");
+      })
+      .catch(() => {
+        setError("Неверные данные для входа или ошибка соединения");
+      });
   };
 
   const handleNavigateToRegister = () => {
-    navigate('/register');
+    navigate("/register");
   };
 
   return (
@@ -57,15 +57,11 @@ const LoginPage = () => {
             />
           </div>
 
-          <button type="submit" className="btn-login">Войти</button>
+          <button type="submit" className="btn-login">
+            Войти
+          </button>
         </form>
-        {error.length > 0 ? 
-          <div className='error'>
-            {error}
-          </div>
-          :
-          ""
-        }
+        {error.length > 0 ? <div className="error">{error}</div> : ""}
         <div></div>
         <div className="register-text">
           Нет аккаунта?{" "}
