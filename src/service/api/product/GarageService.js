@@ -1,10 +1,10 @@
 import axios from "axios";
-import { AuthService } from "../auth/AuthApiService";
 import { parseCookieString } from "../../token_service";
 
 export default class GarageApiService {
   static async productForGarage(id_mark, id_moto_type, id_model) {
     try {
+
       const cookies = parseCookieString();
       id_mark ??= null;
       id_model ??= null;

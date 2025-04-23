@@ -69,7 +69,6 @@ const GaragePage = () => {
     const reqModels = async () => {
       let allModels = await ProductApiService.allModels();
       if (allModels) {
-        console.log(allModels);
         setModels(allModels.all_models);
       }
     };
@@ -108,19 +107,21 @@ const GaragePage = () => {
       scooterData.id_model,
     ).then((productData) => {
       setSelectedScooter(scooterData);
-      setDetails(productData.products);
+      if (productData.products) {
+        setDetails(productData.products);
+      }
     });
   };
 
   // Удаление мототранспорта
   const removeScooter = (index) => {
-    const req = GarageApiService.deleteTransport(index).then((ok) => {
+    GarageApiService.deleteTransport(index).then(() => {
       setGarage((garage) => garage.filter((el) => el.id_garage !== index));
     });
   };
 
-  const totalPages = Math.ceil(details.length / ITEMS_PER_PAGE);
-  const paginatedDetails = details.slice(
+  const totalPages = Math.ceil(details?.length / ITEMS_PER_PAGE);
+  const paginatedDetails = details?.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE,
   );
