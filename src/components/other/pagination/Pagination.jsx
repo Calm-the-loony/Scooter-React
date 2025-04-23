@@ -2,6 +2,7 @@ import { Pagination, Stack } from "@mui/material";
 import { useState, Fragment, useEffect } from "react";
 
 import ProductCard from "../../cards/ProductCard";
+import NotFoundProducts from "../../notFound/notFoundProducts";
 
 
 function PaginationScooter({items, type = "rounded", typePagination='product', methods={}}) {
@@ -11,6 +12,8 @@ function PaginationScooter({items, type = "rounded", typePagination='product', m
     
     // Страница
     const [currentPage, setCurrentPage] = useState(1);
+
+    const [notFoundProducts, setNotFoundProducts] = useState(false);
 
     // Настройки
     const spacing = 2;
@@ -47,6 +50,12 @@ function PaginationScooter({items, type = "rounded", typePagination='product', m
      * Прослушивание изменения items
      */
     useEffect(() => {
+        if (items.length < 1) {
+          setNotFoundProducts(true);
+        } else {
+          setNotFoundProducts(false);
+        }
+        
         if (items) {
             setItems([...items]);
             changePage(null, currentPage);
@@ -59,7 +68,7 @@ function PaginationScooter({items, type = "rounded", typePagination='product', m
     switch (typePagination) {
         case "product":
             bodyPaginationData = <div className="cards-container">
-                {dataItems.length > 0 ? (
+                {
                     dataItems.map((item) => (
                     <ProductCard
                         key={item.id_product}
@@ -78,16 +87,12 @@ function PaginationScooter({items, type = "rounded", typePagination='product', m
                         tags={item.label_product}
                     />
                     ))
-                ) : (
-                    <div className="no-products">
-                    <p>Товаров, соответствующих вашему запросу, не обнаружено.</p>
-                    </div>
-                )}
+                }
             </div>;
             break;
         case "order":
             bodyPaginationData = <div className="cards-container">
-            {dataItems.length > 0 ? (
+            {
                 dataItems.map((item, index) => (
                     <div key={index} className="order-card">
                     <h3 className="order-title">Заказ №{item.product_data.id}</h3>
@@ -124,11 +129,7 @@ function PaginationScooter({items, type = "rounded", typePagination='product', m
                     </ul>
                   </div>
                 ))
-            ) : (
-                <div className="no-products">
-                <p>Заказы не были найдены</p>
-                </div>
-            )}
+            }
             </div>;
             break;
         case "favourite":
@@ -160,8 +161,12 @@ function PaginationScooter({items, type = "rounded", typePagination='product', m
 
     return (
         <div style={{marginTop: "25px"}}>
-            {bodyPaginationData}
-            <Stack spacing={spacing} alignItems="center" style={{margin: "auto", marginTop: "20px"}}>
+          {notFoundProducts ? 
+          <NotFoundProducts />
+          :
+          <Fragment>
+              {bodyPaginationData}
+              <Stack spacing={spacing} alignItems="center" style={{margin: "auto", marginTop: "20px"}}>
                 <Pagination 
                 count={Math.round((items.length > dataItems.length ? items.length : dataItems.length) / maxLength)}
                 shape={type}
@@ -169,6 +174,8 @@ function PaginationScooter({items, type = "rounded", typePagination='product', m
                 onChange={(changePage)}
                 />
             </Stack>
+          </Fragment>
+        }
         </div>
     )
 }
