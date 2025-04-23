@@ -1,5 +1,6 @@
 import { Pagination, Stack } from "@mui/material";
 import { useState, Fragment, useEffect } from "react";
+
 import ProductCard from "../../cards/ProductCard";
 
 
@@ -60,7 +61,8 @@ function PaginationScooter({items, type = "rounded", typePagination='product', m
             bodyPaginationData = <div className="cards-container">
                 {dataItems.length > 0 ? (
                     dataItems.map((item) => (
-                    <ProductCard 
+                    <ProductCard
+                        key={item.id_product}
                         id={item.id_product}
                         stock={item.quantity_product}
                         type={item.type_pr}
@@ -157,9 +159,9 @@ function PaginationScooter({items, type = "rounded", typePagination='product', m
 
 
     return (
-        <Fragment>
+        <div style={{marginTop: "25px"}}>
             {bodyPaginationData}
-            <Stack spacing={spacing} alignItems="center" style={{margin: "auto"}}>
+            <Stack spacing={spacing} alignItems="center" style={{margin: "auto", marginTop: "20px"}}>
                 <Pagination 
                 count={Math.round((items.length > dataItems.length ? items.length : dataItems.length) / maxLength)}
                 shape={type}
@@ -167,7 +169,7 @@ function PaginationScooter({items, type = "rounded", typePagination='product', m
                 onChange={(changePage)}
                 />
             </Stack>
-        </Fragment>
+        </div>
     )
 }
 

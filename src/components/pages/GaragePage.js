@@ -72,6 +72,7 @@ const GaragePage = () => {
     const reqModels = async () => {
       let allModels = await ProductApiService.allModels();
       if (allModels) {
+        console.log(allModels);
         setModels(allModels.all_models);
       }
     }
@@ -171,7 +172,7 @@ const GaragePage = () => {
               placeholder="Марка"
               list="mark-list"
               value={newScooter.mark}
-              onChange={(e) => setNewScooter({ ...newScooter, mark: e.target.value, id_mark: marks.find((el, index, array) => el.name_mark === e.target.value).id_mark})}
+              onChange={(e) => setNewScooter({ ...newScooter, mark: e.target.value, id_mark: marks.find((el, index, array) => el.name_mark === e.target.value)?.id_mark})}
             />
             <datalist id="mark-list">
               {marks.map((mark) => (
@@ -183,7 +184,7 @@ const GaragePage = () => {
               placeholder="Модель"
               list="model-list"
               value={newScooter.model}
-              onChange={(e) => setNewScooter({ ...newScooter, model: e.target.value, id_model: models.find((el) => el.name_model === e.target.value).id_model })}
+              onChange={(e) => setNewScooter({ ...newScooter, model: e.target.value, id_model: models.find((el) => el.name_model === e.target.value)?.id_model })}
             />
             <datalist id="model-list">
               {models.map((model) => (

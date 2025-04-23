@@ -8,6 +8,7 @@ import PaginationScooter from "../other/pagination/Pagination";
 
 
 const CategoryPage = () => {
+
   const location = useLocation();
   const initialCategoryId = location.state?.categoryId || null;
 

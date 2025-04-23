@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import { UserApiService } from "../../service/api/user/UserApiService";
 import "../../style/ProductCard.scss";
 
 
 const ProductCard = ({ id, stock, type, brand, model, category, image, name, price }) => {
+
+  const auth = useSelector(state => state.isAuthenticated);
+  
   const [isFavorite, setIsFavorite] = useState(false);
   const [idFavourite, setIdFavourite] = useState(null);
   const navigate = useNavigate();
@@ -60,7 +65,7 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
   };
 
   return (
-    <div className="product-card" data-id={id}>
+    <div className="product-card" data-id={id} key={id}>
       <img src={image? image : ""} alt={name} />
       <div className="details">
         <p className="category">{category}</p>
@@ -69,7 +74,7 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
           <div className="original-price-wrapper no-discount">
             <span className="original-prices">{price} ₽</span>
           </div>
-          <button className="add-to-cart" onClick={handleAddToCart}>
+          <button className={`add-to-cart ${!auth ? "disabled": ""}`} onClick={handleAddToCart} disabled={!auth}>
             <i className="fas fa-shopping-cart"></i>
           </button>
           <a className="button_more" onClick={handleCardClick}>
@@ -77,7 +82,8 @@ const ProductCard = ({ id, stock, type, brand, model, category, image, name, pri
           </a>
         </div>
         <button
-          className={`add-to-favorites ${isFavorite ? "active" : ""}`}
+          className={`add-to-favorites ${isFavorite ? "active" : ""} ${!auth ? "disabled": ""}`}
+          disabled={!auth}
           onClick={(e) => handleAddToFavorites(e, id)}
         >
           <i className="fas fa-heart"></i>
