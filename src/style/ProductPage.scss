@@ -28,7 +28,7 @@ $box-shadow-color: rgba(64, 224, 208, 0.6);
 // Основные стили
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   background-color: $background-color-light;
   color: $text-color-dark;
 }
@@ -39,7 +39,7 @@ body {
   align-items: center;
   padding: 20px;
   margin-top: 130px;
-  min-height: 100vh; 
+  min-height: 100vh;
 }
 
 .product-details {
@@ -52,9 +52,9 @@ body {
 
   .product-image {
     img {
-      width: 500px; 
+      width: 500px;
       border-radius: $border-radius;
-      max-width: 100%; 
+      max-width: 100%;
     }
   }
 
@@ -116,7 +116,7 @@ body {
     align-items: center;
 
     .product-image img {
-      width: 100%; 
+      width: 100%;
     }
 
     .product-info {
@@ -135,9 +135,6 @@ body {
   margin-top: 30px;
   width: 100%;
   max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  transform: translateX(-200px); 
 }
 
 .accordion-container {
@@ -208,7 +205,7 @@ body {
       .accordion-item {
         .accordion-header {
           padding: 10px;
-          font-size: 1.1rem; 
+          font-size: 1.1rem;
         }
 
         .accordion-content {
@@ -294,12 +291,12 @@ body {
 }
 
 .star.filled {
-  color: #FFD700; /* Желтый для заполненных звезд */
+  color: #ffd700; /* Желтый для заполненных звезд */
 }
 
 /* Кнопка для добавления отзыва */
 .review-button {
-  background-color: #45EFDA;
+  background-color: #45efda;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -334,7 +331,7 @@ body {
 }
 
 .review-form button {
-  background-color: #5578DF;
+  background-color: #5578df;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -372,10 +369,127 @@ body {
 }
 
 .star.filled {
-  color: #FFD700; /* Желтый цвет для заполненной звезды */
+  color: #ffd700; /* Желтый цвет для заполненной звезды */
 }
 
 .review-rating span {
   font-size: 1.5rem; /* Увеличиваем размер звезд в отзывах */
-  color: #FFD700; /* Желтые звезды */
+  color: #ffd700; /* Желтые звезды */
+}
+
+/**
+  Секция отзывов карточки товара
+ */
+.product-other {
+  width: 70%;
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+
+.product-review__create {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    color: #4b4a4a;
+    font-weight: bold;
+  }
+}
+
+.product-review__products {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.review-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  .review-card__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .review-card__header-info {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    gap: 20px;
+    color: #4b4a4a;
+  }
+
+  .review-card__body {
+    margin-top: 15px;
+  }
+}
+
+.review-create-form {
+  position: absolute;
+  width: 50%;
+  border-radius: 5px;
+  margin: auto;
+  margin-top: 35%;
+  background-color: white;
+  z-index: 1000;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  form {
+    width: 60%;
+    padding: 20px;
+    gap: 15px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+
+    textarea {
+      resize: vertical;
+    }
+
+    h3 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .input-element {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .rating-mini {
+      display: inline-block;
+      font-size: 0;
+    }
+
+    .rating-mini span {
+      padding: 0;
+      font-size: 20px;
+      line-height: 1;
+      color: lightgrey;
+    }
+
+    .rating-mini > span:before {
+      content: '★';
+    }
+
+    .rating-mini > span.active {
+      color: gold;
+    }
+
+    span {
+      cursor: pointer;
+    }
+  }
 }

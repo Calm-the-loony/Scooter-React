@@ -1,12 +1,12 @@
 export const loginUser = () => {
-    return {
-        type: "AUTH",
-        payload: {},
-    };
-}
+  return {
+    type: "AUTH",
+    payload: {},
+  };
+};
 
 export const exitUser = () => {
-    return {
-        type: "AUTH_EXIT"
-    };
-}
+  return {
+    type: "AUTH_EXIT",
+  };
+};

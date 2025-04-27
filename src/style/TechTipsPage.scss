@@ -9,7 +9,7 @@ $background-color: #f7f7f7;
 $highlight-color: #45efda;
 $text-color-primary: #333;
 $text-color-secondary: #555;
-$primary-color: #5578DF;
+$primary-color: #5578df;
 $box-shadow-color: rgba(0, 0, 0, 0.1);
 $border-radius: 8px;
 $padding: 20px;
@@ -42,7 +42,10 @@ $margin-bottom: 30px;
     }
   }
 
-  .component, .article, .faq-item, .maintenance-tips {
+  .component,
+  .article,
+  .faq-item,
+  .maintenance-tips {
     margin-bottom: 20px;
     padding: 10px;
 
@@ -94,7 +97,7 @@ $margin-bottom: 30px;
   margin-bottom: 30px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  
+
   h2 {
     text-align: center;
     margin-bottom: 20px;
@@ -105,7 +108,7 @@ $margin-bottom: 30px;
     margin-left: 20px;
     list-style-type: disc;
     color: #555;
-    
+
     li {
       margin-bottom: 10px;
       font-size: 1.1em;

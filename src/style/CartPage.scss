@@ -9,7 +9,7 @@ $text-color-dark: #333;
 $text-color-light: #555;
 $background-color-light: #f9f9f9;
 $border-color: #ddd;
-$background-color:#333;
+$background-color: #333;
 
 // Основные стили
 .cart-container {
@@ -20,7 +20,7 @@ $background-color:#333;
 
 .cart-header {
   display: flex;
-  justify-content: center;  
+  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
 }
@@ -28,7 +28,7 @@ $background-color:#333;
 .cart-title {
   font-size: 24px;
   font-weight: bold;
-  text-align: center;  
+  text-align: center;
 }
 
 .cart-list {
@@ -69,7 +69,6 @@ $background-color:#333;
   font-size: 16px; // Было 14px
   color: $text-color-dark;
 }
-
 
 .quantity-container {
   display: flex;
