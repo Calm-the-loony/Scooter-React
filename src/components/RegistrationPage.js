@@ -24,7 +24,9 @@ const RegisterPage = () => {
       localStorage.setItem('isAdmin', 'false');
     }
 
-    navigate('/account');
+    // Редирект на страницу подтверждения кода
+    navigate('/confirm-code');
+
   };
 
   return (
@@ -72,3 +74,4 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
+

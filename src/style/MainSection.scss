@@ -43,18 +43,28 @@
     background-color: red;
     color: white;
     cursor: pointer;
+    height: 39px;
   }
   
-  .filters input[type="text"],
-  .filters select {
+  .parts-search .filters select {
     padding: 10px;
     border: none;
     border-radius: 5px;
     margin-right: 10px;
     width: 300px;
     background-color: #fff;
-    height: auto !important;
+    height: 39.5px !important;
   }
+  .parts-search .filters input[type="text"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 300px;
+    background-color: #fff;
+    height: 39px !important; /* Явно указываем высоту */
+  }
+  
   
   /* стили для секции категорий */
 .categories-section {

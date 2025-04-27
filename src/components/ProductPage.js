@@ -5,7 +5,7 @@ import products from "../data/products";
 import "../style/ProductPage.scss";
 
 // Компонент аккордеона
-const Accordion = ({ product }) => {
+const Accordion = ({ product, reviews, handleSubmit, handleChange, form }) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const toggleAccordion = (index) => {
@@ -54,31 +54,76 @@ const Accordion = ({ product }) => {
         <div className={`accordion-item ${activeIndex === 2 ? "open" : ""}`}>
           <div className="accordion-header" onClick={() => toggleAccordion(2)}>
             <span>Отзывы</span>
-            <i
-              className={`fas fa-chevron-${activeIndex === 2 ? "up" : "down"}`}
-            ></i>
+            <i className={`fas fa-chevron-${activeIndex === 2 ? "up" : "down"}`}></i>
           </div>
           {activeIndex === 2 && (
             <div className="accordion-content">
-              <p>Отзывов пока нет.</p>
-              <h3>Будьте первым, кто оставил отзыв на “{product.name}”</h3>
-              <form>
-                <label>Имя *</label>
-                <input type="text" required />
-                <label>Email *</label>
-                <input type="email" required />
-                <label>Ваша оценка *</label>
-                <select required>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-                <label>Ваш отзыв *</label>
-                <textarea required></textarea>
-                <button type="submit">Отправить</button>
-              </form>
+              {reviews.length > 0 ? (
+                <div className="reviews-list">
+                  {reviews.map((rev, index) => (
+                    <div key={index} className="review">
+                      <p>
+                        <strong>{rev.name}</strong> ({rev.date})
+                      </p>
+                      <p>Оценка: {"⭐".repeat(rev.rating)}</p>
+                      <p>{rev.text}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p>Отзывов пока нет.</p>
+              )}
+              
+              {/* Убираем приглашение, если есть отзывы */}
+              {reviews.length === 0 && (
+                <h3>Будьте первым, кто оставил отзыв на “{product.name}”</h3>
+              )}
+
+              <div className="review-form-wrapper">
+                <h3>Оставьте ваш отзыв</h3>
+                <form onSubmit={handleSubmit}>
+                  <label>Имя *</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="Имя *"
+                  />
+                  <label>Email *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="Email *"
+                  />
+                  <label>Ваша оценка *</label>
+                  <select
+                    name="rating"
+                    value={form.rating}
+                    onChange={handleChange}
+                    required
+                  >
+                    {[1, 2, 3, 4, 5].map((num) => (
+                      <option key={num} value={num}>
+                        {num}
+                      </option>
+                    ))}
+                  </select>
+                  <label>Ваш отзыв *</label>
+                  <textarea
+                    name="text"
+                    value={form.text}
+                    onChange={handleChange}
+                    required
+                    placeholder="Ваш отзыв *"
+                  ></textarea>
+                  <button type="submit">Отправить</button>
+                </form>
+              </div>
             </div>
           )}
         </div>
@@ -91,7 +136,7 @@ const ProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const { addToCart } = useContext(CartContext);
-
+  
   const [favorites, setFavorites] = useState(() => {
     const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
     return storedFavorites;
@@ -100,6 +145,47 @@ const ProductPage = () => {
   const [viewedProducts, setViewedProducts] = useState(() => {
     return JSON.parse(localStorage.getItem("viewedProducts")) || [];
   });
+
+  // Состояние для отзывов
+  const [reviews, setReviews] = useState([]);
+
+  // Состояние формы
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    rating: "",
+    text: ""
+  });
+
+  // Обработчик изменения данных формы
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: value
+    }));
+  };
+
+  // Обработчик отправки формы
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newReview = {
+      name: form.name,
+      date: new Date().toLocaleDateString(),
+      rating: parseInt(form.rating),
+      text: form.text
+    };
+
+    setReviews((prevReviews) => [...prevReviews, newReview]);
+
+    // Очистка формы после отправки
+    setForm({
+      name: "",
+      email: "",
+      rating: "",
+      text: ""
+    });
+  };
 
   useEffect(() => {
     const fetchedProduct = products.find((product) => product.id === id);
@@ -192,7 +278,13 @@ const ProductPage = () => {
       </div>
 
       <div className="accordion-wrapper">
-        <Accordion product={product} />
+        <Accordion
+          product={product}
+          reviews={reviews}
+          handleSubmit={handleSubmit}
+          handleChange={handleChange}
+          form={form}
+        />
       </div>
 
       {/* Просмотренные товары */}

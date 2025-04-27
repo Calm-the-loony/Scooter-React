@@ -1,0 +1,172 @@
+.payment-container {
+  max-width: 600px;
+  margin: 100px auto;
+  padding: 40px;
+  background: #f9f9f9; // Нейтральный фон
+  border-radius: 20px;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .payment-header {
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #ddd;
+
+    h2 {
+      font-size: 28px;
+      color: #333;
+      font-weight: bold;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #333;
+      }
+
+      select {
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        background: #fff;
+        transition: 0.3s;
+
+        &:focus {
+          border-color: #45efda; 
+          background: #fff;
+          box-shadow: 0 0 8px rgba(69, 239, 218, 0.3);
+          outline: none;
+        }
+      }
+    }
+
+    .pickup-info {
+      padding: 18px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+
+      h4 {
+        margin-bottom: 8px;
+        color: #333;
+        font-size: 18px;
+      }
+
+      p {
+        margin: 0;
+        font-size: 16px;
+        color: #777;
+      }
+    }
+
+    .card-visual {
+      perspective: 1200px;
+      width: 100%;
+      height: 270px;
+      position: relative;
+
+      .card-front, .card-back {
+        background: linear-gradient(135deg, #45efda, #2fac9e); /* Градиентный фон */
+        padding: 30px 25px;
+        border-radius: 16px;
+        color: #fff;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        font-family: 'Roboto', sans-serif;
+        transition: transform 0.6s, box-shadow 0.3s;
+
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Тень для глубины */
+      }
+
+      .card-back {
+        transform: rotateY(180deg);
+        align-items: center;
+        font-size: 24px;
+      }
+
+      &.flipped .card-front {
+        transform: rotateY(180deg);
+      }
+
+      &.flipped .card-back {
+        transform: rotateY(360deg);
+      }
+
+      input {
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid #fff;
+        padding: 10px 0;
+        font-size: 18px;
+        color: #fff;
+        width: 100%;
+        transition: 0.3s;
+
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        &:focus {
+          border-bottom: 2px solid #fff;
+          outline: none;
+        }
+      }
+
+      .card-number input {
+        letter-spacing: 2px;
+        font-size: 22px;
+      }
+
+      .card-row {
+        display: flex;
+        gap: 15px;
+
+        .card-name {
+          flex: 2;
+        }
+        .card-expiry, .card-cvc {
+          flex: 1;
+        }
+      }
+    }
+
+    .submit-button {
+      width: 100%;
+      padding: 16px;
+      font-size: 18px;
+      background-color: #45efda;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+
+      &:hover {
+        background-color: #2fac9e;
+        transform: scale(1.05);
+      }
+    }
+  }
+}

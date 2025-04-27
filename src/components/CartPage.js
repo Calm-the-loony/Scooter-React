@@ -1,53 +1,27 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom"; // Для перехода
 import { CartContext } from "../context/CartContext";
 import "../style/CartPage.scss";
 
 const CartPage = () => {
   const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, clearCart } = useContext(CartContext);
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("delivery");
-  const [paymentMethod, setPaymentMethod] = useState("card");
+  const navigate = useNavigate(); // Для навигации
 
   const calculateTotal = () => {
     return cartItems
       .reduce((acc, item) => {
-        const itemPrice = parseFloat(item.price.replace(' ₽', '').replace(',', '.')); // Replace and parse price correctly
+        const itemPrice = parseFloat(item.price.replace(' ₽', '').replace(',', '.'));
         const itemQuantity = parseInt(item.quantity, 10);
         return acc + (itemPrice * itemQuantity || 0);
       }, 0)
-      .toFixed(2); // Ensure two decimal places
+      .toFixed(2);
   };
 
   const totalPrice = calculateTotal();
 
   const handlePurchase = () => {
-    setModalOpen(true);
-  };
-
-  const handleConfirm = () => {
-    const user = JSON.parse(localStorage.getItem("userData")) || {};
-    const orders = user.orders || [];
-
-    const newOrder = {
-      id: orders.length + 1,
-      date: new Date().toLocaleString(),
-      status: "Ожидает обработки",
-      items: cartItems,
-      total: totalPrice,
-      deliveryMethod: selectedOption === "delivery" ? "Доставка" : "Самовывоз",
-      paymentMethod: paymentMethod === "card" ? "Карта" : "Наличные",
-    };
-
-    user.orders = [...orders, newOrder];
-    localStorage.setItem("userData", JSON.stringify(user));
-
-    alert(`Ваш заказ успешно оформлен! 
-    Способ доставки: ${newOrder.deliveryMethod}
-    Способ оплаты: ${newOrder.paymentMethod}
-    Сумма: ${totalPrice} ₽`);
-
-    setModalOpen(false);
-    clearCart();
+    // Переход на страницу оформления заказа
+    navigate("/checkout");
   };
 
   return (
@@ -103,66 +77,6 @@ const CartPage = () => {
           </button>
         )}
       </div>
-
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <h3>Подтверждение заказа</h3>
-            <p>Выберите способ доставки:</p>
-            <div>
-              <label>
-                <input
-                  type="radio"
-                  value="delivery"
-                  checked={selectedOption === "delivery"}
-                  onChange={() => setSelectedOption("delivery")}
-                />
-                Доставка
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value="pickup"
-                  checked={selectedOption === "pickup"}
-                  onChange={() => setSelectedOption("pickup")}
-                />
-                Самовывоз
-              </label>
-            </div>
-
-            <p>Выберите способ оплаты:</p>
-            <div>
-              <label>
-                <input
-                  type="radio"
-                  value="card"
-                  checked={paymentMethod === "card"}
-                  onChange={() => setPaymentMethod("card")}
-                />
-                Карта
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value="cash"
-                  checked={paymentMethod === "cash"}
-                  onChange={() => setPaymentMethod("cash")}
-                />
-                Наличные
-              </label>
-            </div>
-
-            <div className="modal-actions">
-              <button className="confirm-button" onClick={handleConfirm}>
-                Подтвердить
-              </button>
-              <button className="cancel-button" onClick={() => setModalOpen(false)}>
-                Отмена
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

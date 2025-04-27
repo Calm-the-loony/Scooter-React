@@ -273,16 +273,19 @@ const AccountPage = () => {
           </>
         ) : (
           <div className="auth-redirect">
+          <div className="auth-card">
+            <i className="fa fa-lock auth-icon"></i>
             <h2>Вы не авторизованы</h2>
+            <p className="auth-message">Для доступа к личному кабинету выполните вход или зарегистрируйтесь.</p>
             <button onClick={() => navigate('/login')} className="auth-btn">
-              <i className="fa fa-sign-in-alt"></i> Авторизоваться
+              <i className="fa fa-sign-in-alt"></i> Войти
             </button>
-            <p>
-              <button onClick={() => navigate('/register')} className="auth-btn">
-                <i className="fa fa-user-plus"></i> Зарегистрироваться
-              </button>
-            </p>
+            <button onClick={() => navigate('/register')} className="auth-btn register-btn">
+              <i className="fa fa-user-plus"></i> Зарегистрироваться
+            </button>
           </div>
+        </div>
+        
         )}
       </div>
     </div>

@@ -219,6 +219,104 @@ body {
   }
 }
 
+.reviews-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .review {
+    background: #f9fcff; /* Легкий фон для плашки отзыва */
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 5px solid #45efda; /* Подчеркнутый левый бордер для акцента */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+
+      .review-rating {
+        font-size: 1.5rem;
+        color: #f1c40f;
+      }
+
+      .review-author {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #333;
+      }
+    }
+
+    .review-text {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .review-date {
+      font-size: 0.9rem;
+      color: #849fff; /* Цвет для даты, как акцент */
+      text-align: right;
+      margin-top: 10px;
+    }
+  }
+}
+
+
+
+.review-form-wrapper {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: $text-color-dark;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: $text-color-dark;
+  }
+
+  input,
+  select,
+  textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+  }
+
+  button {
+    @include button-style($primary-color, $secondary-color);
+  }
+}
+
+// Оформление для просмотра товаров
 .viewed-products {
   margin-top: 40px;
 

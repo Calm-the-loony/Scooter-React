@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import "../style/Header.scss";
 import "font-awesome/css/font-awesome.min.css";
 import logoImage from "../image/Дизайн.png";
-import searchIcon from "../image/free-icon-loupe-2482343.png";
+// import searchIcon from "../image/free-icon-loupe-2482343.png";
+import { Search } from "lucide-react";
 import favoriteIcon from "../image/favorite.png";
 import scooterIcon from "../image/scooter.png";
 import cartIcon from "../image/cart.png";
@@ -128,20 +129,18 @@ const Header = () => {
         </div>
 
         <div className="action-container">
-          <div className="search-bar">
-            <input
-              type="text"
-              placeholder="Поиск..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-            <img
-              src={searchIcon}
-              className="search-icon"
-              alt="Поиск"
-              onClick={handleSearchClick}
-            />
-          </div>
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Поиск..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+          <button className="search-button" onClick={handleSearchClick} >
+          <Search size={20} strokeWidth={2} color="white" className="flipped-icon"/>
+          </button>
+        </div>
+
 
           <div className="user-actions">
             <button onClick={handleFavoriteClick}>
