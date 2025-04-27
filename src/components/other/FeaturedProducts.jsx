@@ -1,4 +1,4 @@
-// src/components/FeaturedProducts.js
+// src/components/FeaturedProducts.jsx
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import ProductCard from "../cards/ProductCard"; // Убедитесь, что у вас есть компонент ProductCard

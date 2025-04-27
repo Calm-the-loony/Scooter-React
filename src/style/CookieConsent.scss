@@ -35,3 +35,9 @@ $cookie-border-radius: 4px;
   border-radius: $cookie-border-radius;
   transition: background-color 0.3s;
 }
+
+.cookieSuccess {
+  color: $cookie-btn-bg-color;
+  font-weight: bold;
+  cursor: pointer
+}

@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
+
 import "../../style/CookieConsent.scss"; // Создайте стиль для плашки
 
 const CookieConsent = () => {
-  const [isVisible, setIsVisible] = useState(false);
+
+    const navigate = useNavigate();
+    const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     // Проверяем наличие согласия в localStorage
@@ -22,7 +26,9 @@ const CookieConsent = () => {
     isVisible && (
       <div className="cookie-consent">
         <p>
-          Мы используем cookies и обрабатываем персональные данные для улучшения
+          Мы используем <span onClick={() => navigate("legal")} className="cookieSuccess">
+            cookies
+        </span> и обрабатываем персональные данные для улучшения
           вашего опыта на нашем сайте. Продолжая использовать наш сайт, вы
           соглашаетесь с этим.
         </p>
