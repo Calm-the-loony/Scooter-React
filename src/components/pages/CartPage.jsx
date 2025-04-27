@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { exitUser } from "../../state/actions/authAction";
 
 const CartPage = () => {
+
   const [isModalOpen, setModalOpen] = useState(false);
   const [orderProducts, setOrderProduct] = useState(false);
   const [selectedOption, setSelectedOption] = useState("delivery");

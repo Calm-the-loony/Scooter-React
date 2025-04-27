@@ -142,7 +142,7 @@ function PaginationScooter({
       break;
     case "favourite":
       bodyPaginationData = dataItems.map((item) => (
-        <div key={item.product_info.id_favourite} className="favorite-item">
+        <div key={item.product_info.id_favourite} className="favorite-item" style={{marginBottom: "20px"}}>
           <img
             src={
               item.product_info.photos[0]

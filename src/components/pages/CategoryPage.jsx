@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import "../../style/CategoryPage.scss";
 import { ReactComponent as ArrowIcon } from "../../image/arrow-icon.svg";
 import ProductApiService from "../../service/api/product/ProductService";
@@ -7,24 +7,28 @@ import CategoryApiService from "../../service/api/product/CategoryService";
 import PaginationScooter from "../other/pagination/Pagination";
 
 const CategoryPage = () => {
+
+  const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const initialCategoryId = location.state?.categoryId || null;
 
-  const [selectedCategory, setSelectedCategory] = useState(initialCategoryId);
+  const [selectedCategory, setSelectedCategory] = useState(+initialCategoryId);
   const [categories, setCategories] = useState([]);
-  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState(searchParams.get("subcategory") ? +searchParams.get("subcategory") : null);
   const [expandedCategories, setExpandedCategories] = useState({});
   const [filters, setFilters] = useState({
-    minPrice: "",
-    maxPrice: "",
-    sort: false,
+    minPrice: searchParams.get("minPrice") ? +searchParams.get("minPrice") : "",
+    maxPrice: searchParams.get("maxPrice") ? +searchParams.get("maxPrice") : "",
+    sort: searchParams.get("sort") ? searchParams.get("sort") : null,
   });
   const [filteredProductsList, setFilteredProductsList] = useState([]);
 
+
   // Обновление категории при изменении состояния
   useEffect(() => {
-    setSelectedCategory(initialCategoryId);
-  }, [initialCategoryId]);
+    setSelectedCategory(+location.pathname.split("/")[2]);
+  }, [initialCategoryId, location]);
 
   // Обновление списка товаров при смене категории/подкатегории
   useEffect(() => {
@@ -36,10 +40,13 @@ const CategoryPage = () => {
     ProductApiService.filterProducts(
       null,
       initialCategoryId ? initialCategoryId : null,
+        selectedSubcategory,
+        filters.minPrice,
+        filters.maxPrice
     ).then((productData) => {
       // Устанавливаем данные
       setFilteredProductsList(productData);
-    });
+    }, [searchParams, location]);
 
     CategoryApiService.allCategories()
       .then((cat) => {
@@ -60,10 +67,18 @@ const CategoryPage = () => {
   const handleCategoryClick = (categoryId) => {
     setSelectedCategory(categoryId);
     setSelectedSubcategory(null);
+
+    navigate(
+        "/category/"+categoryId+"?subcategory="+selectedSubcategory+"&minPrice="+filters.minPrice+"&maxPrice="+filters.maxPrice+"&sort="+filters.sort
+    )
   };
 
-  const handleSubcategoryClick = (subcategoryId) => {
+  const handleSubcategoryClick = (subcategoryId, id_category) => {
+
     setSelectedSubcategory(subcategoryId);
+    navigate(
+        "/category/"+id_category+"?subcategory="+subcategoryId+"&minPrice="+filters.minPrice+"&maxPrice="+filters.maxPrice+"&sort="+filters.sort
+    );
   };
 
   const getCategoryName = () => {
@@ -162,7 +177,7 @@ const CategoryPage = () => {
                       <li key={sub.id_subcategory}>
                         <button
                           onClick={() =>
-                            handleSubcategoryClick(sub.id_subcategory)
+                            handleSubcategoryClick(sub.id_subcategory, category.id_category)
                           }
                           className={`subcategory-button ${+selectedSubcategory === +sub.id_subcategory ? "active" : ""}`}
                         >
