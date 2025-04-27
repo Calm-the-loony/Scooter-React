@@ -22,8 +22,7 @@ import "../../style/CategoryPage.scss";
 import CategoryApiService from "../../service/api/product/CategoryService";
 import MarkApiService from "../../service/api/product/MarkService";
 import ProductApiService from "../../service/api/product/ProductService";
-import { FaFontAwesome } from "react-icons/fa";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 const MainSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,7 +62,6 @@ const MainSection = () => {
   const [marks, setMarks] = useState(null);
   const [recProduct, setRecProduct] = useState([]);
   const [lastSellsProduct, setLastSellsProduct] = useState([]);
-  const [userOrderCnt, setUserOrder] = useState(0);
   const navigate = useNavigate();
 
   // Настройки для карусели
@@ -158,6 +156,7 @@ const MainSection = () => {
 
     const reqModels = async () => {
       const models = await ProductApiService.allModels();
+
       if (models) {
         setModels(models.all_models);
       }

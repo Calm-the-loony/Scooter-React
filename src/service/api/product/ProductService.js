@@ -128,7 +128,14 @@ export default class ProductApiService {
     try {
       const req = await axios.get(
         process.env.REACT_APP_BACKEND_URL + "/model/all",
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          }
       );
+
       return req.data;
     } catch {
       return [];

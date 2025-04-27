@@ -1,8 +1,9 @@
 import { Pagination, Stack } from "@mui/material";
-import { useState, Fragment, useEffect } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 
 import ProductCard from "../../cards/ProductCard";
 import NotFoundProducts from "../../notFound/notFoundProducts";
+import StarImage from "../../../image/star.png";
 
 function PaginationScooter({
   items,
@@ -20,7 +21,7 @@ function PaginationScooter({
 
   // Настройки
   const spacing = 2;
-  const maxLength = typePagination === "product" ? 10 : 4;
+  const maxLength = typePagination === "product" ? 10 : 5;
 
   /**
    * Переход между страницами
@@ -185,19 +186,51 @@ function PaginationScooter({
         </div>
       ));
       break;
+      case "review": {
+        bodyPaginationData = (
+            <div className="product-review__products">
+              {
+                dataItems.map((productReview) =>
+                    <article className="review-card">
+                      <div className="review-card__header">
+                        <p style={{fontWeight: "bold"}}>{productReview.user_data.user_name}</p>
+                        <div className="review-card__header-info">
+                          <p>2024-10-10</p>
+                          <div>
+                            {new Array(productReview.estimation_review).fill(1).map(() => {
+                              return (
+                                  <img
+                                      src={StarImage}
+                                      alt='Оценка'
+                                      width={20}
+                                  />
+                              )
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="review-card__body">
+                        <p>{productReview.text_review}</p>
+                      </div>
+                    </article>
+                )
+              }
+            </div>
+        )
+      }
   }
 
   return (
     <div style={{ marginTop: "25px" }}>
       {notFoundProducts ? (
-        <NotFoundProducts />
+        <NotFoundProducts text="Отзывы не были найдены" />
       ) : (
         <Fragment>
           {bodyPaginationData}
           <Stack
             spacing={spacing}
             alignItems="center"
-            style={{ margin: "auto", marginTop: "20px" }}
+            style={{ margin: "auto", marginTop: "35px" }}
           >
             <Pagination
               count={Math.round(

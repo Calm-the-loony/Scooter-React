@@ -164,7 +164,7 @@ const CategoryPage = () => {
                           onClick={() =>
                             handleSubcategoryClick(sub.id_subcategory)
                           }
-                          className={`subcategory-button ${selectedSubcategory === sub.id_subcategory ? "active" : ""}`}
+                          className={`subcategory-button ${+selectedSubcategory === +sub.id_subcategory ? "active" : ""}`}
                         >
                           {sub.name}
                         </button>

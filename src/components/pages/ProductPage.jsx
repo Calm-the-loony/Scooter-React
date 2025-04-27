@@ -1,23 +1,44 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "../../style/ProductPage.scss";
+import { useSelector } from "react-redux";
+
 import Accordion from "../other/accordion/Accordion";
 import ProductApiService from "../../service/api/product/ProductService";
+import "../../style/ProductPage.scss";
+import "../../style/ProductCard.scss";
+import Pagination from "../other/pagination/Pagination";
+
 
 const ProductPage = () => {
+
+  const selector = useSelector(state => state.isAuthenticated);
+
+  const [userStar, setUserStar] = useState(0);
+  const [userReviewDescription, setUserReviewDescription] = useState("");
+
+  const [viewedProducts, setViewedProducts] = useState(localStorage.getItem('viewedProducts') ? JSON.parse(localStorage.getItem('viewedProducts')) : []);
+
   const { id } = useParams();
+  const [created, setCreated] = useState(false);
+
   const [product, setProduct] = useState(null);
   const [favorites, setFavorites] = useState([]);
-  const [viewedProducts, setViewedProducts] = useState(() => {
-    return JSON.parse(localStorage.getItem("viewedProducts")) || [];
-  });
+  const [review, setReview] = useState([]);
 
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     ProductApiService.productData(id).then((productData) => {
       setProduct(productData);
+      localStorage.setItem(
+          "viewedProducts", JSON.stringify([productData, ...viewedProducts])
+      )
     });
+
+    ProductApiService.getAllReviewByProductId(id).then((reviewData) => {
+      setReview(reviewData?.reviews);
+    });
+
   }, [id]);
 
   if (!product) {
@@ -33,10 +54,7 @@ const ProductPage = () => {
     if (!isAlreadyFavorite) {
       const updatedFavorites = [...favorites, product];
       setFavorites(updatedFavorites);
-      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-      alert("Добавлено в избранное.");
     } else {
-      alert("Этот товар уже в избранном!");
     }
   };
 
@@ -47,6 +65,18 @@ const ProductPage = () => {
     }
     return text;
   };
+
+  function createReview() {
+      ProductApiService.createReview(
+          {
+            text_review: userReviewDescription,
+            estimation_review: userStar,
+            id_product: product.id_product
+          }
+      ).finally(() => {
+        setCreated(false);
+      })
+  }
 
   return (
     <div className="product-page">
@@ -86,14 +116,22 @@ const ProductPage = () => {
           <div className="product-stock">
             <p>
               <strong>На складе:</strong>{" "}
-              {product.quantity_product > 0 ? "В наличии" : "Не в наличии"}
+              {product.quantity_product > 0 ? "В наличии " + product.quantity_product : "Не в наличии"}
             </p>
           </div>
           <div className="product-buttons">
-            <button className="btn-cart" onClick={handleAddToCart}>
+            <button
+                className={`btn-cart ${selector ? "" : "disabled"}`}
+                onClick={handleAddToCart}
+                disabled={selector ? false : true}
+            >
               Добавить в корзину
             </button>
-            <button className="btn-favorite" onClick={handleAddToFavorites}>
+            <button
+                className={`btn-favorite ${selector ? "" : "disabled"}`}
+                onClick={handleAddToFavorites}
+                disabled={selector ? false : true}
+            >
               Добавить в избранное
             </button>
           </div>
@@ -130,26 +168,66 @@ const ProductPage = () => {
               <strong>Метки:</strong> {product.label_product}
             </p>
           </div>
+          <div className="accordion-wrapper">
+            <Accordion product={product} />
+          </div>
         </div>
       </div>
-
-      <div className="accordion-wrapper">
-        <Accordion product={product} />
-      </div>
-
-      {/* Просмотренные товары */}
-      {/* <div className="viewed-products">
-        <h2>Вы недавно смотрели</h2>
-        <div className="viewed-list">
-          {viewedProducts.map((item) => (
-            <div key={item.id} className="viewed-item">
-              <img src={item.image} alt={item.name} />
-              <p>{item.name}</p>
-              <p>{item.price} ₽</p>
-            </div>
-          ))}
+      {created ? (
+          <div className="review-create-form">
+            <form onSubmit={createReview}>
+              <h3>Отзыв на товар</h3>
+              <div className="close" style={{marginRight: "10px"}} onClick={() => {setCreated(!created)}}>
+                &times;
+              </div>
+              <div className="input-element">
+                <label htmlFor="description">Ваш прекрасный отзыв</label>
+                <textarea placeholder="Ваш отзыв" id="description" onChange={(e) => setUserReviewDescription(e.target.value)}>Ваш отзыв</textarea>
+              </div>
+              <div className="input-element">
+                <label htmlFor="estimation">Ваша оценка</label>
+                <div className="rating-mini">
+                  {[1,2,3,4,5].map((item) => (
+                      <span
+                          key={item}
+                          className={userStar >= item ? "active" : ""}
+                          onClick={() => setUserStar(item)}
+                      ></span>
+                  ))}
+                </div>
+              </div>
+              <button type="submit">Отправить</button>
+            </form>
+          </div>
+      ) : ""}
+      <br/>
+      <div className="product-other">
+        <div className="product-review">
+          <div className="product-review__create">
+            <h2>Отзывы</h2>
+            <a onClick={() => {setCreated(!created)}}>Оставить отзыв</a>
+          </div>
+          <Pagination typePagination="review" items={review} />
         </div>
-      </div> */}
+        <div className="viewed-products">
+          <h2>Вы недавно смотрели</h2>
+          <div className="viewed-list">
+            {viewedProducts.map((item, index) => {
+              if (index > 5) {
+              } else {
+                return (
+                    <div key={item.id} className="viewed-item">
+                      <img src={item?.photo[0]?.photo_url} alt={item.title_product} />
+                      <p>{item.title_product}</p>
+                      <p>{item.price_product} ₽</p>
+                    </div>
+                )
+              }
+            }
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
