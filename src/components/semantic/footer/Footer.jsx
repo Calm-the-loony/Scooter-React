@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Импорт Link
+import { Link } from "react-router-dom"; 
 import "../../../style/Footer.scss";
 import "font-awesome/css/font-awesome.min.css";
 import wbImage from "../../../image/Wb.png";
@@ -20,19 +20,19 @@ const Footer = () => {
 
   const handleSubscription = (event) => {
     event.preventDefault();
-    setIsSubscriptionConfirmed(true); // Показываем уведомление об обработке данных
+    setIsSubscriptionConfirmed(true); 
   };
 
   const redirectToWhatsApp = () => {
-    window.location.href = "https://wa.me/1234567890"; // Укажите номер для WhatsApp
+    window.location.href = "https://wa.me/1234567890"; 
   };
 
   const redirectToTelegram = () => {
-    window.location.href = "https://t.me/yourchannel"; // Укажите ссылку для Telegram
+    window.location.href = "https://t.me/yourchannel"; 
   };
 
   const makePhoneCall = () => {
-    window.location.href = "tel:+1234567890"; // Укажите телефон для звонка
+    window.location.href = "tel:+1234567890"; 
   };
 
   return (

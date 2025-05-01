@@ -3,76 +3,76 @@ import "../../style/CartPage.scss";
 import { UserApiService } from "../../service/api/user/UserApiService";
 import { useDispatch } from "react-redux";
 import { exitUser } from "../../state/actions/authAction";
+import { useNavigate } from "react-router-dom";  // Импортируем useNavigate
 
 const CartPage = () => {
-
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [orderProducts, setOrderProduct] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("delivery");
-  const [paymentMethod, setPaymentMethod] = useState("card");
+  const [orderProducts, setOrderProduct] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Инициализируем navigate
 
   const handlePurchase = () => {
-    setModalOpen(true);
-  };
-
-  const handleConfirm = () => {
-    const newOrder = {
-      id: orderProducts.length + 1,
-      date: new Date().toLocaleString(),
-      status: "Ожидает обработки",
-      items: orderProducts,
-      total: 1000,
-      deliveryMethod: selectedOption === "delivery" ? "Доставка" : "Самовывоз",
-      paymentMethod: paymentMethod === "card" ? "Карта" : "Наличные",
-    };
-
-    alert(`Ваш заказ успешно оформлен! 
-    Способ доставки: ${newOrder.deliveryMethod}
-    Способ оплаты: ${newOrder.paymentMethod}
-    Сумма: ${1000} ₽`);
-
-    setModalOpen(false);
-    // clearCart();
+    // Навигация на страницу оформления заказа при нажатии на кнопку
+    navigate("/checkout");
   };
 
   const plusProduct = (id_order) => {
-    const newOrderData = orderProducts.map((el, indx) => {
-      if (el.order_data.id_order === id_order) {
-        orderProducts[indx].order_data.quantity += 1;
-      }
-      return el;
-    });
+    setOrderProduct((prevOrderProducts) => {
+      const newOrderData = prevOrderProducts.map((el) => {
+        if (el.order_data.id_order === id_order) {
+          el.order_data.quantity += 1;
+        }
+        return el;
+      });
 
-    setOrderProduct(newOrderData);
-    sumResultPrice();
+      sumResultPrice(newOrderData);
+      return newOrderData;
+    });
   };
 
   const minusProduct = (id_order) => {
-    const newOrderData = orderProducts.map((el, indx) => {
-      if (el.order_data.id_order === id_order) {
-        if (orderProducts[indx].order_data.quantity !== 0) {
-          orderProducts[indx].order_data.quantity -= 1;
+    setOrderProduct((prevOrderProducts) => {
+      const newOrderData = prevOrderProducts.map((el) => {
+        if (el.order_data.id_order === id_order) {
+          if (el.order_data.quantity > 0) {
+            el.order_data.quantity -= 1;
+          }
         }
-      }
-      return el;
-    });
+        return el;
+      });
 
-    setOrderProduct(newOrderData);
-    sumResultPrice();
+      sumResultPrice(newOrderData);
+      return newOrderData;
+    });
   };
 
-  const sumResultPrice = () => {
-    if (orderProducts) {
-      orderProducts.forEach((el) => {
-        setTotalPrice(el.order_data.price_result * el.order_data.quantity);
+  const sumResultPrice = (orderProducts = null) => {
+    let total = 0;
+    const products = orderProducts || orderProducts;
+    if (products) {
+      products.forEach((el) => {
+        total += el.order_data.price_result * el.order_data.quantity;
       });
     }
+    setTotalPrice(total);
   };
 
   const deleteProduct = async (id_product) => {
-    await UserApiService.deleteUserOrder(id_product);
+    try {
+      // Удаляем товар с сервера
+      await UserApiService.deleteUserOrder(id_product);
+
+      // Обновляем корзину
+      setOrderProduct((prevOrderProducts) => {
+        const updatedOrderProducts = prevOrderProducts.filter(
+          (item) => item.order_data.id_order !== id_product
+        );
+        sumResultPrice(updatedOrderProducts);  // Пересчитываем итоговую сумму
+        return updatedOrderProducts;
+      });
+    } catch (error) {
+      console.error("Ошибка при удалении товара:", error);
+    }
   };
 
   useEffect(() => {
@@ -80,14 +80,14 @@ const CartPage = () => {
       const userOrders = await UserApiService.userOrders();
       if (userOrders) {
         setOrderProduct(userOrders.orders);
-        sumResultPrice();
+        sumResultPrice(userOrders.orders);
       } else {
         dispatch(exitUser());
       }
     };
 
     req();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="cart-container">
@@ -100,11 +100,7 @@ const CartPage = () => {
           orderProducts.map((item) => (
             <div key={item.product_data.id} className="cart-item">
               <img
-                src={
-                  item.product_data.photos[0]
-                    ? item.product_data.photos[0].photo_url
-                    : ""
-                }
+                src={item.product_data.photos[0] ? item.product_data.photos[0].photo_url : ""}
                 alt={item.product_data.name_product}
                 className="cart-product-image"
               />
@@ -154,69 +150,6 @@ const CartPage = () => {
           </button>
         )}
       </div>
-
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <h3>Подтверждение заказа</h3>
-            <p>Выберите способ доставки:</p>
-            <div>
-              <label>
-                <input
-                  type="radio"
-                  value="delivery"
-                  checked={selectedOption === "delivery"}
-                  onChange={() => setSelectedOption("delivery")}
-                />
-                Доставка
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value="pickup"
-                  checked={selectedOption === "pickup"}
-                  onChange={() => setSelectedOption("pickup")}
-                />
-                Самовывоз
-              </label>
-            </div>
-
-            <p>Выберите способ оплаты:</p>
-            <div>
-              <label>
-                <input
-                  type="radio"
-                  value="card"
-                  checked={paymentMethod === "card"}
-                  onChange={() => setPaymentMethod("card")}
-                />
-                Карта
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value="cash"
-                  checked={paymentMethod === "cash"}
-                  onChange={() => setPaymentMethod("cash")}
-                />
-                Наличные
-              </label>
-            </div>
-
-            <div className="modal-actions">
-              <button className="confirm-button" onClick={handleConfirm}>
-                Подтвердить
-              </button>
-              <button
-                className="cancel-button"
-                onClick={() => setModalOpen(false)}
-              >
-                Отмена
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

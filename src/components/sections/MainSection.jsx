@@ -294,37 +294,45 @@ const MainSection = () => {
       ) : (
         ""
       )}
-      {/* Раздел гарантии */}
-      <section className="guarantees">
-        <div className="guarantee-item">
-          <img src={smileyIcon} alt="Надежность" />
-          <div className="guarantee-text">
-            <h3>100% Надежность</h3>
-            <p>Более 1000 отзывов</p>
-          </div>
-        </div>
-        <div className="guarantee-item">
-          <img src={thumbsUpIcon} alt="Скидка" />
-          <div className="guarantee-text">
-            <h3>Скидка 10% при</h3>
-            <p>оплате СБП от Сбера</p>
-          </div>
-        </div>
-        <div className="guarantee-item">
-          <img src={airplaneIcon} alt="Быстрая доставка" />
-          <div className="guarantee-text">
-            <h3>Быстрая доставка </h3>
-            <p>по всей России</p>
-          </div>
-        </div>
-        <div className="guarantee-item">
-          <img src={dollarIcon} alt="Возврат" />
-          <div className="guarantee-text">
-            <h3>14 дней на возврат</h3>
-            <p>независимо от причин</p>
-          </div>
-        </div>
-      </section>
+    <section className="transparent-guarantees">
+  <div className="guarantees-container">
+    <div className="guarantee-card">
+      <div className="card-icon">
+        <img src={smileyIcon} alt="Надежность" />
+      </div>
+      <h3 className="card-title">100% Надежность</h3>
+      <p className="card-desc">Более 1000 отзывов</p>
+      <div className="card-highlight"></div>
+    </div>
+
+    <div className="guarantee-card">
+      <div className="card-icon">
+        <img src={thumbsUpIcon} alt="Скидка" />
+      </div>
+      <h3 className="card-title">Скидка 10%</h3>
+      <p className="card-desc">при оплате СБП от Сбера</p>
+      <div className="card-highlight"></div>
+    </div>
+
+    <div className="guarantee-card">
+      <div className="card-icon">
+        <img src={airplaneIcon} alt="Доставка" />
+      </div>
+      <h3 className="card-title">Быстрая доставка</h3>
+      <p className="card-desc">по всей России</p>
+      <div className="card-highlight"></div>
+    </div>
+
+    <div className="guarantee-card">
+      <div className="card-icon">
+        <img src={dollarIcon} alt="Возврат" />
+      </div>
+      <h3 className="card-title">14 дней на возврат</h3>
+      <p className="card-desc">независимо от причин</p>
+      <div className="card-highlight"></div>
+    </div>
+  </div>
+</section>
 
       <section className="featured-products">
         <h2 className="as">Рекомендуемые товары</h2>

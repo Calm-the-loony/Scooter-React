@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../style/BrandsPage.scss";
 
-// Импорт изображений
 import brend1 from "../../image/Brend1.png";
 
 import ProductApiService from "../../service/api/product/ProductService";

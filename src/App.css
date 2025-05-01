@@ -1,7 +1,19 @@
-body,
-html {
+/* Глобальные стили для html и body */
+html, body {
+  height: 100%; 
   margin: 0;
-  padding: 0;
-  height: 100%;
   font-family: Arial, sans-serif;
+  display: flex; 
+  flex-direction: column; 
+}
+
+/* Основной контейнер с контентом */
+.main-content {
+  flex-grow: 1; 
+  
+}
+
+/* Стили для подвала */
+.footer {
+  margin-top: auto; 
 }

@@ -1,40 +1,55 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
-
-import "../../style/CookieConsent.scss"; // Создайте стиль для плашки
+import { useNavigate } from "react-router-dom";
+import { FaCookieBite, FaChevronRight } from "react-icons/fa";
+import "../../style/CookieConsent.scss";
 
 const CookieConsent = () => {
-
-    const navigate = useNavigate();
-    const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Проверяем наличие согласия в localStorage
     const consentGiven = localStorage.getItem("cookieConsent");
     if (!consentGiven) {
-      setIsVisible(true); // Показываем плашку, если согласие еще не дано
+      setIsVisible(true);
     }
   }, []);
 
   const handleAccept = () => {
-    // Сохраняем согласие в localStorage
     localStorage.setItem("cookieConsent", "true");
-    setIsVisible(false); // Скрываем плашку
+    setIsVisible(false);
+  };
+
+  const handleLearnMore = () => {
+    navigate("/legal");
   };
 
   return (
     isVisible && (
       <div className="cookie-consent">
-        <p>
-          Мы используем <span onClick={() => navigate("legal")} className="cookieSuccess">
-            cookies
-        </span> и обрабатываем персональные данные для улучшения
-          вашего опыта на нашем сайте. Продолжая использовать наш сайт, вы
-          соглашаетесь с этим.
-        </p>
-        <button className="cookie-btn" onClick={handleAccept}>
-          Принять
-        </button>
+        <div className="cookie-content">
+          <div className="cookie-icon">
+            <FaCookieBite />
+          </div>
+          <div className="cookie-text">
+            <p>
+              Мы используем{" "}
+              <button onClick={handleLearnMore} className="cookie-link">
+                файлы cookies <FaChevronRight className="link-arrow" />
+              </button>{" "}
+              и обрабатываем персональные данные для улучшения вашего опыта на
+              нашем сайте. Продолжая использовать наш сайт, вы соглашаетесь с
+              этим.
+            </p>
+          </div>
+        </div>
+        <div className="cookie-actions">
+          <button className="cookie-btn accept-btn" onClick={handleAccept}>
+            Принять
+          </button>
+          <button className="cookie-btn learn-btn" onClick={handleLearnMore}>
+            Подробнее
+          </button>
+        </div>
       </div>
     )
   );

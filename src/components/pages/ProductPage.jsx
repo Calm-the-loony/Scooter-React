@@ -1,81 +1,144 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-import Accordion from "../other/accordion/Accordion";
+import { UserApiService } from "../../service/api/user/UserApiService";  
 import ProductApiService from "../../service/api/product/ProductService";
 import "../../style/ProductPage.scss";
 import "../../style/ProductCard.scss";
 import Pagination from "../other/pagination/Pagination";
-
+import Accordion from "../other/accordion/Accordion";
 
 const ProductPage = () => {
-
   const selector = useSelector(state => state.isAuthenticated);
-
   const [userStar, setUserStar] = useState(0);
   const [userReviewDescription, setUserReviewDescription] = useState("");
-
-  const [viewedProducts, setViewedProducts] = useState(localStorage.getItem('viewedProducts') ? JSON.parse(localStorage.getItem('viewedProducts')) : []);
-
+  const [viewedProducts, setViewedProducts] = useState([]);
   const { id } = useParams();
   const [created, setCreated] = useState(false);
-
   const [product, setProduct] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [review, setReview] = useState([]);
-
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);  
+  const [idFavourite, setIdFavourite] = useState(null);  
+
+  // Загрузка просмотренных товаров из localStorage при монтировании
+  useEffect(() => {
+    const storedProducts = localStorage.getItem("viewedProducts");
+    if (storedProducts) {
+      setViewedProducts(JSON.parse(storedProducts));
+    }
+  }, []);
 
   useEffect(() => {
-    ProductApiService.productData(id).then((productData) => {
-      setProduct(productData);
-      localStorage.setItem(
-          "viewedProducts", JSON.stringify([productData, ...viewedProducts])
-      )
-    });
+    const fetchData = async () => {
+      try {
+        // Загружаем данные о товаре
+        const productData = await ProductApiService.productData(id);
+        setProduct(productData);
 
-    ProductApiService.getAllReviewByProductId(id).then((reviewData) => {
-      setReview(reviewData?.reviews);
-    });
+        // Обновляем просмотренные товары
+        setViewedProducts(prevProducts => {
+          // Удаляем текущий товар, если он уже есть в списке
+          const filteredProducts = prevProducts.filter(
+            item => item.id_product !== productData.id_product
+          );
+          
+          // Добавляем текущий товар в начало списка
+          const newViewedProducts = [productData, ...filteredProducts];
+          
+          // Ограничиваем количество просмотренных товаров
+          const limitedProducts = newViewedProducts.slice(0, 10);
+          
+          // Сохраняем в localStorage
+          localStorage.setItem("viewedProducts", JSON.stringify(limitedProducts));
+          
+          return limitedProducts;
+        });
 
-  }, [id]);
+        // Загружаем отзывы о товаре
+        const reviewData = await ProductApiService.getAllReviewByProductId(id);
+        setReview(reviewData?.reviews || []);
 
-  if (!product) {
-    return <div>Загрузка...</div>;
-  }
+        // Проверка, является ли товар в избранном
+        if (selector) {
+          const userFavourite = await UserApiService.userFavourites();
+          if (userFavourite) {
+            const foundFavorite = userFavourite.favourites.find(
+              el => el.product_info.id_product === id
+            );
+            if (foundFavorite) {
+              setIsFavorite(true);
+              setIdFavourite(foundFavorite.product_info.id_favourite);
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Ошибка при загрузке данных:", error);
+      }
+    };
 
-  const handleAddToCart = () => {
-    // addToCart(product);
+    fetchData();
+  }, [id, selector]);
+
+  const handleAddToCart = async () => {
+    if (!selector) return;
+    try {
+      await UserApiService.addProductToBasket(id);  
+    } catch (error) {
+      console.error("Ошибка при добавлении в корзину:", error);
+    }
   };
 
-  const handleAddToFavorites = () => {
-    const isAlreadyFavorite = favorites.some((item) => item.id === product.id);
-    if (!isAlreadyFavorite) {
-      const updatedFavorites = [...favorites, product];
-      setFavorites(updatedFavorites);
-    } else {
+  const handleAddToFavorites = async () => {
+    if (!selector) return;
+    
+    try {
+      if (!isFavorite) {
+        const id_fav = await UserApiService.addNewFavourite(id);
+        if (id_fav) {
+          setIdFavourite(id_fav);
+          setIsFavorite(true);
+        }
+      } else {
+        const deleteFav = await UserApiService.deleteUserFavourite(idFavourite);
+        if (deleteFav) {
+          setIsFavorite(false);
+          setIdFavourite(null);
+        }
+      }
+    } catch (error) {
+      console.error("Ошибка при работе с избранным:", error);
     }
   };
 
   const truncateText = (text, lines = 2) => {
+    if (!text) return "Нет данных";
     const words = text.split(" ");
     if (words.length > lines * 8) {
-      return words.slice(0, lines * 8).join(" ");
+      return words.slice(0, lines * 8).join(" ") + "...";
     }
     return text;
   };
 
   function createReview() {
-      ProductApiService.createReview(
-          {
-            text_review: userReviewDescription,
-            estimation_review: userStar,
-            id_product: product.id_product
-          }
-      ).finally(() => {
-        setCreated(false);
-      })
+    if (!product) return;
+    
+    ProductApiService.createReview({
+      text_review: userReviewDescription,
+      estimation_review: userStar,
+      id_product: product.id_product
+    }).finally(() => {
+      setCreated(false);
+      // Обновляем отзывы после создания
+      ProductApiService.getAllReviewByProductId(id).then((reviewData) => {
+        setReview(reviewData?.reviews || []);
+      });
+    });
+  }
+
+  if (!product) {
+    return <div className="loading">Загрузка...</div>;
   }
 
   return (
@@ -83,8 +146,11 @@ const ProductPage = () => {
       <div className="product-details">
         <div className="product-image">
           <img
-            src={product.photo ? product.photo[0].photo_url : ""}
+            src={product.photo?.[0]?.photo_url || ""}
             alt={product.title_product}
+            onError={(e) => {
+              e.target.src = "/path/to/default/image.jpg";
+            }}
           />
         </div>
 
@@ -95,52 +161,52 @@ const ProductPage = () => {
               <strong>Цена:</strong>
               {product.product_discount ? (
                 <>
-                  <span
-                    style={{
-                      textDecoration: "line-through",
-                      marginRight: "10px",
-                    }}
-                  >
-                    {product.price_product}
+                  <span className="old-price">
+                    {product.price_product} ₽
                   </span>
-                  {product.price_product -
-                    (product.price_product * product.product_discount) /
-                      100}{" "}
-                  ₽
+                  <span className="new-price">
+                    {Math.round(product.price_product - 
+                      (product.price_product * product.product_discount) / 100)} ₽
+                  </span>
+                  <span className="discount-badge">
+                    -{product.product_discount}%
+                  </span>
                 </>
               ) : (
-                product.price_product
+                <span>{product.price_product} ₽</span>
               )}
             </p>
           </div>
           <div className="product-stock">
             <p>
               <strong>На складе:</strong>{" "}
-              {product.quantity_product > 0 ? "В наличии " + product.quantity_product : "Не в наличии"}
+              {product.quantity_product > 0
+                ? `В наличии (${product.quantity_product} шт.)`
+                : "Нет в наличии"}
             </p>
           </div>
           <div className="product-buttons">
             <button
-                className={`btn-cart ${selector ? "" : "disabled"}`}
-                onClick={handleAddToCart}
-                disabled={selector ? false : true}
+              className={`btn-cart ${!selector ? "disabled" : ""}`}
+              onClick={handleAddToCart}
+              disabled={!selector}
             >
               Добавить в корзину
             </button>
             <button
-                className={`btn-favorite ${selector ? "" : "disabled"}`}
-                onClick={handleAddToFavorites}
-                disabled={selector ? false : true}
+              className={`btn-favorite ${isFavorite ? "active" : ""} ${!selector ? "disabled" : ""}`}
+              onClick={handleAddToFavorites}
+              disabled={!selector}
             >
-              Добавить в избранное
+              {isFavorite ? "В избранном" : "В избранное"}
             </button>
           </div>
           <div className="info-panel">
             <p>
               <strong>Доп. комплект:</strong>{" "}
               {isExpanded
-                ? product.explanation_product
-                : truncateText(product.explanation_product || "Нет данных")}
+                ? product.explanation_product || "Нет данных"
+                : truncateText(product.explanation_product)}
               {!isExpanded && product.explanation_product?.length > 50 && (
                 <span
                   className="expand-text"
@@ -159,13 +225,13 @@ const ProductPage = () => {
               )}
             </p>
             <p>
-              <strong>Артикул:</strong> {product.article_product}
+              <strong>Артикул:</strong> {product.article_product || "—"}
             </p>
             <p>
-              <strong>Категория:</strong> {product.categories.name}
+              <strong>Категория:</strong> {product.categories?.name || "—"}
             </p>
             <p>
-              <strong>Метки:</strong> {product.label_product}
+              <strong>Метки:</strong> {product.label_product || "—"}
             </p>
           </div>
           <div className="accordion-wrapper">
@@ -173,57 +239,83 @@ const ProductPage = () => {
           </div>
         </div>
       </div>
-      {created ? (
-          <div className="review-create-form">
-            <form onSubmit={createReview}>
-              <h3>Отзыв на товар</h3>
-              <div className="close" style={{marginRight: "10px"}} onClick={() => {setCreated(!created)}}>
-                &times;
+
+      {created && (
+        <div className="review-create-form">
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            createReview();
+          }}>
+            <h3>Отзыв на товар</h3>
+            <div
+              className="close"
+              onClick={() => setCreated(false)}
+            >
+              &times;
+            </div>
+            <div className="input-element">
+              <label htmlFor="description">Ваш отзыв</label>
+              <textarea
+                placeholder="Напишите ваш отзыв здесь..."
+                id="description"
+                value={userReviewDescription}
+                onChange={(e) => setUserReviewDescription(e.target.value)}
+                required
+              />
+            </div>
+            <div className="input-element">
+              <label>Ваша оценка</label>
+              <div className="rating-mini">
+                {[1, 2, 3, 4, 5].map((item) => (
+                  <span
+                    key={item}
+                    className={userStar >= item ? "active" : ""}
+                    onClick={() => setUserStar(item)}
+                  ></span>
+                ))}
               </div>
-              <div className="input-element">
-                <label htmlFor="description">Ваш прекрасный отзыв</label>
-                <textarea placeholder="Ваш отзыв" id="description" onChange={(e) => setUserReviewDescription(e.target.value)}>Ваш отзыв</textarea>
-              </div>
-              <div className="input-element">
-                <label htmlFor="estimation">Ваша оценка</label>
-                <div className="rating-mini">
-                  {[1,2,3,4,5].map((item) => (
-                      <span
-                          key={item}
-                          className={userStar >= item ? "active" : ""}
-                          onClick={() => setUserStar(item)}
-                      ></span>
-                  ))}
-                </div>
-              </div>
-              <button type="submit">Отправить</button>
-            </form>
-          </div>
-      ) : ""}
-      <br/>
+            </div>
+            <button type="submit" disabled={!userStar || !userReviewDescription}>
+              Отправить отзыв
+            </button>
+          </form>
+        </div>
+      )}
+
       <div className="product-other">
         <div className="product-review">
           <div className="product-review__create">
             <h2>Отзывы</h2>
-            <a onClick={() => {setCreated(!created)}}>Оставить отзыв</a>
+            {selector && (
+              <button 
+                className="btn-create-review" 
+                onClick={() => setCreated(true)}
+              >
+                Оставить отзыв
+              </button>
+            )}
           </div>
           <Pagination typePagination="review" items={review} />
         </div>
+
         <div className="viewed-products">
           <h2>Вы недавно смотрели</h2>
           <div className="viewed-list">
-            {viewedProducts.map((item, index) => {
-              if (index > 5) {
-              } else {
-                return (
-                    <div key={item.id} className="viewed-item">
-                      <img src={item?.photo[0]?.photo_url} alt={item.title_product} />
-                      <p>{item.title_product}</p>
-                      <p>{item.price_product} ₽</p>
-                    </div>
-                )
-              }
-            }
+            {viewedProducts.length > 0 ? (
+              viewedProducts.map((item) => (
+                <div key={item.id_product} className="viewed-item">
+                  <img 
+                    src={item?.photo?.[0]?.photo_url || "/path/to/default/image.jpg"} 
+                    alt={item.title_product} 
+                  />
+                  <p>{item.title_product}</p>
+                  <span className="viewed-price">
+                    {item.price_product} ₽
+                  </span>
+                </div>
+              ))
+            ) : (
+              <p className="no-viewed">Вы еще не смотрели другие товары</p>
             )}
           </div>
         </div>

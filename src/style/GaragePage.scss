@@ -34,6 +34,7 @@ $text-color: #333;
   border-radius: $border-radius;
   @include box-shadow($box-shadow-light);
   font-family: $font-family;
+  margin-bottom: 40px;
 }
 
 // Заголовок
@@ -41,7 +42,7 @@ $text-color: #333;
   margin-bottom: 20px;
   text-align: center;
   color: $highlight-color;
-  font-size: 24px; // Заменили на 24px
+  font-size: 24px; 
   font-weight: bold;
 }
 
@@ -56,7 +57,7 @@ $text-color: #333;
   h3 {
     margin-bottom: 10px;
     color: #444;
-    font-size: 1.2rem; // Уменьшено для гармоничности
+    font-size: 1.2rem; 
   }
 
   select,
@@ -97,7 +98,7 @@ $text-color: #333;
   h3 {
     margin-bottom: 10px;
     color: #444;
-    font-size: 1.2rem; // Уменьшено для гармоничности
+    font-size: 1.2rem; 
   }
 
   ul {
@@ -153,7 +154,7 @@ $text-color: #333;
 
   h3 {
     color: $highlight-color;
-    font-size: 1.4rem; // Уменьшено для гармоничности
+    font-size: 1.4rem; 
     margin-bottom: 15px;
   }
 
@@ -194,7 +195,7 @@ $text-color: #333;
       width: 100%;
 
       h4 {
-        font-size: 1rem; // Уменьшено для гармоничности
+        font-size: 1rem; 
         margin-bottom: 5px;
         text-align: center;
       }
