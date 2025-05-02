@@ -4,6 +4,8 @@ import "../../style/styles.scss";
 import { AuthService } from "../../service/api/auth/AuthApiService";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../state/actions/authAction";
+import {UserApiService} from "../../service/api/user/UserApiService";
+import {setUserInfo} from "../../state/actions/userAction";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -18,6 +20,12 @@ const LoginPage = () => {
     AuthService.loginUser(email, password)
       .then(() => {
         dispatch(loginUser());
+
+        // Получаем данные о пользователе
+        UserApiService.informationAboutUser().then((data) => {
+          dispatch(setUserInfo(data));
+        });
+
         navigate("/account");
       })
       .catch(() => {

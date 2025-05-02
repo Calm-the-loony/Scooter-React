@@ -15,6 +15,7 @@ const CheckoutPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+
     // Получаем данные пользователя из localStorage
     const userData = JSON.parse(localStorage.getItem('userData'));
     
@@ -24,6 +25,7 @@ const CheckoutPage = () => {
         name: userData.name || '',
         email: userData.email || '',
         phone: userData.phone || '',
+        address_city: userData.address_city || '',
         address: userData.address || '',
         city: userData.city || '',
       });
@@ -109,7 +111,7 @@ const CheckoutPage = () => {
 
             <div className="form-group">
               <label>Город</label>
-              <input type="text" name="city" value={formData.city} onChange={handleChange} required />
+              <input type="text" name="city" value={formData.address_city} onChange={handleChange} required />
             </div>
 
             <div className="form-group">
