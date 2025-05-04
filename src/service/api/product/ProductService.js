@@ -1,5 +1,4 @@
 import axios from "axios";
-import { parseCookieString } from "../../token_service";
 
 export default class ProductApiService {
   /**
@@ -128,12 +127,6 @@ export default class ProductApiService {
     try {
       const req = await axios.get(
         process.env.REACT_APP_BACKEND_URL + "/model/all",
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            withCredentials: true,
-          }
       );
 
       return req.data;
@@ -193,16 +186,9 @@ export default class ProductApiService {
    * Создание отзыва на товар
    */
   static async createReview(dataUser) {
-    const tokenData = parseCookieString();
-    console.log(dataUser, 232323);
     const req = await axios.post(
       process.env.REACT_APP_BACKEND_URL + "/review/create",
       dataUser,
-      {
-        headers: {
-          Authorization: "Bearer " + tokenData["access_token"],
-        },
-      },
     );
 
     if (req.status === 201) {

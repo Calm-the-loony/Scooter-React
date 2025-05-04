@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+
+import {UserApiService} from "../../service/api/user/UserApiService";
 import "../../style/CheckoutPage.scss";
 
 const CheckoutPage = () => {
   const [cartItems, setCartItems] = useState([]);
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(JSON.parse(localStorage.getItem("productBuy"))["resultPrice"]);
   const [deliveryCost, setDeliveryCost] = useState(300);  // начальная стоимость доставки
   const [formData, setFormData] = useState({
     name: '', email: '', phone: '', address: '', city: '', postalCode: '', country: 'Russia',
@@ -18,16 +20,15 @@ const CheckoutPage = () => {
 
     // Получаем данные пользователя из localStorage
     const userData = JSON.parse(localStorage.getItem('userData'));
-    
+
     if (userData) {
       setFormData({
         ...formData,
         name: userData.name || '',
-        email: userData.email || '',
+        email: userData.email_user || '',
         phone: userData.phone || '',
-        address_city: userData.address_city || '',
         address: userData.address || '',
-        city: userData.city || '',
+        city: userData.address_city || '',
       });
     }
 
@@ -50,19 +51,6 @@ const CheckoutPage = () => {
   };
 
   useEffect(() => {
-    if (cartItems.length > 0) {
-      const total = cartItems.reduce((sum, item) => {
-        const price = parseFloat(item.price) || 0;
-        const quantity = parseInt(item.quantity) || 0;
-        return sum + price * quantity;
-      }, 0);
-      setTotalAmount(total);
-    } else {
-      setTotalAmount(0);
-    }
-  }, [cartItems]);
-
-  useEffect(() => {
     // Функция для пересчета стоимости доставки
     const calculateDeliveryCost = () => {
       const cityDistance = cityDistances[formData.city] || 0;
@@ -80,10 +68,29 @@ const CheckoutPage = () => {
 
   const handleCheckout = (e) => {
     e.preventDefault();
+
     if (!formData.name || !formData.email || !formData.phone || !formData.city || !formData.address) {
       alert("Пожалуйста, заполните все обязательные поля.");
     } else {
-      navigate('/payp');
+
+      UserApiService.buyOrder(
+          {
+            products: JSON.parse(localStorage.getItem("productBuy"))["products"],
+            id_orders: JSON.parse(localStorage.getItem("productBuy"))["orderList"],
+            username: formData.name,
+            email: formData.email,
+            telephone: formData.phone,
+            address: formData.address,
+            type_delivery: formData.deliveryMethod,
+            type_buy: formData.paymentMethod,
+            price_delivery: totalAmount + deliveryCost,
+          }
+      ).then((data) => {
+        window.location.href = data.data.redirect_url;
+      }).finally(() => {
+        localStorage.removeItem("productBuy");
+      })
+      // navigate('/payp');
     }
   };
 
@@ -111,7 +118,7 @@ const CheckoutPage = () => {
 
             <div className="form-group">
               <label>Город</label>
-              <input type="text" name="city" value={formData.address_city} onChange={handleChange} required />
+              <input type="text" name="city" value={formData.city} onChange={handleChange} required />
             </div>
 
             <div className="form-group">

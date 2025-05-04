@@ -96,44 +96,45 @@ function PaginationScooter({
         <div className="cards-container">
           {dataItems.map((item, index) => (
             <div key={index} className="order-card">
-              <h3 className="order-title">Заказ №{item.product_data.id}</h3>
+              <h3 className="order-title">Заказ №{item.order_data.id}</h3>
               <div className="order-info">
                 <p>
-                  <span>Дата:</span> {item.product_data.date_buy}
+                  <span>Дата:</span> {item.order_data.date_buy}
                 </p>
                 <p>
                   <span>Статус:</span>
-                  {""}
                   <span
                     style={{
-                      color: ["Доставлен", "В процессе"].includes(
-                        item.product_data.type_operation,
+                      color: ["Доставлен", "Оплачен"].includes(
+                        item.order_data.type_operation,
                       )
                         ? "green"
                         : "orange",
                       fontWeight: "bold",
                     }}
                   >
-                    {item.product_data.type_operation}
+                    {item.order_data.type_operation}
                   </span>
                 </p>
                 <p>
-                  <span>Способ доставки:</span> {item.deliveryMethod}
+                  <span>Способ доставки:</span> {item.order_data.type_delivery}
                 </p>
                 <p>
                   <span>Способ оплаты:</span> {"Картой"}
                 </p>
                 <p>
-                  <span>Сумма:</span> {item.product_data.price} ₽
+                  <span>Сумма:</span> {item.order_data.price} ₽
                 </p>
               </div>
               <h4>Товары:</h4>
               <ul className="order-items">
-                <li key={item.product_data.title_product}>
-                  <span>{item.product_data.title_product}</span> —{" "}
-                  {item.product_data.count_buy} шт. ({item.product_data.price}{" "}
-                  ₽/шт)
-                </li>
+                {item.product_data.map((product, index) => (
+                    <li key={index} style={{paddingBottom: "5px"}}>
+                      <span>{product.title_product}</span> —{" "}
+                      {product.quantity_buy} шт. ({product.price}{" "}
+                      ₽/шт)
+                    </li>
+                ))}
               </ul>
             </div>
           ))}

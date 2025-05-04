@@ -23,7 +23,6 @@ import AccountPage from "../components/pages/AccountPage";
 import PayPage from "../components/pages/PayPage";
 import Layout from "./generalPage";
 import CheckoutPage from "../components/pages/CheckoutPage";
-import PaymentPage from "../components/pages/PaymentPage";
 
 export const router = createBrowserRouter([
   {
@@ -83,14 +82,6 @@ export const router = createBrowserRouter([
         element: (
           <AuthenticatedWrapper>
             <CheckoutPage />
-          </AuthenticatedWrapper>
-        ),
-      },
-      {
-        path: "/payp",
-        element: (
-          <AuthenticatedWrapper>
-            <PaymentPage />
           </AuthenticatedWrapper>
         ),
       },
