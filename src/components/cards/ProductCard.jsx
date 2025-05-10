@@ -17,14 +17,11 @@ const ProductCard = ({
   price,
 }) => {
 
-  const auth = useSelector((state) => state.isAuthenticated);
-  console.log(auth);
-
+  const auth = useSelector((state) => state.auth.isAuthenticated);
   const [isFavorite, setIsFavorite] = useState(false);
   const [idFavourite, setIdFavourite] = useState(null);
   const navigate = useNavigate();
 
-  // Проверка при монтировании компонента, находится ли товар в избранном
   useEffect(() => {
     const favorites = async () => {
       try {
