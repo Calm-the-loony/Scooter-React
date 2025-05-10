@@ -16,7 +16,9 @@ const ProductCard = ({
   name,
   price,
 }) => {
+
   const auth = useSelector((state) => state.isAuthenticated);
+  console.log(auth);
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [idFavourite, setIdFavourite] = useState(null);
