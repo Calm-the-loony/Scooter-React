@@ -1,7 +1,8 @@
-import {combineReducers, createStore} from "redux";
+import {combineReducers, createStore, applyMiddleware} from "redux";
 
 import {authUserReducer} from "../reducers/authReducer";
 import {userReducer} from "../reducers/userReducer";
+import {thunk} from 'redux-thunk';
 
 export const rootReducers = combineReducers(
     {
@@ -12,7 +13,8 @@ export const rootReducers = combineReducers(
 
 const scooterStore = createStore(
   rootReducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    applyMiddleware(thunk),
+
 );
 
 export default scooterStore;
