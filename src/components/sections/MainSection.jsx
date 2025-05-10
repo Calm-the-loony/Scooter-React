@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import "../../style/MainSection.scss";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -119,9 +119,9 @@ const MainSection = () => {
         ),
       )
         .then((data) => {
-          setModels(data.all_models);
+          setModels(data?.all_models ? data.all_models : []);
         })
-        .catch((er) => {});
+        .catch(() => {});
     } else if (type === "model") {
       setSelectedModels({
         name_model: e.target.value,
@@ -158,7 +158,9 @@ const MainSection = () => {
       const models = await ProductApiService.allModels();
 
       if (models) {
-        setModels(models.all_models);
+        setModels(models.all_models ? models.all_models : []);
+      } else {
+        setModels([])
       }
     };
 
@@ -211,12 +213,13 @@ const MainSection = () => {
                   value={selectedMark.name_mark}
                   onChange={(e) => selectMark(e, "mark")}
                 >
-                  <option value="" disabled selected hidden>
+                  <option value="" disabled hidden>
                     Марка
                   </option>
-                  {marks.marks.map((mark) => {
+                  {marks.marks.map((mark, index) => {
                     return (
                       <option
+                          key={index}
                         value={mark.name_mark}
                         data-mark-id={mark.id_mark}
                       >
@@ -232,7 +235,7 @@ const MainSection = () => {
                   value={selectedMark.name_mark}
                   onChange={(e) => selectMark(e, "mark")}
                 >
-                  <option value="" disabled selected hidden>
+                  <option value="" disabled hidden>
                     Марка
                   </option>
                 </select>
@@ -246,9 +249,10 @@ const MainSection = () => {
                 <option value="Модель" data-id-model={null}>
                   Модель
                 </option>
-                {models.map((model) => {
+                {models.map((model, index) => {
                   return (
                     <option
+                        key={index}
                       value={model.name_model}
                       data-model-id={model.id_model}
                     >
@@ -264,9 +268,9 @@ const MainSection = () => {
       </section>
       {categoryData ? (
         <section className="categories-section">
-          {categoryData.categories.map((category) => {
+          {categoryData.categories.map((category, index) => {
             return (
-              <div className="category">
+              <div className="category" key={index}>
                 <Link
                   to={{
                     pathname: "/category/" + category.id_category,
@@ -343,6 +347,7 @@ const MainSection = () => {
                 return (
                   <ProductCard
                     id={product.id_product}
+                    key={product.id_product}
                     stock={product.quantity_product}
                     type={product.type_pr}
                     brand={product.brand_mark}

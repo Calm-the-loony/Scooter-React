@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import "../../style/styles.scss";
-import { UserApiService } from "../../service/api/user/UserApiService";
-import { UpdateUser } from "../../service/dto/UserDTO";
-import { useDispatch } from "react-redux";
-import { exitUser } from "../../state/actions/authAction";
+import {UserApiService} from "../../service/api/user/UserApiService";
+import {UpdateUser} from "../../service/dto/UserDTO";
+import {useDispatch} from "react-redux";
+import {exitUser} from "../../state/actions/authAction";
 import PaginationScooter from "../other/pagination/Pagination";
-import { deleteCookieData } from "../../service/token_service";
+import {deleteCookieData} from "../../service/token_service";
 
 const AccountPage = () => {
   const [userData, setUserData] = useState(null);

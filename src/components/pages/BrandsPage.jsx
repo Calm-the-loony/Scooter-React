@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import "../../style/BrandsPage.scss";
 
 import brend1 from "../../image/Brend1.png";

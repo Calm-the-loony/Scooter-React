@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { UserApiService } from "../../service/api/user/UserApiService";
+import React, {useEffect, useState} from "react";
+import {UserApiService} from "../../service/api/user/UserApiService";
 import "../../style/FavoritesPage.scss";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { exitUser } from "../../state/actions/authAction";
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {exitUser} from "../../state/actions/authAction";
 import PaginationScooter from "../other/pagination/Pagination";
 
 const FavoritesPage = () => {
@@ -13,12 +13,16 @@ const FavoritesPage = () => {
 
   useEffect(() => {
     const req = async () => {
-      const favData = await UserApiService.userFavourites();
-      if (favData) {
-        if (favData.favourites.length >= 1) {
-          setFavouriteProducts(favData);
+      try {
+        const favData = await UserApiService.userFavourites();
+        if (favData) {
+          if (favData.favourites.length >= 1) {
+            setFavouriteProducts(favData);
+          }
+        } else {
+          dispatch(exitUser());
         }
-      } else {
+      } catch {
         dispatch(exitUser());
       }
     };

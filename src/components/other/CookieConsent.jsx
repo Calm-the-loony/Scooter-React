@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { FaCookieBite, FaChevronRight } from "react-icons/fa";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {FaChevronRight, FaCookieBite} from "react-icons/fa";
 import "../../style/CookieConsent.scss";
 
 const CookieConsent = () => {

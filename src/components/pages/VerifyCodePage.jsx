@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthService } from "../../service/api/auth/AuthApiService";
+import React, {useRef, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {AuthService} from "../../service/api/auth/AuthApiService";
 import styles from "../../style/ConfirmCode.module.scss";
 
 const VerifyCodePage = () => {

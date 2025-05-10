@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { loginUser } from "../../../state/actions/authAction";
+import {useDispatch} from "react-redux";
+import {loginUser} from "../../../state/actions/authAction";
 
 export class AuthService {
   static initialize = () => {
@@ -22,7 +22,7 @@ export class AuthService {
     formAuthData.append("password", userPassword);
 
     let req = await axios.post(
-      process.env.REACT_APP_BACKEND_URL + "/auth/login",
+        import.meta.env.VITE_BACKEND_URL + "/auth/login",
       formAuthData,
       {
         headers: {
@@ -45,7 +45,7 @@ export class AuthService {
    */
   static async registerUser(userData) {
     let req = await axios.post(
-      process.env.REACT_APP_BACKEND_URL + "/auth/registration",
+        import.meta.env.VITE_BACKEND_URL + "/auth/registration",
       JSON.stringify(userData),
       {
         headers: {
@@ -68,7 +68,7 @@ export class AuthService {
   static async updateUserToken() {
     try {
       const req = await axios.post(
-        process.env.REACT_APP_BACKEND_URL + "/auth/update_token",
+          import.meta.env.VITE_BACKEND_URL + "/auth/update_token",
         {},
       );
 
@@ -85,7 +85,7 @@ export class AuthService {
 
   static async success_acount(secretCode) {
     const req = await axios.get(
-      process.env.REACT_APP_BACKEND_URL + "/auth/access_create_account",
+        import.meta.env.VITE_BACKEND_URL + "/auth/access_create_account",
       {
         params: {
           email: localStorage.getItem("email-registration"),

@@ -7,7 +7,7 @@ export class UserApiService {
    */
   static async informationAboutUser() {
     const req = await axios.get(
-      process.env.REACT_APP_BACKEND_URL + "/user/information",
+        import.meta.env.VITE_BACKEND_URL + "/user/information",
     );
     return req.data;
   }
@@ -19,7 +19,7 @@ export class UserApiService {
    */
   static async updateUserInformation(userDataToUpdate) {
     const req = await axios.put(
-      process.env.REACT_APP_BACKEND_URL + "/user/update",
+        import.meta.env.VITE_BACKEND_URL + "/user/update",
       userDataToUpdate,
     );
 
@@ -32,7 +32,7 @@ export class UserApiService {
    */
   static async userOrders() {
     const req = await axios.get(
-      process.env.REACT_APP_BACKEND_URL + "/order/all",
+        import.meta.env.VITE_BACKEND_URL + "/order/all",
     );
 
     return req.data;
@@ -43,7 +43,7 @@ export class UserApiService {
    */
   static async userSuccessOrders() {
     const req = await axios.get(
-      process.env.REACT_APP_BACKEND_URL + "/user/success/orders",
+        import.meta.env.VITE_BACKEND_URL + "/user/success/orders",
     );
 
     return req.data;
@@ -57,7 +57,7 @@ export class UserApiService {
    */
   static async updateUserPassword(oldPassword, newPassword) {
     await axios.patch(
-      process.env.REACT_APP_BACKEND_URL + "/auth/update/password",
+        import.meta.env.VITE_BACKEND_URL + "/auth/update/password",
       {
         old_password: oldPassword,
         new_password: newPassword,
@@ -73,7 +73,7 @@ export class UserApiService {
    */
   static async userFavourites() {
     const req = await axios.get(
-      process.env.REACT_APP_BACKEND_URL + "/favourite/all/user",
+        import.meta.env.VITE_BACKEND_URL + "/favourite/all/user",
     );
     return req.data;
   }
@@ -84,7 +84,7 @@ export class UserApiService {
    */
   static async deleteUserFavourite(id_favourite) {
     await axios.delete(
-      process.env.REACT_APP_BACKEND_URL + "/favourite/delete",
+        import.meta.env.VITE_BACKEND_URL + "/favourite/delete",
       {
         params: {
           id_favourite: id_favourite,
@@ -101,7 +101,7 @@ export class UserApiService {
    */
   static async addNewFavourite(id_product) {
     const req = await axios.post(
-      process.env.REACT_APP_BACKEND_URL + "/favourite/create",
+        import.meta.env.VITE_BACKEND_URL + "/favourite/create",
       {
         id_product: id_product,
       },
@@ -118,7 +118,7 @@ export class UserApiService {
   static async addProductToBasket(id_product) {
     let dateNow = new Date();
     await axios.post(
-      process.env.REACT_APP_BACKEND_URL + "/order/create",
+        import.meta.env.VITE_BACKEND_URL + "/order/create",
       {
         id_products: [id_product, ],
         date_create: `${dateNow.getFullYear()}-${dateNow.getMonth().toString().padStart(2, "0")}-${dateNow.getDate().toString().padStart(2, "0")}`,
@@ -133,7 +133,7 @@ export class UserApiService {
    */
   static async userOrders() {
     const req = await axios.get(
-      process.env.REACT_APP_BACKEND_URL + "/order/all/user",
+        import.meta.env.VITE_BACKEND_URL + "/order/all/user",
     );
 
     return req.data;
@@ -146,21 +146,21 @@ export class UserApiService {
    */
   static async deleteUserOrder(id_order) {
       await axios.delete(
-        process.env.REACT_APP_BACKEND_URL + `/order/delete/${id_order}`,
+          import.meta.env.VITE_BACKEND_URL + `/order/delete/${id_order}`,
       );
       return true;
   }
 
   static async createUserOder(userOrderData) {
     await axios.post(
-        process.env.REACT_APP_BACKEND_URL + "/order/create",
+        import.meta.env.VITE_BACKEND_URL + "/order/create",
         userOrderData
     )
   }
 
   static async buyOrder(orderData) {
     return await axios.post(
-        process.env.REACT_APP_BACKEND_URL + "/order/buy",
+        import.meta.env.VITE_BACKEND_URL + "/order/buy",
         orderData
     )
   }

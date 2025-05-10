@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import "../../style/CartPage.scss";
-import { UserApiService } from "../../service/api/user/UserApiService";
-import { useDispatch } from "react-redux";
-import { exitUser } from "../../state/actions/authAction";
-import { useNavigate } from "react-router-dom";  // Импортируем useNavigate
+import {UserApiService} from "../../service/api/user/UserApiService";
+import {useDispatch} from "react-redux";
+import {exitUser} from "../../state/actions/authAction";
+import {useNavigate} from "react-router-dom"; // Импортируем useNavigate
 
 const CartPage = () => {
   const [orderProducts, setOrderProduct] = useState([]);
@@ -98,11 +98,15 @@ const CartPage = () => {
 
   useEffect(() => {
     const req = async () => {
-      const userOrders = await UserApiService.userOrders();
-      if (userOrders) {
-        setOrderProduct(userOrders.orders);
-        sumResultPrice(userOrders.orders);
-      } else {
+      try {
+        const userOrders = await UserApiService.userOrders();
+        if (userOrders) {
+          setOrderProduct(userOrders.orders);
+          sumResultPrice(userOrders.orders);
+        } else {
+          dispatch(exitUser());
+        }
+      } catch {
         dispatch(exitUser());
       }
     };

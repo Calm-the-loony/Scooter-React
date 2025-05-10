@@ -1,5 +1,5 @@
-import { Fragment } from "react";
-import { Outlet } from "react-router-dom";
+import {Fragment} from "react";
+import {Outlet} from "react-router-dom";
 
 import Header from "../components/semantic/header/Header";
 import Footer from "../components/semantic/footer/Footer";

@@ -1,5 +1,5 @@
-import React, { createContext } from "react";
-import { Provider } from "react-redux";
+import React, {createContext} from "react";
+import {Provider} from "react-redux";
 import scooterStore from "../state/store/configureStore";
 
 export const CartContext = createContext();

@@ -1,5 +1,5 @@
-import { Pagination, Stack } from "@mui/material";
-import React, { useState, Fragment, useEffect } from "react";
+import {Pagination, Stack} from "@mui/material";
+import React, {Fragment, useEffect, useState} from "react";
 
 import ProductCard from "../../cards/ProductCard";
 import NotFoundProducts from "../../notFound/notFoundProducts";

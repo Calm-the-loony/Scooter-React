@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { UserApiService } from "../../service/api/user/UserApiService";  
+import React, {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {UserApiService} from "../../service/api/user/UserApiService";
 import ProductApiService from "../../service/api/product/ProductService";
 import "../../style/ProductPage.scss";
 import "../../style/ProductCard.scss";

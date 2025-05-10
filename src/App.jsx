@@ -1,15 +1,19 @@
 import React from "react";
-import { RouterProvider } from "react-router-dom";
+import {RouterProvider} from "react-router-dom";
 
 import CartProvider from "./context/CartContext";
-import { router } from "./router/router";
+import {router} from "./router/router";
 import "./App.css";
+import {Provider} from "react-redux";
+import scooterStore from "./state/store/configureStore";
 
 const App = () => {
   return (
-    <CartProvider>
-      <RouterProvider router={router}></RouterProvider>
-    </CartProvider>
+      <Provider store={scooterStore}>
+          <CartProvider>
+              <RouterProvider router={router}></RouterProvider>
+          </CartProvider>
+      </Provider>
   );
 };
 

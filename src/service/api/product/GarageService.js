@@ -9,7 +9,7 @@ export default class GarageApiService {
       id_moto_type ??= null;
 
       const req = await axios.get(
-        process.env.REACT_APP_BACKEND_URL + "/product/all/garage/filter",
+          import.meta.env.VITE_BACKEND_URL + "/product/all/garage/filter",
         {
           params: {
             id_brand: id_mark,
@@ -32,7 +32,7 @@ export default class GarageApiService {
    */
   static async addedGarage(newTrasport) {
     const req = await axios.post(
-      process.env.REACT_APP_BACKEND_URL + "/garage/create",
+        import.meta.env.VITE_BACKEND_URL + "/garage/create",
       newTrasport,
     );
 
@@ -45,7 +45,7 @@ export default class GarageApiService {
    */
   static async myGarage() {
     const req = await axios.get(
-      process.env.REACT_APP_BACKEND_URL + "/garage/all",
+        import.meta.env.VITE_BACKEND_URL + "/garage/all",
     );
 
     return req.data;
@@ -57,7 +57,7 @@ export default class GarageApiService {
    * @returns
    */
   static async deleteTransport(id_mt) {
-    await axios.delete(process.env.REACT_APP_BACKEND_URL + "/garage/delete", {
+    await axios.delete(import.meta.env.VITE_BACKEND_URL + "/garage/delete", {
       params: {
         id_mt: id_mt,
       },

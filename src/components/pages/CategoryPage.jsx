@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import "../../style/CategoryPage.scss";
-import { ReactComponent as ArrowIcon } from "../../image/arrow-icon.svg";
+import ArrowIcon from "../../image/arrow-icon.svg?react";
 import ProductApiService from "../../service/api/product/ProductService";
 import CategoryApiService from "../../service/api/product/CategoryService";
 import PaginationScooter from "../other/pagination/Pagination";

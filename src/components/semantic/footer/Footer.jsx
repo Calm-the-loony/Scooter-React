@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom"; 
+import React, {useState} from "react";
+import {Link} from "react-router-dom";
 import "../../../style/Footer.scss";
 import "font-awesome/css/font-awesome.min.css";
 import wbImage from "../../../image/Wb.png";
