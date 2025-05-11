@@ -5,6 +5,7 @@ import ProductCard from "../../cards/ProductCard";
 import NotFoundProducts from "../../notFound/notFoundProducts";
 import StarImage from "../../../image/star.png";
 
+
 function PaginationScooter({
   items,
   type = "rounded",
@@ -17,7 +18,7 @@ function PaginationScooter({
   // Страница
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [notFoundProducts, setNotFoundProducts] = useState(false);
+  const [notFoundElements, setNotFoundElements] = useState("");
 
   // Настройки
   const spacing = 2;
@@ -53,9 +54,19 @@ function PaginationScooter({
    */
   useEffect(() => {
     if (items.length < 1) {
-      setNotFoundProducts(true);
+      switch (typePagination) {
+        case "product": {
+          setNotFoundElements("Не удалось найти товары");
+        }
+        case "review": {
+          setNotFoundElements("Отзывы не были найдены");
+        }
+        case "order": {
+          setNotFoundElements("Заказы не были найдены");
+        }
+      }
     } else {
-      setNotFoundProducts(false);
+      setNotFoundElements("");
     }
 
     if (items) {
@@ -130,7 +141,7 @@ function PaginationScooter({
               <ul className="order-items">
                 {item.product_data.map((product, index) => (
                     <li key={index} style={{paddingBottom: "5px"}}>
-                      <span>{product.title_product}</span> —{" "}
+                      <span>{product.title_product}</span> — {" "}
                       {product.quantity_buy} шт. ({product.price}{" "}
                       ₽/шт)
                     </li>
@@ -224,7 +235,7 @@ function PaginationScooter({
   return (
     <div style={{ marginTop: "25px" }}>
       {notFoundProducts ? (
-        <NotFoundProducts text="Отзывы не были найдены" />
+        <NotFoundProducts text={notFoundElements} />
       ) : (
         <Fragment>
           {bodyPaginationData}

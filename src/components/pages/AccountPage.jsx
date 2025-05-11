@@ -6,7 +6,7 @@ import {UpdateUser} from "../../service/dto/UserDTO";
 import {useDispatch} from "react-redux";
 import {exitUser} from "../../state/actions/authAction";
 import PaginationScooter from "../other/pagination/Pagination";
-import {deleteCookieData} from "../../service/token_service";
+import {AuthService} from "../../service/api/auth/AuthApiService";
 
 const AccountPage = () => {
   const [userData, setUserData] = useState(null);
@@ -40,13 +40,15 @@ const AccountPage = () => {
   }, []);
 
   const logout = () => {
-    // Обновление в хранилище
-    dispatch(exitUser());
-    deleteCookieData();
 
-    setIsAdmin(false);
-    setUserData(null);
-    navigate("/login");
+    AuthService.logoutUser().then(() => {
+      // Обновление в хранилище
+      dispatch(exitUser());
+
+      setIsAdmin(false);
+      setUserData(null);
+      navigate("/login");
+    }).catch(() => {});
   };
 
   const handleTabClick = (tab) => {

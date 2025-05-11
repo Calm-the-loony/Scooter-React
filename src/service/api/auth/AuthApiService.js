@@ -105,4 +105,10 @@ export class AuthService {
 
     throw new Error("Не удалось подвердить аккаунт пользователя");
   }
+
+  static async logoutUser() {
+      await axios.post(
+          import.meta.env.VITE_BACKEND_URL + "/auth/logout",
+      )
+  }
 }
