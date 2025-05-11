@@ -234,7 +234,7 @@ function PaginationScooter({
 
   return (
     <div style={{ marginTop: "25px" }}>
-      {notFoundProducts ? (
+      {notFoundElements ? (
         <NotFoundProducts text={notFoundElements} />
       ) : (
         <Fragment>
