@@ -654,3 +654,120 @@
     }
   }
 }
+
+/* Стили для модальных окон */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #333;
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.modal-body h3 {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+}
+
+.modal-body p {
+  margin: 10px 0;
+  line-height: 1.5;
+  color: #555;
+}
+
+.modal-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-button {
+  background-color: #45efda;
+  color: #333;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.modal-button:hover {
+  background-color: #33b5a0;
+}
+
+/* Стили для чекбокса соглашения */
+.terms-container {
+  margin: 15px 0;
+}
+
+.terms-checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+}
+
+.terms-checkbox input {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.terms-link {
+  background: none;
+  border: none;
+  color: #45efda;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+}
+
+.terms-link:hover {
+  color: #33b5a0;
+}
+
+/* Стиль для неактивной кнопки регистрации */
+.btn-login:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
