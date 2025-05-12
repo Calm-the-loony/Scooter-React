@@ -1,22 +1,20 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {useEffect, useState} from "react";
 import "../../../style/Header.scss";
 import "font-awesome/css/font-awesome.min.css";
 import logoImage from "../../../image/Дизайн.png";
-import searchIcon from "../../../image/free-icon-loupe-2482343.png";
 import favoriteIcon from "../../../image/favorite.png";
 import scooterIcon from "../../../image/scooter.png";
 import cartIcon from "../../../image/cart.png";
 import userIcon from "../../../image/free-icon-user-2603906.png";
-import { useNavigate } from "react-router-dom";
-import { UserApiService } from "../../../service/api/user/UserApiService";
+import {useNavigate} from "react-router-dom";
+import {UserApiService} from "../../../service/api/user/UserApiService";
 import ProductApiService from "../../../service/api/product/ProductService";
-import { Search } from "lucide-react";
+import {Search} from "lucide-react";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
   const [cntOrder, setOrders] = useState(0);
 
@@ -30,7 +28,6 @@ const Header = () => {
   const handleSearchClick = () => {
     // Получаем продукты по фильтру (Title)
     ProductApiService.filterProducts(searchQuery).then((data) => {
-      setSearchResults(data);
       navigate("/search-results", { state: { results: data } });
     });
   };
@@ -50,11 +47,6 @@ const Header = () => {
   const enterCityManually = () => {
     const manualCity = prompt("Введите название вашего города:");
     if (manualCity) selectCity(manualCity);
-  };
-
-  // Обработчик для открытия и закрытия меню
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
   };
 
   useEffect(() => {
@@ -83,9 +75,13 @@ const Header = () => {
     };
 
     const userOrders = async () => {
-      let orders = await UserApiService.userOrders();
-      if (orders) {
-        setOrders(orders.orders.length);
+      try {
+        let orders = await UserApiService.userOrders();
+        if (orders) {
+          setOrders(orders.orders.length);
+        }
+      } catch {
+        setOrders(0);
       }
     };
 

@@ -1,11 +1,19 @@
-import React, { createContext } from "react";
-import { Provider } from "react-redux";
-import scooterStore from "../state/store/configureStore";
+import React, {createContext} from "react";
+import {useDispatch} from "react-redux";
+
+import {checkAuthUser} from "../state/middleware/auth_user";
 
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-  return <Provider store={scooterStore}>{children}</Provider>;
+
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(checkAuthUser());
+  }, []);
+
+  return children;
 };
 
 export default CartProvider;

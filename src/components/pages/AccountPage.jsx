@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import "../../style/styles.scss";
-import { UserApiService } from "../../service/api/user/UserApiService";
-import { UpdateUser } from "../../service/dto/UserDTO";
-import { useDispatch } from "react-redux";
-import { exitUser } from "../../state/actions/authAction";
+import {UserApiService} from "../../service/api/user/UserApiService";
+import {UpdateUser} from "../../service/dto/UserDTO";
+import {useDispatch} from "react-redux";
+import {exitUser} from "../../state/actions/authAction";
 import PaginationScooter from "../other/pagination/Pagination";
-import { deleteCookieData } from "../../service/token_service";
+import {AuthService} from "../../service/api/auth/AuthApiService";
 
 const AccountPage = () => {
   const [userData, setUserData] = useState(null);
@@ -17,6 +17,7 @@ const AccountPage = () => {
   const dispatch = useDispatch();
 
   const [address, setAddress] = useState(null);
+  const [addressCity, setAddressCity] = useState(null);
   const [dateBirthday, setDateBirthDay] = useState(null);
   const [mainNameUser, setMainNameUser] = useState(null);
   const [telephone, setTelephoneUser] = useState(null);
@@ -39,13 +40,15 @@ const AccountPage = () => {
   }, []);
 
   const logout = () => {
-    // Обновление в хранилище
-    dispatch(exitUser());
-    deleteCookieData();
 
-    setIsAdmin(false);
-    setUserData(null);
-    navigate("/login");
+    AuthService.logoutUser().then(() => {
+      // Обновление в хранилище
+      dispatch(exitUser());
+
+      setIsAdmin(false);
+      setUserData(null);
+      navigate("/login");
+    }).catch(() => {});
   };
 
   const handleTabClick = (tab) => {
@@ -61,12 +64,13 @@ const AccountPage = () => {
     e.preventDefault();
 
     const form = e.target;
+
     const updatedUserData = {
       ...userData,
       name: form.name.value,
       dob: form.dob.value,
       address: form.address.value,
-      email: form.email.value,
+      email: form.account_address_city.value,
       phone: form.phone.value,
     };
 
@@ -99,11 +103,13 @@ const AccountPage = () => {
     const userData = new UpdateUser(
       mainNameUser,
       dateBirthday,
+        addressCity,
       address,
       telephone,
     );
     const req = UserApiService.updateUserInformation(userData)
-      .then((okMessage) => {})
+      .then((okMessage) => {
+      })
       .catch((erMessage) => {
         alert("Не удалось обновить информацию!");
       });
@@ -188,7 +194,21 @@ const AccountPage = () => {
                     setDateBirthDay(value.target.value);
                   }}
                 />
-
+                <label htmlFor="account_address_city" className="account-label">
+                  Город:
+                </label>
+                <input
+                    type="text"
+                    id="account_address_city"
+                    name="account_address_city"
+                    className="account-input"
+                    required
+                    defaultValue={userData?.address_city || ""}
+                    disabled={!isEditing}
+                    onChange={(value) => {
+                      setAddressCity(value.target.value);
+                    }}
+                />
                 <label htmlFor="account_address" className="account-label">
                   Адрес:
                 </label>

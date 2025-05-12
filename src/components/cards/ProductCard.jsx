@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
-import { UserApiService } from "../../service/api/user/UserApiService";
+import {UserApiService} from "../../service/api/user/UserApiService";
 import "../../style/ProductCard.scss";
 
 const ProductCard = ({
@@ -16,23 +16,26 @@ const ProductCard = ({
   name,
   price,
 }) => {
-  const auth = useSelector((state) => state.isAuthenticated);
 
+  const auth = useSelector((state) => state.auth.isAuthenticated);
   const [isFavorite, setIsFavorite] = useState(false);
   const [idFavourite, setIdFavourite] = useState(null);
   const navigate = useNavigate();
 
-  // Проверка при монтировании компонента, находится ли товар в избранном
   useEffect(() => {
     const favorites = async () => {
-      let userFavourite = await UserApiService.userFavourites();
-      if (userFavourite) {
-        userFavourite.favourites.forEach((el) => {
-          if (el.product_info.id_product === id) {
-            setIsFavorite(true);
-            setIdFavourite(el.product_info.id_favourite);
-          }
-        });
+      try {
+        let userFavourite = await UserApiService.userFavourites();
+        if (userFavourite) {
+          userFavourite.favourites.forEach((el) => {
+            if (el.product_info.id_product === id) {
+              setIsFavorite(true);
+              setIdFavourite(el.product_info.id_favourite);
+            }
+          });
+        }
+      } catch {
+
       }
     };
 
@@ -88,7 +91,7 @@ const ProductCard = ({
             <i className="fas fa-shopping-cart"></i>
           </button>
           <a className="button_more" onClick={handleCardClick}>
-            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            <i className="fa fa-chevron-right" aria-hidden="true"></i>
           </a>
         </div>
         <button

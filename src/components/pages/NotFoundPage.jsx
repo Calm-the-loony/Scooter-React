@@ -1,7 +1,6 @@
 import React from "react";
 
 const NotFoundPage = () => {
-  console.log(1);
   return (
     <div style={{ textAlign: "center", padding: "20px", marginTop: "10%" }}>
       <h1>404</h1>

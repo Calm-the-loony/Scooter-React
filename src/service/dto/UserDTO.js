@@ -8,8 +8,9 @@ export class RegisterUser {
 }
 
 export class UpdateUser {
-  constructor(mainNameUser, dateBirthDay, address, telephone) {
+  constructor(mainNameUser, dateBirthDay, address_city, address, telephone) {
     this.main_name_user = mainNameUser;
+    this.address_city = address_city;
     this.address = address;
     this.telephone = telephone;
     this.date_birthday = new Date(dateBirthDay);

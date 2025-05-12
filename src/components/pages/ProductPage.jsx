@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { UserApiService } from "../../service/api/user/UserApiService";  
+import React, {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {UserApiService} from "../../service/api/user/UserApiService";
 import ProductApiService from "../../service/api/product/ProductService";
 import "../../style/ProductPage.scss";
 import "../../style/ProductCard.scss";
@@ -9,7 +9,7 @@ import Pagination from "../other/pagination/Pagination";
 import Accordion from "../other/accordion/Accordion";
 
 const ProductPage = () => {
-  const selector = useSelector(state => state.isAuthenticated);
+  const selector = useSelector(state => state.auth.isAuthenticated);
   const [userStar, setUserStar] = useState(0);
   const [userReviewDescription, setUserReviewDescription] = useState("");
   const [viewedProducts, setViewedProducts] = useState([]);
@@ -29,6 +29,8 @@ const ProductPage = () => {
       setViewedProducts(JSON.parse(storedProducts));
     }
   }, []);
+
+  console.log(selector);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { parseCookieString } from "../../token_service";
 
 export default class ProductApiService {
   /**
@@ -22,7 +21,7 @@ export default class ProductApiService {
   ) {
     try {
       const req = await axios.get(
-        process.env.REACT_APP_BACKEND_URL + "/product/all/filter",
+          import.meta.env.VITE_BACKEND_URL + "/product/all/filter",
         {
           params: {
             title_product: title,
@@ -47,7 +46,7 @@ export default class ProductApiService {
    */
   static async productData(id_product) {
     const req = await axios.get(
-      process.env.REACT_APP_BACKEND_URL + "/product/information/full",
+        import.meta.env.VITE_BACKEND_URL + "/product/information/full",
       {
         params: {
           id_product: id_product,
@@ -64,7 +63,7 @@ export default class ProductApiService {
    */
   static async searchProduct(id_mark = null, id_model = null) {
     const req = await axios.get(
-      process.env.REACT_APP_BACKEND_URL + "/product/all/search",
+        import.meta.env.VITE_BACKEND_URL + "/product/all/search",
       {
         params: {
           mark: id_mark,
@@ -82,7 +81,7 @@ export default class ProductApiService {
   static async recommendsProduct() {
     try {
       const req = await axios.get(
-        process.env.REACT_APP_BACKEND_URL + "/product/recommends",
+          import.meta.env.VITE_BACKEND_URL + "/product/recommends",
       );
       return req.data;
     } catch {
@@ -97,7 +96,7 @@ export default class ProductApiService {
   static async allSalledProducts() {
     try {
       const req = await axios.get(
-        process.env.REACT_APP_BACKEND_URL + "/product/last/sells",
+          import.meta.env.VITE_BACKEND_URL + "/product/last/sells",
       );
       return req.data;
     } catch {
@@ -112,7 +111,7 @@ export default class ProductApiService {
   static async allTypeModels() {
     try {
       const req = await axios.get(
-        process.env.REACT_APP_BACKEND_URL + "/mt/all",
+          import.meta.env.VITE_BACKEND_URL + "/mt/all",
       );
       return req.data;
     } catch {
@@ -127,13 +126,7 @@ export default class ProductApiService {
   static async allModels() {
     try {
       const req = await axios.get(
-        process.env.REACT_APP_BACKEND_URL + "/model/all",
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            withCredentials: true,
-          }
+          import.meta.env.VITE_BACKEND_URL + "/model/all",
       );
 
       return req.data;
@@ -149,7 +142,7 @@ export default class ProductApiService {
   static async allMarks() {
     try {
       const req = await axios.get(
-        process.env.REACT_APP_BACKEND_URL + "/mark/all",
+          import.meta.env.VITE_BACKEND_URL + "/mark/all",
       );
       return req.data;
     } catch {
@@ -163,7 +156,7 @@ export default class ProductApiService {
    */
   static async findModelByMark(id_mark = null) {
     const req = await axios.get(
-      process.env.REACT_APP_BACKEND_URL + "/model/all/by/mark",
+        import.meta.env.VITE_BACKEND_URL + "/model/all/by/mark",
       {
         params: {
           id_mark: id_mark,
@@ -181,7 +174,7 @@ export default class ProductApiService {
   static async allBrands() {
     try {
       const req = await axios.get(
-        process.env.REACT_APP_BACKEND_URL + "/brand/all",
+          import.meta.env.VITE_BACKEND_URL + "/brand/all",
       );
       return req.data.brands;
     } catch {
@@ -193,16 +186,9 @@ export default class ProductApiService {
    * Создание отзыва на товар
    */
   static async createReview(dataUser) {
-    const tokenData = parseCookieString();
-    console.log(dataUser, 232323);
     const req = await axios.post(
-      process.env.REACT_APP_BACKEND_URL + "/review/create",
+        import.meta.env.VITE_BACKEND_URL + "/review/create",
       dataUser,
-      {
-        headers: {
-          Authorization: "Bearer " + tokenData["access_token"],
-        },
-      },
     );
 
     if (req.status === 201) {
@@ -217,7 +203,7 @@ export default class ProductApiService {
    */
   static async getAllReviewByProductId(id_product) {
     const req = await axios.get(
-      process.env.REACT_APP_BACKEND_URL + "/review/all/product/" + id_product,
+        import.meta.env.VITE_BACKEND_URL + "/review/all/product/" + id_product,
     );
     if (req.status === 200) {
       return req.data;

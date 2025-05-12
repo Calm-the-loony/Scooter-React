@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
-import { Pie } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import {Pie} from "react-chartjs-2";
+import {ArcElement, Chart as ChartJS, Legend, Tooltip} from "chart.js";
 import "../../style/GaragePage.scss";
 import ProductApiService from "../../service/api/product/ProductService";
 import GarageApiService from "../../service/api/product/GarageService";
-import { useDispatch } from "react-redux";
-import { exitUser } from "../../state/actions/authAction";
+import {useDispatch} from "react-redux";
+import {exitUser} from "../../state/actions/authAction";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -16,7 +16,6 @@ const GaragePage = () => {
 
   const navigate = useNavigate();
   const [isUpdate, setIsUpdate] = useState(false);
-  const [scooters, setScooters] = useState([]);
   const [newScooter, setNewScooter] = useState({
     type: null,
     mark: null,
@@ -54,10 +53,14 @@ const GaragePage = () => {
     };
 
     const reqMyGarage = async () => {
-      let myGarage = await GarageApiService.myGarage();
-      if (myGarage) {
-        setGarage(myGarage.garage);
-      } else {
+      try {
+        let myGarage = await GarageApiService.myGarage();
+        if (myGarage) {
+          setGarage(myGarage.garage);
+        } else {
+          dispatch(exitUser());
+        }
+      } catch {
         dispatch(exitUser());
       }
     };

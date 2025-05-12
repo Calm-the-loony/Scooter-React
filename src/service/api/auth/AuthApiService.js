@@ -1,7 +1,6 @@
 import axios from "axios";
-import { parseCookieString } from "../../token_service";
-import { useDispatch } from "react-redux";
-import { loginUser } from "../../../state/actions/authAction";
+import {useDispatch} from "react-redux";
+import {loginUser} from "../../../state/actions/authAction";
 
 export class AuthService {
   static initialize = () => {
@@ -23,7 +22,7 @@ export class AuthService {
     formAuthData.append("password", userPassword);
 
     let req = await axios.post(
-      process.env.REACT_APP_BACKEND_URL + "/auth/login",
+        import.meta.env.VITE_BACKEND_URL + "/auth/login",
       formAuthData,
       {
         headers: {
@@ -33,9 +32,6 @@ export class AuthService {
     );
 
     if (req.status === 201) {
-      document.cookie = `access_token=${req.data.access_token}`;
-      document.cookie = `refresh_token=${req.data.refresh_token}`;
-      document.cookie = `token_type=${req.data.token_type}`;
       return true;
     }
 
@@ -49,7 +45,7 @@ export class AuthService {
    */
   static async registerUser(userData) {
     let req = await axios.post(
-      process.env.REACT_APP_BACKEND_URL + "/auth/registration",
+        import.meta.env.VITE_BACKEND_URL + "/auth/registration",
       JSON.stringify(userData),
       {
         headers: {
@@ -71,21 +67,12 @@ export class AuthService {
    */
   static async updateUserToken() {
     try {
-      const tokens = parseCookieString();
-
       const req = await axios.post(
-        process.env.REACT_APP_BACKEND_URL + "/auth/update_token",
+          import.meta.env.VITE_BACKEND_URL + "/auth/update_token",
         {},
-        {
-          params: {
-            refresh_token: tokens.refresh_token,
-          },
-        },
       );
 
       if (req.status === 201) {
-        document.cookie = "access_token=; Max-Age=-1; path=/";
-        document.cookie = "access_token=" + req.data.access_token;
         this.dispatch(loginUser());
         return true;
       } else {
@@ -98,7 +85,7 @@ export class AuthService {
 
   static async success_acount(secretCode) {
     const req = await axios.get(
-      process.env.REACT_APP_BACKEND_URL + "/auth/access_create_account",
+        import.meta.env.VITE_BACKEND_URL + "/auth/access_create_account",
       {
         params: {
           email: localStorage.getItem("email-registration"),
@@ -117,5 +104,11 @@ export class AuthService {
     }
 
     throw new Error("Не удалось подвердить аккаунт пользователя");
+  }
+
+  static async logoutUser() {
+      await axios.post(
+          import.meta.env.VITE_BACKEND_URL + "/auth/logout",
+      )
   }
 }

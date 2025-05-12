@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthService } from "../../service/api/auth/AuthApiService";
+import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {AuthService} from "../../service/api/auth/AuthApiService";
 import "../../style/styles.scss";
 
 const RegisterPage = () => {

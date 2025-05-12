@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import "../../style/CategoryPage.scss";
-import { ReactComponent as ArrowIcon } from "../../image/arrow-icon.svg";
+import ArrowIcon from "../../image/arrow-icon.svg?react";
 import ProductApiService from "../../service/api/product/ProductService";
 import CategoryApiService from "../../service/api/product/CategoryService";
 import PaginationScooter from "../other/pagination/Pagination";
@@ -18,22 +18,15 @@ const CategoryPage = () => {
   const [selectedSubcategory, setSelectedSubcategory] = useState(searchParams.get("subcategory") ? +searchParams.get("subcategory") : null);
   const [expandedCategories, setExpandedCategories] = useState({});
   const [filters, setFilters] = useState({
-    minPrice: searchParams.get("minPrice") ? +searchParams.get("minPrice") : "",
-    maxPrice: searchParams.get("maxPrice") ? +searchParams.get("maxPrice") : "",
+    minPrice: searchParams.get("minPrice") ? +searchParams.get("minPrice") : null,
+    maxPrice: searchParams.get("maxPrice") ? +searchParams.get("maxPrice") : null,
     sort: searchParams.get("sort") ? searchParams.get("sort") : null,
   });
   const [filteredProductsList, setFilteredProductsList] = useState([]);
 
-
-  // Обновление категории при изменении состояния
-  useEffect(() => {
-    setSelectedCategory(+location.pathname.split("/")[2]);
-  }, [initialCategoryId, location]);
-
-  // Обновление списка товаров при смене категории/подкатегории
   useEffect(() => {
     filteredProducts();
-  }, [selectedCategory, selectedSubcategory, filters]);
+  }, [selectedCategory, selectedSubcategory, filters])
 
   // Получаем список товаров
   useEffect(() => {
@@ -46,7 +39,7 @@ const CategoryPage = () => {
     ).then((productData) => {
       // Устанавливаем данные
       setFilteredProductsList(productData);
-    }, [searchParams, location]);
+    }, [searchParams]);
 
     CategoryApiService.allCategories()
       .then((cat) => {
@@ -101,6 +94,10 @@ const CategoryPage = () => {
   // Handle filter changes
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
+
+    searchParams.set(name, value);
+    setSearchParams(searchParams);
+
     setFilters((prev) => ({
       ...prev,
       [name]: value,
@@ -109,8 +106,7 @@ const CategoryPage = () => {
 
   // Reset filters to initial state
   const handleResetFilters = () => {
-    setFilters({ minPrice: "", maxPrice: "", sort: "default" });
-    filteredProducts();
+    navigate("/category");
   };
 
   /**
@@ -137,14 +133,16 @@ const CategoryPage = () => {
 
     ProductApiService.filterProducts(
       null,
-      selectedCategory ? selectedCategory : null,
+      selectedCategory == +location.pathname.split("/")[2] ? selectedCategory : +location.pathname.split("/")[2],
       selectedSubcategory ? selectedSubcategory : null,
       Number(filters.minPrice) ? Number(filters.minPrice) : null,
       Number(filters.maxPrice) ? Number(filters.maxPrice) : null,
       desc,
       availability,
     ).then((filtProductList) => {
-      // Установка отфильтрованных продуктов
+
+      console.log(filtProductList);
+
       setFilteredProductsList(filtProductList);
     });
   };
@@ -201,6 +199,7 @@ const CategoryPage = () => {
               placeholder="Мин"
               value={filters.minPrice}
               onChange={handleFilterChange}
+              style={{marginTop: "10px"}}
             />
             <input
               type="number"
@@ -208,6 +207,7 @@ const CategoryPage = () => {
               placeholder="Макс"
               value={filters.maxPrice}
               onChange={handleFilterChange}
+              style={{marginTop: "10px"}}
             />
           </div>
           <div className="filter">
@@ -233,6 +233,7 @@ const CategoryPage = () => {
         <hr className="dashed-line" />
         <PaginationScooter
           type="rounded"
+          typePagination="product"
           items={filteredProductsList}
         ></PaginationScooter>
       </section>
