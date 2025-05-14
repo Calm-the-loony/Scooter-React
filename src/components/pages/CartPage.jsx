@@ -79,7 +79,7 @@ const CartPage = () => {
     if (orderProducts) {
       orderProducts.forEach((orderData) => {
         orderData.product_data.forEach((el) => {
-          total += el.price_product * el.quantity;
+          total += (el.price_product * el.quantity);
         });
       });
     }
