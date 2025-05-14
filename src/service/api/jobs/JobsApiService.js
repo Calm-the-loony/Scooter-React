@@ -8,7 +8,7 @@ export class JobsApiService {
   static async allJobs() {
     try {
       const req = await axios.get(
-          import.meta.env.VITE_BACKEND_URL + "/vacancy/all",
+        import.meta.env.VITE_BACKEND_URL + "/vacancy/all",
         {},
       );
       return req.data;
@@ -25,7 +25,7 @@ export class JobsApiService {
   static async sendUserRequest(userData, id_vacancy) {
     try {
       const req = await axios.post(
-          import.meta.env.VITE_BACKEND_URL + "/vacancy/create/req",
+        import.meta.env.VITE_BACKEND_URL + "/vacancy/create/req",
         {
           ...userData,
           id_vacancy: id_vacancy,

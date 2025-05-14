@@ -1,19 +1,18 @@
-import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router";
-import {Pie} from "react-chartjs-2";
-import {ArcElement, Chart as ChartJS, Legend, Tooltip} from "chart.js";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { Pie } from "react-chartjs-2";
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
 import "../../style/GaragePage.scss";
 import ProductApiService from "../../service/api/product/ProductService";
 import GarageApiService from "../../service/api/product/GarageService";
-import {useDispatch} from "react-redux";
-import {exitUser} from "../../state/actions/authAction";
+import { useDispatch } from "react-redux";
+import { exitUser } from "../../state/actions/authAction";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ITEMS_PER_PAGE = 4;
 
 const GaragePage = () => {
-
   const navigate = useNavigate();
   const [isUpdate, setIsUpdate] = useState(false);
   const [newScooter, setNewScooter] = useState({
@@ -282,25 +281,31 @@ const GaragePage = () => {
               <>
                 <ul className="products-grid">
                   {paginatedDetails.map((detail) => (
-                      <li key={detail.id_product}>
-                        <div className="products-card">
-                          <img
-                              src={detail.photo[0].photo_url}
-                              alt={detail.title_product}
-                          />
-                          <h4>{detail.title_product}</h4>
-                          <p>Цена: {detail.price_product}</p>
-                          <p>В наличии: {detail.quantity_product}</p>
-                          <p>Артикул: {detail.article_product}</p>
-                        </div>
-                        <a className="button_more" onClick={() => goToPageProduct(detail.id_product)}>
-                          <i className="fa fa-chevron-right" aria-hidden="true"></i>
-                        </a>
-                      </li>
+                    <li key={detail.id_product}>
+                      <div className="products-card">
+                        <img
+                          src={detail.photo[0].photo_url}
+                          alt={detail.title_product}
+                        />
+                        <h4>{detail.title_product}</h4>
+                        <p>Цена: {detail.price_product}</p>
+                        <p>В наличии: {detail.quantity_product}</p>
+                        <p>Артикул: {detail.article_product}</p>
+                      </div>
+                      <a
+                        className="button_more"
+                        onClick={() => goToPageProduct(detail.id_product)}
+                      >
+                        <i
+                          className="fa fa-chevron-right"
+                          aria-hidden="true"
+                        ></i>
+                      </a>
+                    </li>
                   ))}
                 </ul>
                 <div className="pagination">
-                  {Array.from({length: totalPages}, (_, index) => (
+                  {Array.from({ length: totalPages }, (_, index) => (
                     <button
                       key={index + 1}
                       className={`pagination-button ${

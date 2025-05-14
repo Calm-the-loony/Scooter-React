@@ -1,6 +1,6 @@
 import React from "react";
-import {fireEvent, render, screen} from "@testing-library/react";
-import {CartContext} from "../context/CartContext";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { CartContext } from "../context/CartContext";
 import CartPage from "../components/CartPage";
 
 const mockCartItems = [

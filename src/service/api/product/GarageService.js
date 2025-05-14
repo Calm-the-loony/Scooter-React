@@ -3,13 +3,12 @@ import axios from "axios";
 export default class GarageApiService {
   static async productForGarage(id_mark, id_moto_type, id_model) {
     try {
-
       id_mark ??= null;
       id_model ??= null;
       id_moto_type ??= null;
 
       const req = await axios.get(
-          import.meta.env.VITE_BACKEND_URL + "/product/all/garage/filter",
+        import.meta.env.VITE_BACKEND_URL + "/product/all/garage/filter",
         {
           params: {
             id_brand: id_mark,
@@ -32,7 +31,7 @@ export default class GarageApiService {
    */
   static async addedGarage(newTrasport) {
     const req = await axios.post(
-        import.meta.env.VITE_BACKEND_URL + "/garage/create",
+      import.meta.env.VITE_BACKEND_URL + "/garage/create",
       newTrasport,
     );
 
@@ -45,7 +44,7 @@ export default class GarageApiService {
    */
   static async myGarage() {
     const req = await axios.get(
-        import.meta.env.VITE_BACKEND_URL + "/garage/all",
+      import.meta.env.VITE_BACKEND_URL + "/garage/all",
     );
 
     return req.data;

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "../../../style/Header.scss";
 import "font-awesome/css/font-awesome.min.css";
 import logoImage from "../../../image/Дизайн.png";
@@ -6,10 +6,10 @@ import favoriteIcon from "../../../image/favorite.png";
 import scooterIcon from "../../../image/scooter.png";
 import cartIcon from "../../../image/cart.png";
 import userIcon from "../../../image/free-icon-user-2603906.png";
-import {useNavigate} from "react-router-dom";
-import {UserApiService} from "../../../service/api/user/UserApiService";
+import { useNavigate } from "react-router-dom";
+import { UserApiService } from "../../../service/api/user/UserApiService";
 import ProductApiService from "../../../service/api/product/ProductService";
-import {Search} from "lucide-react";
+import { Search } from "lucide-react";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,38 +49,37 @@ const Header = () => {
     if (manualCity) selectCity(manualCity);
   };
 
-    const useLocalStorageListener = (key) => {
-      const [value, setValue] = useState(localStorage.getItem(key));
+  const useLocalStorageListener = (key) => {
+    const [value, setValue] = useState(localStorage.getItem(key));
 
-      useEffect(() => {
-        const handleStorageChange = (e) => {
-          if (e.key === key) {
-            setValue(e.newValue);
-          }
-        };
+    useEffect(() => {
+      const handleStorageChange = (e) => {
+        if (e.key === key) {
+          setValue(e.newValue);
+        }
+      };
 
-        // Слушаем изменения из других вкладок
-        window.addEventListener("storage", handleStorageChange);
+      // Слушаем изменения из других вкладок
+      window.addEventListener("storage", handleStorageChange);
 
-        // Слушаем изменения в текущей вкладке
-        const interval = setInterval(() => {
-          const currentValue = localStorage.getItem(key);
-          if (currentValue !== value) {
-            setValue(currentValue);
-          }
-        }, 100); // Проверяем каждые 100 мс
+      // Слушаем изменения в текущей вкладке
+      const interval = setInterval(() => {
+        const currentValue = localStorage.getItem(key);
+        if (currentValue !== value) {
+          setValue(currentValue);
+        }
+      }, 100); // Проверяем каждые 100 мс
 
-        return () => {
-          window.removeEventListener("storage", handleStorageChange);
-          clearInterval(interval);
-        };
-      }, [key, value]);
+      return () => {
+        window.removeEventListener("storage", handleStorageChange);
+        clearInterval(interval);
+      };
+    }, [key, value]);
 
-      return value;
-    };
+    return value;
+  };
 
-
-    const localStorageHook = useLocalStorageListener("product");
+  const localStorageHook = useLocalStorageListener("product");
 
   useEffect(() => {
     const header = document.getElementById("header");

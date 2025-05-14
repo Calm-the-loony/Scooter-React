@@ -1,11 +1,10 @@
 // src/components/FeaturedProducts.jsx
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import ProductCard from "../cards/ProductCard"; // Убедитесь, что у вас есть компонент ProductCard
 
 const FeaturedProducts = () => {
   const [products, setProducts] = useState([]);
-
 
   const carouselSettings = {
     dots: true,

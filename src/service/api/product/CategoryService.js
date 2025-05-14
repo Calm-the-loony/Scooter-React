@@ -7,7 +7,7 @@ export default class CategoryApiService {
    */
   static async allCategories() {
     const req = await axios.get(
-        import.meta.env.VITE_BACKEND_URL + "/category/all",
+      import.meta.env.VITE_BACKEND_URL + "/category/all",
     );
     return req.data;
   }
@@ -20,7 +20,7 @@ export default class CategoryApiService {
   static async allSubCategories(id_category) {
     try {
       const req = await axios.get(
-          import.meta.env.VITE_BACKEND_URL + "/all/category/" + id_category,
+        import.meta.env.VITE_BACKEND_URL + "/all/category/" + id_category,
       );
       return req.data;
     } catch {

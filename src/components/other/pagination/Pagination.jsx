@@ -1,10 +1,9 @@
-import {Pagination, Stack} from "@mui/material";
-import React, {Fragment, useEffect, useState} from "react";
+import { Pagination, Stack } from "@mui/material";
+import React, { Fragment, useEffect, useState } from "react";
 
 import ProductCard from "../../cards/ProductCard";
 import NotFoundProducts from "../../notFound/notFoundProducts";
 import StarImage from "../../../image/star.png";
-
 
 function PaginationScooter({
   items,
@@ -142,11 +141,10 @@ function PaginationScooter({
               <h4>Товары:</h4>
               <ul className="order-items">
                 {item.product_data.map((product, index) => (
-                    <li key={index} style={{paddingBottom: "5px"}}>
-                      <span>{product.title_product}</span> — {" "}
-                      {product.quantity_buy} шт. ({product.price}{" "}
-                      ₽/шт)
-                    </li>
+                  <li key={index} style={{ paddingBottom: "5px" }}>
+                    <span>{product.title_product}</span> —{" "}
+                    {product.quantity_buy} шт. ({product.price} ₽/шт)
+                  </li>
                 ))}
               </ul>
             </div>
@@ -156,7 +154,11 @@ function PaginationScooter({
       break;
     case "favourite":
       bodyPaginationData = dataItems.map((item) => (
-        <div key={item.product_info.id_favourite} className="favorite-item" style={{marginBottom: "20px"}}>
+        <div
+          key={item.product_info.id_favourite}
+          className="favorite-item"
+          style={{ marginBottom: "20px" }}
+        >
           <img
             src={
               item.product_info.photos[0]
@@ -200,38 +202,34 @@ function PaginationScooter({
         </div>
       ));
       break;
-      case "review": {
-        bodyPaginationData = (
-            <div className="product-review__products">
-              {
-                dataItems.map((productReview) =>
-                    <article className="review-card">
-                      <div className="review-card__header">
-                        <p style={{fontWeight: "bold"}}>{productReview.user_data.user_name}</p>
-                        <div className="review-card__header-info">
-                          <p>2024-10-10</p>
-                          <div>
-                            {new Array(productReview.estimation_review).fill(1).map(() => {
-                              return (
-                                  <img
-                                      src={StarImage}
-                                      alt='Оценка'
-                                      width={20}
-                                  />
-                              )
-                            })}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="review-card__body">
-                        <p>{productReview.text_review}</p>
-                      </div>
-                    </article>
-                )
-              }
-            </div>
-        )
-      }
+    case "review": {
+      bodyPaginationData = (
+        <div className="product-review__products">
+          {dataItems.map((productReview) => (
+            <article className="review-card">
+              <div className="review-card__header">
+                <p style={{ fontWeight: "bold" }}>
+                  {productReview.user_data.user_name}
+                </p>
+                <div className="review-card__header-info">
+                  <p>2024-10-10</p>
+                  <div>
+                    {new Array(productReview.estimation_review)
+                      .fill(1)
+                      .map(() => {
+                        return <img src={StarImage} alt="Оценка" width={20} />;
+                      })}
+                  </div>
+                </div>
+              </div>
+              <div className="review-card__body">
+                <p>{productReview.text_review}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      );
+    }
   }
 
   return (

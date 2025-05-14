@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../../style/MainSection.scss";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -22,7 +22,6 @@ import "../../style/CategoryPage.scss";
 import CategoryApiService from "../../service/api/product/CategoryService";
 import MarkApiService from "../../service/api/product/MarkService";
 import ProductApiService from "../../service/api/product/ProductService";
-
 
 const MainSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -160,7 +159,7 @@ const MainSection = () => {
       if (models) {
         setModels(models.all_models ? models.all_models : []);
       } else {
-        setModels([])
+        setModels([]);
       }
     };
 
@@ -219,7 +218,7 @@ const MainSection = () => {
                   {marks.marks.map((mark, index) => {
                     return (
                       <option
-                          key={index}
+                        key={index}
                         value={mark.name_mark}
                         data-mark-id={mark.id_mark}
                       >
@@ -252,7 +251,7 @@ const MainSection = () => {
                 {models.map((model, index) => {
                   return (
                     <option
-                        key={index}
+                      key={index}
                       value={model.name_model}
                       data-model-id={model.id_model}
                     >
@@ -298,45 +297,45 @@ const MainSection = () => {
       ) : (
         ""
       )}
-    <section className="transparent-guarantees">
-  <div className="guarantees-container">
-    <div className="guarantee-card">
-      <div className="card-icon">
-        <img src={smileyIcon} alt="Надежность" />
-      </div>
-      <h3 className="card-title">100% Надежность</h3>
-      <p className="card-desc">Более 1000 отзывов</p>
-      <div className="card-highlight"></div>
-    </div>
+      <section className="transparent-guarantees">
+        <div className="guarantees-container">
+          <div className="guarantee-card">
+            <div className="card-icon">
+              <img src={smileyIcon} alt="Надежность" />
+            </div>
+            <h3 className="card-title">100% Надежность</h3>
+            <p className="card-desc">Более 1000 отзывов</p>
+            <div className="card-highlight"></div>
+          </div>
 
-    <div className="guarantee-card">
-      <div className="card-icon">
-        <img src={thumbsUpIcon} alt="Скидка" />
-      </div>
-      <h3 className="card-title">Скидка 10%</h3>
-      <p className="card-desc">при оплате СБП от Сбера</p>
-      <div className="card-highlight"></div>
-    </div>
+          <div className="guarantee-card">
+            <div className="card-icon">
+              <img src={thumbsUpIcon} alt="Скидка" />
+            </div>
+            <h3 className="card-title">Скидка 10%</h3>
+            <p className="card-desc">при оплате СБП от Сбера</p>
+            <div className="card-highlight"></div>
+          </div>
 
-    <div className="guarantee-card">
-      <div className="card-icon">
-        <img src={airplaneIcon} alt="Доставка" />
-      </div>
-      <h3 className="card-title">Быстрая доставка</h3>
-      <p className="card-desc">по всей России</p>
-      <div className="card-highlight"></div>
-    </div>
+          <div className="guarantee-card">
+            <div className="card-icon">
+              <img src={airplaneIcon} alt="Доставка" />
+            </div>
+            <h3 className="card-title">Быстрая доставка</h3>
+            <p className="card-desc">по всей России</p>
+            <div className="card-highlight"></div>
+          </div>
 
-    <div className="guarantee-card">
-      <div className="card-icon">
-        <img src={dollarIcon} alt="Возврат" />
-      </div>
-      <h3 className="card-title">14 дней на возврат</h3>
-      <p className="card-desc">независимо от причин</p>
-      <div className="card-highlight"></div>
-    </div>
-  </div>
-</section>
+          <div className="guarantee-card">
+            <div className="card-icon">
+              <img src={dollarIcon} alt="Возврат" />
+            </div>
+            <h3 className="card-title">14 дней на возврат</h3>
+            <p className="card-desc">независимо от причин</p>
+            <div className="card-highlight"></div>
+          </div>
+        </div>
+      </section>
 
       <section className="featured-products">
         <h2 className="as">Рекомендуемые товары</h2>

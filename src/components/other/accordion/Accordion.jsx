@@ -1,5 +1,4 @@
-import {useState} from "react";
-
+import { useState } from "react";
 
 const StarRating = ({ rating, setRating }) => {
   const handleClick = (index) => {
@@ -27,7 +26,6 @@ export default function Accordion({ product }) {
   const toggleAccordion = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
-
 
   return (
     <section className="accordion-container">

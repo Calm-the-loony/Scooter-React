@@ -1,7 +1,7 @@
 // src/tests/Header.test.js
-import {render, screen} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Header from "../components/Header"; // корректный путь к компоненту
-import {CartProvider} from "../context/CartProvider"; // корректный путь к CartProvider
+import { CartProvider } from "../context/CartProvider"; // корректный путь к CartProvider
 
 // Мокаем CartContext для теста, если необходимо
 const mockCartContext = {

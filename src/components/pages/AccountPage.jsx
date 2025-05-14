@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../style/styles.scss";
-import {UserApiService} from "../../service/api/user/UserApiService";
-import {UpdateUser} from "../../service/dto/UserDTO";
-import {useDispatch} from "react-redux";
-import {exitUser} from "../../state/actions/authAction";
+import { UserApiService } from "../../service/api/user/UserApiService";
+import { UpdateUser } from "../../service/dto/UserDTO";
+import { useDispatch } from "react-redux";
+import { exitUser } from "../../state/actions/authAction";
 import PaginationScooter from "../other/pagination/Pagination";
-import {AuthService} from "../../service/api/auth/AuthApiService";
+import { AuthService } from "../../service/api/auth/AuthApiService";
 
 const AccountPage = () => {
   const [userData, setUserData] = useState(null);
@@ -38,15 +38,16 @@ const AccountPage = () => {
   }, []);
 
   const logout = () => {
+    AuthService.logoutUser()
+      .then(() => {
+        // Обновление в хранилище
+        dispatch(exitUser());
 
-    AuthService.logoutUser().then(() => {
-      // Обновление в хранилище
-      dispatch(exitUser());
-
-      setIsAdmin(false);
-      setUserData(null);
-      navigate("/login");
-    }).catch(() => {});
+        setIsAdmin(false);
+        setUserData(null);
+        navigate("/login");
+      })
+      .catch(() => {});
   };
 
   const handleTabClick = (tab) => {
@@ -101,13 +102,12 @@ const AccountPage = () => {
     const userData = new UpdateUser(
       mainNameUser,
       dateBirthday,
-        addressCity,
+      addressCity,
       address,
       telephone,
     );
     const req = UserApiService.updateUserInformation(userData)
-      .then((okMessage) => {
-      })
+      .then((okMessage) => {})
       .catch((erMessage) => {
         alert("Не удалось обновить информацию!");
       });
@@ -123,8 +123,7 @@ const AccountPage = () => {
       .then((ok) => {
         navigate("/login");
       })
-      .catch((er) => {
-      });
+      .catch((er) => {});
   };
 
   return (
@@ -195,16 +194,16 @@ const AccountPage = () => {
                   Город:
                 </label>
                 <input
-                    type="text"
-                    id="account_address_city"
-                    name="account_address_city"
-                    className="account-input"
-                    required
-                    defaultValue={userData?.address_city || ""}
-                    disabled={!isEditing}
-                    onChange={(value) => {
-                      setAddressCity(value.target.value);
-                    }}
+                  type="text"
+                  id="account_address_city"
+                  name="account_address_city"
+                  className="account-input"
+                  required
+                  defaultValue={userData?.address_city || ""}
+                  disabled={!isEditing}
+                  onChange={(value) => {
+                    setAddressCity(value.target.value);
+                  }}
                 />
                 <label htmlFor="account_address" className="account-label">
                   Адрес:

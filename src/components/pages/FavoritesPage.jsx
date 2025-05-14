@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
-import {UserApiService} from "../../service/api/user/UserApiService";
+import React, { useEffect, useState } from "react";
+import { UserApiService } from "../../service/api/user/UserApiService";
 import "../../style/FavoritesPage.scss";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PaginationScooter from "../other/pagination/Pagination";
 
 const FavoritesPage = () => {
@@ -17,8 +17,7 @@ const FavoritesPage = () => {
             setFavouriteProducts(favData);
           }
         }
-      } catch {
-      }
+      } catch {}
     };
 
     req();

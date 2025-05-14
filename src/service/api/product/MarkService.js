@@ -8,7 +8,7 @@ export default class MarkApiService {
   static async allMarks() {
     try {
       const req = await axios.get(
-          import.meta.env.VITE_BACKEND_URL + "/mark/all",
+        import.meta.env.VITE_BACKEND_URL + "/mark/all",
       );
       return req.data;
     } catch {
