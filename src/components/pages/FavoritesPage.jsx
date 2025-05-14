@@ -2,14 +2,11 @@ import React, {useEffect, useState} from "react";
 import {UserApiService} from "../../service/api/user/UserApiService";
 import "../../style/FavoritesPage.scss";
 import {useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {exitUser} from "../../state/actions/authAction";
 import PaginationScooter from "../other/pagination/Pagination";
 
 const FavoritesPage = () => {
   const [favouriteProducts, setFavouriteProducts] = useState(null);
   const navigator = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const req = async () => {
@@ -19,11 +16,8 @@ const FavoritesPage = () => {
           if (favData.favourites.length >= 1) {
             setFavouriteProducts(favData);
           }
-        } else {
-          dispatch(exitUser());
         }
       } catch {
-        dispatch(exitUser());
       }
     };
 

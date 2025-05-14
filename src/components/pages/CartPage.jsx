@@ -1,16 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom"; // Импортируем useNavigate
 import {v4 as uuidv4} from "uuid";
 
 import {UserApiService} from "../../service/api/user/UserApiService";
-import {exitUser} from "../../state/actions/authAction";
 import "../../style/CartPage.scss";
 
 const CartPage = () => {
   const [orderProducts, setOrderProduct] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const dispatch = useDispatch();
   const navigate = useNavigate(); // Инициализируем navigate
 
   const handlePurchase = () => {
@@ -109,15 +106,13 @@ const CartPage = () => {
           setOrderProduct(userOrders.orders);
           sumResultPrice(userOrders.orders);
         } else {
-          dispatch(exitUser());
         }
       } catch {
-        dispatch(exitUser());
       }
     };
 
     req();
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="cart-container">

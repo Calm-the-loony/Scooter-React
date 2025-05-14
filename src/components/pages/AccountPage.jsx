@@ -31,8 +31,6 @@ const AccountPage = () => {
     // Запрос на получение информации о пользователе
     const data = UserApiService.informationAboutUser().then((dataUser) => {
       if (dataUser === false) {
-        // Очистка состояния
-        dispatch(exitUser());
       } else {
         setUserData(dataUser);
       }
@@ -126,7 +124,6 @@ const AccountPage = () => {
         navigate("/login");
       })
       .catch((er) => {
-        console.log(er);
       });
   };
 
