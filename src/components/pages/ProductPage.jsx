@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
+import {v4 as uuvid} from "uuid";
 import {useSelector} from "react-redux";
 import {UserApiService} from "../../service/api/user/UserApiService";
 import ProductApiService from "../../service/api/product/ProductService";
@@ -98,12 +99,14 @@ const ProductPage = () => {
     }
 
     fetchData();
+    userOrders();
   }, [id, selector]);
 
   const handleAddToCart = async () => {
     if (!selector) return;
     try {
       if (product.quantity_product > 0 || !userOrders.includes(id)) {
+        localStorage.setItem("product", uuvid());
         await UserApiService.addProductToBasket(id);
         setAddedToCart(true);
       }

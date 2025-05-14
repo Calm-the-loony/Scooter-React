@@ -67,6 +67,19 @@ const ProductCard = ({
   // Функция для добавления товара в корзину
   const handleAddToCart = async (event) => {
     localStorage.setItem("product", uuidv4());
+
+    const userOrders = await UserApiService.userOrders();
+
+    if (userOrders) {
+      for (let order of userOrders) {
+        for (let productData of order.product_data) {
+          if (productData.id_product === id) {
+            return
+          }
+        }
+      }
+    }
+
     await UserApiService.addProductToBasket(id);
   };
 
