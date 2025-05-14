@@ -86,7 +86,7 @@ const ProductCard = ({
             <span className="original-prices">{price} ₽</span>
           </div>
           <button
-            className={`add-to-cart ${!auth ? "disabled" : ""}`}
+            className={`add-to-cart ${!auth || stock > 0 ? "disabled" : ""}`}
             onClick={handleAddToCart}
             disabled={!auth}
           >

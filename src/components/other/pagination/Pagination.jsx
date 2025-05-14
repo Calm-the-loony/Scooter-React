@@ -57,9 +57,11 @@ function PaginationScooter({
       switch (typePagination) {
         case "product": {
           setNotFoundElements("Не удалось найти товары");
+          break;
         }
         case "review": {
           setNotFoundElements("Отзывы не были найдены");
+          break;
         }
         case "order": {
           setNotFoundElements("Заказы не были найдены");

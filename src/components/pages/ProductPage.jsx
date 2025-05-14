@@ -103,7 +103,7 @@ const ProductPage = () => {
   const handleAddToCart = async () => {
     if (!selector) return;
     try {
-      if (product.quantity_product > 0) {
+      if (product.quantity_product > 0 || !userOrders.includes(id)) {
         await UserApiService.addProductToBasket(id);
         setAddedToCart(true);
       }

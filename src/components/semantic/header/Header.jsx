@@ -49,6 +49,39 @@ const Header = () => {
     if (manualCity) selectCity(manualCity);
   };
 
+    const useLocalStorageListener = (key) => {
+      const [value, setValue] = useState(localStorage.getItem(key));
+
+      useEffect(() => {
+        const handleStorageChange = (e) => {
+          if (e.key === key) {
+            setValue(e.newValue);
+          }
+        };
+
+        // Слушаем изменения из других вкладок
+        window.addEventListener("storage", handleStorageChange);
+
+        // Слушаем изменения в текущей вкладке
+        const interval = setInterval(() => {
+          const currentValue = localStorage.getItem(key);
+          if (currentValue !== value) {
+            setValue(currentValue);
+          }
+        }, 100); // Проверяем каждые 100 мс
+
+        return () => {
+          window.removeEventListener("storage", handleStorageChange);
+          clearInterval(interval);
+        };
+      }, [key, value]);
+
+      return value;
+    };
+
+
+    const localStorageHook = useLocalStorageListener("product");
+
   useEffect(() => {
     const header = document.getElementById("header");
     const submenu = document.querySelector(".submenu");
@@ -105,7 +138,7 @@ const Header = () => {
     return () => {
       window.removeEventListener("scroll", updateClasses);
     };
-  }, [localStorage]);
+  }, [localStorageHook]);
 
   return (
     <>
