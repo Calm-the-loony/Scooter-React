@@ -105,7 +105,7 @@ const ProductPage = () => {
   const handleAddToCart = async () => {
     if (!selector) return;
     try {
-      if (product.quantity_product > 0 || !userOrders.includes(id)) {
+      if (product.quantity_product > 0 || !userOrders.includes(+id)) {
         localStorage.setItem("product", uuvid());
         await UserApiService.addProductToBasket(id);
         setAddedToCart(true);

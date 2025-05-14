@@ -73,7 +73,7 @@ const ProductCard = ({
     if (userOrders) {
       for (let order of userOrders) {
         for (let productData of order.product_data) {
-          if (productData.id_product === id) {
+          if (productData.id_product === +id) {
             return
           }
         }
@@ -99,7 +99,7 @@ const ProductCard = ({
             <span className="original-prices">{price} ₽</span>
           </div>
           <button
-            className={`add-to-cart ${!auth || stock > 0 ? "disabled" : ""}`}
+            className={`add-to-cart ${!auth || stock < 1 ? "disabled" : ""}`}
             onClick={handleAddToCart}
             disabled={!auth}
           >
