@@ -105,7 +105,7 @@ const Header = () => {
     return () => {
       window.removeEventListener("scroll", updateClasses);
     };
-  }, []);
+  }, [localStorage]);
 
   return (
     <>

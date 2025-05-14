@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {v4 as uuidv4} from "uuid";
 
 import {UserApiService} from "../../service/api/user/UserApiService";
 import "../../style/ProductCard.scss";
@@ -65,6 +66,7 @@ const ProductCard = ({
 
   // Функция для добавления товара в корзину
   const handleAddToCart = async (event) => {
+    localStorage.setItem("product", uuidv4());
     await UserApiService.addProductToBasket(id);
   };
 

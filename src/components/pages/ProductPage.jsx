@@ -16,11 +16,12 @@ const ProductPage = () => {
   const { id } = useParams();
   const [created, setCreated] = useState(false);
   const [product, setProduct] = useState(null);
-  const [favorites, setFavorites] = useState([]);
   const [review, setReview] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);  
-  const [idFavourite, setIdFavourite] = useState(null);  
+  const [idFavourite, setIdFavourite] = useState(null);
+  const [addedToCart, setAddedToCart] = useState(false);
+  const [userOrders, setUserOrders] = useState([]);
 
   // Загрузка просмотренных товаров из localStorage при монтировании
   useEffect(() => {
@@ -29,8 +30,6 @@ const ProductPage = () => {
       setViewedProducts(JSON.parse(storedProducts));
     }
   }, []);
-
-  console.log(selector);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,13 +79,34 @@ const ProductPage = () => {
       }
     };
 
+    const userOrders = async () => {
+      try {
+        const req = await UserApiService.userOrders();
+
+        if (req) {
+          const arrayId = [];
+
+          for (let order of req) {
+            for (let productData of order.product_data) {
+              arrayId.push(productData.id_product);
+            }
+          }
+
+          setUserOrders(arrayId);
+        }
+      } catch {}
+    }
+
     fetchData();
   }, [id, selector]);
 
   const handleAddToCart = async () => {
     if (!selector) return;
     try {
-      await UserApiService.addProductToBasket(id);  
+      if (product.quantity_product > 0) {
+        await UserApiService.addProductToBasket(id);
+        setAddedToCart(true);
+      }
     } catch (error) {
       console.error("Ошибка при добавлении в корзину:", error);
     }
@@ -189,11 +209,11 @@ const ProductPage = () => {
           </div>
           <div className="product-buttons">
             <button
-              className={`btn-cart ${!selector ? "disabled" : ""}`}
+              className={`btn-cart ${!selector || product.quantity < 1 || userOrders.includes(+id) ? "disabled" : ""}`}
               onClick={handleAddToCart}
               disabled={!selector}
             >
-              Добавить в корзину
+              {addedToCart || userOrders.includes(+id) ? "Добавлен в корзину" : "Добавить в корзину"}
             </button>
             <button
               className={`btn-favorite ${isFavorite ? "active" : ""} ${!selector ? "disabled" : ""}`}

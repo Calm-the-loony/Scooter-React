@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react";
-import "../../style/CartPage.scss";
-import {UserApiService} from "../../service/api/user/UserApiService";
 import {useDispatch} from "react-redux";
-import {exitUser} from "../../state/actions/authAction";
 import {useNavigate} from "react-router-dom"; // Импортируем useNavigate
+import {v4 as uuidv4} from "uuid";
+
+import {UserApiService} from "../../service/api/user/UserApiService";
+import {exitUser} from "../../state/actions/authAction";
+import "../../style/CartPage.scss";
 
 const CartPage = () => {
   const [orderProducts, setOrderProduct] = useState([]);
@@ -80,6 +82,9 @@ const CartPage = () => {
 
   const deleteProduct = async (id_product) => {
     try {
+
+      localStorage.setItem("product", uuidv4());
+
       // Удаляем товар с сервера
       await UserApiService.deleteUserOrder(id_product);
 
