@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {UserApiService} from "../../service/api/user/UserApiService";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { v4 as uuvid } from "uuid";
+import { useSelector } from "react-redux";
+import { UserApiService } from "../../service/api/user/UserApiService";
 import ProductApiService from "../../service/api/product/ProductService";
 import "../../style/ProductPage.scss";
 import "../../style/ProductCard.scss";
@@ -9,18 +10,19 @@ import Pagination from "../other/pagination/Pagination";
 import Accordion from "../other/accordion/Accordion";
 
 const ProductPage = () => {
-  const selector = useSelector(state => state.auth.isAuthenticated);
+  const selector = useSelector((state) => state.auth.isAuthenticated);
   const [userStar, setUserStar] = useState(0);
   const [userReviewDescription, setUserReviewDescription] = useState("");
   const [viewedProducts, setViewedProducts] = useState([]);
   const { id } = useParams();
   const [created, setCreated] = useState(false);
   const [product, setProduct] = useState(null);
-  const [favorites, setFavorites] = useState([]);
   const [review, setReview] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);  
-  const [idFavourite, setIdFavourite] = useState(null);  
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [idFavourite, setIdFavourite] = useState(null);
+  const [addedToCart, setAddedToCart] = useState(false);
+  const [userOrders, setUserOrders] = useState([]);
 
   // Загрузка просмотренных товаров из localStorage при монтировании
   useEffect(() => {
@@ -30,8 +32,6 @@ const ProductPage = () => {
     }
   }, []);
 
-  console.log(selector);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -40,21 +40,24 @@ const ProductPage = () => {
         setProduct(productData);
 
         // Обновляем просмотренные товары
-        setViewedProducts(prevProducts => {
+        setViewedProducts((prevProducts) => {
           // Удаляем текущий товар, если он уже есть в списке
           const filteredProducts = prevProducts.filter(
-            item => item.id_product !== productData.id_product
+            (item) => item.id_product !== productData.id_product,
           );
-          
+
           // Добавляем текущий товар в начало списка
           const newViewedProducts = [productData, ...filteredProducts];
-          
+
           // Ограничиваем количество просмотренных товаров
           const limitedProducts = newViewedProducts.slice(0, 10);
-          
+
           // Сохраняем в localStorage
-          localStorage.setItem("viewedProducts", JSON.stringify(limitedProducts));
-          
+          localStorage.setItem(
+            "viewedProducts",
+            JSON.stringify(limitedProducts),
+          );
+
           return limitedProducts;
         });
 
@@ -67,7 +70,7 @@ const ProductPage = () => {
           const userFavourite = await UserApiService.userFavourites();
           if (userFavourite) {
             const foundFavorite = userFavourite.favourites.find(
-              el => el.product_info.id_product === id
+              (el) => el.product_info.id_product === id,
             );
             if (foundFavorite) {
               setIsFavorite(true);
@@ -80,13 +83,36 @@ const ProductPage = () => {
       }
     };
 
+    const userOrders = async () => {
+      try {
+        const req = await UserApiService.userOrders();
+
+        if (req) {
+          const arrayId = [];
+
+          for (let order of req) {
+            for (let productData of order.product_data) {
+              arrayId.push(productData.id_product);
+            }
+          }
+
+          setUserOrders(arrayId);
+        }
+      } catch {}
+    };
+
     fetchData();
+    userOrders();
   }, [id, selector]);
 
   const handleAddToCart = async () => {
     if (!selector) return;
     try {
-      await UserApiService.addProductToBasket(id);  
+      if (product.quantity_product > 0 || !userOrders.includes(+id)) {
+        localStorage.setItem("product", uuvid());
+        await UserApiService.addProductToBasket(id);
+        setAddedToCart(true);
+      }
     } catch (error) {
       console.error("Ошибка при добавлении в корзину:", error);
     }
@@ -94,7 +120,7 @@ const ProductPage = () => {
 
   const handleAddToFavorites = async () => {
     if (!selector) return;
-    
+
     try {
       if (!isFavorite) {
         const id_fav = await UserApiService.addNewFavourite(id);
@@ -125,11 +151,11 @@ const ProductPage = () => {
 
   function createReview() {
     if (!product) return;
-    
+
     ProductApiService.createReview({
       text_review: userReviewDescription,
       estimation_review: userStar,
-      id_product: product.id_product
+      id_product: product.id_product,
     }).finally(() => {
       setCreated(false);
       // Обновляем отзывы после создания
@@ -163,12 +189,14 @@ const ProductPage = () => {
               <strong>Цена:</strong>
               {product.product_discount ? (
                 <>
-                  <span className="old-price">
-                    {product.price_product} ₽
-                  </span>
+                  <span className="old-price">{product.price_product} ₽</span>
                   <span className="new-price">
-                    {Math.round(product.price_product - 
-                      (product.price_product * product.product_discount) / 100)} ₽
+                    {Math.round(
+                      product.price_product -
+                        (product.price_product * product.product_discount) /
+                          100,
+                    )}{" "}
+                    ₽
                   </span>
                   <span className="discount-badge">
                     -{product.product_discount}%
@@ -189,11 +217,13 @@ const ProductPage = () => {
           </div>
           <div className="product-buttons">
             <button
-              className={`btn-cart ${!selector ? "disabled" : ""}`}
+              className={`btn-cart ${!selector || product.quantity < 1 || userOrders.includes(+id) ? "disabled" : ""}`}
               onClick={handleAddToCart}
               disabled={!selector}
             >
-              Добавить в корзину
+              {addedToCart || userOrders.includes(+id)
+                ? "Добавлен в корзину"
+                : "Добавить в корзину"}
             </button>
             <button
               className={`btn-favorite ${isFavorite ? "active" : ""} ${!selector ? "disabled" : ""}`}
@@ -244,15 +274,14 @@ const ProductPage = () => {
 
       {created && (
         <div className="review-create-form">
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            createReview();
-          }}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              createReview();
+            }}
+          >
             <h3>Отзыв на товар</h3>
-            <div
-              className="close"
-              onClick={() => setCreated(false)}
-            >
+            <div className="close" onClick={() => setCreated(false)}>
               &times;
             </div>
             <div className="input-element">
@@ -277,7 +306,10 @@ const ProductPage = () => {
                 ))}
               </div>
             </div>
-            <button type="submit" disabled={!userStar || !userReviewDescription}>
+            <button
+              type="submit"
+              disabled={!userStar || !userReviewDescription}
+            >
               Отправить отзыв
             </button>
           </form>
@@ -289,8 +321,8 @@ const ProductPage = () => {
           <div className="product-review__create">
             <h2>Отзывы</h2>
             {selector && (
-              <button 
-                className="btn-create-review" 
+              <button
+                className="btn-create-review"
                 onClick={() => setCreated(true)}
               >
                 Оставить отзыв
@@ -306,14 +338,15 @@ const ProductPage = () => {
             {viewedProducts.length > 0 ? (
               viewedProducts.map((item) => (
                 <div key={item.id_product} className="viewed-item">
-                  <img 
-                    src={item?.photo?.[0]?.photo_url || "/path/to/default/image.jpg"} 
-                    alt={item.title_product} 
+                  <img
+                    src={
+                      item?.photo?.[0]?.photo_url ||
+                      "/path/to/default/image.jpg"
+                    }
+                    alt={item.title_product}
                   />
                   <p>{item.title_product}</p>
-                  <span className="viewed-price">
-                    {item.price_product} ₽
-                  </span>
+                  <span className="viewed-price">{item.price_product} ₽</span>
                 </div>
               ))
             ) : (

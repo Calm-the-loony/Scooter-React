@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import MainSection from "../components/sections/MainSection";
 import ShippingPage from "../components/pages/ShippingPage";
 import ReturnsPage from "../components/pages/ReturnsPage";
@@ -68,7 +68,7 @@ export const router = createBrowserRouter([
         path: "/brand",
         element: <BrandsPage />,
       },
-    
+
       {
         path: "/cart",
         element: (
@@ -141,7 +141,6 @@ export const router = createBrowserRouter([
         path: "*",
         element: <NotFoundPage />,
       },
-      
     ],
   },
 ]);

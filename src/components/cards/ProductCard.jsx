@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
-import {UserApiService} from "../../service/api/user/UserApiService";
+import { UserApiService } from "../../service/api/user/UserApiService";
 import "../../style/ProductCard.scss";
 
 const ProductCard = ({
@@ -16,7 +17,6 @@ const ProductCard = ({
   name,
   price,
 }) => {
-
   const auth = useSelector((state) => state.auth.isAuthenticated);
   const [isFavorite, setIsFavorite] = useState(false);
   const [idFavourite, setIdFavourite] = useState(null);
@@ -34,9 +34,7 @@ const ProductCard = ({
             }
           });
         }
-      } catch {
-
-      }
+      } catch {}
     };
 
     favorites();
@@ -66,6 +64,7 @@ const ProductCard = ({
   // Функция для добавления товара в корзину
   const handleAddToCart = async (event) => {
     await UserApiService.addProductToBasket(id);
+    localStorage.setItem("product", uuidv4());
   };
 
   // Открытие карточки товара
@@ -84,7 +83,7 @@ const ProductCard = ({
             <span className="original-prices">{price} ₽</span>
           </div>
           <button
-            className={`add-to-cart ${!auth ? "disabled" : ""}`}
+            className={`add-to-cart ${!auth || stock < 1 ? "disabled" : ""}`}
             onClick={handleAddToCart}
             disabled={!auth}
           >

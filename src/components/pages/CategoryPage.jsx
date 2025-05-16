@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import "../../style/CategoryPage.scss";
 import ArrowIcon from "../../image/arrow-icon.svg?react";
 import ProductApiService from "../../service/api/product/ProductService";
@@ -7,7 +7,6 @@ import CategoryApiService from "../../service/api/product/CategoryService";
 import PaginationScooter from "../other/pagination/Pagination";
 
 const CategoryPage = () => {
-
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,31 +14,40 @@ const CategoryPage = () => {
 
   const [selectedCategory, setSelectedCategory] = useState(+initialCategoryId);
   const [categories, setCategories] = useState([]);
-  const [selectedSubcategory, setSelectedSubcategory] = useState(searchParams.get("subcategory") ? +searchParams.get("subcategory") : null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState(
+    searchParams.get("subcategory") ? +searchParams.get("subcategory") : null,
+  );
   const [expandedCategories, setExpandedCategories] = useState({});
   const [filters, setFilters] = useState({
-    minPrice: searchParams.get("minPrice") ? +searchParams.get("minPrice") : null,
-    maxPrice: searchParams.get("maxPrice") ? +searchParams.get("maxPrice") : null,
+    minPrice: searchParams.get("minPrice")
+      ? +searchParams.get("minPrice")
+      : null,
+    maxPrice: searchParams.get("maxPrice")
+      ? +searchParams.get("maxPrice")
+      : null,
     sort: searchParams.get("sort") ? searchParams.get("sort") : null,
   });
   const [filteredProductsList, setFilteredProductsList] = useState([]);
 
   useEffect(() => {
     filteredProducts();
-  }, [selectedCategory, selectedSubcategory, filters])
+  }, [selectedCategory, selectedSubcategory, filters]);
 
   // Получаем список товаров
   useEffect(() => {
     ProductApiService.filterProducts(
       null,
       initialCategoryId ? initialCategoryId : null,
-        selectedSubcategory,
-        filters.minPrice,
-        filters.maxPrice
-    ).then((productData) => {
-      // Устанавливаем данные
-      setFilteredProductsList(productData);
-    }, [searchParams]);
+      selectedSubcategory,
+      filters.minPrice,
+      filters.maxPrice,
+    ).then(
+      (productData) => {
+        // Устанавливаем данные
+        setFilteredProductsList(productData);
+      },
+      [searchParams],
+    );
 
     CategoryApiService.allCategories()
       .then((cat) => {
@@ -62,15 +70,32 @@ const CategoryPage = () => {
     setSelectedSubcategory(null);
 
     navigate(
-        "/category/"+categoryId+"?subcategory="+selectedSubcategory+"&minPrice="+filters.minPrice+"&maxPrice="+filters.maxPrice+"&sort="+filters.sort
-    )
+      "/category/" +
+        categoryId +
+        "?subcategory=" +
+        selectedSubcategory +
+        "&minPrice=" +
+        filters.minPrice +
+        "&maxPrice=" +
+        filters.maxPrice +
+        "&sort=" +
+        filters.sort,
+    );
   };
 
   const handleSubcategoryClick = (subcategoryId, id_category) => {
-
     setSelectedSubcategory(subcategoryId);
     navigate(
-        "/category/"+id_category+"?subcategory="+subcategoryId+"&minPrice="+filters.minPrice+"&maxPrice="+filters.maxPrice+"&sort="+filters.sort
+      "/category/" +
+        id_category +
+        "?subcategory=" +
+        subcategoryId +
+        "&minPrice=" +
+        filters.minPrice +
+        "&maxPrice=" +
+        filters.maxPrice +
+        "&sort=" +
+        filters.sort,
     );
   };
 
@@ -133,14 +158,15 @@ const CategoryPage = () => {
 
     ProductApiService.filterProducts(
       null,
-      selectedCategory == +location.pathname.split("/")[2] ? selectedCategory : +location.pathname.split("/")[2],
+      selectedCategory == +location.pathname.split("/")[2]
+        ? selectedCategory
+        : +location.pathname.split("/")[2],
       selectedSubcategory ? selectedSubcategory : null,
       Number(filters.minPrice) ? Number(filters.minPrice) : null,
       Number(filters.maxPrice) ? Number(filters.maxPrice) : null,
       desc,
       availability,
     ).then((filtProductList) => {
-
       console.log(filtProductList);
 
       setFilteredProductsList(filtProductList);
@@ -175,7 +201,10 @@ const CategoryPage = () => {
                       <li key={sub.id_subcategory}>
                         <button
                           onClick={() =>
-                            handleSubcategoryClick(sub.id_subcategory, category.id_category)
+                            handleSubcategoryClick(
+                              sub.id_subcategory,
+                              category.id_category,
+                            )
                           }
                           className={`subcategory-button ${+selectedSubcategory === +sub.id_subcategory ? "active" : ""}`}
                         >
@@ -199,7 +228,7 @@ const CategoryPage = () => {
               placeholder="Мин"
               value={filters.minPrice}
               onChange={handleFilterChange}
-              style={{marginTop: "10px"}}
+              style={{ marginTop: "10px" }}
             />
             <input
               type="number"
@@ -207,7 +236,7 @@ const CategoryPage = () => {
               placeholder="Макс"
               value={filters.maxPrice}
               onChange={handleFilterChange}
-              style={{marginTop: "10px"}}
+              style={{ marginTop: "10px" }}
             />
           </div>
           <div className="filter">

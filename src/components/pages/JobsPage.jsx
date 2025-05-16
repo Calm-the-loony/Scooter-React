@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "../../style/JobsPage.scss";
-import {JobsApiService} from "../../service/api/jobs/JobsApiService";
+import { JobsApiService } from "../../service/api/jobs/JobsApiService";
 
 const JobsPage = () => {
   const [searchQuery, setSearchQuery] = useState("");

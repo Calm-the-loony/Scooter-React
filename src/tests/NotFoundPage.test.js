@@ -1,6 +1,6 @@
 // src/tests/NotFoundPage.test.js
 import React from "react";
-import {render, screen} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import NotFoundPage from "../components/NotFoundPage"; // Убедитесь, что путь правильный
 
 describe("NotFoundPage", () => {

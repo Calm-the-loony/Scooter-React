@@ -1,11 +1,11 @@
-import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../style/styles.scss";
-import {AuthService} from "../../service/api/auth/AuthApiService";
-import {useDispatch} from "react-redux";
-import {loginUser} from "../../state/actions/authAction";
-import {UserApiService} from "../../service/api/user/UserApiService";
-import {setUserInfo} from "../../state/actions/userAction";
+import { AuthService } from "../../service/api/auth/AuthApiService";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../state/actions/authAction";
+import { UserApiService } from "../../service/api/user/UserApiService";
+import { setUserInfo } from "../../state/actions/userAction";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");

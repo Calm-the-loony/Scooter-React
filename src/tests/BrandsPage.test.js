@@ -1,5 +1,5 @@
 import React from "react";
-import {render} from "@testing-library/react";
+import { render } from "@testing-library/react";
 import BrandsPage from "../components/BrandsPage"; // Убедитесь, что путь правильный
 
 test("displays 'Koso' brand name", () => {

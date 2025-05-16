@@ -1,14 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // Импортируем useNavigate
+import { v4 as uuidv4 } from "uuid";
+
+import { UserApiService } from "../../service/api/user/UserApiService";
 import "../../style/CartPage.scss";
-import {UserApiService} from "../../service/api/user/UserApiService";
-import {useDispatch} from "react-redux";
-import {exitUser} from "../../state/actions/authAction";
-import {useNavigate} from "react-router-dom"; // Импортируем useNavigate
 
 const CartPage = () => {
   const [orderProducts, setOrderProduct] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const dispatch = useDispatch();
   const navigate = useNavigate(); // Инициализируем navigate
 
   const handlePurchase = () => {
@@ -17,21 +16,30 @@ const CartPage = () => {
     const resultOrderData = [];
     const resultOrderList = [];
 
-    orderProducts.forEach(order => {
-      resultOrderData.push(...order.product_data.map((product) => {
-        if (product.quantity > 0) {
-          return {id_product: product.id_product, quantity: product.quantity, price: product.price_product};
-        }
-      }));
+    orderProducts.forEach((order) => {
+      resultOrderData.push(
+        ...order.product_data.map((product) => {
+          if (product.quantity > 0) {
+            return {
+              id_product: product.id_product,
+              quantity: product.quantity,
+              price: product.price_product,
+            };
+          }
+        }),
+      );
 
-      resultOrderList.push(order.order_data.id_order)
+      resultOrderList.push(order.order_data.id_order);
     });
 
-    localStorage.setItem("productBuy", JSON.stringify({
-      "products": resultOrderData,
-      "resultPrice": totalPrice,
-      "orderList": resultOrderList
-    }));
+    localStorage.setItem(
+      "productBuy",
+      JSON.stringify({
+        products: resultOrderData,
+        resultPrice: totalPrice,
+        orderList: resultOrderList,
+      }),
+    );
 
     navigate("/checkout");
   };
@@ -71,8 +79,8 @@ const CartPage = () => {
     if (orderProducts) {
       orderProducts.forEach((orderData) => {
         orderData.product_data.forEach((el) => {
-          total += el.price_product * el.quantity
-        })
+          total += (el.price_product * el.quantity);
+        });
       });
     }
     setTotalPrice(total);
@@ -80,15 +88,17 @@ const CartPage = () => {
 
   const deleteProduct = async (id_product) => {
     try {
+      localStorage.setItem("product", uuidv4());
+
       // Удаляем товар с сервера
       await UserApiService.deleteUserOrder(id_product);
 
       // Обновляем корзину
       setOrderProduct((prevOrderProducts) => {
         const updatedOrderProducts = prevOrderProducts.filter(
-          (item) => item.order_data.id_order !== id_product
+          (item) => item.order_data.id_order !== id_product,
         );
-        sumResultPrice(updatedOrderProducts);  // Пересчитываем итоговую сумму
+        sumResultPrice(updatedOrderProducts); // Пересчитываем итоговую сумму
         return updatedOrderProducts;
       });
     } catch (error) {
@@ -104,15 +114,12 @@ const CartPage = () => {
           setOrderProduct(userOrders.orders);
           sumResultPrice(userOrders.orders);
         } else {
-          dispatch(exitUser());
         }
-      } catch {
-        dispatch(exitUser());
-      }
+      } catch {}
     };
 
     req();
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="cart-container">
@@ -125,7 +132,11 @@ const CartPage = () => {
           orderProducts.map((item) => (
             <div key={item.product_data[0].id} className="cart-item">
               <img
-                src={item.product_data[0].photos[0] ? item.product_data[0].photos[0].photo_url : ""}
+                src={
+                  item.product_data[0].photos[0]
+                    ? item.product_data[0].photos[0].photo_url
+                    : ""
+                }
                 alt={item.product_data[0].name_product}
                 className="cart-product-image"
               />
@@ -144,7 +155,9 @@ const CartPage = () => {
                   >
                     -
                   </button>
-                  <span className="quantity">{item.product_data[0].quantity}</span>
+                  <span className="quantity">
+                    {item.product_data[0].quantity}
+                  </span>
                   <button
                     className="quantity-button"
                     onClick={() => plusProduct(item.order_data.id_order)}

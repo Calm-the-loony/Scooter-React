@@ -1,4 +1,4 @@
-import {parseCookieString} from "../../service/token_service";
+import { parseCookieString } from "../../service/token_service";
 
 const cookieData = parseCookieString();
 

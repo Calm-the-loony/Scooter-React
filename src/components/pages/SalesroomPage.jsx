@@ -1,5 +1,5 @@
 import React from "react";
-import {GeoObject, Map, YMaps, ZoomControl} from "@pbe/react-yandex-maps";
+import { GeoObject, Map, YMaps, ZoomControl } from "@pbe/react-yandex-maps";
 import "../../style/SalesroomPage.scss";
 
 // Импорт изображений
