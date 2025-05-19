@@ -1,10 +1,8 @@
 import { parseCookieString } from "../../service/token_service";
 
-const cookieData = parseCookieString();
-
 const initial_state = {
   isAuthenticated:
-    cookieData.access_token || cookieData.refresh_token ? true : false,
+    localStorage.getItem("access_token") || localStorage.getItem("refresh_token") ? true : false,
 };
 
 export const authUserReducer = (state = initial_state, action) => {

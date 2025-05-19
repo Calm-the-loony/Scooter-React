@@ -30,7 +30,12 @@ export class JobsApiService {
           ...userData,
           id_vacancy: id_vacancy,
         },
-        {},
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("access_token"),
+            }
+          }
       );
     } catch {
       return false;

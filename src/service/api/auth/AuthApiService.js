@@ -32,6 +32,11 @@ export class AuthService {
     );
 
     if (req.status === 201) {
+
+      localStorage.setItem("access_token", req.data["access_token"]);
+      localStorage.setItem("refresh_token", req.data["refresh_token"]);
+      localStorage.setItem("token_type", req.data["token_type"]);
+
       return true;
     }
 
