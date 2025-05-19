@@ -8,6 +8,12 @@ export class UserApiService {
   static async informationAboutUser() {
     const req = await axios.get(
       import.meta.env.VITE_BACKEND_URL + "/user/information",
+        {
+            withCredentials: true,
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("access_token"),
+            }
+        },
     );
     return req.data;
   }
@@ -21,6 +27,12 @@ export class UserApiService {
     const req = await axios.put(
       import.meta.env.VITE_BACKEND_URL + "/user/update",
       userDataToUpdate,
+        {
+            withCredentials: true,
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("access_token"),
+            }
+        },
     );
 
     return true;

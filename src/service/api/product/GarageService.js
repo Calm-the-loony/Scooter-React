@@ -33,6 +33,12 @@ export default class GarageApiService {
     const req = await axios.post(
       import.meta.env.VITE_BACKEND_URL + "/garage/create",
       newTrasport,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          }
+        },
     );
 
     return req.data;
@@ -45,6 +51,12 @@ export default class GarageApiService {
   static async myGarage() {
     const req = await axios.get(
       import.meta.env.VITE_BACKEND_URL + "/garage/all",
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          }
+        },
     );
 
     return req.data;
@@ -60,6 +72,10 @@ export default class GarageApiService {
       params: {
         id_mt: id_mt,
       },
+      withCredentials: true,
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("access_token"),
+      }
     });
 
     return true;

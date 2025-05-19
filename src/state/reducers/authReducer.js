@@ -1,5 +1,3 @@
-import { parseCookieString } from "../../service/token_service";
-
 const initial_state = {
   isAuthenticated:
     localStorage.getItem("access_token") || localStorage.getItem("refresh_token") ? true : false,
