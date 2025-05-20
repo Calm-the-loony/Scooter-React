@@ -1,12 +1,12 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import LoginPage from '../components/LoginPage';
+import React from "react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
+import LoginPage from "../components/LoginPage";
 
-describe('LoginPage Component', () => {
+describe("LoginPage Component", () => {
   beforeAll(() => {
-    jest.spyOn(console, 'warn').mockImplementation((message) => {
-      if (message.includes('React Router Future Flag Warning')) return;
+    jest.spyOn(console, "warn").mockImplementation((message) => {
+      if (message.includes("React Router Future Flag Warning")) return;
       console.warn(message);
     });
   });
@@ -25,63 +25,75 @@ describe('LoginPage Component', () => {
     global.alert.mockRestore();
   });
 
-  test('renders login form correctly', () => {
+  test("renders login form correctly", () => {
     render(
       <BrowserRouter>
         <LoginPage />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
-    expect(screen.getByText('Авторизация')).toBeInTheDocument();
-    expect(screen.getByLabelText('Email:')).toBeInTheDocument();
-    expect(screen.getByLabelText('Пароль:')).toBeInTheDocument();
-    expect(screen.getByText('Войти')).toBeInTheDocument();
+    expect(screen.getByText("Авторизация")).toBeInTheDocument();
+    expect(screen.getByLabelText("Email:")).toBeInTheDocument();
+    expect(screen.getByLabelText("Пароль:")).toBeInTheDocument();
+    expect(screen.getByText("Войти")).toBeInTheDocument();
   });
 
-  test('handles successful login', () => {
-    const mockUser = { email: 'test@example.com', password: 'password123', role: 'user' };
-    localStorage.setItem('userData', JSON.stringify(mockUser));
+  test("handles successful login", () => {
+    const mockUser = {
+      email: "test@example.com",
+      password: "password123",
+      role: "user",
+    };
+    localStorage.setItem("userData", JSON.stringify(mockUser));
 
     render(
       <BrowserRouter>
         <LoginPage />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
-    fireEvent.change(screen.getByLabelText('Email:'), { target: { value: 'test@example.com' } });
-    fireEvent.change(screen.getByLabelText('Пароль:'), { target: { value: 'password123' } });
-    fireEvent.click(screen.getByText('Войти'));
+    fireEvent.change(screen.getByLabelText("Email:"), {
+      target: { value: "test@example.com" },
+    });
+    fireEvent.change(screen.getByLabelText("Пароль:"), {
+      target: { value: "password123" },
+    });
+    fireEvent.click(screen.getByText("Войти"));
 
-    expect(localStorage.getItem('isAuthenticated')).toBe('true');
-    expect(localStorage.getItem('isAdmin')).toBe('false');
+    expect(localStorage.getItem("isAuthenticated")).toBe("true");
+    expect(localStorage.getItem("isAdmin")).toBe("false");
   });
 
-  test('handles failed login', () => {
+  test("handles failed login", () => {
     render(
       <BrowserRouter>
         <LoginPage />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
-    fireEvent.change(screen.getByLabelText('Email:'), { target: { value: 'wrong@example.com' } });
-    fireEvent.change(screen.getByLabelText('Пароль:'), { target: { value: 'wrongpassword' } });
-    fireEvent.click(screen.getByText('Войти'));
+    fireEvent.change(screen.getByLabelText("Email:"), {
+      target: { value: "wrong@example.com" },
+    });
+    fireEvent.change(screen.getByLabelText("Пароль:"), {
+      target: { value: "wrongpassword" },
+    });
+    fireEvent.click(screen.getByText("Войти"));
 
-    expect(global.alert).toHaveBeenCalledWith('Неверные данные для входа');
-    expect(localStorage.getItem('isAuthenticated')).toBeNull();
-    expect(localStorage.getItem('isAdmin')).toBeNull();
+    expect(global.alert).toHaveBeenCalledWith("Неверные данные для входа");
+    expect(localStorage.getItem("isAuthenticated")).toBeNull();
+    expect(localStorage.getItem("isAdmin")).toBeNull();
   });
 
-  test('validates required fields', () => {
+  test("validates required fields", () => {
     render(
       <BrowserRouter>
         <LoginPage />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
-    fireEvent.click(screen.getByText('Войти'));
+    fireEvent.click(screen.getByText("Войти"));
 
-    expect(screen.getByLabelText('Email:')).toBeRequired();
-    expect(screen.getByLabelText('Пароль:')).toBeRequired();
+    expect(screen.getByLabelText("Email:")).toBeRequired();
+    expect(screen.getByLabelText("Пароль:")).toBeRequired();
   });
 });

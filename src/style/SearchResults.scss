@@ -10,7 +10,10 @@ $grid-gap: 10px;
 $max-width-image: 400px;
 
 // Миксин для общего стилизованного изображения
-@mixin image-hover-effect($opacity: $default-opacity, $hover-opacity: $hover-opacity) {
+@mixin image-hover-effect(
+  $opacity: $default-opacity,
+  $hover-opacity: $hover-opacity
+) {
   opacity: $opacity;
   transition: opacity $transition-duration;
 

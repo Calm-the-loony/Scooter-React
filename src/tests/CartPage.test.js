@@ -1,11 +1,23 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { CartContext } from "../context/CartContext";
 import CartPage from "../components/CartPage";
 
 const mockCartItems = [
-  { id: 1, name: "Катушка зажигания Катушка зажигания Катушка зажигания", price: "1027,00", quantity: 2, image: "image1.jpg" },
-  { id: 2, name: "Катушка зажигания Yamaha Jog", price: "1200,00", quantity: 1, image: "image2.jpg" },
+  {
+    id: 1,
+    name: "Катушка зажигания Катушка зажигания Катушка зажигания",
+    price: "1027,00",
+    quantity: 2,
+    image: "image1.jpg",
+  },
+  {
+    id: 2,
+    name: "Катушка зажигания Yamaha Jog",
+    price: "1200,00",
+    quantity: 1,
+    image: "image2.jpg",
+  },
 ];
 
 const mockContextValue = {
@@ -31,13 +43,17 @@ describe("CartPage Component", () => {
     render(
       <CartContext.Provider value={mockContextValue}>
         <CartPage />
-      </CartContext.Provider>
+      </CartContext.Provider>,
     );
 
     expect(screen.getByText("Корзина")).toBeInTheDocument();
-    expect(screen.getByText("Катушка зажигания Катушка зажигания Катушка зажигания")).toBeInTheDocument();
+    expect(
+      screen.getByText("Катушка зажигания Катушка зажигания Катушка зажигания"),
+    ).toBeInTheDocument();
     expect(screen.getByText("1027,00")).toBeInTheDocument();
-    expect(screen.getByText("Катушка зажигания Yamaha Jog")).toBeInTheDocument();
+    expect(
+      screen.getByText("Катушка зажигания Yamaha Jog"),
+    ).toBeInTheDocument();
     expect(screen.getByText("1200,00")).toBeInTheDocument();
   });
 
@@ -45,24 +61,28 @@ describe("CartPage Component", () => {
     render(
       <CartContext.Provider value={mockContextValue}>
         <CartPage />
-      </CartContext.Provider>
+      </CartContext.Provider>,
     );
 
     const totalPrice = screen.getByText(/Итого:/);
 
     // Рассчитываем итоговую сумму вручную:
-    const total = (parseFloat(mockCartItems[0].price.replace(",", ".")) * mockCartItems[0].quantity) +
-                  parseFloat(mockCartItems[1].price.replace(",", "."));
+    const total =
+      parseFloat(mockCartItems[0].price.replace(",", ".")) *
+        mockCartItems[0].quantity +
+      parseFloat(mockCartItems[1].price.replace(",", "."));
 
     // Проверяем, что цена отображается корректно с учетом форматирования
-    expect(totalPrice).toHaveTextContent(`${total.toFixed(2).replace(",", ",")} ₽`);
+    expect(totalPrice).toHaveTextContent(
+      `${total.toFixed(2).replace(",", ",")} ₽`,
+    );
   });
 
   test("handles quantity increase and decrease", () => {
     render(
       <CartContext.Provider value={mockContextValue}>
         <CartPage />
-      </CartContext.Provider>
+      </CartContext.Provider>,
     );
 
     const increaseButtons = screen.getAllByText("+");
@@ -79,7 +99,7 @@ describe("CartPage Component", () => {
     render(
       <CartContext.Provider value={mockContextValue}>
         <CartPage />
-      </CartContext.Provider>
+      </CartContext.Provider>,
     );
 
     const removeButtons = screen.getAllByText("Удалить");
@@ -92,7 +112,7 @@ describe("CartPage Component", () => {
     render(
       <CartContext.Provider value={mockContextValue}>
         <CartPage />
-      </CartContext.Provider>
+      </CartContext.Provider>,
     );
 
     const buyButton = screen.getByText("Купить");
@@ -105,7 +125,7 @@ describe("CartPage Component", () => {
     render(
       <CartContext.Provider value={mockContextValue}>
         <CartPage />
-      </CartContext.Provider>
+      </CartContext.Provider>,
     );
 
     const buyButton = screen.getByText("Купить");
@@ -122,7 +142,7 @@ describe("CartPage Component", () => {
     render(
       <CartContext.Provider value={{ ...mockContextValue, cartItems: [] }}>
         <CartPage />
-      </CartContext.Provider>
+      </CartContext.Provider>,
     );
 
     expect(screen.getByText("Ваша корзина пуста")).toBeInTheDocument();

@@ -1,12 +1,11 @@
 // Переменные
 $primary-color: #007bff;
-$accent-color: #45EFDA;
+$accent-color: #45efda;
 $text-color-dark: #333;
 $text-color-light: #555;
 $background-color-transparent: transparent;
 $border-radius: 8px;
-$background-color-light: #ffffff;  
-
+$background-color-light: #ffffff;
 
 // Миксины
 @mixin box-style($bg-color, $shadow: none, $radius: $border-radius) {

@@ -1,3 +1,11 @@
+.error {
+  padding-top: 15px;
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  color: red;
+}
+
 /* === Основные контейнеры === */
 
 /* Контейнер формы */
@@ -29,7 +37,7 @@
   max-width: 400px;
   display: flex;
   flex-direction: column;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .form-label {
@@ -52,7 +60,7 @@
 .form-btn,
 .logout-btn,
 .auth-btn {
-  background-color: #45EFDA;
+  background-color: #45efda;
   color: #333;
   padding: 12px;
   font-size: 16px;
@@ -61,8 +69,8 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 300px;
-  max-width: 300px; 
-  min-width: 200px; 
+  max-width: 300px;
+  min-width: 200px;
   margin: 10px auto;
   display: block;
   text-align: center;
@@ -76,7 +84,7 @@
 
 /* === Стили для ссылок === */
 .link-btn {
-  color: #45EFDA;
+  color: #45efda;
   text-decoration: none;
   font-size: 14px;
   margin-top: 10px;
@@ -136,26 +144,26 @@
 }
 
 .dashboard .username {
-  color: #45EFDA;
+  color: #45efda;
   font-weight: bold;
 }
 
 /* === Неавторизованный пользователь === */
 .auth-redirect {
-  display: flex; 
-  flex-direction: column; 
-  justify-content: center; 
-  align-items: center; 
-  height: calc(80vh - 60px); 
-  text-align: center; 
-  margin: 0 auto; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(80vh - 60px);
+  text-align: center;
+  margin: 0 auto;
 }
 
 .auth-redirect button {
   margin-bottom: 10px;
 }
 .account-content {
-  margin-top: 100px; 
+  margin-top: 100px;
 
   box-sizing: border-box;
 }
@@ -166,7 +174,7 @@
   .logout-btn,
   .auth-btn {
     max-width: 100%;
-    min-width: 100%; 
+    min-width: 100%;
   }
 
   .dashboard,
@@ -182,13 +190,12 @@
   margin-top: 100px;
 }
 .account-page h2 {
-  text-align: center !important; 
+  text-align: center !important;
   font-size: 24px;
   color: #212529;
-  margin-top: 0;  
-  margin-bottom: 30px;  
+  margin-top: 0;
+  margin-bottom: 30px;
 }
-
 
 .account-wrapper {
   max-width: 900px;
@@ -216,18 +223,20 @@
   font-weight: bold;
   color: #495057;
   cursor: pointer;
-  transition: color 0.3s, border-bottom 0.3s;
+  transition:
+    color 0.3s,
+    border-bottom 0.3s;
   border-bottom: 3px solid transparent;
   margin-right: 30px;
 }
 
 .account-tab.active {
-  color: #45EFDA; 
-  border-bottom: 3px solid #45EFDA; 
+  color: #45efda;
+  border-bottom: 3px solid #45efda;
 }
 
 .account-tab:hover {
-  color: #3ed5c4; 
+  color: #3ed5c4;
 }
 
 /* Секции профиля и заказов */
@@ -273,7 +282,7 @@
 /* Кнопки "Сохранить изменения" и "Отмена" */
 .account-button {
   padding: 12px 25px;
-  background-color: #45EFDA;
+  background-color: #45efda;
   color: #000000;
   border: none;
   border-radius: 5px;
@@ -290,7 +299,7 @@
 /* Контейнер кнопок редактирования */
 .edit-buttons {
   display: flex;
-  gap: 15px; 
+  gap: 15px;
 }
 
 /* Карточки заказов */
@@ -308,7 +317,6 @@
   margin-bottom: 20px;
   text-align: left;
 }
-
 
 .order-details-link {
   color: #007bff;
@@ -360,8 +368,8 @@
 .account-orders {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; 
-  justify-content: space-between; 
+  gap: 20px;
+  justify-content: space-between;
 }
 
 /* Карточка заказа */
@@ -372,8 +380,10 @@
   padding: 20px;
   margin-bottom: 20px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: calc(48% - 10px); 
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  width: calc(48% - 10px);
 }
 
 .order-card:hover {
@@ -393,7 +403,7 @@
   margin-bottom: 10px;
   font-size: 16px;
   color: #555;
-  line-height: 1.6; 
+  line-height: 1.6;
 }
 
 .order-info span {
@@ -432,7 +442,9 @@
   padding: 8px 15px;
   background-color: #e9f5ff;
   border-radius: 8px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .order-footer a:hover {
@@ -443,7 +455,7 @@
 /* Адаптивность */
 @media (max-width: 768px) {
   .order-card {
-    width: 100%; 
+    width: 100%;
   }
 
   .order-title {
@@ -454,7 +466,6 @@
     font-size: 14px;
   }
 }
-
 
 /* === Стиль для страницы регистрации === */
 .register-page {
@@ -469,26 +480,27 @@
 }
 
 .register-page h1 {
-  font-size: 32px;
+  font-size: 28px;
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  text-align: center;
 }
 
 .register-page form {
   background-color: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   width: 100%;
   max-width: 400px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
 .register-page label {
   font-size: 14px;
-  color: #555;
+  color: #444;
   display: block;
   margin-bottom: 8px;
 }
@@ -497,10 +509,17 @@
 .register-page select {
   padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 16px;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  transition: border-color 0.2s ease;
+}
+
+.register-page input:focus,
+.register-page select:focus {
+  border-color: #45efda;
+  outline: none;
 }
 
 .register-page button {
@@ -519,41 +538,84 @@
   background-color: #33b5a0;
 }
 
+/* Ссылка для регистрации (если нужно добавить) */
+.register-text {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+
+  .link-register {
+    color: #45efda;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 4px;
+    transition: color 0.3s;
+
+    &:hover {
+      text-decoration: underline;
+      color: #33b5a0;
+    }
+  }
+}
 
 .login-page {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-color: #f4f4f4;
   padding: 20px;
 }
-.login-page h1 {
-  font-size: 32px;
-  color: #333;
-  margin-bottom: 20px;
-}
-.login-page form {
+
+.login-card {
   background-color: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   max-width: 400px;
+  width: 100%;
+}
+
+.login-title {
+  font-size: 28px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.login-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 18px;
 }
-.login-page input {
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.form-group input {
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  font-size: 16px;
-  width: 100%;
-  margin-bottom: 10px;
+  font-size: 15px;
+  transition: border-color 0.2s;
 }
-.login-page button {
+
+.form-group input:focus {
+  border-color: #45efda;
+  outline: none;
+}
+
+.btn-login {
   background-color: #45efda;
   color: #333;
   padding: 12px;
@@ -562,10 +624,146 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 100%;
 }
-.login-page button:hover {
+
+.btn-login:hover {
   background-color: #33b5a0;
 }
 
+.register-text {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
 
+  .link-register {
+    color: #45efda;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 4px;
+    transition: color 0.3s;
+
+    &:hover {
+      text-decoration: underline;
+      color: #33b5a0;
+    }
+  }
+}
+
+/* Стили для модальных окон */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #333;
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.modal-body h3 {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+}
+
+.modal-body p {
+  margin: 10px 0;
+  line-height: 1.5;
+  color: #555;
+}
+
+.modal-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-button {
+  background-color: #45efda;
+  color: #333;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.modal-button:hover {
+  background-color: #33b5a0;
+}
+
+/* Стили для чекбокса соглашения */
+.terms-container {
+  margin: 15px 0;
+}
+
+.terms-checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+}
+
+.terms-checkbox input {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.terms-link {
+  background: none;
+  border: none;
+  color: #45efda;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+}
+
+.terms-link:hover {
+  color: #33b5a0;
+}
+
+/* Стиль для неактивной кнопки регистрации */
+.btn-login:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

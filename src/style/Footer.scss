@@ -1,6 +1,6 @@
 // Переменные
 $footer-bg-color: #000000;
-$highlight-color: #45EFDA;
+$highlight-color: #45efda;
 $text-color-light: #ccc;
 $border-color: #ccc;
 $social-icon-size: 24px;
@@ -26,7 +26,7 @@ $transition-duration: 0.3s;
   position: relative;
 
   &::after {
-    content: "Copyright © 2024 Scooter24";
+    content: "Copyright © 2025 Scooter24";
     position: absolute;
     bottom: 0;
     left: 0;
@@ -58,7 +58,8 @@ $transition-duration: 0.3s;
     margin-right: 0;
   }
 
-  h3, h4 {
+  h3,
+  h4 {
     margin-bottom: 15px;
   }
 
@@ -149,7 +150,8 @@ $transition-duration: 0.3s;
     }
   }
 
-  .subscribe-form, .fot {
+  .subscribe-form,
+  .fot {
     display: none; // Удаление формы рассылки
   }
 }
@@ -170,7 +172,8 @@ $transition-duration: 0.3s;
     }
   }
 
-  .subscribe-form, .fot {
+  .subscribe-form,
+  .fot {
     display: none; // Удаление формы рассылки
   }
 
@@ -184,7 +187,8 @@ $transition-duration: 0.3s;
     padding: 20px 10px;
   }
 
-  .subscribe-form, .fot {
+  .subscribe-form,
+  .fot {
     display: none; // Удаление формы рассылки
   }
 }

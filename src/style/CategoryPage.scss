@@ -1,7 +1,7 @@
 // Переменные
 $bg-color-light: #ffffff;
 $bg-color-filter: #f8f9fa;
-$btn-bg-color: #45EFDA;
+$btn-bg-color: #45efda;
 $btn-bg-color-hover: #36c5ba;
 $btn-text-color: rgb(0, 0, 0);
 $border-color: #ddd;
@@ -17,7 +17,7 @@ $border-radius: 5px;
 .containers {
   display: flex;
   margin: 20px;
-  margin-top: 150px; 
+  margin-top: 150px;
 }
 
 .sidebar {
@@ -37,10 +37,10 @@ $border-radius: 5px;
 
 // Навигация по категориям
 .categories-nav {
-  background-color: $bg-color-light; 
+  background-color: $bg-color-light;
   padding: 10px;
   border-radius: $border-radius;
-  box-shadow: 0 4px 6px $shadow-color; 
+  box-shadow: 0 4px 6px $shadow-color;
 }
 
 .categories-nav ul {
@@ -54,8 +54,8 @@ $border-radius: 5px;
 }
 
 .categories-nav .category-button {
-  background-color: #f0f0f0; 
-  color: $text-color-dark; 
+  background-color: #f0f0f0;
+  color: $text-color-dark;
   border: none;
   padding: 10px;
   width: 100%;
@@ -85,7 +85,7 @@ $border-radius: 5px;
 // Фильтр
 .filter-container {
   margin-top: 20px;
-  background-color: $bg-color-filter; 
+  background-color: $bg-color-filter;
   padding: 15px;
   border-radius: $border-radius;
   box-shadow: 0 4px 6px $shadow-color;
@@ -135,11 +135,11 @@ $border-radius: 5px;
 }
 
 .reset-filters:hover {
-  background-color: $btn-bg-color-hover; 
+  background-color: $btn-bg-color-hover;
 }
 
 .filter button:hover {
-  background-color: $btn-bg-color-hover; 
+  background-color: $btn-bg-color-hover;
 }
 
 // Карты продуктов
@@ -149,7 +149,7 @@ $border-radius: 5px;
   padding: 10px;
   justify-content: center;
   background-color: $bg-color-light;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .card {
@@ -243,7 +243,7 @@ $border-radius: 5px;
 // Подкатегории
 .subcategories {
   list-style: none;
-  padding-left: 20px; 
+  padding-left: 20px;
   margin: 5px 0;
 
   .subcategory-button {
@@ -255,7 +255,9 @@ $border-radius: 5px;
     text-align: left;
     font-size: $font-size-small;
     color: $text-color-dark;
-    transition: background-color 0.3s, color 0.3s;
+    transition:
+      background-color 0.3s,
+      color 0.3s;
 
     &:hover {
       background-color: $btn-bg-color;
@@ -285,9 +287,9 @@ $border-radius: 5px;
   margin-bottom: 5px;
 }
 .category-button {
-  display: flex; 
-  align-items: center; 
-  justify-content: space-between; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background: none;
   border: none;
   cursor: pointer;
@@ -296,13 +298,13 @@ $border-radius: 5px;
 }
 
 .arrow-icon {
-  width: 12px;  
-  height: 12px; 
+  width: 12px;
+  height: 12px;
   transition: transform 0.3s ease;
   display: inline-block;
   transform: rotate(0deg);
 }
 
 .arrow-icon.rotated {
-  transform: rotate(180deg); 
+  transform: rotate(180deg);
 }
