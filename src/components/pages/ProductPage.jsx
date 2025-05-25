@@ -50,7 +50,7 @@ const ProductPage = () => {
           const newViewedProducts = [productData, ...filteredProducts];
 
           // Ограничиваем количество просмотренных товаров
-          const limitedProducts = newViewedProducts.slice(0, 10);
+          const limitedProducts = newViewedProducts.slice(0, 5);
 
           // Сохраняем в localStorage
           localStorage.setItem(
@@ -233,39 +233,43 @@ const ProductPage = () => {
               {isFavorite ? "В избранном" : "В избранное"}
             </button>
           </div>
-          <div className="info-panel">
-            <p>
-              <strong>Доп. комплект:</strong>{" "}
-              {isExpanded
-                ? product.explanation_product || "Нет данных"
-                : truncateText(product.explanation_product)}
-              {!isExpanded && product.explanation_product?.length > 50 && (
-                <span
-                  className="expand-text"
-                  onClick={() => setIsExpanded(true)}
-                >
-                  {" ..."}
-                </span>
-              )}
-              {isExpanded && (
-                <span
-                  className="collapse-text"
-                  onClick={() => setIsExpanded(false)}
-                >
-                  {" Свернуть"}
-                </span>
-              )}
-            </p>
-            <p>
-              <strong>Артикул:</strong> {product.article_product || "—"}
-            </p>
-            <p>
-              <strong>Категория:</strong> {product.categories?.name || "—"}
-            </p>
-            <p>
-              <strong>Метки:</strong> {product.label_product || "—"}
-            </p>
-          </div>
+ <div className="info-panel">
+  <div className="info-panel__item">
+    <div className="info-panel__label">Доп. комплект:</div>
+    <div className="info-panel__value">
+      <div className={`info-panel__text ${isExpanded ? 'expanded' : 'clamped'}`}>
+        {product.explanation_product || "Нет данных"}
+      </div>
+      {product.explanation_product && product.explanation_product.length > 50 && (
+        <button className="info-panel__toggle" onClick={() => setIsExpanded(!isExpanded)}>
+          {isExpanded ? "Свернуть" : "Развернуть"}
+        </button>
+      )}
+    </div>
+  </div>
+
+  <div className="info-panel__item">
+    <div className="info-panel__label">Артикул:</div>
+    <div className="info-panel__value">
+      {product.article_product || "—"}
+    </div>
+  </div>
+
+  <div className="info-panel__item">
+    <div className="info-panel__label">Категория:</div>
+    <div className="info-panel__value">
+      {product.categories?.name || "—"}
+    </div>
+  </div>
+
+  <div className="info-panel__item">
+    <div className="info-panel__label">Метки:</div>
+    <div className="info-panel__value">
+      {product.label_product || "—"}
+    </div>
+  </div>
+</div>
+
           <div className="accordion-wrapper">
             <Accordion product={product} />
           </div>

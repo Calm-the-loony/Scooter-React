@@ -1,4 +1,6 @@
+import React from "react";
 import { createBrowserRouter } from "react-router-dom";
+
 import MainSection from "../components/sections/MainSection";
 import ShippingPage from "../components/pages/ShippingPage";
 import ReturnsPage from "../components/pages/ReturnsPage";
@@ -23,124 +25,175 @@ import AccountPage from "../components/pages/AccountPage";
 import PayPage from "../components/pages/PayPage";
 import Layout from "./generalPage";
 import CheckoutPage from "../components/pages/CheckoutPage";
+import ErrorPage from "../components/pages/ErrorPage";
 
-export const router = createBrowserRouter([
+// Добавляем новые страницы
+import ForgotPasswordPage from "../components/pages/ForgotPasswordPage";
+import VerifyResetCodePage from "../components/pages/VerifyResetCodePage";
+
+export const router = createBrowserRouter(
+  [
+    {
+      element: <Layout />,
+      errorElement: <ErrorPage />, // Глобальный error handler
+      children: [
+        {
+          path: "/",
+          element: <MainSection />,
+          errorElement: <ErrorPage errorType="server" />
+        },
+        {
+          path: "/pay",
+          element: <PayPage />,
+          errorElement: <ErrorPage errorType="payment" />
+        },
+        {
+          path: "/shipping",
+          element: <ShippingPage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/return",
+          element: <ReturnsPage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/salesroom",
+          element: <SalesroomPage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/legal",
+          element: <LegalPage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/right",
+          element: <RightOfWithdrawalPage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/jobs",
+          element: <JobsPage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/tech",
+          element: <TechTipsPage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/brand",
+          element: <BrandsPage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/cart",
+          element: (
+            <AuthenticatedWrapper>
+              <CartPage />
+            </AuthenticatedWrapper>
+          ),
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/checkout",
+          element: (
+            <AuthenticatedWrapper>
+              <CheckoutPage />
+            </AuthenticatedWrapper>
+          ),
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/favorites",
+          element: (
+            <AuthenticatedWrapper>
+              <FavoritesPage />
+            </AuthenticatedWrapper>
+          ),
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/garage",
+          element: (
+            <AuthenticatedWrapper>
+              <GaragePage />
+            </AuthenticatedWrapper>
+          ),
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/account",
+          element: (
+            <AuthenticatedWrapper>
+              <AccountPage />
+            </AuthenticatedWrapper>
+          ),
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/register",
+          element: <RegisterPage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/verify-code",
+          element: <VerifyCodePage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/login",
+          element: <LoginPage />,
+          errorElement: <ErrorPage />
+        },
+        // Новые публичные маршруты для восстановления пароля
+        {
+          path: "/forgot-password",
+          element: <ForgotPasswordPage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/verify-reset-code",
+          element: <VerifyResetCodePage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/product/:id",
+          element: <ProductPage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/search-results",
+          element: <SearchResults />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/category",
+          element: <CategoryPage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/category/:id_category",
+          element: <CategoryPage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "*",
+          element: <NotFoundPage />
+        },
+        {
+          path: "/error", // Тестовая страница ошибки
+          element: <ErrorPage errorType="server" />
+        }
+      ]
+    }
+  ],
   {
-    element: <Layout />,
-    children: [
-      {
-        path: "/",
-        element: <MainSection />,
-      },
-      {
-        path: "/pay",
-        element: <PayPage />,
-      },
-      {
-        path: "/shipping",
-        element: <ShippingPage />,
-      },
-      {
-        path: "/return",
-        element: <ReturnsPage />,
-      },
-      {
-        path: "/salesroom",
-        element: <SalesroomPage />,
-      },
-      {
-        path: "/legal",
-        element: <LegalPage />,
-      },
-      {
-        path: "/right",
-        element: <RightOfWithdrawalPage />,
-      },
-      {
-        path: "/jobs",
-        element: <JobsPage />,
-      },
-      {
-        path: "/tech",
-        element: <TechTipsPage />,
-      },
-      {
-        path: "/brand",
-        element: <BrandsPage />,
-      },
-
-      {
-        path: "/cart",
-        element: (
-          <AuthenticatedWrapper>
-            <CartPage />
-          </AuthenticatedWrapper>
-        ),
-      },
-      {
-        path: "/checkout",
-        element: (
-          <AuthenticatedWrapper>
-            <CheckoutPage />
-          </AuthenticatedWrapper>
-        ),
-      },
-      {
-        path: "/favorites",
-        element: (
-          <AuthenticatedWrapper>
-            <FavoritesPage />
-          </AuthenticatedWrapper>
-        ),
-      },
-      {
-        path: "/garage",
-        element: (
-          <AuthenticatedWrapper>
-            <GaragePage />
-          </AuthenticatedWrapper>
-        ),
-      },
-      {
-        path: "/account",
-        element: (
-          <AuthenticatedWrapper>
-            <AccountPage />
-          </AuthenticatedWrapper>
-        ),
-      },
-      {
-        path: "/register",
-        element: <RegisterPage />,
-      },
-      {
-        path: "/verify-code",
-        element: <VerifyCodePage />,
-      },
-      {
-        path: "/login",
-        element: <LoginPage />,
-      },
-      {
-        path: "/product/:id",
-        element: <ProductPage />,
-      },
-      {
-        path: "/search-results",
-        element: <SearchResults />,
-      },
-      {
-        path: "/category",
-        element: <CategoryPage />,
-      },
-      {
-        path: "/category/:id_category",
-        element: <CategoryPage />,
-      },
-      {
-        path: "*",
-        element: <NotFoundPage />,
-      },
-    ],
-  },
-]);
+    // Глобальный перехват ошибок маршрутизации
+    onError: (error) => {
+      console.error("Router error:", error);
+      // Здесь можно интегрировать сервисы мониторинга ошибок (Sentry, LogRocket и т.п.)
+    }
+  }
+);

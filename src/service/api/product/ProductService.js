@@ -187,6 +187,12 @@ export default class ProductApiService {
     const req = await axios.post(
       import.meta.env.VITE_BACKEND_URL + "/review/create",
       dataUser,
+      {
+        withCredentials: true,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token")
+        }
+      }
     );
 
     if (req.status === 201) {

@@ -200,6 +200,7 @@ const MainSection = () => {
           className="background-image"
           style={{ backgroundImage: `url(${parkingImage})` }}
         >
+          
           <div className="content">
             <h2>
               Найдите Свои <span className="highlight">Идеальные</span> Детали

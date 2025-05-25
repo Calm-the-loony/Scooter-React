@@ -767,3 +767,52 @@
   background-color: #cccccc;
   cursor: not-allowed;
 }
+
+/*забыли пароль*/
+.forgot-password-link {
+  display: block;
+  margin: 8px 0 12px;
+  color: #555;
+  text-align: center;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 0.15s ease;
+  padding: 2px 0;
+  position: relative;
+  
+  &:hover {
+    color: #333;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  
+  &:active {
+    color: #222;
+  }
+}
+
+
+.reset-instructions, .reset-success {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.reset-success {
+  margin-bottom: 30px;
+}
+.forgot-password-page {
+  margin-top: 50px; 
+
+  @media (max-width: 768px) {
+    margin-top: 60px;
+  }
+
+  @media (max-width: 480px) {
+    margin-top: 40px;
+  }
+}

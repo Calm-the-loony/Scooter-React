@@ -37,6 +37,10 @@ const LoginPage = () => {
     navigate("/register");
   };
 
+  const handleNavigateToForgotPassword = () => {
+    navigate("/forgot-password");
+  };
+
   return (
     <div className="login-page">
       <div className="login-card">
@@ -70,7 +74,11 @@ const LoginPage = () => {
           </button>
         </form>
         {error.length > 0 ? <div className="error">{error}</div> : ""}
-        <div></div>
+        
+        <div className="forgot-password-link" onClick={handleNavigateToForgotPassword}>
+          Забыли пароль?
+        </div>
+        
         <div className="register-text">
           Нет аккаунта?{" "}
           <span onClick={handleNavigateToRegister} className="link-register">
