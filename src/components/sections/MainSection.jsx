@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "font-awesome/css/font-awesome.min.css";
 import ProductCard from "../cards/ProductCard";
 
+
 // Изображения
 import parkingImage from "../../image/parking_main_1.jpg";
 import smileyIcon from "../../image/free-icon-smiley-142310.png";
@@ -16,6 +17,7 @@ import dollarIcon from "../../image/free-icon-dollar-symbol-126179.png";
 import bannerImage1 from "../../image/banner3-1.png";
 import bannerImage2 from "../../image/banner4-1.png";
 import bannerImage3 from "../../image/Designer (1).jpeg";
+import { FiShield, FiTag, FiTruck, FiRefreshCw } from "react-icons/fi";
 import "../../style/CategoryPage.scss";
 
 // API Сервисы
@@ -266,77 +268,85 @@ const MainSection = () => {
           </div>
         </div>
       </section>
-      {categoryData ? (
-        <section className="categories-section">
-          {categoryData.categories.map((category, index) => {
-            return (
-              <div className="category" key={index}>
-                <Link
-                  to={{
-                    pathname: "/category/" + category.id_category,
-                  }}
-                  state={{ categoryId: category.id_category }}
-                  className="category-container"
-                >
-                  {category.icon_category ? (
-                    <img src={category.icon_category} alt="Категория" />
-                  ) : (
-                    <i
-                      className={
-                        !["icon", "", null].includes(category.icon_category)
-                          ? category.icon_category
-                          : "fa fa-spinner"
-                      }
-                    ></i>
-                  )}
-                  <p>{category.name_category}</p>
-                </Link>
-              </div>
-            );
-          })}
-        </section>
-      ) : (
-        ""
-      )}
-      <section className="transparent-guarantees">
-        <div className="guarantees-container">
-          <div className="guarantee-card">
-            <div className="card-icon">
-              <img src={smileyIcon} alt="Надежность" />
-            </div>
-            <h3 className="card-title">100% Надежность</h3>
-            <p className="card-desc">Более 1000 отзывов</p>
-            <div className="card-highlight"></div>
-          </div>
-
-          <div className="guarantee-card">
-            <div className="card-icon">
-              <img src={thumbsUpIcon} alt="Скидка" />
-            </div>
-            <h3 className="card-title">Скидка 10%</h3>
-            <p className="card-desc">при оплате СБП от Сбера</p>
-            <div className="card-highlight"></div>
-          </div>
-
-          <div className="guarantee-card">
-            <div className="card-icon">
-              <img src={airplaneIcon} alt="Доставка" />
-            </div>
-            <h3 className="card-title">Быстрая доставка</h3>
-            <p className="card-desc">по всей России</p>
-            <div className="card-highlight"></div>
-          </div>
-
-          <div className="guarantee-card">
-            <div className="card-icon">
-              <img src={dollarIcon} alt="Возврат" />
-            </div>
-            <h3 className="card-title">14 дней на возврат</h3>
-            <p className="card-desc">независимо от причин</p>
-            <div className="card-highlight"></div>
-          </div>
+     {categoryData ? (
+  <section className="categories-section">
+    {categoryData.categories.map((category) => (
+      <Link
+        to={`/category/${category.id_category}`}
+        state={{ categoryId: category.id_category }}
+        className="category-card"
+        key={category.id_category}
+        aria-label={`Перейти в категорию ${category.name_category}`}
+      >
+        <div className="category-icon">
+          {category.icon_category?.includes("http") ? (
+            <img src={category.icon_category} alt="" />
+          ) : (
+            <i
+              className={
+                !["icon", "", null].includes(category.icon_category)
+                  ? category.icon_category
+                  : "fa fa-spinner"
+              }
+            />
+          )}
         </div>
-      </section>
+        <p className="category-name">{category.name_category}</p>
+      </Link>
+    ))}
+  </section>
+) : null}
+
+<section className="trust-track">
+      <div className="track-wrapper">
+        <h2 className="track-title">Почему нам доверяют?</h2>
+        <div className="track">
+          <div className="track-line"></div>
+
+          <div className="track-point">
+            <div className="icon">
+              <FiShield size={40} />
+            </div>
+            <div className="content">
+              <h3>100% Надёжность</h3>
+              <p>1000+ довольных клиентов и 5 лет на рынке</p>
+            </div>
+          </div>
+
+          <div className="track-point">
+            <div className="icon">
+              <FiTag size={40} />
+            </div>
+            <div className="content">
+              <h3>Скидка 10%</h3>
+              <p>При оплате через СБП и постоянным клиентам</p>
+            </div>
+          </div>
+
+          <div className="track-point">
+            <div className="icon">
+              <FiTruck size={40} />
+            </div>
+            <div className="content">
+              <h3>Быстрая доставка</h3>
+              <p>1–3 дня по всей России и СНГ</p>
+            </div>
+          </div>
+
+          <div className="track-point">
+            <div className="icon">
+              <FiRefreshCw size={40} />
+            </div>
+            <div className="content">
+              <h3>14 дней на возврат</h3>
+              <p>Без лишних вопросов и ожидания</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
 
       <section className="featured-products">
         <h2 className="as">Рекомендуемые товары</h2>

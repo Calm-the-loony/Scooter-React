@@ -321,20 +321,22 @@ const ProductPage = () => {
       )}
 
       <div className="product-other">
-        <div className="product-review">
-          <div className="product-review__create">
-            <h2>Отзывы</h2>
-            {selector && (
-              <button
-                className="btn-create-review"
-                onClick={() => setCreated(true)}
-              >
-                Оставить отзыв
-              </button>
-            )}
-          </div>
-          <Pagination typePagination="review" items={review} />
-        </div>
+  <div className="product-review">
+    <div className="product-review__create">
+      <h2 className="product-review__title">Отзывы</h2>
+      {selector && (
+        <button
+          className="btn-create-review"
+          onClick={() => setCreated(true)}
+        >
+          Оставить отзыв
+        </button>
+      )}
+    </div>
+    <Pagination typePagination="review" items={review} />
+  </div>
+
+
 
         <div className="viewed-products">
           <h2>Вы недавно смотрели</h2>

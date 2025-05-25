@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import Header from "../components/semantic/header/Header";
 import Footer from "../components/semantic/footer/Footer";
 import CookieConsent from "../components/other/CookieConsent";
+import ChatWidget from "../components/Chatbot/ChatWidget";
 
 export default function Layout() {
   return (
@@ -15,6 +16,7 @@ export default function Layout() {
         <Outlet />
         <Footer />
         <CookieConsent />
+         <ChatWidget />
       </div>
     </Fragment>
   );

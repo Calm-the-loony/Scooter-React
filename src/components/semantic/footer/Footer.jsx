@@ -55,11 +55,9 @@ const Footer = () => {
               Подписаться
             </button>
           </form>
-          <h4 className="yellow-text">КОД КУПОНОВ</h4>
+         <h4 className="yellow-text">ПОДДЕРЖКА И ПОМОЩЬ</h4>
           <p>
-            Проверьте{" "}
-            <span className="highlights">все текущие коды купонов</span> на
-            странице.
+           Мы всегда готовы помочь с выбором и ответить на ваши вопросы.
           </p>
         </div>
       </div>
@@ -72,8 +70,8 @@ const Footer = () => {
           <a
             href="#"
             onClick={(e) => {
-              e.preventDefault(); // Отключаем переход по ссылке
-              showModal(); // Открываем модальное окно с контактами
+              e.preventDefault(); 
+              showModal(); 
             }}
           >
             Контакты

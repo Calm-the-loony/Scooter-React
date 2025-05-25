@@ -247,7 +247,7 @@ body {
   }
 }
 
-// Адаптивность для аккордеона
+// аккордеон
 .accordion-wrapper {
   margin-top: 30px;
   width: 100%;
@@ -354,7 +354,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 160px;
+    width: 150px;
     background-color: #fff;
     border: 1px solid #e0e0e0;
     border-radius: 15px;
@@ -363,6 +363,7 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    overflow: hidden;
 
     &:hover {
       transform: translateY(-5px);
@@ -378,16 +379,17 @@ body {
     }
 
     p {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: #444;
       margin: 4px 0;
       line-height: 1.3;
-      max-height: 4.9em; 
+      height: 3.9em; // ~3 строки
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 5;
-      -webkit-box-orient: vertical;
+      word-break: break-word;
     }
 
     .viewed-price {
@@ -405,6 +407,7 @@ body {
     width: 100%;
     margin-top: 20px;
   }
+
 
   @media (max-width: 768px) {
     .viewed-list {
@@ -542,31 +545,59 @@ body {
   Секция отзывов карточки товара
  */
 .product-other {
-  width: 70%;
-  margin-top: 80px;
+  width: 100%;
+  max-width: 900px;
+  margin: 80px auto 0;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  padding: 0 20px;
 }
 
 .product-review__create {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
 
-  a {
-    cursor: pointer;
-    text-decoration: none;
-    color: #4b4a4a;
-    font-weight: bold;
+.product-review__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.btn-create-review {
+  background-color: #45efda;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #37c6b5;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(85, 120, 223, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: none;
   }
 }
 
 .product-review__products {
-  margin-top: 50px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 30px;
 }
 
 .review-card {
@@ -596,60 +627,130 @@ body {
 }
 
 .review-create-form {
-  position: absolute;
-  width: 50%;
-  border-radius: 5px;
-  margin: auto;
-  margin-top: 35%;
-  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   z-index: 1000;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  animation: fadeIn 0.3s ease-out;
 
   form {
-    width: 60%;
-    padding: 20px;
-    gap: 15px;
-    margin: auto;
     display: flex;
     flex-direction: column;
+    gap: 20px;
+    padding: 30px;
 
-    textarea {
-      resize: vertical;
-    }
+    .form-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
 
-    h3 {
-      text-align: center;
-      margin-bottom: 30px;
+      h3 {
+        font-size: 1.5rem;
+        color: #333;
+      }
+
+      .close {
+        font-size: 1.8rem;
+        color: #999;
+        cursor: pointer;
+        transition: color 0.2s;
+
+        &:hover {
+          color: #ff4d4d;
+        }
+      }
     }
 
     .input-element {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 8px;
+
+      label {
+        font-weight: 600;
+        color: #444;
+      }
+
+      textarea {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
+        min-height: 100px;
+        font-family: inherit;
+        font-size: 0.95rem;
+        resize: vertical;
+        transition: border 0.2s;
+
+        &:focus {
+          border-color: #45efda;
+          outline: none;
+        }
+      }
     }
 
     .rating-mini {
-      display: inline-block;
-      font-size: 0;
+      display: flex;
+      gap: 5px;
+
+      span {
+        font-size: 24px;
+        cursor: pointer;
+        color: lightgray;
+        transition: color 0.2s, transform 0.2s;
+
+        &:before {
+          content: "★";
+        }
+
+        &.active {
+          color: gold;
+          transform: scale(1.1);
+        }
+      }
     }
 
-    .rating-mini span {
-      padding: 0;
-      font-size: 20px;
-      line-height: 1;
-      color: lightgrey;
-    }
-
-    .rating-mini > span:before {
-      content: "★";
-    }
-
-    .rating-mini > span.active {
-      color: gold;
-    }
-
-    span {
+    button[type="submit"] {
+      margin-top: 10px;
+      background-color: #45efda;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+
+      &:hover:not(:disabled) {
+        background-color: #45efda;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(85, 120, 223, 0.3);
+      }
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
     }
   }
 }
+
+// Анимация появления
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+

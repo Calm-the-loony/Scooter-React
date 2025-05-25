@@ -26,8 +26,6 @@ import PayPage from "../components/pages/PayPage";
 import Layout from "./generalPage";
 import CheckoutPage from "../components/pages/CheckoutPage";
 import ErrorPage from "../components/pages/ErrorPage";
-
-// Добавляем новые страницы
 import ForgotPasswordPage from "../components/pages/ForgotPasswordPage";
 import VerifyResetCodePage from "../components/pages/VerifyResetCodePage";
 
@@ -35,7 +33,7 @@ export const router = createBrowserRouter(
   [
     {
       element: <Layout />,
-      errorElement: <ErrorPage />, // Глобальный error handler
+      errorElement: <ErrorPage />, 
       children: [
         {
           path: "/",
@@ -147,7 +145,6 @@ export const router = createBrowserRouter(
           element: <LoginPage />,
           errorElement: <ErrorPage />
         },
-        // Новые публичные маршруты для восстановления пароля
         {
           path: "/forgot-password",
           element: <ForgotPasswordPage />,
@@ -183,17 +180,15 @@ export const router = createBrowserRouter(
           element: <NotFoundPage />
         },
         {
-          path: "/error", // Тестовая страница ошибки
+          path: "/error", 
           element: <ErrorPage errorType="server" />
         }
       ]
     }
   ],
   {
-    // Глобальный перехват ошибок маршрутизации
     onError: (error) => {
       console.error("Router error:", error);
-      // Здесь можно интегрировать сервисы мониторинга ошибок (Sentry, LogRocket и т.п.)
     }
   }
 );
