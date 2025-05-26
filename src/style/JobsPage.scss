@@ -1,256 +1,462 @@
-.jobs {
-  padding: 100px 20px 20px;
-  background-color: #fff;
-  max-width: 800px;
-  margin: 0 auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  animation: fadeIn 1s;
+// Переменные
+$primary-color: #45efda;
+$dark-color: #121212;
+$light-color: #ffffff;
+$gray-color: #f5f5f5;
+$text-color: #333333;
+$border-color: #e0e0e0;
+$shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+$transition: all 0.3s ease;
+
+// Основные стили
+.jobs-page {
+  background-color: $gray-color;
+  padding: 80px 20px 60px;
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
 }
 
-.jobs h1,
-.jobs h2 {
-  color: #333;
-  text-align: center;
+.jobs-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: $light-color;
+  border-radius: 12px;
+  box-shadow: $shadow;
+  padding: 40px;
+  position: relative;
   margin-top: 30px;
 }
 
-.benefits {
-  margin-bottom: 20px;
+.page-title {
+  text-align: center;
+  color: $dark-color;
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 20px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: $primary-color;
+    border-radius: 2px;
+  }
 }
 
-.benefits ul {
-  list-style: none;
-  padding: 0;
+.section-title {
+  font-size: 1.8rem;
+  color: $dark-color;
+  margin-bottom: 30px;
+  font-weight: 600;
 }
 
-.benefits li {
-  margin: 10px 0;
-  color: #555;
-  animation: slideInLeft 0.5s;
+// Секция преимуществ
+.benefits-section {
+  margin-bottom: 60px;
 }
 
-.vacancies {
-  margin-bottom: 20px;
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.benefit-card {
+  background: $light-color;
+  border-radius: 10px;
+  padding: 25px;
+  text-align: center;
+  transition: $transition;
+  border: 1px solid $border-color;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $shadow;
+  }
+}
+
+.benefit-icon {
+  font-size: 2.5rem;
+  color: $primary-color;
+  margin-bottom: 15px;
+}
+
+.benefit-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: $dark-color;
+}
+
+.benefit-card p {
+  color: lighten($text-color, 20%);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+// Секция вакансий
+.vacancies-section {
+  margin-bottom: 40px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 20px;
+  border: 1px solid $border-color;
+  border-radius: 30px;
+  font-size: 1rem;
+  transition: $transition;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+  }
+}
+
+.vacancies-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .vacancy-card {
-  background-color: #f1f1f1;
-  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: $light-color;
   border-radius: 10px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  animation: zoomIn 0.5s;
+  padding: 25px;
+  transition: $transition;
+  border: 1px solid $border-color;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  &:hover {
+    border-color: $primary-color;
+  }
+}
+
+.vacancy-info {
+  flex: 1;
+  min-width: 250px;
 }
 
 .vacancy-card h3 {
-  margin-top: 0;
+  font-size: 1.3rem;
+  color: $dark-color;
+  margin-bottom: 10px;
 }
 
-.vacancy-card p {
-  margin: 5px 0;
-  color: #555;
+.salary {
+  font-weight: 600;
+  color: $primary-color;
+  margin-bottom: 8px;
+}
+
+.experience {
+  color: lighten($text-color, 20%);
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.description {
+  color: $text-color;
+  line-height: 1.6;
 }
 
 .apply-button {
-  display: block;
-  margin: 10px 0 0;
-  padding: 10px;
-  background-color: #ffffff;
-  color: #000000;
-  text-decoration: none;
-  border: 1px solid #45efda;
-  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 25px;
+  background-color: $primary-color;
+  color: $dark-color;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
   cursor: pointer;
+  transition: $transition;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+    transform: translateY(-2px);
+  }
+
+  svg {
+    font-size: 0.9rem;
+  }
+}
+
+.no-vacancies {
   text-align: center;
-  transition: background-color 0.3s;
+  padding: 40px;
+  color: lighten($text-color, 30%);
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
 
-.apply-button:hover {
-  background-color: #45efda;
+.back-link {
+  display: inline-block;
+  margin-top: 30px;
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 500;
+  transition: $transition;
+
+  &:hover {
+    text-decoration: underline;
+    color: darken($primary-color, 15%);
+  }
 }
 
-.jobs-modal {
+// Модальное окно
+.modal-overlay {
   display: none;
   position: fixed;
-  z-index: 1000;
-  left: 0;
   top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-container {
+  background-color: $light-color;
+  border-radius: 12px;
   width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.6);
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: $shadow;
+  animation: fadeIn 0.3s ease;
 }
 
-.jobs-modal-content {
-  background: #fff;
-  margin: 10% auto;
-  padding: 20px 30px;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  width: 90%;
-  max-width: 500px;
-  position: relative;
-  text-align: center;
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+  border-bottom: 1px solid $border-color;
+  position: sticky;
+  top: 0;
+  background-color: $light-color;
+  z-index: 10;
 }
 
-.jobs-modal-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+.modal-header h2 {
+  font-size: 1.5rem;
+  color: $dark-color;
+  margin: 0;
+}
+
+.close-button {
   background: none;
   border: none;
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
+  font-size: 1.8rem;
   cursor: pointer;
+  color: lighten($text-color, 30%);
+  transition: $transition;
+  line-height: 1;
+
+  &:hover {
+    color: $dark-color;
+  }
 }
 
-.jobs-modal-close:hover {
-  color: #ff0000;
-}
-
-.jobs-modal h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #333;
+.application-form {
+  padding: 25px;
 }
 
 .form-group {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: $dark-color;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: $transition;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+    }
+  }
+
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  input[type="checkbox"] {
+    width: auto;
+    margin-top: 3px;
+  }
+
+  label {
+    font-weight: 400;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  margin-bottom: 0;
+  }
+}
+
+.privacy-link {
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.notification-message {
+  color: #d35400;
   margin-bottom: 15px;
-  text-align: left;
+  font-size: 0.9rem;
 }
 
-.form-group label {
-  display: block;
-  font-size: 14px;
-  font-weight: bold;
-  color: #555;
-  margin-bottom: 5px;
+.error-message {
+  color: #e74c3c;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
 }
 
-.form-group input,
-.form-group textarea {
+.submit-button {
   width: 100%;
-  padding: 10px 15px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-  background-color: #f9f9f9;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  border-color: #45efda;
-  background-color: #fff;
-  outline: none;
-  box-shadow: 0 0 5px rgba(69, 239, 218, 0.5);
-}
-
-.form-group textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-.form-submit-button {
-  display: inline-block;
-  width: 100%;
-  padding: 12px 20px;
-  font-size: 16px;
-  color: #fff;
-  background-color: #45efda;
+  padding: 14px;
+  background-color: $primary-color;
+  color: $dark-color;
   border: none;
-  border-radius: 25px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-}
+  transition: $transition;
+  margin-top: 10px;
 
-.form-submit-button:hover {
-  background-color: #35cbb3;
-}
-
-@media (max-width: 480px) {
-  .jobs-modal-content {
-    padding: 20px;
+  &:hover {
+    background-color: darken($primary-color, 10%);
   }
 
-  .jobs-modal h2 {
-    font-size: 20px;
-  }
-
-  .form-submit-button {
-    font-size: 14px;
+  &.disabled {
+    background-color: lighten($primary-color, 25%);
+    cursor: not-allowed;
   }
 }
 
-@media (max-width: 768px) {
-  .jobs {
-    padding: 80px 10px;
-  }
-
-  .vacancy-card {
-    padding: 15px;
-  }
-
-  .benefits li {
-    font-size: 14px;
-  }
-
-  .apply-button {
-    padding: 8px;
-  }
-
-  .modal-content {
-    width: 90%;
-  }
-}
-
-@media (max-width: 480px) {
-  .jobs {
-    padding: 60px 10px;
-  }
-
-  .vacancy-card {
-    padding: 10px;
-  }
-
-  .benefits li {
-    font-size: 12px;
-  }
-
-  .apply-button {
-    padding: 6px;
-  }
-
-  .modal-content {
-    width: 95%;
-  }
-}
-
+// Анимации
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(-20px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@keyframes slideInLeft {
-  from {
-    transform: translateX(-100%);
+// Адаптация для мобильных устройств
+@media (max-width: 768px) {
+  .jobs-container {
+    padding: 30px 20px;
   }
-  to {
-    transform: translateX(0);
+
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vacancy-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .apply-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal-container {
+    max-height: 80vh;
   }
 }
 
-@keyframes zoomIn {
-  from {
-    transform: scale(0.5);
+@media (max-width: 480px) {
+  .jobs-page {
+    padding: 60px 10px 40px;
   }
-  to {
-    transform: scale(1);
+
+  .page-title {
+    font-size: 1.8rem;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-container {
+    width: 100%;
+    max-width: none;
+  }
+
+  .modal-header {
+    padding: 20px 15px;
+  }
+
+  .application-form {
+    padding: 20px 15px;
   }
 }

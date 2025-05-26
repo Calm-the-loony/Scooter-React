@@ -1,30 +1,15 @@
-// Переменные для основных стилей
 $primary-color: #222;
 $secondary-color: #777;
 $background-color: #f9f9f9;
-$border-radius: 10px;
+$border-radius: 12px;
 $hover-opacity: 1;
-$default-opacity: 0.8;
+$default-opacity: 0.85;
 $transition-duration: 0.3s;
-$grid-gap: 10px;
-$max-width-image: 400px;
-
-// Миксин для общего стилизованного изображения
-@mixin image-hover-effect(
-  $opacity: $default-opacity,
-  $hover-opacity: $hover-opacity
-) {
-  opacity: $opacity;
-  transition: opacity $transition-duration;
-
-  &:hover {
-    opacity: $hover-opacity;
-  }
-}
+$grid-gap: 20px;
 
 .search-results {
-  padding: 10px;
-  padding-top: 130px; // Отступ сверху для предотвращения перекрытия
+  padding: 20px;
+  padding-top: 130px;
   background-color: $background-color;
   min-height: 100vh;
   display: flex;
@@ -32,39 +17,88 @@ $max-width-image: 400px;
   align-items: center;
 
   .results-title {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
+    font-size: 2.3rem;
+    margin-bottom: 40px;
     color: $primary-color;
     text-align: center;
-    font-weight: bold;
-  }
-
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: $grid-gap;
-    justify-items: center;
-    width: 100%;
+    font-weight: 700;
+    animation: fadeIn 0.6s ease-in-out;
   }
 
   .no-results-wrapper {
     text-align: center;
     margin-top: 50px;
+    padding: 20px;
+    background: white;
+    border-radius: $border-radius;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    max-width: 600px;
 
-    .no-results {
-      font-size: 1.8rem;
-      color: $secondary-color;
-      margin-bottom: 20px;
+    .emoji {
+      font-size: 4rem;
+      animation: pulse 1.5s infinite;
     }
 
-    .no-results-image {
-      width: 100%;
-      max-width: $max-width-image;
-      border-radius: $border-radius;
-      @include image-hover-effect;
+    .no-results {
+      font-size: 1.6rem;
+      color: $primary-color;
+      margin: 15px 0 10px;
+      font-weight: 600;
+      animation: fadeInUp 0.4s ease-in-out;
+    }
 
-      // Применение миксина с настраиваемыми значениями
-      @include image-hover-effect($default-opacity, $hover-opacity);
+    .suggestion {
+      font-size: 1rem;
+      color: $secondary-color;
+      animation: fadeInUp 0.6s ease-in-out;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .results-title {
+      font-size: 1.8rem;
+    }
+
+    .no-results {
+      font-size: 1.3rem;
+    }
+
+    .suggestion {
+      font-size: 0.95rem;
     }
   }
 }

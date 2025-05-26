@@ -319,7 +319,7 @@ const MainSection = () => {
             </div>
             <div className="content">
               <h3>Скидка 10%</h3>
-              <p>При оплате через СБП и постоянным клиентам</p>
+              <p>Постоянным клиентам и при наличии купона</p>
             </div>
           </div>
 
@@ -451,24 +451,24 @@ const MainSection = () => {
           </div>
         </div>
 
-        {isModalOpen && (
-          <div className="modal" id="myModal">
-            <div className="modal-content">
-              <span className="close" onClick={closeModal}>
-                &times;
-              </span>
-              <button className="whatsapp-btn" onClick={redirectToWhatsApp}>
-                WhatsApp
-              </button>
-              <button className="telegram-btn" onClick={redirectToTelegram}>
-                Telegram
-              </button>
-              <button className="phone-btn" onClick={makePhoneCall}>
-                Звонок
-              </button>
-            </div>
-          </div>
-        )}
+{isModalOpen && (
+  <div className="contact-modal-wrapper">
+    <div className="contact-modal">
+      <span className="contact-modal-close" onClick={closeModal}>
+        &times;
+      </span>
+      <button className="contact-modal-btn whatsapp" onClick={redirectToWhatsApp}>
+        WhatsApp
+      </button>
+      <button className="contact-modal-btn telegram" onClick={redirectToTelegram}>
+        Telegram
+      </button>
+      <button className="contact-modal-btn phone" onClick={makePhoneCall}>
+        Звонок
+      </button>
+    </div>
+  </div>
+)}
       </section>
     </div>
   );
