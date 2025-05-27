@@ -344,7 +344,7 @@
   background-color: #f0f0f0;
   padding: 2px 5px;
   border-radius: 5px;
-  margin-left: 10px;
+  margin-left: 0px;
 }
 
 .original-price {
@@ -365,34 +365,58 @@
 .add-to-cart {
   background-color: #333;
   color: white;
-  border: none;
-  padding: 6px 5px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 5px;
   cursor: pointer;
   margin-left: auto;
   margin-top: 4px;
+  border: none;
+  transition: background-color 0.3s ease;
+
+  i {
+    font-size: 14px;
+  }
+
+  &:hover {
+    background-color: #555;
+  }
 }
 
 .add-to-favorites {
   position: absolute;
   top: 10px;
-  right: -25px;
-  background-color: transparent;
+  right: -3px;
+  background: none;
   border: none;
-  color: #666;
+  padding: 0;
+  color: #878686;
   cursor: pointer;
-  outline: none;
-  transition: color 0.3s ease;
-}
+  transition: transform 0.2s ease, color 0.3s ease;
+  z-index: 2;
 
-.add-to-favorites:focus,
-.add-to-favorites:hover {
-  background-color: transparent;
-  outline: none;
-}
+  i {
+    font-size: 20px;
+    transition: color 0.3s ease;
+  }
 
-.add-to-favorites.active i {
-  color: red !important;
+  &:hover {
+    color: #e60023; 
+    transform: scale(1.1);
+  }
+
+  &.active i {
+    color: #e60023 !important;
+  }
+
+  &:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+  }
 }
 
 .name.ellipsis {

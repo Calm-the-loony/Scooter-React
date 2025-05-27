@@ -13,7 +13,7 @@ $favorites-btn-add-to-cart-hover-bg-color: #555;
 $favorites-font-size: 16px;
 $favorites-gaps: 15px;
 
-// Контейнер фаворитов
+// Контейнер
 .favorites-container {
   max-width: 1200px;
   margin: 120px auto 0;
@@ -41,6 +41,7 @@ $favorites-gaps: 15px;
   border: 1px solid $favorites-border-color;
   border-radius: $favorites-border-radius;
   background-color: $favorites-bg-color;
+  flex-wrap: wrap;
 }
 
 .favorite-image {
@@ -48,11 +49,13 @@ $favorites-gaps: 15px;
   height: 120px;
   object-fit: cover;
   border-radius: $favorites-border-radius;
+  flex-shrink: 0;
 }
 
 .favorite-details {
-  flex-grow: 1;
-  margin-left: 15px;
+  flex: 1;
+  margin-left: 20px;
+  min-width: 200px;
 }
 
 .favorite-name {
@@ -76,6 +79,7 @@ $favorites-gaps: 15px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-left: 20px;
 }
 
 .favorite-remove,
@@ -86,6 +90,7 @@ $favorites-gaps: 15px;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  white-space: nowrap;
 }
 
 .favorite-remove {
@@ -111,4 +116,89 @@ $favorites-gaps: 15px;
   font-size: 16px;
   color: $favorites-secondary-color;
   margin-top: 20px;
+}
+
+// 📱 Адаптация
+
+// Mobile (до 576px)
+@media (max-width: 576px) {
+  .favorite-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .favorite-details {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .favorite-actions {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 0;
+  }
+
+  .favorite-remove,
+  .favorite-add-to-cart {
+    width: 48%;
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  .favorite-image {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: contain;
+  }
+
+  .favorites-title {
+    font-size: 20px;
+  }
+}
+
+// Tablet (до 768px)
+@media (max-width: 768px) {
+  .favorites-container {
+    padding: 15px;
+  }
+
+  .favorite-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .favorite-actions {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-left: 0;
+  }
+
+  .favorite-remove,
+  .favorite-add-to-cart {
+    font-size: 14px;
+  }
+}
+
+// Medium Desktop (до 1024px)
+@media (max-width: 1024px) {
+  .favorites-container {
+    padding: 15px;
+  }
+
+  .favorite-item {
+    flex-wrap: wrap;
+  }
+
+  .favorite-details {
+    margin-left: 15px;
+  }
+
+  .favorite-actions {
+    margin-left: 0;
+  }
 }

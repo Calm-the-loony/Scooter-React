@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaUsers, FaMoneyBillWave, FaClock, FaChartLine, FaGift, FaChevronRight, FaTools } from "react-icons/fa";
+import {
+  FaUsers,
+  FaMoneyBillWave,
+  FaClock,
+  FaChartLine,
+  FaGift,
+  FaChevronRight,
+  FaTools
+} from "react-icons/fa";
 import { JobsApiService } from "../../service/api/jobs/JobsApiService";
 import "../../style/JobsPage.scss";
 
@@ -17,18 +25,19 @@ const JobsPage = () => {
     experience_user: "",
   });
   const [vacancy, setVacancy] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Новый стейт
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
 
   const showApplicationForm = (id_vacancy) => {
-    document.getElementById("applicationModal").style.display = "block";
+    setIsModalOpen(true);
     setVacancy(id_vacancy);
   };
 
   const closeApplicationForm = () => {
-    document.getElementById("applicationModal").style.display = "none";
+    setIsModalOpen(false);
     setNotificationMessage("");
     setError("");
   };
@@ -47,7 +56,6 @@ const JobsPage = () => {
     JobsApiService.sendUserRequest(userData, vacancy)
       .then(() => {
         closeApplicationForm();
-        // Сброс формы
         setUserData({
           name_user: "",
           email_user: "",
@@ -61,11 +69,12 @@ const JobsPage = () => {
       });
   };
 
-  const filteredJobs = jobs.jobs?.filter(
-    (job) =>
-      job.type_work?.name_type?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      job.description_vacancies?.toLowerCase().includes(searchQuery.toLowerCase())
-  ) || [];
+  const filteredJobs =
+    jobs.jobs?.filter(
+      (job) =>
+        job.type_work?.name_type?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        job.description_vacancies?.toLowerCase().includes(searchQuery.toLowerCase())
+    ) || [];
 
   useEffect(() => {
     JobsApiService.allJobs().then((jobsData) => {
@@ -88,7 +97,6 @@ const JobsPage = () => {
               <h3>Дружный коллектив</h3>
               <p>Комфортная атмосфера и поддержка коллег</p>
             </div>
-            
             <div className="benefit-card">
               <div className="benefit-icon">
                 <FaMoneyBillWave />
@@ -96,7 +104,6 @@ const JobsPage = () => {
               <h3>Конкурентная зарплата</h3>
               <p>Достойное вознаграждение за ваш труд</p>
             </div>
-            
             <div className="benefit-card">
               <div className="benefit-icon">
                 <FaClock />
@@ -104,7 +111,6 @@ const JobsPage = () => {
               <h3>Гибкий график</h3>
               <p>Возможность подстроить работу под ваш ритм жизни</p>
             </div>
-            
             <div className="benefit-card">
               <div className="benefit-icon">
                 <FaChartLine />
@@ -112,7 +118,6 @@ const JobsPage = () => {
               <h3>Карьерный рост</h3>
               <p>Реальные возможности для профессионального развития</p>
             </div>
-            
             <div className="benefit-card">
               <div className="benefit-icon">
                 <FaTools />
@@ -120,8 +125,7 @@ const JobsPage = () => {
               <h3>Современное оборудование</h3>
               <p>Работа на качественной и новой технике</p>
             </div>
-
-             <div className="benefit-card">
+            <div className="benefit-card">
               <div className="benefit-icon">
                 <FaGift />
               </div>
@@ -177,97 +181,104 @@ const JobsPage = () => {
         </Link>
       </div>
 
-      {/* Модальное окно для формы отклика */}
-      <div className="modal-overlay" id="applicationModal">
-        <div className="modal-container">
-          <div className="modal-header">
-            <h2>Отклик на вакансию</h2>
-            <button className="close-button" onClick={closeApplicationForm}>
-              &times;
-            </button>
+      {isModalOpen && (
+        <div className="modal-overlay" id="applicationModal">
+          <div className="modal-container">
+            <div className="modal-header">
+              <h2>Отклик на вакансию</h2>
+              <button className="close-button" onClick={closeApplicationForm}>
+                &times;
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="application-form">
+              <div className="form-group">
+                <label htmlFor="name">Ваше имя*</label>
+                <input
+                  type="text"
+                  id="name"
+                  value={userData.name_user}
+                  onChange={(e) =>
+                    setUserData({ ...userData, name_user: e.target.value })
+                  }
+                  required
+                  placeholder="Иван Иванов"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="email">Email*</label>
+                <input
+                  type="email"
+                  id="email"
+                  value={userData.email_user}
+                  onChange={(e) =>
+                    setUserData({ ...userData, email_user: e.target.value })
+                  }
+                  required
+                  placeholder="example@mail.com"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="phone">Телефон*</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  value={userData.telephone_user}
+                  onChange={(e) =>
+                    setUserData({ ...userData, telephone_user: e.target.value })
+                  }
+                  required
+                  placeholder="+7 (999) 123-45-67"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="experience">Опыт работы*</label>
+                <textarea
+                  id="experience"
+                  value={userData.experience_user}
+                  onChange={(e) =>
+                    setUserData({ ...userData, experience_user: e.target.value })
+                  }
+                  required
+                  placeholder="Опишите ваш опыт работы, навыки и достижения"
+                ></textarea>
+              </div>
+
+              <div className="form-group checkbox-group">
+                <input
+                  type="checkbox"
+                  id="privacyPolicy"
+                  checked={isChecked}
+                  onChange={handleCheckboxChange}
+                />
+                <label htmlFor="privacyPolicy">
+                  Я согласен на обработку моих персональных данных в соответствии с{" "}
+                  <Link to="/legal" target="_blank" className="privacy-link">
+                    Политикой конфиденциальности
+                  </Link>
+                </label>
+              </div>
+
+              {notificationMessage && (
+                <div className="notification-message">{notificationMessage}</div>
+              )}
+
+              {error && <div className="error-message">{error}</div>}
+
+              <button
+                type="submit"
+                className={`submit-button ${!isChecked ? "disabled" : ""}`}
+                disabled={!isChecked}
+              >
+                Отправить отклик
+              </button>
+            </form>
           </div>
-
-          <form onSubmit={handleSubmit} className="application-form">
-            <div className="form-group">
-              <label htmlFor="name">Ваше имя*</label>
-              <input
-                type="text"
-                id="name"
-                value={userData.name_user}
-                onChange={(e) => setUserData({...userData, name_user: e.target.value})}
-                required
-                placeholder="Иван Иванов"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="email">Email*</label>
-              <input
-                type="email"
-                id="email"
-                value={userData.email_user}
-                onChange={(e) => setUserData({...userData, email_user: e.target.value})}
-                required
-                placeholder="example@mail.com"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="phone">Телефон*</label>
-              <input
-                type="tel"
-                id="phone"
-                value={userData.telephone_user}
-                onChange={(e) => setUserData({...userData, telephone_user: e.target.value})}
-                required
-                placeholder="+7 (999) 123-45-67"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="experience">Опыт работы*</label>
-              <textarea
-                id="experience"
-                value={userData.experience_user}
-                onChange={(e) => setUserData({...userData, experience_user: e.target.value})}
-                required
-                placeholder="Опишите ваш опыт работы, навыки и достижения"
-              ></textarea>
-            </div>
-
-            <div className="form-group checkbox-group">
-              <input
-                type="checkbox"
-                id="privacyPolicy"
-                checked={isChecked}
-                onChange={handleCheckboxChange}
-              />
-              <label htmlFor="privacyPolicy">
-                Я согласен на обработку моих персональных данных в соответствии с{" "}
-                <Link to="/legal" target="_blank" className="privacy-link">
-                  Политикой конфиденциальности
-                </Link>
-              </label>
-            </div>
-
-            {notificationMessage && (
-              <div className="notification-message">{notificationMessage}</div>
-            )}
-
-            {error && (
-              <div className="error-message">{error}</div>
-            )}
-
-            <button
-              type="submit"
-              className={`submit-button ${!isChecked ? "disabled" : ""}`}
-              disabled={!isChecked}
-            >
-              Отправить отклик
-            </button>
-          </form>
         </div>
-      </div>
+      )}
     </main>
   );
 };

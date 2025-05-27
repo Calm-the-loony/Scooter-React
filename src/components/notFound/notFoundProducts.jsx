@@ -7,10 +7,17 @@ export default function NotFoundProducts({ text }) {
   const navigate = useNavigate();
 
   return (
-    <div className="notFound">
-      <img src={DesigneImage} alt="Логотип Scooter24" />
-      <p>{text ? text : "Не удалось найти товары"}</p>
-      <button onClick={() => navigate("/")}>На главную</button>
+    <div className="not-found-page">
+      <div className="not-found-card">
+        <img className="not-found-image" src={DesigneImage} alt="Логотип Scooter24" />
+        <h1 className="title">{text || "Не удалось найти товары"}</h1>
+        <p className="description">
+          Попробуйте изменить параметры поиска или вернуться на главную страницу.
+        </p>
+        <button className="back-button" onClick={() => navigate("/")}>
+          На главную
+        </button>
+      </div>
     </div>
   );
 }

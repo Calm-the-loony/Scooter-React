@@ -12,35 +12,135 @@ $font-size-small: 0.9em;
 $font-size-medium: 1em;
 $font-size-large: 1.5em;
 $border-radius: 5px;
+$mobile-breakpoint: 768px;
 
-// Основные контейнеры
+// Основные стили
 .containers {
   display: flex;
   margin: 20px;
   margin-top: 150px;
+  position: relative;
+
+  @media (max-width: $mobile-breakpoint) {
+    flex-direction: column;
+    margin-top: 120px;
+    margin: 10px;
+    padding-bottom: 60px; 
+  }
 }
 
-.sidebar {
-  flex: 0 0 200px;
-  margin-right: 20px;
+// Мобильные табы
+.mobile-tabs {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  z-index: 999;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  padding: 10px;
+  justify-content: space-around;
+
+  @media (max-width: $mobile-breakpoint) {
+    display: flex;
+  }
 }
 
-.main-content {
+.mobile-tab-button {
   flex: 1;
+  padding: 12px;
+  margin: 0 5px;
+  border: none;
+  background: #f0f0f0;
+  border-radius: $border-radius;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &.active {
+    background: $btn-bg-color;
+    color: white;
+  }
 }
 
-.main-content h2 {
-  margin-top: 30px;
-  font-size: $font-size-large;
-  text-align: left;
+// Сайдбар
+.sidebar {
+flex: 0 0 250px; 
+max-width: 250px;
+  margin-right: 20px;
+  transition: transform 0.3s ease-out;
+
+  @media (max-width: $mobile-breakpoint) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 85%;
+    height: 100vh;
+    z-index: 1001;
+    background: white;
+    padding: 20px;
+    padding-top: 60px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+    overflow-y: auto;
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
 }
 
-// Навигация по категориям
+.close-sidebar {
+  display: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  z-index: 1002;
+
+  @media (max-width: $mobile-breakpoint) {
+    display: block;
+  }
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: none;
+
+  @media (max-width: $mobile-breakpoint) {
+    display: block;
+  }
+}
+
+// Категории
 .categories-nav {
   background-color: $bg-color-light;
-  padding: 10px;
+  padding: 15px;
   border-radius: $border-radius;
   box-shadow: 0 4px 6px $shadow-color;
+  margin-bottom: 20px;
+
+  @media (max-width: $mobile-breakpoint) {
+    box-shadow: none;
+    padding: 0;
+    margin-bottom: 0;
+  }
+}
+
+.categories-nav h2, .filter-container h2 {
+  margin-top: 0;
+  font-size: 1.2em;
+  color: $text-color-dark;
 }
 
 .categories-nav ul {
@@ -50,45 +150,84 @@ $border-radius: 5px;
 }
 
 .categories-nav li {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
-.categories-nav .category-button {
+.category-button {
   background-color: #f0f0f0;
   color: $text-color-dark;
   border: none;
-  padding: 10px;
+  padding: 10px 15px;
   width: 100%;
   text-align: left;
   cursor: pointer;
   border-radius: $border-radius;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &:hover, &.active {
+    background-color: $btn-bg-color;
+  }
 }
 
-.categories-nav .category-button:hover {
-  background-color: $btn-bg-color;
+.arrow-icon {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s;
+  
+  &.rotated {
+    transform: rotate(180deg);
+  }
 }
 
-// Хлебные крошки
-.breadcrumbs {
-  margin-bottom: 20px;
-  margin-right: 50px;
-  text-align: end;
-  position: fixed;
+.subcategories {
+  list-style: none;
+  padding-left: 15px;
+  margin-top: 5px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+
+  &.expanded {
+    max-height: 1000px;
+  }
 }
 
-.breadcrumbs a {
-  text-decoration: none;
+.subcategory-button {
+  background: none;
+  border: none;
+  padding: 8px 15px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.9em;
   color: $text-color-dark;
+  transition: all 0.3s;
+  border-radius: $border-radius;
+
+  &:hover, &.active {
+    background-color: lighten($btn-bg-color, 20%);
+    color: $btn-text-color;
+  }
+
+  &.active {
+    font-weight: bold;
+  }
 }
 
-// Фильтр
+// Фильтры
 .filter-container {
-  margin-top: 20px;
-  background-color: $bg-color-filter;
+  background-color: #ffffff; 
   padding: 15px;
   border-radius: $border-radius;
   box-shadow: 0 4px 6px $shadow-color;
+
+  @media (max-width: $mobile-breakpoint) {
+    box-shadow: none;
+    padding: 0;
+  }
 }
 
 .filter {
@@ -102,27 +241,33 @@ $border-radius: 5px;
   color: $text-color-dark;
 }
 
-.filter input[type="number"],
+.price-inputs {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+
+  input {
+    width: 100%;
+    min-width: 0; 
+    padding: 8px;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    box-sizing: border-box;
+    background-color: #f5f5f5; 
+    color: #333;
+  }
+}
+
 .filter select {
-  padding: 10px;
   width: 100%;
-  font-size: $font-size-medium;
-  border: 1px solid #ccc;
+  padding: 8px;
+  border: 1px solid $border-color;
   border-radius: $border-radius;
-  background-color: #f3f3f3;
-  cursor: pointer;
-  appearance: none;
+  background-color: #f5f5f5;  
+  color: #333;
 }
 
-.filter input[type="number"]:focus,
-.filter select:focus {
-  border-color: $btn-bg-color;
-  outline: none;
-}
-
-.filter button,
 .reset-filters {
-  margin-top: 10px;
   padding: 10px;
   width: 100%;
   border: none;
@@ -130,181 +275,85 @@ $border-radius: 5px;
   color: $btn-text-color;
   cursor: pointer;
   border-radius: $border-radius;
-  font-size: $font-size-medium;
+  font-weight: bold;
   transition: background-color 0.3s;
+
+  &:hover {
+    background-color: $btn-bg-color-hover;
+  }
 }
 
-.reset-filters:hover {
-  background-color: $btn-bg-color-hover;
+// Основной контент
+.main-content {
+  flex: 1;
 }
 
-.filter button:hover {
-  background-color: $btn-bg-color-hover;
+.main-content h2 {
+  margin-top: 0;
+  font-size: $font-size-large;
+  color: $text-color-dark;
 }
 
-// Карты продуктов
+.dashed-line {
+  border: none;
+  border-top: 1px dashed $border-color;
+  margin: 15px 0;
+}
+
+// Адаптация карточек товаров
 .cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 10px;
-  justify-content: center;
-  background-color: $bg-color-light;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  padding: 10px 0;
+
+  @media (max-width: $mobile-breakpoint) {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 80px;
+  }
 }
 
 .card {
   border: 1px solid $border-color;
-  padding: 10px;
-  margin: 10px;
+  padding: 15px;
   border-radius: $border-radius;
   box-shadow: 0 2px 5px $shadow-color;
-  width: 250px;
-  text-align: center;
-  background-color: $bg-color-light;
-}
+  transition: transform 0.3s;
 
-.card img {
-  max-width: 70%;
-  border-radius: $border-radius;
-}
-
-.card h3 {
-  margin: 10px 0;
-  font-size: $font-size-medium;
-}
-
-.card p {
-  font-size: $font-size-small;
-  margin: 5px 0;
-}
-
-.card .price {
-  color: $btn-bg-color;
-  font-weight: bold;
-  margin: 5px 0;
-}
-
-.card .availability {
-  color: $text-color-light;
-  margin: 5px 0;
-}
-
-.card button {
-  padding: 8px;
-  border: none;
-  background-color: $btn-bg-color;
-  color: $btn-text-color;
-  cursor: pointer;
-  border-radius: $border-radius;
-  font-size: $font-size-small;
-  margin-top: 5px;
-}
-
-.no-products {
-  text-align: center;
-  margin-top: 50px;
-}
-
-.no-products img {
-  width: 150px;
-}
-
-@keyframes jump {
-  0%,
-  100% {
-    transform: translateY(0);
+  &:hover {
+    transform: translateY(-5px);
   }
-  50% {
-    transform: translateY(-20px);
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: $border-radius;
   }
-}
 
-.cat {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  animation: jump 0.5s infinite;
-}
+  h3 {
+    margin: 10px 0 5px;
+    font-size: $font-size-medium;
+  }
 
-// Навигация для категорий
-.category-nav {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
+  .price {
+    color: $btn-bg-color;
+    font-weight: bold;
+    margin: 10px 0;
+  }
 
-.category-nav a {
-  font-size: $font-size-large;
-  color: $text-color-dark;
-  text-decoration: none;
-  margin-right: 10px;
-}
-
-// Подкатегории
-.subcategories {
-  list-style: none;
-  padding-left: 20px;
-  margin: 5px 0;
-
-  .subcategory-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
+  button {
     width: 100%;
-    text-align: left;
-    font-size: $font-size-small;
-    color: $text-color-dark;
-    transition:
-      background-color 0.3s,
-      color 0.3s;
+    padding: 8px;
+    background-color: $btn-bg-color;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
 
     &:hover {
-      background-color: $btn-bg-color;
-      color: $btn-text-color;
-      border-radius: $border-radius;
-    }
-
-    &.active {
-      font-weight: bold;
-      color: $btn-bg-color;
+      background-color: $btn-bg-color-hover;
     }
   }
-}
-
-// Анимация для подкатегорий
-.subcategories {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
-
-  &.expanded {
-    max-height: 300px; // Плавное раскрытие
-  }
-}
-
-.subcategories li {
-  margin-bottom: 5px;
-}
-.category-button {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px 10px;
-  width: 100%;
-}
-
-.arrow-icon {
-  width: 12px;
-  height: 12px;
-  transition: transform 0.3s ease;
-  display: inline-block;
-  transform: rotate(0deg);
-}
-
-.arrow-icon.rotated {
-  transform: rotate(180deg);
 }

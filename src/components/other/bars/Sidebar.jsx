@@ -2,8 +2,13 @@ import React from "react";
 import categories from "../../../data/categories";
 import { Link } from "react-router-dom";
 
-const Sidebar = () => (
-  <aside className="sidebar">
+const Sidebar = ({ isMobile, toggleSidebar }) => (
+  <aside className={`sidebar ${isMobile ? "mobile-sidebar" : ""}`}>
+    {isMobile && (
+      <button className="close-sidebar" onClick={toggleSidebar}>
+        &times;
+      </button>
+    )}
     <nav className="categories-nav">
       <h2>Категории</h2>
       <ul>
