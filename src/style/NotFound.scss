@@ -1,5 +1,6 @@
 .notFound {
   width: 60%;
+  max-width: 600px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   display: flex;
@@ -14,5 +15,27 @@
   img {
     width: 40%;
     height: auto;
+    max-width: 250px;
+  }
+
+  // Адаптивность для планшетов
+  @media (max-width: 992px) {
+    width: 80%;
+
+    img {
+      width: 50%;
+      max-width: 200px;
+    }
+  }
+
+  // Адаптивность для мобильных
+  @media (max-width: 576px) {
+    width: 90%;
+
+
+    img {
+      width: 70%;
+      max-width: 150px;
+    }
   }
 }

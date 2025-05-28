@@ -1,130 +1,214 @@
+// Переменные
 $primary-color: #45efda;
-$hover-color: #36c1b0;
-$card-bg-color: #fff;
-$shadow-color: rgba(0, 0, 0, 0.1);
-$card-radius: 10px;
-$button-radius: 5px;
+$primary-hover: #36c1b0;
+$text-color: #333;
+$light-gray: #f5f5f5;
+$border-color: #e0e0e0;
+$shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+$transition: all 0.3s ease;
+$mobile-breakpoint: 768px;
 
-.container {
-  width: 80%;
-  margin: 60px auto;
-  margin-top: 8%;
+// Основные стили
+.brands-container {
+  max-width: 1200px;
+  width: 90%;
+  margin: 80px auto;
+  padding: 20px;
 
-  .search-section,
-  .alphabet-filter {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-
-  #search-bar {
-    width: 70%;
+  @media (max-width: $mobile-breakpoint) {
+    margin: 60px auto;
+    width: 95%;
     padding: 10px;
-    font-size: 1em;
-    border: 1px solid #ddd;
-    border-radius: $button-radius;
   }
+}
 
-  .alphabet-filter {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    button {
+.page-title {
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 30px;
+  color: $text-color;
+
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+}
+
+// Поиск
+.search-section {
+  margin-bottom: 30px;
+  text-align: center;
+
+  .search-input {
+    width: 70%;
+    max-width: 600px;
+    padding: 12px 20px;
+    border: 1px solid $border-color;
+    border-radius: 30px;
+    font-size: 16px;
+    outline: none;
+    transition: $transition;
+    box-shadow: $shadow;
+
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+    }
+
+    @media (max-width: $mobile-breakpoint) {
+      width: 100%;
       padding: 10px 15px;
-      font-size: 1em;
-      border: 1px solid $primary-color;
-      background-color: $primary-color;
-      color: #000;
-      cursor: pointer;
-      border-radius: $button-radius;
-      margin: 5px;
-      transition: background-color 0.3s;
-
-      &:hover {
-        background-color: $hover-color;
-      }
     }
   }
+}
 
-  .brands {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
+// Фильтр по алфавиту
+.alphabet-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 30px;
 
-  .brand-card {
-    background-color: $card-bg-color;
-    padding: 20px;
-    border-radius: $card-radius;
-    margin-bottom: 20px;
-    width: 30%;
-    box-shadow: 0 0 10px $shadow-color;
-    transition:
-      transform 0.3s,
-      box-shadow 0.3s;
-    text-align: center;
+  button {
+    padding: 8px 12px;
+    min-width: 36px;
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid $primary-color;
+    background-color: white;
+    color: black; // Было $primary-color
+    cursor: pointer;
+    border-radius: 4px;
+    transition: $transition;
 
     &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      background-color: $primary-color;
+      color: white;
     }
 
-    img {
-      max-width: 80%;
-      height: auto;
-      border-radius: 8px;
-      margin-bottom: 15px;
+    &.show-all-button {
+      min-width: 60px;
+      background-color: $primary-color;
+      color: white;
+
+      &:hover {
+        background-color: $primary-hover;
+        border-color: $primary-hover;
+      }
     }
 
-    p {
-      font-size: 0.9em;
+    @media (max-width: $mobile-breakpoint) {
+      padding: 6px 10px;
+      min-width: 32px;
+      font-size: 14px;
+    }
+  }
+}
+
+// Сетка брендов
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+
+  @media (max-width: $mobile-breakpoint) {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+}
+
+// Карточка бренда
+.brand-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: $shadow;
+  transition: $transition;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .brand-image {
+    width: 80%;
+    height: auto;
+    max-height: 120px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    border-radius: 5px;
+
+    @media (max-width: $mobile-breakpoint) {
+      max-height: 80px;
     }
   }
 
-  .back-to-main {
-    display: inline-block;
-    margin-top: 20px;
+  .brand-name {
+    font-size: 18px;
+    font-weight: 500;
+    color: $text-color;
+    margin: 0;
+    word-break: break-word;
+
+    @media (max-width: $mobile-breakpoint) {
+      font-size: 16px;
+    }
+  }
+}
+
+// Кнопка назад
+.back-button {
+  display: block;
+  margin: 40px auto 0;
+  padding: 12px 24px;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: $transition;
+  box-shadow: $shadow;
+
+  &:hover {
+    background-color: $primary-hover;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: $mobile-breakpoint) {
     padding: 10px 20px;
-    background-color: $primary-color;
-    color: #000;
-    text-decoration: none;
-    border-radius: $button-radius;
+    font-size: 14px;
   }
 }
 
-// Миксины для медиазапросов
-@mixin media($breakpoint) {
-  @if $breakpoint == small {
-    @media (max-width: 768px) {
-      @content;
-    }
-  } @else if $breakpoint == xsmall {
-    @media (max-width: 480px) {
-      @content;
-    }
+// Анимации
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@include media(small) {
-  #search-bar {
-    width: 100%;
-  }
-
-  .alphabet-filter button {
-    flex: 1 1 30%;
-    margin: 5px 0;
-  }
-
-  .brand-card {
-    flex: 1 1 calc(45% - 20px);
-  }
+.brand-card {
+  animation: fadeIn 0.4s ease forwards;
+  opacity: 0;
 }
 
-@include media(xsmall) {
-  .brand-card {
-    flex: 1 1 100%;
-  }
-
-  .alphabet-filter button {
-    flex: 1 1 100%;
+@for $i from 1 through 30 {
+  .brand-card:nth-child(#{$i}) {
+    animation-delay: $i * 0.05s;
   }
 }

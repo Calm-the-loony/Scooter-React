@@ -94,13 +94,13 @@ main.pay {
 }
 
 .large-image {
-  width: 95%; // Уменьшена ширина
+  width: 95%; 
   height: auto;
   margin-bottom: 15px;
 }
 
 .small-image {
-  width: 45%; // Уменьшена ширина
+  width: 45%; 
   height: auto;
   margin-bottom: 15px;
 }
@@ -158,11 +158,11 @@ main.pay {
 /* Медиазапрос для небольших экранов */
 @media (max-width: 768px) {
   .large-image {
-    width: 90%; // Уменьшение ширины на мобильных устройствах
+    width: 90%; 
   }
 
   .small-image {
-    width: 100%; // Маленькие изображения занимают всю ширину
+    width: 100%; 
   }
 }
 
@@ -201,12 +201,12 @@ main.pay {
 
   .map-container {
     width: 100%;
-    height: 600px; // Высота карты, можно настроить по вашему желанию
+    height: 600px; 
     display: block;
     padding-top: 20px;
 
     .ymaps-map {
-      width: 100% !important; // Убедитесь, что карта будет растягиваться на всю ширину
+      width: 100% !important; 
       height: 100% !important;
     }
   }

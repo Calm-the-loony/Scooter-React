@@ -24,15 +24,15 @@ const Footer = () => {
   };
 
   const redirectToWhatsApp = () => {
-    window.location.href = "https://wa.me/1234567890";
+    window.location.href = "https://wa.me/89613244550";
   };
 
   const redirectToTelegram = () => {
-    window.location.href = "https://t.me/yourchannel";
+    window.location.href = "https://t.me/@Calm_the_loony";
   };
 
   const makePhoneCall = () => {
-    window.location.href = "tel:+1234567890";
+    window.location.href = "tel:+79613244550";
   };
 
   return (

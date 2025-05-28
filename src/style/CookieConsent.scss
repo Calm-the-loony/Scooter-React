@@ -1,14 +1,13 @@
-// Переменные (адаптированные под вашу палитру)
-$cookie-bg-color: #333; // Используем $secondary-color
+
+$cookie-bg-color: #333; 
 $cookie-text-color: #ffffff;
-$cookie-primary-color: #45efda; // Ваш основной цвет
+$cookie-primary-color: #45efda; 
 $cookie-font-size: 15px;
 $cookie-padding: 20px;
 $cookie-btn-padding: 10px 20px;
 $cookie-border-radius: 8px;
 $cookie-box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.15);
 
-// Стили для cookie-консента
 .cookie-consent {
   position: fixed;
   bottom: 0;
@@ -88,7 +87,7 @@ $cookie-box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.15);
 
     &.accept-btn {
       background-color: $cookie-primary-color;
-      color: $cookie-bg-color; // Темный текст на светлом фоне
+      color: $cookie-bg-color; 
       border: none;
 
       &:hover {

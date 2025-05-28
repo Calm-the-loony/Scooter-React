@@ -11,7 +11,7 @@ $shadow: rgba(0, 0, 0, 0.12);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 20px;  
+  padding: 10px 20px;
   margin-top: -120px;
   font-family: "Montserrat", sans-serif;
 }
@@ -26,12 +26,32 @@ $shadow: rgba(0, 0, 0, 0.12);
   text-align: center;
   animation: fadeIn 0.5s ease-in-out;
   transition: box-shadow 0.3s ease;
+
+  @media (max-width: 768px) {
+    max-width: 380px;
+    padding: 30px 20px;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 320px;
+    padding: 25px 15px;
+  }
 }
 
 .not-found-image {
   max-width: 140px;
   margin-bottom: 30px;
   user-select: none;
+
+  @media (max-width: 768px) {
+    max-width: 120px;
+    margin-bottom: 25px;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 100px;
+    margin-bottom: 20px;
+  }
 }
 
 .title {
@@ -39,6 +59,16 @@ $shadow: rgba(0, 0, 0, 0.12);
   color: $text-dark;
   margin-bottom: 18px;
   font-weight: 700;
+
+  @media (max-width: 768px) {
+    font-size: 1.75rem;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+    margin-bottom: 14px;
+  }
 }
 
 .description {
@@ -46,6 +76,16 @@ $shadow: rgba(0, 0, 0, 0.12);
   color: $text-light;
   margin-bottom: 32px;
   line-height: 1.4;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-bottom: 28px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+  }
 }
 
 .back-button {
@@ -59,15 +99,25 @@ $shadow: rgba(0, 0, 0, 0.12);
   box-shadow: 0 6px 16px rgba($turquoise, 0.5);
   font-weight: 600;
   transition: background-color 0.3s ease, transform 0.25s ease;
-}
 
-.back-button:hover {
-  background-color: $turquoise-dark;
-  transform: translateY(-3px);
-}
+  @media (max-width: 768px) {
+    padding: 12px 30px;
+    font-size: 1rem;
+  }
 
-.back-button:active {
-  transform: translateY(0);
+  @media (max-width: 480px) {
+    padding: 10px 24px;
+    font-size: 0.95rem;
+  }
+
+  &:hover {
+    background-color: $turquoise-dark;
+    transform: translateY(-3px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
