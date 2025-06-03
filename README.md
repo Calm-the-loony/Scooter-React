@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# Scooter24 — клиентская часть интернет-магазина запчастей для скутеров
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Scooter24** — масштабный интернет-магазин для мотолюбителей, предоставляющий широкий функционал по выбору, покупке и подбору запчастей для скутеров и мототехники.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📌 О проекте
 
-### `npm start`
+Этот репозиторий содержит **клиентскую часть** проекта, реализованную на React. Приложение включает:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* Каталог товаров с детальной фильтрацией по моделям, брендам и параметрам
+* Интерактивный «гараж» для хранения данных о личном мототранспорте пользователя
+* Индивидуальный подбор запчастей под конкретные модели
+* Полноценную корзину с оформлением заказа и оплатой
+* Регистрацию, авторизацию и подтверждение пользователей
+* Адаптивный и современный UI/UX с продуманной навигацией
+* Интеграцию с чат-ботом для поддержки пользователей
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🔧 Используемые технологии
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* **React** (React Hooks, React Router)
+* **Redux Toolkit** (если используется)
+* **Axios** для HTTP-запросов
+* SCSS-модули для стилизации
+* React Context / Redux для управления состоянием (если есть)
+* Интеграция с API на Node.js/Express (серверная часть отдельно)
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Приложение будет доступно по адресу "https://24скутер.рф/"
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🔗 Связанные проекты
 
-### `npm run eject`
+* **Бэкенд** (серверная часть с REST API и логикой):
+  [https://github.com/darkfos/Scooter24\_2](https://github.com/darkfos/Scooter24_2)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* **Чат-бот поддержки**:
+  [https://github.com/Calm-the-loony/chatbot-Scooter24](https://github.com/Calm-the-loony/chatbot-Scooter24)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🧩 Ключевой функционал клиента
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+* Многоуровневая фильтрация товаров по брендам, моделям и характеристикам
+* Личный кабинет с возможностью управления «гаражом» мототехники
+* Интерактивная корзина и оформление заказов с оплатой
+* Аутентификация и регистрация с верификацией через email
+* Интеграция с чат-ботом для оперативной поддержки
+* Современный дизайн и адаптивность под мобильные устройства
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
